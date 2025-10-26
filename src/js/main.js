@@ -5,9 +5,18 @@
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Performance and browser detection
+    initializePerformanceOptimizations();
+    
     initializeSmoothScrolling();
     initializeHeaderScrollEffect();
     initializeAnimations();
+    initializeScrollToTop();
+    
+    // Initialize projects module
+    if (window.ProjectsModule) {
+        window.ProjectsModule.initializeProjectCards();
+    }
 });
 
 /**
@@ -108,6 +117,60 @@ function initializeAnimations() {
     // Observe elements for animation
     const animatedElements = document.querySelectorAll('.project-card, .skill-tag, .company-tag, .section h2');
     animatedElements.forEach(el => observer.observe(el));
+}
+
+/**
+ * Initialize performance optimizations
+ * Disables animations for Opera browsers and low-performance devices
+ */
+function initializePerformanceOptimizations() {
+    // Detect Opera browser
+    const isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+    
+    // Detect low-performance devices
+    const isLowPerformance = detectLowPerformanceDevice();
+    
+    // Apply performance optimizations
+    if (isOpera || isLowPerformance) {
+        document.body.classList.add('opera-no-animations');
+        if (isLowPerformance) {
+            document.body.classList.add('low-performance');
+        }
+        
+        // Disable smooth scrolling
+        document.documentElement.style.scrollBehavior = 'auto';
+        
+        // Log performance optimization
+        console.log('Performance optimizations applied:', {
+            opera: isOpera,
+            lowPerformance: isLowPerformance
+        });
+    }
+}
+
+/**
+ * Detect low-performance devices based on hardware concurrency and memory
+ */
+function detectLowPerformanceDevice() {
+    // Check hardware concurrency (CPU cores)
+    const cores = navigator.hardwareConcurrency || 4;
+    
+    // Check device memory (if available)
+    const memory = navigator.deviceMemory || 4;
+    
+    // Check connection speed (if available)
+    const connection = navigator.connection;
+    const slowConnection = connection && (
+        connection.effectiveType === 'slow-2g' || 
+        connection.effectiveType === '2g' ||
+        connection.saveData === true
+    );
+    
+    // Consider device low-performance if:
+    // - Less than 4 CPU cores
+    // - Less than 4GB RAM
+    // - Slow connection
+    return cores < 4 || memory < 4 || slowConnection;
 }
 
 /**

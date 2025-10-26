@@ -28,7 +28,15 @@ function initializeProjectCards() {
   
   projectCards.forEach((card, index) => {
     card.style.cursor = 'pointer';
-    card.addEventListener('click', () => openProjectModal(index));
+    
+    card.addEventListener('click', (e) => {
+      // Don't open modal if clicking on a link
+      if (e.target.closest('a')) {
+        return;
+      }
+      
+      openProjectModal(index);
+    });
   });
 }
 
