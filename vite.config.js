@@ -19,11 +19,32 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
-    sourcemap: true,
+    sourcemap: false, // Disable in production for smaller bundle
+    minify: 'terser', // Use terser for better JS minification
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console.* calls
+        drop_debugger: true, // Remove debugger statements
+        pure_funcs: ['console.log', 'console.info', 'console.debug'], // Remove specific functions
+      },
+      format: {
+        comments: false, // Remove all comments
+      },
+    },
+    cssMinify: true, // Minify CSS
+    cssCodeSplit: false, // Generate single CSS file
+    reportCompressedSize: true, // Report gzipped sizes
+    chunkSizeWarningLimit: 1000, // Warn if chunk exceeds 1KB
     rollupOptions: {
       input: {
         index: 'index.html',
         privacy: 'privacy.html'
+      },
+      output: {
+        manualChunks: undefined, // Single chunk for better caching
+        assetFileNames: 'assets/[name]-[hash][extname]', // Asset naming with hash
+        chunkFileNames: 'assets/[name]-[hash].js', // JS chunk naming with hash
+        entryFileNames: 'assets/[name]-[hash].js', // Entry file naming with hash
       }
     }
   },
@@ -35,6 +56,10 @@ export default defineConfig({
         // LESS options
         javascriptEnabled: true
       }
+    },
+    devSourcemap: true, // Source maps in dev
+    postcss: {
+      plugins: [] // Add postcss plugins if needed
     }
   },
   
@@ -42,5 +67,15 @@ export default defineConfig({
   assetsInclude: ['**/*.webp', '**/*.jpg', '**/*.png', '**/*.svg'],
   
   // Plugins
-  plugins: [metadataPlugin(), projectsPlugin(), linksPlugin()]
+  plugins: [
+    metadataPlugin(), 
+    projectsPlugin(), 
+    linksPlugin()
+  ],
+  
+  // Optimize dependencies
+  optimizeDeps: {
+    include: [], // Pre-bundle dependencies for faster dev
+    force: false // Force re-optimization
+  }
 })
