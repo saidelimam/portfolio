@@ -2,6 +2,7 @@ Contact: mailto:contact@saidelimam.com
 Expires: 2026-12-31T23:59:59.000Z
 Preferred-Languages: en, fr, ar
 Canonical: https://www.saidelimam.com/.well-known/security.txt
+Policy: https://www.saidelimam.com/privacy/index.html
 
 # Hiring
 Hiring: contact@saidelimam.com
