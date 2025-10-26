@@ -14,7 +14,8 @@ portfolio/
 ├── public/                 # Static assets (served from root)
 │   ├── api/               # Data files
 │   │   ├── projects.json  # Projects data
-│   │   └── links.json     # Social media links data
+│   │   ├── links.json     # Social media links data
+│   │   └── metadata.json  # Site metadata (name, tagline, skills, etc.)
 │   ├── img/               # Images (logos, profile picture, icons, snapshots)
 │   │   ├── icon/          # Project icons
 │   │   └── snapshot/      # Project snapshots
@@ -39,6 +40,7 @@ portfolio/
 │   └── privacy.html       # Privacy policy page
 ├── dist/                  # Production build output
 ├── vite.config.js        # Vite configuration
+├── vite.metadata-plugin.js # Vite plugin for site metadata
 ├── vite.projects-plugin.js # Vite plugin for projects
 ├── vite.links-plugin.js   # Vite plugin for social links
 ├── package.json           # NPM configuration with build scripts
@@ -114,7 +116,7 @@ All development dependencies are included locally:
 This template is fully customizable through JSON files and LESS variables.
 
 #### Step 1: Update Personal Information
-1. Replace all personal information in `index.html` (name, title, description)
+1. Edit `public/api/metadata.json` to update your personal information (see Metadata section below)
 2. Update `public/img/profile_picture.jpg` with your own photo
 3. Replace `public/img/logo-white.webp` and `public/img/logo-black.webp` with your logos
 
@@ -126,6 +128,28 @@ Edit `public/api/links.json` to update your social media links (see Social Links
 
 #### Step 4: Customize Styling
 Edit LESS variables to match your brand colors (see LESS Variables section below)
+
+#### Metadata
+Edit site-wide information in `public/api/metadata.json`:
+```json
+{
+  "person": {
+    "name": "Your Name",
+    "location": "City, Country",
+    "tagline": "Your Professional Tagline",
+    "fullName": "Your Full Professional Name",
+    "website": "https://yourwebsite.com",
+    "facebookAppId": "your-facebook-app-id"
+  },
+  "about": {
+    "description": "Your professional description..."
+  },
+  "skills": ["Skill 1", "Skill 2", "Skill 3"],
+  "companies": [
+    { "name": "Company Name", "url": "https://company.com" }
+  ]
+}
+```
 
 #### LESS Variables
 Edit the LESS variables in `src/styles/variables.less`:
@@ -192,6 +216,7 @@ The project uses Vite for development and building. Key configuration in `vite.c
 - **Development Server**: Hot Module Replacement (HMR) enabled
 - **Production Builds**: Optimized bundles with asset optimization
 - **Custom Plugins**: 
+  - `vite.metadata-plugin.js`: Injects site metadata from `public/api/metadata.json`
   - `vite.projects-plugin.js`: Injects project cards from `public/api/projects.json`
   - `vite.links-plugin.js`: Injects social links from `public/api/links.json`
 

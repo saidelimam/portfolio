@@ -1,0 +1,74 @@
+{
+  "person": {
+    "name": "Said Elimam",
+    "location": "Paris",
+    "tagline": "Filmmaker, Music Composer and Engineer from Paris",
+    "fullName": "Said Elimam - Filmmaker, Music Composer and Engineer from Paris",
+    "website": "https://www.saidelimam.com",
+    "facebookAppId": "791925360318781"
+  },
+  "about": {
+    "description": "I'm a multidisciplinary creative professional based in Paris, combining technical engineering expertise with artistic vision in filmmaking and music composition. My work bridges the gap between technology and creativity, bringing innovative solutions to storytelling and audio-visual experiences."
+  },
+  "skills": [
+    "Film Direction",
+    "Cinematography",
+    "Videography",
+    "Photography",
+    "Music Composition",
+    "Audio Production",
+    "Software Engineering",
+    "Web Development",
+    "AI/ML"
+  ],
+  "companies": [
+    {
+      "name": "Google",
+      "url": "https://www.google.com"
+    },
+    {
+      "name": "Airbnb",
+      "url": "https://www.airbnb.com"
+    },
+    {
+      "name": "Microsoft",
+      "url": "https://www.microsoft.com"
+    },
+    {
+      "name": "Samsung",
+      "url": "https://www.samsung.com"
+    },
+    {
+      "name": "SoundCloud",
+      "url": "https://www.soundcloud.com"
+    },
+    {
+      "name": "Capgemini",
+      "url": "https://www.capgemini.com"
+    },
+    {
+      "name": "Workday",
+      "url": "https://www.workday.com"
+    },
+    {
+      "name": "JCDecaux",
+      "url": "https://www.jcdecaux.com"
+    },
+    {
+      "name": "Saint-Gobain",
+      "url": "https://www.saint-gobain.com"
+    },
+    {
+      "name": "SNCF",
+      "url": "https://www.sncf.com"
+    },
+    {
+      "name": "BNP Paribas",
+      "url": "https://www.bnpparibas.com"
+    },
+    {
+      "name": "Ministère de l'Extérieur",
+      "url": "https://www.diplomatie.gouv.fr"
+    }
+  ]
+}
