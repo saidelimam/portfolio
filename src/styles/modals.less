@@ -44,6 +44,18 @@
   padding: 2rem 2rem 1rem;
   border-bottom: 1px solid #eee;
 
+  .modal-title-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .modal-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+
   h2 {
     margin: 0;
     color: @text-color;
@@ -75,6 +87,42 @@
 .modal-body {
   padding: 0 2rem 2rem;
 
+  .modal-content-wrapper {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    margin: 1rem 0;
+  }
+
+  .modal-details {
+    flex: 1;
+  }
+
+  .modal-type {
+    color: @text-light;
+    font-size: 0.9rem;
+    margin: 0.5rem 0 1rem;
+    font-style: italic;
+  }
+
+  .modal-date {
+    color: @text-light;
+    font-size: 0.9rem;
+    margin: 0.5rem 0 1rem;
+    font-style: italic;
+  }
+
+  .modal-screenshot {
+    float: right;
+    max-width: 300px;
+    width: 40%;
+    height: auto;
+    border-radius: @border-radius-md;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+  }
+
   h3 {
     color: @text-color;
     margin: 1.5rem 0 0.5rem;
@@ -91,7 +139,7 @@
 .modal-description {
   font-size: 1.1rem;
   color: @text-color !important;
-  margin-bottom: 1.5rem !important;
+  margin: 1.5rem 0 !important;
 }
 
 .tech-tags {
@@ -153,6 +201,18 @@ body.modal-open {
 
   .modal-body {
     padding: 0 1.5rem 1.5rem;
+
+    .modal-content-wrapper {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .modal-screenshot {
+      float: none;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
   }
 
   .project-links {

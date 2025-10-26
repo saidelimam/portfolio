@@ -106,7 +106,7 @@ function initializeAnimations() {
     }, observerOptions);
     
     // Observe elements for animation
-    const animatedElements = document.querySelectorAll('.project-card, .skill-tag, .section h2');
+    const animatedElements = document.querySelectorAll('.project-card, .skill-tag, .company-tag, .section h2');
     animatedElements.forEach(el => observer.observe(el));
 }
 

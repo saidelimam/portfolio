@@ -6,33 +6,16 @@
 // Project data
 const projectsData = [
   {
-    title: 'Short Film Production',
-    description: 'A compelling short film showcasing innovative cinematography and storytelling techniques. Directed, filmed, and edited with original musical score composition.',
-    details: 'This project involved extensive pre-production planning, location scouting, and post-production editing. The film explores themes of human connection through innovative visual storytelling techniques.',
-    technologies: ['Cinematography', 'Video Editing', 'Sound Design', 'Color Grading'],
+    title: 'GoCollab.cc',
+    description: 'Social Network for Creative Professionals',
+    details: 'GoCollab is a comprehensive platform designed to connect creative professionals, streamline project workflows, and facilitate collaboration across different creative disciplines. The platform features real-time communication, project tracking, resource management, and portfolio showcasing capabilities.',
+    date: 'Jan 2025',
+    tags: ['React', 'Node.js', 'Cloudflare', 'PostgreSQL'],
+    icon: 'img/icon/gocollab.ico',
+    screenshot: 'img/screenshot/gocollab.jpg',
+    type: 'dev',
     links: [
-      { text: 'View Film', url: '#' },
-      { text: 'Behind the Scenes', url: '#' }
-    ]
-  },
-  {
-    title: 'Original Music Composition',
-    description: 'An original musical score blending electronic and orchestral elements, created for independent film projects and multimedia installations.',
-    details: 'This composition combines traditional orchestral instruments with modern electronic elements, creating a unique soundscape that enhances the visual narrative.',
-    technologies: ['Music Production', 'Orchestration', 'Sound Design', 'Audio Mixing'],
-    links: [
-      { text: 'Listen', url: '#' },
-      { text: 'Spotify', url: '#' }
-    ]
-  },
-  {
-    title: 'Technical Innovation Project',
-    description: 'Engineering solutions for audio-visual production, including custom software development and hardware integration for creative workflows.',
-    details: 'Developed custom tools and workflows to streamline the creative process, integrating hardware and software solutions for enhanced productivity.',
-    technologies: ['Python', 'JavaScript', 'C++', 'Digital Signal Processing'],
-    links: [
-      { text: 'Case Study', url: '#' },
-      { text: 'GitHub', url: '#' }
+      { text: 'Visit Platform', url: 'https://gocollab.cc' },
     ]
   }
 ];
@@ -63,19 +46,27 @@ function openProjectModal(projectIndex) {
   // Create modal content HTML
   const modalHTML = `
     <div class="modal-header">
-      <h2 class="modal-title">${project.title}</h2>
+      <div class="modal-title-container">
+        ${project.icon ? `<img src="${project.icon}" alt="${project.title} icon" class="modal-icon">` : ''}
+        <h2 class="modal-title">${project.title}</h2>
+      </div>
       <button class="modal-close" aria-label="Close modal">&times;</button>
     </div>
     <div class="modal-body">
       <p class="modal-description">${project.description}</p>
-      <div class="modal-details">
-        <h3>Project Details</h3>
-        <p class="modal-details-text">${project.details}</p>
+      <div class="modal-content-wrapper">
+        <div class="modal-details">
+          <h3>Project Details</h3>
+          ${project.type ? `<p class="modal-type"><strong>Type:</strong> ${project.type === 'dev' ? 'Development' : project.type}</p>` : ''}
+          ${project.date ? `<p class="modal-date"><strong>Date:</strong> ${project.date}</p>` : ''}
+          <p class="modal-details-text">${project.details}</p>
+        </div>
+        ${project.screenshot ? `<img src="${project.screenshot}" alt="${project.title} screenshot" class="modal-screenshot">` : ''}
       </div>
       <div class="modal-technologies">
-        <h3>Technologies Used</h3>
+        <h3>Tags</h3>
         <div class="tech-tags">
-          ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+          ${project.tags.map(tag => `<span class="tech-tag">${tag}</span>`).join('')}
         </div>
       </div>
       <div class="modal-links">
