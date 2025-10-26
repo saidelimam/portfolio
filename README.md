@@ -202,16 +202,6 @@ The project uses Vite for development and building. Key configuration in `vite.c
 - **Projects**: Featured work showcase with interactive modals, project snapshots, and metadata
 - **Footer**: Copyright and privacy policy links
 
-## Current Projects
-
-### GoCollab.cc
-- **Type**: Development
-- **Date**: January 2025
-- **Description**: Social Network for Creative Professionals
-- **Technologies**: React, Node.js, Cloudflare, PostgreSQL, PWA, AI
-- **Features**: Real-time communication, project tracking, resource management
-- **Link**: [Visit Platform](https://gocollab.cc)
-
 ## Browser Support
 
 - Chrome (latest)
@@ -231,4 +221,23 @@ Contributions are welcome! Feel free to submit a Pull Request or open an Issue f
 
 ## License
 
-This project is licensed under the ISC License - feel free to use this template for your own portfolio!
+This project is licensed under **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
+
+### What this means:
+
+**You are free to:**
+- ✅ Share — copy and redistribute the material in any medium or format
+- ✅ Adapt — remix, transform, and build upon the material for any purpose, even commercially
+
+**Under the following conditions:**
+- ⚠️ **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made
+
+### Attribution Requirements:
+
+If you use this template for your portfolio, please include a credit and link back to this repository. You can do this by:
+
+1. Adding an attribution in your website footer or README
+2. Including a link to the original repository: `https://github.com/saidelimam/portfolio`
+3. Example: "Built using Said Elimam's Portfolio Template (https://github.com/saidelimam/portfolio)"
+
+View the full license text in the [LICENSE](LICENSE) file or at [Creative Commons](http://creativecommons.org/licenses/by/4.0/)
