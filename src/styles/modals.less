@@ -1,0 +1,166 @@
+// Modal styles
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  .transition();
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.modal-content {
+  background: @white;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  transform: scale(0.8);
+  .transition();
+
+  .modal.active & {
+    transform: scale(1);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 2rem 1rem;
+  border-bottom: 1px solid #eee;
+
+  h2 {
+    margin: 0;
+    color: @text-color;
+    font-size: 1.8rem;
+  }
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: @text-light;
+  cursor: pointer;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  .transition();
+
+  &:hover {
+    background: #f5f5f5;
+    color: @text-color;
+  }
+}
+
+.modal-body {
+  padding: 0 2rem 2rem;
+
+  h3 {
+    color: @text-color;
+    margin: 1.5rem 0 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  p {
+    color: @text-light;
+    line-height: 1.6;
+    margin: 0 0 1rem;
+  }
+}
+
+.modal-description {
+  font-size: 1.1rem;
+  color: @text-color !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.tech-tag {
+  background: @accent-color;
+  color: @accent-text-color;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.project-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.project-link {
+  background: @accent-color;
+  color: @white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  .transition();
+
+  &:hover {
+    background: darken(@accent-color, 10%);
+    transform: translateY(-2px);
+  }
+}
+
+// Scroll lock when modal is open
+body.modal-open {
+  overflow: hidden;
+}
+
+// Responsive modal styles
+@media (max-width: 480px) {
+  .modal-content {
+    width: 95%;
+    max-height: 90vh;
+  }
+
+  .modal-header {
+    padding: 1.5rem 1.5rem 1rem;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .modal-body {
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  .project-links {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .project-link {
+    text-align: center;
+  }
+}

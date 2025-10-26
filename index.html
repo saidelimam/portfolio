@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Said Elimam - Filmmaker, Music Composer & Engineer</title>
+    <link rel="stylesheet" href="src/styles/main.less">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a class="logo" href="/">
+                <img src="/img/logo-white.webp" alt="Said Elimam" />
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="profile-picture">
+                    <img src="/img/profile_picture.jpg" alt="Said Elimam" onerror="this.style.display='none'; this.parentElement.style.display='none';" />
+                </div>
+                <p>Filmmaker, Music Composer and Engineer from Paris</p>
+                <div class="hero-social-links">
+                    <div class="tooltip-container">
+                        <a href="https://www.instagram.com/saidelimam" target="_blank" aria-label="Instagram" data-tooltip="Follow me on Instagram"><i class="fab fa-instagram"></i></a>
+                        <div class="tooltip">Follow me on Instagram</div>
+                    </div>
+                    <div class="tooltip-container">
+                        <a href="https://www.imdb.com/name/nm15497367/" target="_blank" aria-label="IMDB" data-tooltip="View my IMDB profile"><i class="fab fa-imdb"></i></a>
+                        <div class="tooltip">View my IMDB profile</div>
+                    </div>
+                    <div class="tooltip-container">
+                        <a href="https://open.spotify.com/artist/3lGVrfvhQFWnGtoM9LrFC4" target="_blank" aria-label="Spotify" data-tooltip="Listen to my music on Spotify"><i class="fab fa-spotify"></i></a>
+                        <div class="tooltip">Listen to my music on Spotify</div>
+                    </div>
+                    <div class="tooltip-container">
+                        <a href="https://www.linkedin.com/in/saidelimam/" target="_blank" aria-label="LinkedIn" data-tooltip="Connect with me on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <div class="tooltip">Connect with me on LinkedIn</div>
+                    </div>
+                    <div class="tooltip-container">
+                        <a href="https://www.youtube.com/@saidelimam" target="_blank" aria-label="YouTube" data-tooltip="Subscribe to my YouTube channel"><i class="fab fa-youtube"></i></a>
+                        <div class="tooltip">Subscribe to my YouTube channel</div>
+                    </div>
+                    <div class="tooltip-container">
+                        <a href="mailto:contact@saidelimam.com" aria-label="Email" data-tooltip="Send me an email"><i class="fas fa-envelope"></i></a>
+                        <div class="tooltip">Send me an email</div>
+                    </div>
+                </div>
+                <a href="#projects" class="cta-button">View Projects</a>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container">
+                <h2>About Me</h2>
+                <p style="text-align: center; font-size: 1.1rem; max-width: 800px; margin: 0 auto;">
+                    I'm a multidisciplinary creative professional based in Paris, combining technical engineering expertise 
+                    with artistic vision in filmmaking and music composition. My work bridges the gap between technology 
+                    and creativity, bringing innovative solutions to storytelling and audio-visual experiences.
+                </p>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <div class="container">
+                <h2>Featured Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card" data-project="0">
+                        <h3>Short Film Production</h3>
+                        <p>A compelling short film showcasing innovative cinematography and storytelling techniques. Directed, filmed, and edited with original musical score composition.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link">View Film</a>
+                            <a href="#" class="project-link">Behind the Scenes</a>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project="1">
+                        <h3>Original Music Composition</h3>
+                        <p>An original musical score blending electronic and orchestral elements, created for independent film projects and multimedia installations.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Listen</a>
+                            <a href="#" class="project-link">Spotify</a>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project="2">
+                        <h3>Technical Innovation Project</h3>
+                        <p>Engineering solutions for audio-visual production, including custom software development and hardware integration for creative workflows.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Case Study</a>
+                            <a href="#" class="project-link">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+            <div class="container">
+                <h2>Skills & Expertise</h2>
+                <div class="skills">
+                    <span class="skill-tag">Film Direction</span>
+                    <span class="skill-tag">Cinematography</span>
+                    <span class="skill-tag">Video Editing</span>
+                    <span class="skill-tag">Music Composition</span>
+                    <span class="skill-tag">Sound Design</span>
+                    <span class="skill-tag">Audio Production</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">Digital Signal Processing</span>
+                    <span class="skill-tag">Machine Learning</span>
+                    <span class="skill-tag">Computer Vision</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 - Said Elimam</p>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="modal">
+        <div id="modal-content" class="modal-content">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script type="module" src="src/js/main.js"></script>
+    <script type="module" src="src/js/projects.js"></script>
+</body>
+</html>
