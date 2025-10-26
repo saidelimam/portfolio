@@ -20,7 +20,7 @@
     "type": "film",
     "date": "01/2024",
     "title": "The Knife",
-    "headline": "The Knife",
+    "headline": "Le Couteau",
     "embed": "<iframe width=\"100%\" height=\"500px\" src=\"https://www.youtube.com/embed/nJJq3_DXzGg?si=VigjUldovcJeJBV5\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
     "description": "A short film highlighting the true value of hard work, dedication, craftsmanship, and finding joy and peace in the simple pleasures of life.",
     "details": "The true value of hard work lies not just in the outcome but in the process itself. The short film highlights the importance of dedication, craftsmanship, and finding joy and peace in the simple pleasures of life, out of our busy and stressing schedules.",
@@ -35,12 +35,30 @@
     ]
   },
   {
+    "type": "film",
+    "date": "11/2023",
+    "title": "Reflet d'une âme",
+    "headline": "Reflet d'une âme",
+    "embed": "<iframe width=\"100%\" height=\"500px\" src=\"https://www.youtube.com/embed/Zc6LZIPo1Ig?si=VigjUldovcJeJBV5\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
+    "description": "An experimental and poetic short film expressing the duality between good and evil.",
+    "details": "An experimental and poetic short film that personifies fire through a woman, expressing the duality between good and evil. The Fire-Woman dances with grace but also unveils the devastating consequences of her poorly controlled power on Earth. But is it her fault?",
+    "credits": "Marie Valentin, Alma Chomel, Valentina Gribanova, Tarik Marchoud, Ricardo Fey, Said Elimam",
+    "snapshot": "img/snapshot/refletduneame.webp",
+    "tags": ["Short Film", "Experimental", "Nikon Film Festival", "Special FX"],
+    "links": [
+      {
+        "text": "Watch on YouTube",
+        "url": "https://www.youtube.com/watch?v=Zc6LZIPo1Ig"
+      }
+    ]
+  },
+  {
     "type": "music",
     "date": "07/2023",
     "title": "Bequest",
     "headline": "Bequest Album",
     "embed": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/album/0XFgBWBNXywegwqQKEbV1W?utm_source=generator&theme=0\" width=\"100%\" height=\"152\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>",
-    "description": "A musical journey combining ambient soundscapes, electronic textures, and emotional storytelling to create a unique auditory experience.",
+    "description": "A musical journey combining ambient soundscapes, orchestral textures, and emotional storytelling to create a unique auditory experience.",
     "details": "Bequest is an ambient orchestral album that showcases a fusion of modern production techniques with classical composition approaches. The album features intricate sound design, atmospheric melodies, and dynamic arrangements that create an immersive listening experience.",
     "snapshot": "img/snapshot/bequest.jpg",
     "tags": ["Album", "Orchestral"],
