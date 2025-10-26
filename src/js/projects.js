@@ -6,14 +6,14 @@
 // Project data
 const projectsData = [
   {
+    type: 'dev',
+    date: '01/2025',
     title: 'GoCollab.cc',
+    icon: 'img/icon/gocollab.ico',
     description: 'Social Network for Creative Professionals',
     details: 'GoCollab is a comprehensive platform designed to connect creative professionals, streamline project workflows, and facilitate collaboration across different creative disciplines. The platform features real-time communication, project tracking, resource management, and portfolio showcasing capabilities.',
-    date: 'Jan 2025',
-    tags: ['React', 'Node.js', 'Cloudflare', 'PostgreSQL'],
-    icon: 'img/icon/gocollab.ico',
-    screenshot: 'img/screenshot/gocollab.jpg',
-    type: 'dev',
+    snapshot: 'img/snapshot/gocollab.jpg',
+    tags: ['React', 'Node.js', 'Cloudflare', 'PostgreSQL', 'PWA', 'AI'],
     links: [
       { text: 'Visit Platform', url: 'https://gocollab.cc' },
     ]
@@ -50,7 +50,7 @@ function openProjectModal(projectIndex) {
         ${project.icon ? `<img src="${project.icon}" alt="${project.title} icon" class="modal-icon">` : ''}
         <h2 class="modal-title">${project.title}</h2>
       </div>
-      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <button class="modal-close" aria-label="Close details">&times;</button>
     </div>
     <div class="modal-body">
       <p class="modal-description">${project.description}</p>
@@ -61,7 +61,7 @@ function openProjectModal(projectIndex) {
           ${project.date ? `<p class="modal-date"><strong>Date:</strong> ${project.date}</p>` : ''}
           <p class="modal-details-text">${project.details}</p>
         </div>
-        ${project.screenshot ? `<img src="${project.screenshot}" alt="${project.title} screenshot" class="modal-screenshot">` : ''}
+        ${project.snapshot ? `<img src="${project.snapshot}" alt="${project.title} snapshot" class="modal-screenshot">` : ''}
       </div>
       <div class="modal-technologies">
         <h3>Tags</h3>
