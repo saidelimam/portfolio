@@ -16,6 +16,60 @@
   border-width: 0;
 }
 
+// Disable animations for Opera and low-performance devices
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Opera-specific animation disabling
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .opera-no-animations *,
+  .opera-no-animations *::before,
+  .opera-no-animations *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Low-performance device detection
+.low-performance *,
+.low-performance *::before,
+.low-performance *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+// Disable heavy animations on mobile for better performance
+@media (max-width: @breakpoint-sm) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.15s !important; // Keep short transitions for UI feedback
+  }
+  
+  // Keep essential UI transitions
+  .hero-social-links a,
+  .project-card,
+  .company-tag,
+  .skill-tag {
+    transition-duration: 0.15s !important;
+  }
+}
+
+
 // Mixins
 .flex-center() {
   display: flex;
