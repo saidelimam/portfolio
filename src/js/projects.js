@@ -11,7 +11,7 @@ let projectsData = [];
  */
 async function loadProjectsData() {
   try {
-    const response = await fetch('/src/assets/projects.json');
+    const response = await fetch('/api/projects.json');
     if (!response.ok) {
       throw new Error('Failed to load projects data');
     }
