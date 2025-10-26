@@ -1,0 +1,36 @@
+# Security Headers
+# This file is automatically used by Netlify
+# For other platforms, see the platform-specific configurations below or in SECURITY.md
+
+# Content Security Policy
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+
+# Prevent MIME sniffing
+/*
+  X-Content-Type-Options: nosniff
+
+# XSS Protection (legacy but still useful)
+/*
+  X-XSS-Protection: 1; mode=block
+
+# Referrer Policy
+/*
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Permissions Policy / Feature Policy
+/*
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), speaker=()
+
+# Frame Options
+/*
+  X-Frame-Options: DENY
+
+# Transport Security (should be enforced by server, but adding here for documentation)
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+# Content Type
+/*
+  X-Content-Type-Options: nosniff
+

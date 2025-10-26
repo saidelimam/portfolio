@@ -7,13 +7,12 @@ Sitemap: https://www.saidelimam.com/sitemap.xml
 # Crawl-delay for respectful crawling
 Crawl-delay: 1
 
-# Disallow admin or private areas (if any)
+# Disallow sensitive areas
 Disallow: /admin/
 Disallow: /private/
 Disallow: /.git/
 Disallow: /node_modules/
-
-# Allow all other content
-Allow: /public/
-Allow: /src/
-Allow: /img/
+Disallow: /src/
+Disallow: /plugins/
+Disallow: /*.config.js
+Disallow: /.well-known/security.txt

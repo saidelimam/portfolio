@@ -23,6 +23,9 @@ portfolio/
 │   ├── favicon.png        # PNG favicon fallback
 │   ├── robots.txt         # Search engine instructions
 │   ├── ai.txt            # AI system guidelines
+│   ├── _headers          # Security headers (for Netlify)
+│   ├── .htaccess         # Apache security headers
+│   ├── service-worker.js # PWA service worker
 │   └── .well-known/      # Standard metadata files
 │       ├── security.txt   # Security contact info
 │       └── pgp-key.txt    # PGP public key
@@ -44,9 +47,11 @@ portfolio/
 │   ├── vite.metadata-plugin.js # Site metadata injection
 │   ├── vite.projects-plugin.js # Projects data injection
 │   └── vite.links-plugin.js     # Social links injection
-├── package.json           # NPM configuration with build scripts
+├── vercel.json           # Vercel deployment config with security headers
+├── package.json          # NPM configuration with build scripts
 ├── .gitignore            # Git ignore rules
-└── README.md             # This file
+├── README.md             # This file
+└── SECURITY.md           # Security documentation
 ```
 
 ## Features
@@ -76,6 +81,15 @@ portfolio/
 - **Screen Reader Support**: Proper heading hierarchy and descriptive alt text
 - **Multi-language**: English, French, and Arabic language support
 - **Security Headers**: Security.txt, robots.txt, and AI guidelines
+
+### Security
+- **XSS Prevention**: Input sanitization for all user-generated content
+- **Security Headers**: CSP, X-Frame-Options, X-Content-Type-Options, HSTS
+- **Secure External Links**: All links use rel="noopener noreferrer"
+- **URL Sanitization**: Prevents javascript: and data: URL attacks
+- **Content Security Policy**: Restricts resource loading
+- **Service Worker**: Implements secure caching
+- **Robots.txt**: Prevents crawling of sensitive files and directories
 
 ### Project Showcase
 - **Project Cards**: Interactive cards with type indicators and hover effects
