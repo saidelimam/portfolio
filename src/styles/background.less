@@ -10,11 +10,16 @@
   height: 200%;
   z-index: -1;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(192, 132, 252, 0.3) 0%, rgba(168, 85, 247, 0.3) 50%, rgba(192, 132, 252, 0.3) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(192, 132, 252, 0.3) 0%,
+    rgba(168, 85, 247, 0.3) 50%,
+    rgba(192, 132, 252, 0.3) 100%
+  );
   animation: cinematicLights 60s ease-in-out infinite;
   pointer-events: none;
   transform-origin: center center;
-  
+
   &::before,
   &::after {
     content: '';
@@ -26,15 +31,15 @@
     pointer-events: none;
     transform-origin: center center;
   }
-  
+
   &::before {
-    background: 
+    background:
       radial-gradient(circle 400px at 20% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 70%),
       radial-gradient(circle 800px at 80% 70%, rgba(233, 41, 118, 0.3) 0%, transparent 70%);
     animation: lightMovement1 20s ease-in-out infinite;
     opacity: 0.7;
   }
-  
+
   &::after {
     background:
       radial-gradient(circle 350px at 60% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 65%),
@@ -42,21 +47,21 @@
     animation: lightMovement2 30s ease-in-out infinite;
     opacity: 0.5;
   }
-  
+
   // Disable animations for non-performant devices
   @media (prefers-reduced-motion: reduce) {
     animation: none;
-    
+
     &::before,
     &::after {
       animation: none;
     }
   }
-  
+
   .opera-no-animations &,
   .low-performance & {
     animation: none;
-    
+
     &::before,
     &::after {
       animation: none;
@@ -77,60 +82,60 @@
   animation-iteration-count: infinite, infinite;
 }
 
-.dust-particles:nth-child(1) { 
-  background: radial-gradient(circle 20px at 15% 25%, rgba(221, 214, 254, 0.15) 0%, transparent 70%); 
+.dust-particles:nth-child(1) {
+  background: radial-gradient(circle 20px at 15% 25%, rgba(221, 214, 254, 0.15) 0%, transparent 70%);
   animation-name: particleFloat1, particleBlink;
-  animation-delay: 0s, 0s; 
+  animation-delay: 0s, 0s;
 }
-.dust-particles:nth-child(2) { 
-  background: radial-gradient(circle 15px at 85% 45%, rgba(221, 214, 254, 0.15) 0%, transparent 70%); 
+.dust-particles:nth-child(2) {
+  background: radial-gradient(circle 15px at 85% 45%, rgba(221, 214, 254, 0.15) 0%, transparent 70%);
   animation-name: particleFloat2, particleBlink;
-  animation-delay: 0s, 0.7s; 
+  animation-delay: 0s, 0.7s;
 }
-.dust-particles:nth-child(3) { 
-  background: radial-gradient(circle 20px at 45% 70%, rgba(233, 213, 255, 0.15) 0%, transparent 70%); 
+.dust-particles:nth-child(3) {
+  background: radial-gradient(circle 20px at 45% 70%, rgba(233, 213, 255, 0.15) 0%, transparent 70%);
   animation-name: particleFloat3, particleBlink;
-  animation-delay: 0s, 1.4s; 
+  animation-delay: 0s, 1.4s;
 }
-.dust-particles:nth-child(4) { 
-  background: radial-gradient(circle 15px at 70% 15%, rgba(243, 232, 255, 0.15) 0%, transparent 70%); 
+.dust-particles:nth-child(4) {
+  background: radial-gradient(circle 15px at 70% 15%, rgba(243, 232, 255, 0.15) 0%, transparent 70%);
   animation-name: particleFloat4, particleBlink;
-  animation-delay: 0s, 2.1s; 
+  animation-delay: 0s, 2.1s;
 }
-.dust-particles:nth-child(5) { 
-  background: radial-gradient(circle 20px at 25% 60%, rgba(221, 214, 254, 0.15) 0%, transparent 70%); 
+.dust-particles:nth-child(5) {
+  background: radial-gradient(circle 20px at 25% 60%, rgba(221, 214, 254, 0.15) 0%, transparent 70%);
   animation-name: particleFloat5, particleBlink;
-  animation-delay: 0s, 2.8s; 
+  animation-delay: 0s, 2.8s;
 }
-.dust-particles:nth-child(6) { 
-  background: radial-gradient(circle 15px at 60% 80%, rgba(237, 233, 254, 0.15) 0%, transparent 70%); 
+.dust-particles:nth-child(6) {
+  background: radial-gradient(circle 15px at 60% 80%, rgba(237, 233, 254, 0.15) 0%, transparent 70%);
   animation-name: particleFloat6, particleBlink;
-  animation-delay: 0s, 3.5s; 
+  animation-delay: 0s, 3.5s;
 }
-.dust-particles:nth-child(7) { 
-  background: radial-gradient(circle 20px at 90% 30%, rgba(250, 245, 255, 0.15) 0%, transparent 70%); 
+.dust-particles:nth-child(7) {
+  background: radial-gradient(circle 20px at 90% 30%, rgba(250, 245, 255, 0.15) 0%, transparent 70%);
   animation-name: particleFloat7, particleBlink;
-  animation-delay: 0s, 4.2s; 
+  animation-delay: 0s, 4.2s;
 }
-.dust-particles:nth-child(8) { 
-  background: radial-gradient(circle 15px at 35% 10%, rgba(233, 213, 255, 0.15) 0%, transparent 70%); 
+.dust-particles:nth-child(8) {
+  background: radial-gradient(circle 15px at 35% 10%, rgba(233, 213, 255, 0.15) 0%, transparent 70%);
   animation-name: particleFloat8, particleBlink;
-  animation-delay: 0s, 4.9s; 
+  animation-delay: 0s, 4.9s;
 }
-.dust-particles:nth-child(9) { 
-  background: radial-gradient(circle 20px at 55% 85%, rgba(221, 214, 254, 0.15) 0%, transparent 70%); 
+.dust-particles:nth-child(9) {
+  background: radial-gradient(circle 20px at 55% 85%, rgba(221, 214, 254, 0.15) 0%, transparent 70%);
   animation-name: particleFloat9, particleBlink;
-  animation-delay: 0s, 5.6s; 
+  animation-delay: 0s, 5.6s;
 }
-.dust-particles:nth-child(10) { 
-  background: radial-gradient(circle 15px at 12% 50%, rgba(250, 245, 255, 0.15) 0%, transparent 70%); 
+.dust-particles:nth-child(10) {
+  background: radial-gradient(circle 15px at 12% 50%, rgba(250, 245, 255, 0.15) 0%, transparent 70%);
   animation-name: particleFloat10, particleBlink;
-  animation-delay: 0s, 6.3s; 
+  animation-delay: 0s, 6.3s;
 }
-.dust-particles:nth-child(11) { 
-  background: radial-gradient(circle 20px at 75% 65%, rgba(221, 214, 254, 0.15) 0%, transparent 70%); 
+.dust-particles:nth-child(11) {
+  background: radial-gradient(circle 20px at 75% 65%, rgba(221, 214, 254, 0.15) 0%, transparent 70%);
   animation-name: particleFloat11, particleBlink;
-  animation-delay: 0s, 7s; 
+  animation-delay: 0s, 7s;
 }
 
 // Disable dust animation for non-performant devices
@@ -156,7 +161,8 @@
 }
 
 @keyframes lightMovement1 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
   33% {
@@ -168,7 +174,8 @@
 }
 
 @keyframes lightMovement2 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
   50% {
@@ -177,69 +184,146 @@
 }
 
 @keyframes particleFloat1 {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(10%, -15%); }
-  66% { transform: translate(-10%, 10%); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(10%, -15%);
+  }
+  66% {
+    transform: translate(-10%, 10%);
+  }
 }
 
 @keyframes particleFloat2 {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(-8%, 12%); }
-  66% { transform: translate(12%, -8%); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-8%, 12%);
+  }
+  66% {
+    transform: translate(12%, -8%);
+  }
 }
 
 @keyframes particleFloat3 {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(15%, 5%); }
-  66% { transform: translate(-5%, -15%); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(15%, 5%);
+  }
+  66% {
+    transform: translate(-5%, -15%);
+  }
 }
 
 @keyframes particleFloat4 {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(-12%, -8%); }
-  66% { transform: translate(8%, 12%); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-12%, -8%);
+  }
+  66% {
+    transform: translate(8%, 12%);
+  }
 }
 
 @keyframes particleFloat5 {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(5%, 15%); }
-  66% { transform: translate(-15%, -5%); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(5%, 15%);
+  }
+  66% {
+    transform: translate(-15%, -5%);
+  }
 }
 
 @keyframes particleFloat6 {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(-15%, 5%); }
-  66% { transform: translate(10%, -12%); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-15%, 5%);
+  }
+  66% {
+    transform: translate(10%, -12%);
+  }
 }
 
 @keyframes particleFloat7 {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(12%, 12%); }
-  66% { transform: translate(-12%, -12%); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(12%, 12%);
+  }
+  66% {
+    transform: translate(-12%, -12%);
+  }
 }
 
 @keyframes particleFloat8 {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(-10%, 15%); }
-  66% { transform: translate(15%, -10%); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-10%, 15%);
+  }
+  66% {
+    transform: translate(15%, -10%);
+  }
 }
 
 @keyframes particleFloat9 {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(8%, -12%); }
-  66% { transform: translate(-8%, 8%); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(8%, -12%);
+  }
+  66% {
+    transform: translate(-8%, 8%);
+  }
 }
 
 @keyframes particleFloat10 {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(-12%, -5%); }
-  66% { transform: translate(12%, 5%); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-12%, -5%);
+  }
+  66% {
+    transform: translate(12%, 5%);
+  }
 }
 
 @keyframes particleFloat11 {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(15%, -5%); }
-  66% { transform: translate(-15%, 5%); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(15%, -5%);
+  }
+  66% {
+    transform: translate(-15%, 5%);
+  }
 }
 
 @keyframes particleBlink {

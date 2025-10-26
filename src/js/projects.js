@@ -17,9 +17,9 @@ function sanitizeHTML(str) {
     '>': '&gt;',
     '"': '&quot;',
     "'": '&#x27;',
-    '/': '&#x2F;'
+    '/': '&#x2F;',
   };
-  const reg = /[&<>"'/]/ig;
+  const reg = /[&<>"'/]/gi;
   return String(str).replace(reg, (match) => map[match]);
 }
 
@@ -58,16 +58,16 @@ async function loadProjectsData() {
  */
 function initializeProjectCards() {
   const projectCards = document.querySelectorAll('.project-card');
-  
+
   projectCards.forEach((card, index) => {
     card.style.cursor = 'pointer';
-    
+
     card.addEventListener('click', (e) => {
       // Don't open modal if clicking on a link
       if (e.target.closest('a')) {
         return;
       }
-      
+
       openProjectModal(index);
     });
   });
@@ -79,11 +79,11 @@ function initializeProjectCards() {
 function openProjectModal(projectIndex) {
   const modal = document.getElementById('project-modal');
   const modalContent = document.getElementById('modal-content');
-  
+
   if (!modal || !modalContent) return;
-  
+
   const project = projectsData[projectIndex];
-  
+
   // Sanitize all input
   const title = sanitizeHTML(project.title || '');
   const headline = sanitizeHTML(project.headline || '');
@@ -91,17 +91,20 @@ function openProjectModal(projectIndex) {
   const date = sanitizeHTML(project.date || '');
   const credits = sanitizeHTML(project.credits || '');
   const details = sanitizeHTML(project.details || '');
-  
+
   // Sanitize URLs
   const iconURL = sanitizeURL(project.icon);
   const snapshotURL = sanitizeURL(project.snapshot);
-  
+
   // Create modal content HTML
   const modalHTML = `
     <div class="modal-header">
       <div class="modal-title-container">
-        ${project.icon ? `<img src="${iconURL}" alt="${title} icon" class="modal-icon">` : 
-          `<i class="fas ${project.type === 'dev' ? 'fa-code' : project.type === 'film' ? 'fa-video' : project.type === 'music' ? 'fa-music' : 'fa-folder'}" class="modal-icon-fallback" aria-hidden="true"></i>`}
+        ${
+          project.icon
+            ? `<img src="${iconURL}" alt="${title} icon" class="modal-icon">`
+            : `<i class="fas ${project.type === 'dev' ? 'fa-code' : project.type === 'film' ? 'fa-video' : project.type === 'music' ? 'fa-music' : 'fa-folder'}" class="modal-icon-fallback" aria-hidden="true"></i>`
+        }
         <h2 class="modal-title">${title}</h2>
       </div>
       <button class="modal-close" aria-label="Close details">&times;</button>
@@ -121,40 +124,40 @@ function openProjectModal(projectIndex) {
       <div class="modal-technologies">
         <h3>Tags</h3>
         <div class="tech-tags">
-          ${project.tags.map(tag => `<span class="tech-tag">${sanitizeHTML(tag)}</span>`).join('')}
+          ${project.tags.map((tag) => `<span class="tech-tag">${sanitizeHTML(tag)}</span>`).join('')}
         </div>
       </div>
       <div class="modal-links">
         <h3>Links</h3>
         <div class="project-links">
-          ${project.links.map(link => `<a href="${sanitizeURL(link.url)}" class="project-link" target="_blank" rel="noopener noreferrer">${sanitizeHTML(link.text)}</a>`).join('')}
+          ${project.links.map((link) => `<a href="${sanitizeURL(link.url)}" class="project-link" target="_blank" rel="noopener noreferrer">${sanitizeHTML(link.text)}</a>`).join('')}
         </div>
       </div>
     </div>
   `;
-  
+
   // Set modal content
   modalContent.innerHTML = modalHTML;
-  
+
   // Show modal
   modal.classList.add('active');
   document.body.classList.add('modal-open');
-  
+
   // Scroll modal content to top
   modalContent.scrollTop = 0;
-  
+
   // Add close handlers
   const closeBtn = modalContent.querySelector('.modal-close');
   closeBtn.addEventListener('click', closeProjectModal);
-  
-  modal.addEventListener('click', function(e) {
+
+  modal.addEventListener('click', function (e) {
     if (e.target === modal) {
       closeProjectModal();
     }
   });
-  
+
   // Close on Escape key
-  document.addEventListener('keydown', function(e) {
+  document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && modal.classList.contains('active')) {
       closeProjectModal();
     }
@@ -167,21 +170,21 @@ function openProjectModal(projectIndex) {
 function closeProjectModal() {
   const modal = document.getElementById('project-modal');
   const modalContent = document.getElementById('modal-content');
-  
+
   // Pause all media (videos, audio, iframes) when closing modal
   const videos = modalContent.querySelectorAll('video');
-  videos.forEach(video => video.pause());
-  
+  videos.forEach((video) => video.pause());
+
   const audios = modalContent.querySelectorAll('audio');
-  audios.forEach(audio => audio.pause());
-  
+  audios.forEach((audio) => audio.pause());
+
   // Remove iframes to stop playback (YouTube, Spotify, etc.)
   const iframes = modalContent.querySelectorAll('iframe');
-  iframes.forEach(iframe => {
+  iframes.forEach((iframe) => {
     // Save the src to restore later if needed
     iframe.src = '';
   });
-  
+
   modal.classList.remove('active');
   document.body.classList.remove('modal-open');
 }
@@ -191,5 +194,5 @@ window.ProjectsModule = {
   loadProjectsData,
   initializeProjectCards,
   openProjectModal,
-  closeProjectModal
+  closeProjectModal,
 };

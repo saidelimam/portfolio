@@ -20,7 +20,9 @@
   visibility: hidden;
   pointer-events: none;
   z-index: @z-tooltip;
-  transition: all @transition-normal, color @transition-fast;
+  transition:
+    all @transition-normal,
+    color @transition-fast;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: @shadow-md;
@@ -57,7 +59,7 @@
     width: 100%;
     margin-bottom: @spacing-xs;
   }
-  
+
   .tooltip-container a {
     display: inline-flex;
     align-items: center;
@@ -76,20 +78,20 @@
     position: relative;
     white-space: nowrap;
     font-size: 1rem;
-    
+
     &:hover {
       background: rgba(255, 255, 255, 0.2);
       color: @white;
       transform: translateX(4px);
     }
-    
+
     i {
       font-size: 1.2rem;
       margin-right: @spacing-sm;
       min-width: 20px;
       flex-shrink: 0;
     }
-    
+
     // Add the tooltip text as pseudo-element content
     &::after {
       content: attr(data-tooltip);
@@ -98,7 +100,7 @@
       flex-shrink: 0;
     }
   }
-  
+
   .tooltip {
     display: none; // Hide the separate tooltip element on mobile
   }

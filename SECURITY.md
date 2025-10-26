@@ -29,6 +29,7 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 ### 2. Meta Tags (in HTML)
 
 Additional security meta tags in `index.html`:
+
 - `X-Content-Type-Options: nosniff` - Prevents MIME sniffing
 - `X-Frame-Options: DENY` - Prevents clickjacking
 - `X-XSS-Protection: 1; mode=block` - Browser XSS protection
@@ -60,6 +61,7 @@ All inputs from JSON files are sanitized before being rendered:
 ## Content Security Policy
 
 The site implements a strict CSP that:
+
 - Restricts script sources to self, CDNjs, and Font Awesome
 - Restricts style sources to self, Google Fonts, and CDNjs
 - Prohibits inline scripts (except where necessary for Vite)
@@ -115,7 +117,9 @@ add_header Permissions-Policy "geolocation=(), microphone=(), camera=(), payment
 Add these in the Cloudflare dashboard under **Rules** → **Transform Rules** → **Modify Response Header**
 
 #### Manual Dashboard Configuration
+
 Alternatively, add headers in the Cloudflare dashboard:
+
 1. Go to your Pages project
 2. Navigate to **Settings** → **Custom Headers**
 3. Add the following headers:
@@ -149,6 +153,7 @@ npm audit fix
 ```
 
 Current devDependencies:
+
 - `vite@^7.1.12` - Modern build tool
 - `less@^4.2.0` - CSS preprocessor
 - `less-watch-compiler@^1.16.3` - File watcher
@@ -157,6 +162,7 @@ Current devDependencies:
 ## External Resources
 
 The site loads resources from trusted CDNs:
+
 - Google Fonts (https://fonts.googleapis.com, https://fonts.gstatic.com)
 - Font Awesome (https://cdnjs.cloudflare.com)
 - All resources use HTTPS
@@ -169,6 +175,7 @@ If you discover a security vulnerability, please contact:
 - Security contact: See `public/.well-known/security.txt`
 
 Please provide:
+
 1. Description of the vulnerability
 2. Steps to reproduce
 3. Potential impact assessment
@@ -193,4 +200,3 @@ Please provide:
 ---
 
 Last updated: January 27, 2025
-

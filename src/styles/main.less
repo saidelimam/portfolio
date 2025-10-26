@@ -18,7 +18,6 @@
   border-width: 0;
 }
 
-
 // Mixins
 .flex-center() {
   display: flex;
@@ -390,38 +389,38 @@ footer {
     font-size: 2.5rem;
     color: @text-color;
   }
-  
+
   .about-subsection h3 {
     margin-top: 3rem;
     margin-bottom: 1rem;
     font-size: 1.8rem;
     color: @text-color;
     text-align: center;
-    
+
     &:first-of-type {
       margin-top: 2rem;
     }
   }
-  
+
   .about-subsections {
     display: block;
-    
+
     @media (max-width: @breakpoint-md) {
       display: flex;
       flex-direction: column;
       gap: 2rem;
     }
-    
+
     @media (min-width: @breakpoint-md + 1px) {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
       margin-top: 2rem;
-      
+
       .about-subsection {
         h3 {
           margin-top: 0;
-          
+
           &:first-of-type {
             margin-top: 0;
           }
@@ -604,7 +603,7 @@ footer {
     height: 60px;
     max-width: 300px;
   }
-  
+
   // Container padding
   .container {
     padding: 0 15px;
@@ -626,21 +625,21 @@ footer {
   header nav {
     justify-content: center;
   }
-  
+
   .nav-links {
     display: none;
   }
-  
+
   // Remove main margin
   main {
     margin-top: 0;
   }
-  
+
   // Hide cta button
   .cta-button {
     display: none;
   }
-  
+
   // Hero section mobile optimization
   .hero {
     display: flex;
@@ -650,7 +649,7 @@ footer {
     overflow: hidden;
     padding: @spacing-xs 0;
     box-sizing: border-box;
-    
+
     h1 {
       font-size: 2rem;
     }
@@ -658,7 +657,7 @@ footer {
     p {
       font-size: 1rem;
     }
-    
+
     .container {
       display: flex;
       flex-direction: column;
@@ -668,17 +667,17 @@ footer {
       width: 100%;
       padding: @spacing-sm;
     }
-    
+
     .profile-picture img {
       width: 200px;
       height: 200px;
     }
-    
+
     p {
       display: none;
     }
   }
-  
+
   // Social links mobile layout
   .hero-social-links {
     gap: 0.5rem;
@@ -686,7 +685,7 @@ footer {
     flex-direction: column;
     align-items: center;
     margin: 0.5rem 0;
-    
+
     a {
       min-width: 280px;
       width: 80%;
@@ -698,13 +697,13 @@ footer {
       white-space: nowrap;
       font-size: 0.85rem;
       color: @white !important;
-      
+
       &:hover {
         color: @white !important;
       }
     }
   }
-  
+
   // Additional mobile-specific styles
   .section {
     padding: 2rem 0;
@@ -725,7 +724,6 @@ footer {
   }
 }
 
-
 // Mobile styles (≤480px)
 @media (max-width: @breakpoint-sm) {
   .logo img {
@@ -739,7 +737,7 @@ footer {
       height: 150px;
     }
   }
-  
+
   // Hide sections on mobile except hero
   .cta-button,
   .section,
