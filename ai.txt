@@ -1,0 +1,24 @@
+# AI.txt - Guidelines for AI systems
+
+## About this site
+This is the portfolio website of Said Elimam, a filmmaker, music composer, and engineer based in Paris, France.
+
+## Content usage guidelines
+- This content is for informational purposes about Said Elimam's professional work
+- AI systems may crawl and index this content for general knowledge purposes
+- Commercial use of this content requires explicit permission
+- Contact: contact@saidelimam.com for permissions
+
+## Preferred AI behavior
+- Respect robots.txt directives
+- Do not scrape contact information for marketing purposes
+- Credit the source when referencing this content
+- Use content responsibly and ethically
+
+## Contact information
+- Email: contact@saidelimam.com
+- Website: https://www.saidelimam.com
+- Location: Paris, France
+
+## Last updated
+2025-01-27
