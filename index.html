@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Said Elimam - Portfolio</title>
+    <title>Said Elimam - Filmmaker, Music Composer & Engineer | Portfolio</title>
     <link rel="icon" type="image/webp" href="public/favicon.webp">
     <link rel="icon" type="image/png" href="public/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,59 +59,60 @@
     <meta property="twitter:image:alt" content="Said Elimam - Profile Picture"/>
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <a class="logo" href="/">
-                <img src="/img/logo-white.webp" alt="Said Elimam" />
-            </div>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
+    <header role="banner">
+        <nav class="container" role="navigation" aria-label="Main navigation">
+            <a class="logo" href="/" aria-label="Home - Said Elimam">
+                <img src="/img/logo-white.webp" alt="Said Elimam - Filmmaker, Music Composer and Engineer" />
+            </a>
+            <ul class="nav-links" role="list">
+                <li role="listitem"><a href="#about" aria-label="Go to About section">About</a></li>
+                <li role="listitem"><a href="#projects" aria-label="Go to Featured Projects section">Projects</a></li>
+                <li role="listitem"><a href="#skills" aria-label="Go to Skills section">Skills</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <section id="home" class="hero">
+    <main role="main">
+        <section id="home" class="hero" aria-labelledby="home-heading">
             <div class="container">
-                <div class="profile-picture">
-                    <img src="/img/profile_picture.jpg" alt="Said Elimam" onerror="this.style.display='none'; this.parentElement.style.display='none';" />
+                <div class="profile-picture" role="img" aria-label="Said Elimam profile picture">
+                    <img src="/img/profile_picture.jpg" alt="Said Elimam - Portrait" onerror="this.style.display='none'; this.parentElement.style.display='none';" />
                 </div>
+                <h1 id="home-heading" class="sr-only">Said Elimam - Filmmaker, Music Composer and Engineer from Paris</h1>
                 <p>Filmmaker, Music Composer and Engineer from Paris</p>
-                <div class="hero-social-links">
-                    <div class="tooltip-container">
-                        <a href="https://www.instagram.com/saidelimam" target="_blank" aria-label="Instagram" data-tooltip="Follow me on Instagram"><i class="fab fa-instagram"></i></a>
-                        <div class="tooltip">Follow me on Instagram</div>
+                <div class="hero-social-links" role="list" aria-label="Social media links">
+                    <div class="tooltip-container" role="listitem">
+                        <a href="https://www.instagram.com/saidelimam" target="_blank" aria-label="Follow me on Instagram" data-tooltip="Follow me on Instagram" rel="noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        <div class="tooltip" aria-hidden="true">Follow me on Instagram</div>
                     </div>
-                    <div class="tooltip-container">
-                        <a href="https://www.imdb.com/name/nm15497367/" target="_blank" aria-label="IMDB" data-tooltip="View my IMDB profile"><i class="fab fa-imdb"></i></a>
-                        <div class="tooltip">View my IMDB profile</div>
+                    <div class="tooltip-container" role="listitem">
+                        <a href="https://www.imdb.com/name/nm15497367/" target="_blank" aria-label="View my IMDB profile" data-tooltip="View my IMDB profile" rel="noopener noreferrer"><i class="fab fa-imdb" aria-hidden="true"></i></a>
+                        <div class="tooltip" aria-hidden="true">View my IMDB profile</div>
                     </div>
-                    <div class="tooltip-container">
-                        <a href="https://open.spotify.com/artist/3lGVrfvhQFWnGtoM9LrFC4" target="_blank" aria-label="Spotify" data-tooltip="Listen to my music on Spotify"><i class="fab fa-spotify"></i></a>
-                        <div class="tooltip">Listen to my music on Spotify</div>
+                    <div class="tooltip-container" role="listitem">
+                        <a href="https://open.spotify.com/artist/3lGVrfvhQFWnGtoM9LrFC4" target="_blank" aria-label="Listen to my music on Spotify" data-tooltip="Listen to my music on Spotify" rel="noopener noreferrer"><i class="fab fa-spotify" aria-hidden="true"></i></a>
+                        <div class="tooltip" aria-hidden="true">Listen to my music on Spotify</div>
                     </div>
-                    <div class="tooltip-container">
-                        <a href="https://www.linkedin.com/in/saidelimam/" target="_blank" aria-label="LinkedIn" data-tooltip="Connect with me on LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <div class="tooltip">Connect with me on LinkedIn</div>
+                    <div class="tooltip-container" role="listitem">
+                        <a href="https://www.linkedin.com/in/saidelimam/" target="_blank" aria-label="Connect with me on LinkedIn" data-tooltip="Connect with me on LinkedIn" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                        <div class="tooltip" aria-hidden="true">Connect with me on LinkedIn</div>
                     </div>
-                    <div class="tooltip-container">
-                        <a href="https://www.youtube.com/@saidelimam" target="_blank" aria-label="YouTube" data-tooltip="Subscribe to my YouTube channel"><i class="fab fa-youtube"></i></a>
-                        <div class="tooltip">Subscribe to my YouTube channel</div>
+                    <div class="tooltip-container" role="listitem">
+                        <a href="https://www.youtube.com/@saidelimam" target="_blank" aria-label="Subscribe to my YouTube channel" data-tooltip="Subscribe to my YouTube channel" rel="noopener noreferrer"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                        <div class="tooltip" aria-hidden="true">Subscribe to my YouTube channel</div>
                     </div>
-                    <div class="tooltip-container">
-                        <a href="mailto:contact@saidelimam.com" aria-label="Email" data-tooltip="Send me an email"><i class="fas fa-envelope"></i></a>
-                        <div class="tooltip">Send me an email</div>
+                    <div class="tooltip-container" role="listitem">
+                        <a href="mailto:contact@saidelimam.com" aria-label="Send me an email" data-tooltip="Send me an email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+                        <div class="tooltip" aria-hidden="true">Send me an email</div>
                     </div>
                 </div>
-                <a href="#projects" class="cta-button">Featured Projects</a>
+                <a href="#projects" class="cta-button" aria-label="View featured projects">Featured Projects</a>
             </div>
         </section>
 
-        <section id="about" class="section">
+        <section id="about" class="section" aria-labelledby="about-heading">
             <div class="container">
-                <h2>About Me</h2>
+                <h2 id="about-heading">About Me</h2>
                 <p style="text-align: center; font-size: 1.1rem; max-width: 800px; margin: 0 auto;">
                     I'm a multidisciplinary creative professional based in Paris, combining technical engineering expertise 
                     with artistic vision in filmmaking and music composition. My work bridges the gap between technology 
@@ -120,13 +121,13 @@
             </div>
         </section>
 
-        <section id="projects" class="section">
+        <section id="projects" class="section" aria-labelledby="projects-heading">
             <div class="container">
-                <h2>Featured Projects</h2>
-                <div class="projects-grid">
-                    <div class="project-card" data-project="0">
+                <h2 id="projects-heading">Featured Projects</h2>
+                <div class="projects-grid" role="list" aria-label="Project cards">
+                    <article class="project-card" data-project="0" role="listitem">
                         <div class="project-type-icon">
-                            <i class="fas fa-code" title="Development Project"></i>
+                            <i class="fas fa-code" aria-label="Development project type" title="Development Project"></i>
                         </div>
                         <div class="project-header">
                             <img src="img/icon/gocollab.ico" alt="GoCollab.cc icon" class="project-icon">
@@ -134,56 +135,56 @@
                         </div>
                         <p>A collaborative platform for creative professionals, enabling seamless project management, team coordination, and resource sharing in the creative industry.</p>
                         <div class="project-links">
-                            <a href="https://gocollab.cc" target="_blank" class="project-link">Visit Platform</a>
+                            <a href="https://gocollab.cc" target="_blank" class="project-link" rel="noopener noreferrer">Visit Platform</a>
                         </div>
-                    </div>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <section id="skills" class="section">
+        <section id="skills" class="section" aria-labelledby="skills-heading">
             <div class="container">
-                <h2>Skills & Expertise</h2>
-                <div class="skills">
-                    <span class="skill-tag">Film Direction</span>
-                    <span class="skill-tag">Cinematography</span>
-                    <span class="skill-tag">Videography</span>
-                    <span class="skill-tag">Photography</span>
-                    <span class="skill-tag">Music Composition</span>
-                    <span class="skill-tag">Audio Production</span>
-                    <span class="skill-tag">Software Engineering</span>
-                    <span class="skill-tag">Web Development</span>
-                    <span class="skill-tag">AI/ML</span>
+                <h2 id="skills-heading">Skills & Expertise</h2>
+                <div class="skills" role="list" aria-label="Skills">
+                    <span class="skill-tag" role="listitem">Film Direction</span>
+                    <span class="skill-tag" role="listitem">Cinematography</span>
+                    <span class="skill-tag" role="listitem">Videography</span>
+                    <span class="skill-tag" role="listitem">Photography</span>
+                    <span class="skill-tag" role="listitem">Music Composition</span>
+                    <span class="skill-tag" role="listitem">Audio Production</span>
+                    <span class="skill-tag" role="listitem">Software Engineering</span>
+                    <span class="skill-tag" role="listitem">Web Development</span>
+                    <span class="skill-tag" role="listitem">AI/ML</span>
                 </div>
                 
                 <h3>They trusted me</h3>
-                <div class="companies">
-                    <a href="https://www.workday.com" target="_blank" class="company-tag">Workday</a>
-                    <a href="https://www.airbnb.com" target="_blank" class="company-tag">Airbnb</a>
-                    <a href="https://www.google.com" target="_blank" class="company-tag">Google</a>
-                    <a href="https://www.microsoft.com" target="_blank" class="company-tag">Microsoft</a>
-                    <a href="https://www.samsung.com" target="_blank" class="company-tag">Samsung</a>
-                    <a href="https://www.soundcloud.com" target="_blank" class="company-tag">SoundCloud</a>
-                    <a href="https://www.capgemini.com" target="_blank" class="company-tag">Capgemini</a>
-                    <a href="https://www.jcdecaux.com" target="_blank" class="company-tag">JCDecaux</a>
-                    <a href="https://www.saint-gobain.com" target="_blank" class="company-tag">Saint-Gobain</a>
-                    <a href="https://www.sncf.com" target="_blank" class="company-tag">SNCF</a>
-                    <a href="https://www.bnpparibas.com" target="_blank" class="company-tag">BNP Paribas</a>
-                    <a href="https://www.diplomatie.gouv.fr" target="_blank" class="company-tag">Ministère de l'Extérieur</a>
+                <div class="companies" role="list" aria-label="Companies worked with">
+                    <a href="https://www.workday.com" target="_blank" class="company-tag" role="listitem" rel="noopener noreferrer" aria-label="Workday company">Workday</a>
+                    <a href="https://www.airbnb.com" target="_blank" class="company-tag" role="listitem" rel="noopener noreferrer" aria-label="Airbnb company">Airbnb</a>
+                    <a href="https://www.google.com" target="_blank" class="company-tag" role="listitem" rel="noopener noreferrer" aria-label="Google company">Google</a>
+                    <a href="https://www.microsoft.com" target="_blank" class="company-tag" role="listitem" rel="noopener noreferrer" aria-label="Microsoft company">Microsoft</a>
+                    <a href="https://www.samsung.com" target="_blank" class="company-tag" role="listitem" rel="noopener noreferrer" aria-label="Samsung company">Samsung</a>
+                    <a href="https://www.soundcloud.com" target="_blank" class="company-tag" role="listitem" rel="noopener noreferrer" aria-label="SoundCloud company">SoundCloud</a>
+                    <a href="https://www.capgemini.com" target="_blank" class="company-tag" role="listitem" rel="noopener noreferrer" aria-label="Capgemini company">Capgemini</a>
+                    <a href="https://www.jcdecaux.com" target="_blank" class="company-tag" role="listitem" rel="noopener noreferrer" aria-label="JCDecaux company">JCDecaux</a>
+                    <a href="https://www.saint-gobain.com" target="_blank" class="company-tag" role="listitem" rel="noopener noreferrer" aria-label="Saint-Gobain company">Saint-Gobain</a>
+                    <a href="https://www.sncf.com" target="_blank" class="company-tag" role="listitem" rel="noopener noreferrer" aria-label="SNCF company">SNCF</a>
+                    <a href="https://www.bnpparibas.com" target="_blank" class="company-tag" role="listitem" rel="noopener noreferrer" aria-label="BNP Paribas company">BNP Paribas</a>
+                    <a href="https://www.diplomatie.gouv.fr" target="_blank" class="company-tag" role="listitem" rel="noopener noreferrer" aria-label="Ministère de l'Extérieur company">Ministère de l'Extérieur</a>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <footer>
+    <footer role="contentinfo">
         <div class="container">
             <p>&copy; 2025 - Said Elimam | <a href="/privacy.html">Privacy Policy</a></p>
         </div>
     </footer>
 
     <!-- Project Modal -->
-    <div id="project-modal" class="modal">
+    <div id="project-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-description">
         <div id="modal-content" class="modal-content">
             <!-- Content will be populated by JavaScript -->
         </div>
