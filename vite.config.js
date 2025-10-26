@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import projectsPlugin from './vite.projects-plugin.js'
 
 export default defineConfig({
   // Static site configuration
@@ -36,5 +37,8 @@ export default defineConfig({
   },
   
   // Asset handling
-  assetsInclude: ['**/*.webp', '**/*.jpg', '**/*.png', '**/*.svg']
+  assetsInclude: ['**/*.webp', '**/*.jpg', '**/*.png', '**/*.svg'],
+  
+  // Plugins
+  plugins: [projectsPlugin()]
 })

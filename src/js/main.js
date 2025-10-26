@@ -4,7 +4,7 @@
  */
 
 // Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     // Performance and browser detection
     initializePerformanceOptimizations();
     
@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize projects module
     if (window.ProjectsModule) {
+        // Load project data from JSON
+        await window.ProjectsModule.loadProjectsData();
+        // Initialize project cards after data is loaded
         window.ProjectsModule.initializeProjectCards();
     }
 });

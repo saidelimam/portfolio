@@ -3,22 +3,25 @@
  * Handles modal functionality for static project cards
  */
 
-// Project data
-const projectsData = [
-  {
-    type: 'dev',
-    date: '01/2025',
-    title: 'GoCollab.cc',
-    icon: 'img/icon/gocollab.ico',
-    description: 'Social Network for Creative Professionals',
-    details: 'GoCollab is a comprehensive platform designed to connect creative professionals, streamline project workflows, and facilitate collaboration across different creative disciplines. The platform features real-time communication, project tracking, resource management, and portfolio showcasing capabilities.',
-    snapshot: 'img/snapshot/gocollab.jpg',
-    tags: ['React', 'Node.js', 'Cloudflare', 'PostgreSQL', 'PWA', 'AI'],
-    links: [
-      { text: 'Visit Platform', url: 'https://gocollab.cc' },
-    ]
+// Project data loaded from JSON file
+let projectsData = [];
+
+/**
+ * Load project data from JSON file
+ */
+async function loadProjectsData() {
+  try {
+    const response = await fetch('/src/assets/projects.json');
+    if (!response.ok) {
+      throw new Error('Failed to load projects data');
+    }
+    projectsData = await response.json();
+    return projectsData;
+  } catch (error) {
+    console.error('Error loading projects data:', error);
+    return [];
   }
-];
+}
 
 /**
  * Initialize project cards by adding click handlers to existing static cards
@@ -55,18 +58,20 @@ function openProjectModal(projectIndex) {
   const modalHTML = `
     <div class="modal-header">
       <div class="modal-title-container">
-        ${project.icon ? `<img src="${project.icon}" alt="${project.title} icon" class="modal-icon">` : ''}
+        ${project.icon ? `<img src="${project.icon}" alt="${project.title} icon" class="modal-icon">` : 
+          `<i class="fas ${project.type === 'dev' ? 'fa-code' : project.type === 'film' ? 'fa-video' : project.type === 'music' ? 'fa-music' : 'fa-folder'}" class="modal-icon-fallback" aria-hidden="true"></i>`}
         <h2 class="modal-title">${project.title}</h2>
       </div>
       <button class="modal-close" aria-label="Close details">&times;</button>
     </div>
     <div class="modal-body">
-      <p class="modal-description">${project.description}</p>
+      ${project.embed ? `<div class="${project.type === 'film' ? 'modal-embed-responsive' : 'modal-embed'}">${project.embed}</div>` : `<p class="modal-description">${project.headline}</p>`}
       <div class="modal-content-wrapper">
         <div class="modal-details">
           <h3>Project Details</h3>
           ${project.type ? `<p class="modal-type"><strong>Type:</strong> ${project.type === 'dev' ? 'Development' : project.type}</p>` : ''}
           ${project.date ? `<p class="modal-date"><strong>Date:</strong> ${project.date}</p>` : ''}
+          ${project.credits ? `<p class="modal-credits"><strong>Credits:</strong> ${project.credits}</p>` : ''}
           <p class="modal-details-text">${project.details}</p>
         </div>
         ${project.snapshot ? `<img src="${project.snapshot}" alt="${project.title} snapshot" class="modal-screenshot">` : ''}
@@ -122,6 +127,7 @@ function closeProjectModal() {
 
 // Export functions for use in main.js
 window.ProjectsModule = {
+  loadProjectsData,
   initializeProjectCards,
   openProjectModal,
   closeProjectModal

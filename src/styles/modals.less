@@ -24,7 +24,7 @@
 .modal-content {
   background: @white;
   border-radius: 20px;
-  max-width: 600px;
+  max-width: 900px;
   width: 90%;
   max-height: 80vh;
   overflow-y: auto;
@@ -54,6 +54,16 @@
     width: 32px;
     height: 32px;
     object-fit: contain;
+  }
+
+  .modal-icon-fallback {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: @accent-color;
   }
 
   h2 {
@@ -87,6 +97,33 @@
 .modal-body {
   padding: 0 2rem 2rem;
 
+  .modal-embed {
+    margin: 1rem 0;
+    text-align: center;
+    
+    iframe {
+      max-width: 100%;
+      border-radius: 12px;
+    }
+  }
+  
+  .modal-embed-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    margin: 1rem 0;
+    
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+    }
+  }
+
   .modal-content-wrapper {
     display: flex;
     gap: 2rem;
@@ -106,6 +143,13 @@
   }
 
   .modal-date {
+    color: @text-light;
+    font-size: 0.9rem;
+    margin: 0.5rem 0 0.25rem;
+    font-style: italic;
+  }
+
+  .modal-credits {
     color: @text-light;
     font-size: 0.9rem;
     margin: 0.5rem 0 1rem;
