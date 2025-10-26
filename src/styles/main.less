@@ -416,60 +416,8 @@ footer {
   font-size: 0.9rem;
 }
 
-// Responsive design
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
-
-  .logo img {
-    height: 35px;
-    max-width: 120px;
-  }
-
-  .hero {
-    min-height: 100vh;
-    
-    h1 {
-      font-size: 2rem;
-    }
-
-    p {
-      font-size: 1rem;
-    }
-  }
-
-  .profile-picture img {
-    width: 150px;
-    height: 150px;
-  }
-
-  .hero-social-links {
-    gap: 1rem;
-
-    a {
-      width: 45px;
-      height: 45px;
-      font-size: 1.5rem;
-
-      i {
-        font-size: 1.1rem;
-      }
-    }
-  }
-}
-
-// Mobile and medium styles (≤768px)
-@media (max-width: @breakpoint-md) {
-  // Header adjustments
-  header nav {
-    justify-content: center;
-  }
-  
-  .nav-links {
-    display: none;
-  }
-  
+// From medium to large screens styles (≥768px)
+@media (min-width: @breakpoint-md) {
   .logo img {
     height: 60px;
     max-width: 300px;
@@ -481,13 +429,24 @@ footer {
   }
 }
 
-// Mobile styles (≤480px)
-@media (max-width: @breakpoint-sm) {
-  // Make header totally transparent on mobile
-  header {
-    background: transparent !important;
-    backdrop-filter: none !important;
-    border-bottom: none !important;
+// Mobile and medium styles (≤768px)
+@media (max-width: @breakpoint-md) {
+  .logo img {
+    height: 70px;
+    max-width: 300px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  // Header adjustments
+  header nav {
+    justify-content: center;
+  }
+  
+  .nav-links {
+    display: none;
   }
   
   // Remove main margin on mobile
@@ -506,10 +465,19 @@ footer {
   .hero {
     display: flex;
     height: 100vh;
+    min-height: 100vh;
     max-height: 100vh;
     overflow: hidden;
     padding: @spacing-xs 0;
     box-sizing: border-box;
+    
+    h1 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
     
     .container {
       display: flex;
@@ -517,12 +485,13 @@ footer {
       justify-content: center;
       align-items: center;
       height: 100%;
+      width: 100%;
       padding: @spacing-sm;
     }
     
     .profile-picture img {
-      width: 100px;
-      height: 100px;
+      width: 200px;
+      height: 200px;
     }
     
     p {
@@ -532,13 +501,15 @@ footer {
   
   // Social links mobile layout
   .hero-social-links {
+    gap: 0.5rem;
+    width: 100%;
     flex-direction: column;
-    gap: 0.2rem;
     align-items: center;
     margin: 0.5rem 0;
     
     a {
-      width: 280px;
+      min-width: 280px;
+      width: 80%;
       height: auto;
       border-radius: @border-radius-sm;
       padding: 0.4rem 0.6rem;
@@ -571,5 +542,28 @@ footer {
   .projects-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
+  }
+}
+
+
+// Mobile styles (≤480px)
+@media (max-width: @breakpoint-sm) {
+  .logo img {
+    height: 50px;
+    max-width: 300px;
+  }
+
+  .hero {
+    .profile-picture img {
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  // Make header totally transparent on mobile
+  header {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border-bottom: none !important;
   }
 }
