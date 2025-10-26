@@ -57,6 +57,7 @@ portfolio/
 ## Features
 
 ### Core Functionality
+
 - **Responsive Design**: Works on desktop, tablet, and mobile with optimized layouts
 - **Modern UI**: Animated gradient backgrounds, cinematic lighting effects, glassmorphism
 - **Vite-Powered**: Fast development server with Hot Module Replacement (HMR)
@@ -66,6 +67,7 @@ portfolio/
 - **Performance Optimized**: Animation disabling for low-performance devices and Opera browsers
 
 ### Interactive Elements
+
 - **Smooth Scrolling**: Enhanced navigation experience
 - **Scroll Animations**: Elements animate in as they come into view using IntersectionObserver
 - **Scroll-to-Top Button**: Convenient navigation with Font Awesome chevron icon
@@ -76,6 +78,7 @@ portfolio/
 - **Dust Particles**: Floating purple particles with individual movement patterns
 
 ### Accessibility & SEO
+
 - **WCAG Compliant**: Full accessibility support with ARIA labels and semantic HTML
 - **SEO Optimized**: Meta tags, Open Graph, Twitter Cards, structured data
 - **Screen Reader Support**: Proper heading hierarchy and descriptive alt text
@@ -83,6 +86,7 @@ portfolio/
 - **Security Headers**: Security.txt, robots.txt, and AI guidelines
 
 ### Security
+
 - **XSS Prevention**: Input sanitization for all user-generated content
 - **Security Headers**: CSP, X-Frame-Options, X-Content-Type-Options, HSTS
   - Automatic for Netlify: `public/_headers`
@@ -96,6 +100,7 @@ portfolio/
 - **Documentation**: See `SECURITY.md` for platform-specific setup
 
 ### Project Showcase
+
 - **Project Cards**: Interactive cards with type indicators and hover effects
 - **Project Details**: Comprehensive modals with snapshots, tags, and metadata
 - **Company Showcase**: Links to companies worked with
@@ -105,10 +110,12 @@ portfolio/
 ## Development
 
 ### Prerequisites
+
 - Node.js 20.19+ or 22.12+ (Vite requirement)
 - npm (for dependencies and build tools)
 
 ### Setup
+
 1. Use this template: Click "Use this template" on GitHub to create your own repository
 2. Clone your repository: `git clone https://github.com/yourusername/portfolio.git`
 3. Navigate to the project: `cd portfolio`
@@ -117,6 +124,7 @@ portfolio/
 6. Open `http://localhost:3000` in your browser
 
 ### Development Workflow
+
 - **Dev Server**: `npm run dev` - Vite development server with HMR
 - **Build**: `npm run build` - Production build to `dist/` folder
 - **Preview**: `npm run preview` - Preview production build
@@ -124,7 +132,9 @@ portfolio/
 - **Watch CSS**: `npm run watch-css` - Auto-compile LESS on changes
 
 ### Dependencies
+
 All development dependencies are included locally:
+
 - **vite**: Modern build tool and development server
 - **less**: LESS CSS preprocessor
 - **less-watch-compiler**: Auto-compilation on file changes
@@ -135,21 +145,27 @@ All development dependencies are included locally:
 This template is fully customizable through JSON files and LESS variables.
 
 #### Step 1: Update Personal Information
+
 1. Edit `public/api/metadata.json` to update your personal information (see Metadata section below)
 2. Update `public/img/profile_picture.jpg` with your own photo
 3. Replace `public/img/logo-white.webp` and `public/img/logo-black.webp` with your logos
 
 #### Step 2: Add Your Projects
+
 Edit `public/api/projects.json` to add your own projects (see Project Data section below)
 
 #### Step 3: Update Social Links
+
 Edit `public/api/links.json` to update your social media links (see Social Links Data section below)
 
 #### Step 4: Customize Styling
+
 Edit LESS variables to match your brand colors (see LESS Variables section below)
 
 #### Metadata
+
 Edit site-wide information in `public/api/metadata.json`:
+
 ```json
 {
   "person": {
@@ -164,14 +180,14 @@ Edit site-wide information in `public/api/metadata.json`:
     "description": "Your professional description..."
   },
   "skills": ["Skill 1", "Skill 2", "Skill 3"],
-  "companies": [
-    { "name": "Company Name", "url": "https://company.com" }
-  ]
+  "companies": [{ "name": "Company Name", "url": "https://company.com" }]
 }
 ```
 
 #### LESS Variables
+
 Edit the LESS variables in `src/styles/variables.less`:
+
 ```less
 // Color palette
 @accent-color: #c2185b;
@@ -184,7 +200,12 @@ Edit the LESS variables in `src/styles/variables.less`:
 @white: #fff;
 
 // Typography
-@font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+@font-family:
+  'Roboto',
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  sans-serif;
 
 // Spacing
 @spacing-xs: 0.5rem;
@@ -195,7 +216,9 @@ Edit the LESS variables in `src/styles/variables.less`:
 ```
 
 #### Project Data
+
 Edit project information in `public/api/projects.json`:
+
 ```json
 [
   {
@@ -207,15 +230,15 @@ Edit project information in `public/api/projects.json`:
     "details": "Detailed project information",
     "snapshot": "img/snapshot/project.jpg",
     "tags": ["React", "Node.js", "TypeScript"],
-    "links": [
-      { "text": "Visit Project", "url": "https://example.com" }
-    ]
+    "links": [{ "text": "Visit Project", "url": "https://example.com" }]
   }
 ]
 ```
 
 #### Social Links Data
+
 Edit social media links in `public/api/links.json`:
+
 ```json
 [
   {
@@ -228,13 +251,15 @@ Edit social media links in `public/api/links.json`:
 ```
 
 ### Vite Configuration
+
 The project uses Vite for development and building. Key configuration in `vite.config.js`:
+
 - **Static Site**: Configured for static HTML/CSS/JS
 - **LESS Support**: Built-in LESS preprocessing
 - **Asset Handling**: Optimized handling of images and fonts
 - **Development Server**: Hot Module Replacement (HMR) enabled
 - **Production Builds**: Optimized bundles with asset optimization
-- **Custom Plugins**: 
+- **Custom Plugins**:
   - `plugins/vite.metadata-plugin.js`: Injects site metadata from `public/api/metadata.json`
   - `plugins/vite.projects-plugin.js`: Injects project cards from `public/api/projects.json`
   - `plugins/vite.links-plugin.js`: Injects social links from `public/api/links.json`
@@ -270,10 +295,12 @@ This project is licensed under **Creative Commons Attribution 4.0 International 
 ### What this means:
 
 **You are free to:**
+
 - ✅ Share — copy and redistribute the material in any medium or format
 - ✅ Adapt — remix, transform, and build upon the material for any purpose, even commercially
 
 **Under the following conditions:**
+
 - ⚠️ **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made
 
 ### Attribution Requirements:

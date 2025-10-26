@@ -1,20 +1,20 @@
-import { defineConfig } from 'vite'
-import metadataPlugin from './plugins/vite.metadata-plugin.js'
-import projectsPlugin from './plugins/vite.projects-plugin.js'
-import linksPlugin from './plugins/vite.links-plugin.js'
+import { defineConfig } from 'vite';
+import metadataPlugin from './plugins/vite.metadata-plugin.js';
+import projectsPlugin from './plugins/vite.projects-plugin.js';
+import linksPlugin from './plugins/vite.links-plugin.js';
 
 export default defineConfig({
   // Static site configuration
   root: '.',
   publicDir: 'public',
-  
+
   // Development server options
   server: {
     port: 3000,
     open: true,
-    host: true
+    host: true,
   },
-  
+
   // Build options
   build: {
     outDir: 'dist',
@@ -38,44 +38,40 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: 'index.html',
-        privacy: 'privacy.html'
+        privacy: 'privacy.html',
       },
       output: {
         manualChunks: undefined, // Single chunk for better caching
         assetFileNames: 'assets/[name]-[hash][extname]', // Asset naming with hash
         chunkFileNames: 'assets/[name]-[hash].js', // JS chunk naming with hash
         entryFileNames: 'assets/[name]-[hash].js', // Entry file naming with hash
-      }
-    }
+      },
+    },
   },
-  
+
   // CSS preprocessing
   css: {
     preprocessorOptions: {
       less: {
         // LESS options
-        javascriptEnabled: true
-      }
+        javascriptEnabled: true,
+      },
     },
     devSourcemap: true, // Source maps in dev
     postcss: {
-      plugins: [] // Add postcss plugins if needed
-    }
+      plugins: [], // Add postcss plugins if needed
+    },
   },
-  
+
   // Asset handling
   assetsInclude: ['**/*.webp', '**/*.jpg', '**/*.png', '**/*.svg'],
-  
+
   // Plugins
-  plugins: [
-    metadataPlugin(), 
-    projectsPlugin(), 
-    linksPlugin()
-  ],
-  
+  plugins: [metadataPlugin(), projectsPlugin(), linksPlugin()],
+
   // Optimize dependencies
   optimizeDeps: {
     include: [], // Pre-bundle dependencies for faster dev
-    force: false // Force re-optimization
-  }
-})
+    force: false, // Force re-optimization
+  },
+});
