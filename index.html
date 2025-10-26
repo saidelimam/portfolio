@@ -3,12 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title><!-- TITLE --></title>
+    
+    <!-- Favicons -->
     <link rel="icon" type="image/webp" href="public/favicon.webp">
     <link rel="icon" type="image/png" href="public/favicon.png">
+    
+    <!-- Preconnect to external domains for faster resource loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="src/styles/main.less">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="src/styles/main.less" as="style">
+    
+    <!-- Stylesheets - Load main CSS (blocking for above-the-fold content) -->
+    <link rel="stylesheet" href="src/styles/main.less" media="all">
+    
+    <!-- External stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
@@ -149,6 +163,7 @@
         </div>
     </div>
 
+    <!-- JavaScript - Load as modules for modern browsers (automatically deferred) -->
     <script type="module" src="src/js/main.js"></script>
     <script type="module" src="src/js/projects.js"></script>
 </body>
