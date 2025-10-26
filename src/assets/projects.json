@@ -20,6 +20,7 @@
     "type": "film",
     "date": "01/2024",
     "title": "The Knife",
+    "icon": "img/icon/quazar.ico",
     "headline": "Le Couteau",
     "embed": "<iframe width=\"100%\" height=\"500px\" src=\"https://www.youtube.com/embed/nJJq3_DXzGg?si=VigjUldovcJeJBV5\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
     "description": "A short film highlighting the true value of hard work, dedication, craftsmanship, and finding joy and peace in the simple pleasures of life.",
@@ -38,6 +39,7 @@
     "type": "film",
     "date": "11/2023",
     "title": "Reflet d'une âme",
+    "icon": "img/icon/quazar.ico",
     "headline": "Reflet d'une âme",
     "embed": "<iframe width=\"100%\" height=\"500px\" src=\"https://www.youtube.com/embed/Zc6LZIPo1Ig?si=VigjUldovcJeJBV5\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
     "description": "An experimental and poetic short film expressing the duality between good and evil.",
@@ -55,7 +57,8 @@
   {
     "type": "music",
     "date": "07/2023",
-    "title": "Bequest",
+    "title": "Bequest Album",
+    "icon": "img/icon/quazar.ico",
     "headline": "Bequest Album",
     "embed": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/album/0XFgBWBNXywegwqQKEbV1W?utm_source=generator&theme=0\" width=\"100%\" height=\"152\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>",
     "description": "A musical journey combining ambient soundscapes, orchestral textures, and emotional storytelling to create a unique auditory experience.",
@@ -66,6 +69,24 @@
       {
         "text": "Listen on Spotify",
         "url": "https://open.spotify.com/album/0XFgBWBNXywegwqQKEbV1W"
+      }
+    ]
+  },
+  {
+    "type": "film",
+    "date": "11/2022",
+    "title": "Freedom",
+    "headline": "Freedom",
+    "embed": "<iframe width=\"100%\" height=\"500px\" src=\"https://www.youtube.com/embed/SQDebYJCxrc?si=wesfPrZjRjDDryYB\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
+    "description": "A ballerina experiments freedom inside of a Parisian gallery and lets her body take control.",
+    "details": "A ballerina experiments freedom inside of a Parisian gallery and lets her body take control.",
+    "credits": "Sara Michelle Murawski, Michelene Murawski, Said Elimam",
+    "snapshot": "img/snapshot/freedom.webp",
+    "tags": ["Short Film", "Dance", "Ballet"],
+    "links": [
+      {
+        "text": "Watch on YouTube",
+        "url": "https://www.youtube.com/watch?v=SQDebYJCxrc"
       }
     ]
   }
