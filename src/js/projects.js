@@ -7,6 +7,36 @@
 let projectsData = [];
 
 /**
+ * Sanitize HTML to prevent XSS attacks
+ */
+function sanitizeHTML(str) {
+  if (!str) return '';
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    '/': '&#x2F;'
+  };
+  const reg = /[&<>"'/]/ig;
+  return String(str).replace(reg, (match) => map[match]);
+}
+
+/**
+ * Sanitize URL to prevent javascript: and data: URLs
+ */
+function sanitizeURL(url) {
+  if (!url) return '#';
+  url = String(url).trim();
+  // Prevent javascript: and data: URLs
+  if (url.toLowerCase().startsWith('javascript:') || url.toLowerCase().startsWith('data:')) {
+    return '#';
+  }
+  return url;
+}
+
+/**
  * Load project data from JSON file
  */
 async function loadProjectsData() {
@@ -54,38 +84,50 @@ function openProjectModal(projectIndex) {
   
   const project = projectsData[projectIndex];
   
+  // Sanitize all input
+  const title = sanitizeHTML(project.title || '');
+  const headline = sanitizeHTML(project.headline || '');
+  const type = sanitizeHTML(project.type || '');
+  const date = sanitizeHTML(project.date || '');
+  const credits = sanitizeHTML(project.credits || '');
+  const details = sanitizeHTML(project.details || '');
+  
+  // Sanitize URLs
+  const iconURL = sanitizeURL(project.icon);
+  const snapshotURL = sanitizeURL(project.snapshot);
+  
   // Create modal content HTML
   const modalHTML = `
     <div class="modal-header">
       <div class="modal-title-container">
-        ${project.icon ? `<img src="${project.icon}" alt="${project.title} icon" class="modal-icon">` : 
+        ${project.icon ? `<img src="${iconURL}" alt="${title} icon" class="modal-icon">` : 
           `<i class="fas ${project.type === 'dev' ? 'fa-code' : project.type === 'film' ? 'fa-video' : project.type === 'music' ? 'fa-music' : 'fa-folder'}" class="modal-icon-fallback" aria-hidden="true"></i>`}
-        <h2 class="modal-title">${project.title}</h2>
+        <h2 class="modal-title">${title}</h2>
       </div>
       <button class="modal-close" aria-label="Close details">&times;</button>
     </div>
     <div class="modal-body">
-      ${project.embed ? `<div class="${project.type === 'film' ? 'modal-embed-responsive' : 'modal-embed'}">${project.embed}</div>` : `<p class="modal-description">${project.headline}</p>`}
+      ${project.embed ? `<div class="${project.type === 'film' ? 'modal-embed-responsive' : 'modal-embed'}">${project.embed}</div>` : `<p class="modal-description">${headline}</p>`}
       <div class="modal-content-wrapper">
         <div class="modal-details">
           <h3>Project Details</h3>
-          ${project.type ? `<p class="modal-type"><strong>Type:</strong> ${project.type === 'dev' ? 'Development' : project.type}</p>` : ''}
-          ${project.date ? `<p class="modal-date"><strong>Date:</strong> ${project.date}</p>` : ''}
-          ${project.credits ? `<p class="modal-credits"><strong>Credits:</strong> ${project.credits}</p>` : ''}
-          <p class="modal-details-text">${project.details}</p>
+          ${project.type ? `<p class="modal-type"><strong>Type:</strong> ${type}</p>` : ''}
+          ${project.date ? `<p class="modal-date"><strong>Date:</strong> ${date}</p>` : ''}
+          ${project.credits ? `<p class="modal-credits"><strong>Credits:</strong> ${credits}</p>` : ''}
+          <p class="modal-details-text">${details}</p>
         </div>
-        ${project.snapshot ? `<img src="${project.snapshot}" alt="${project.title} snapshot" class="modal-screenshot">` : ''}
+        ${project.snapshot ? `<img src="${snapshotURL}" alt="${title} snapshot" class="modal-screenshot">` : ''}
       </div>
       <div class="modal-technologies">
         <h3>Tags</h3>
         <div class="tech-tags">
-          ${project.tags.map(tag => `<span class="tech-tag">${tag}</span>`).join('')}
+          ${project.tags.map(tag => `<span class="tech-tag">${sanitizeHTML(tag)}</span>`).join('')}
         </div>
       </div>
       <div class="modal-links">
         <h3>Links</h3>
         <div class="project-links">
-          ${project.links.map(link => `<a href="${link.url}" class="project-link" target="_blank">${link.text}</a>`).join('')}
+          ${project.links.map(link => `<a href="${sanitizeURL(link.url)}" class="project-link" target="_blank" rel="noopener noreferrer">${sanitizeHTML(link.text)}</a>`).join('')}
         </div>
       </div>
     </div>
