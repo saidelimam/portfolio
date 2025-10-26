@@ -6,7 +6,7 @@ export default function projectsPlugin() {
     name: 'inject-projects',
     transformIndexHtml(html) {
       try {
-        const projectsPath = resolve(process.cwd(), 'src/assets/projects.json');
+        const projectsPath = resolve(process.cwd(), 'public/api/projects.json');
         
         if (!existsSync(projectsPath)) {
           console.warn('Projects JSON not found at:', projectsPath);
