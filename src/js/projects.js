@@ -98,6 +98,9 @@ function openProjectModal(projectIndex) {
   modal.classList.add('active');
   document.body.classList.add('modal-open');
   
+  // Scroll modal content to top
+  modalContent.scrollTop = 0;
+  
   // Add close handlers
   const closeBtn = modalContent.querySelector('.modal-close');
   closeBtn.addEventListener('click', closeProjectModal);
@@ -121,6 +124,22 @@ function openProjectModal(projectIndex) {
  */
 function closeProjectModal() {
   const modal = document.getElementById('project-modal');
+  const modalContent = document.getElementById('modal-content');
+  
+  // Pause all media (videos, audio, iframes) when closing modal
+  const videos = modalContent.querySelectorAll('video');
+  videos.forEach(video => video.pause());
+  
+  const audios = modalContent.querySelectorAll('audio');
+  audios.forEach(audio => audio.pause());
+  
+  // Remove iframes to stop playback (YouTube, Spotify, etc.)
+  const iframes = modalContent.querySelectorAll('iframe');
+  iframes.forEach(iframe => {
+    // Save the src to restore later if needed
+    iframe.src = '';
+  });
+  
   modal.classList.remove('active');
   document.body.classList.remove('modal-open');
 }
