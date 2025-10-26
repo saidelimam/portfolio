@@ -1,5 +1,6 @@
 // Import other LESS files
 @import 'variables.less';
+@import 'background.less';
 @import 'modals.less';
 @import 'tooltips.less';
 
@@ -206,9 +207,8 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
   color: @text-color;
-  .gradient-bg();
   min-height: 100vh;
-  background-attachment: fixed;
+  background: linear-gradient(135deg, #c766ea 0%, #671793 30%, #bf239d 100%);
 }
 
 .container {
