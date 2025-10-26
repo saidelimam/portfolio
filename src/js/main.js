@@ -166,7 +166,7 @@ function initializeLazyLoading() {
 function initializeScrollToTop() {
     // Create scroll-to-top button
     const scrollToTopButton = document.createElement('button');
-    scrollToTopButton.innerHTML = '↑';
+    scrollToTopButton.innerHTML = '<i class="fas fa-chevron-up"></i>';
     scrollToTopButton.className = 'scroll-to-top';
     scrollToTopButton.setAttribute('aria-label', 'Scroll to top');
     
