@@ -1,0 +1,44 @@
+[
+  {
+    "platform": "Instagram",
+    "url": "https://www.instagram.com/saidelimam",
+    "icon": "fab fa-instagram",
+    "label": "Follow me on Instagram"
+  },
+  {
+    "platform": "IMDB",
+    "url": "https://www.imdb.com/name/nm15497367/",
+    "icon": "fab fa-imdb",
+    "label": "View my IMDB profile"
+  },
+  {
+    "platform": "Spotify",
+    "url": "https://open.spotify.com/artist/3lGVrfvhQFWnGtoM9LrFC4",
+    "icon": "fab fa-spotify",
+    "label": "Listen to my music on Spotify"
+  },
+  {
+    "platform": "LinkedIn",
+    "url": "https://www.linkedin.com/in/saidelimam/",
+    "icon": "fab fa-linkedin",
+    "label": "Connect with me on LinkedIn"
+  },
+  {
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/@saidelimam",
+    "icon": "fab fa-youtube",
+    "label": "Subscribe to my YouTube channel"
+  },
+  {
+    "platform": "GitHub",
+    "url": "https://github.com/saidelimam",
+    "icon": "fab fa-github",
+    "label": "Review my code on GitHub"
+  },
+  {
+    "platform": "Email",
+    "url": "mailto:contact@saidelimam.com",
+    "icon": "fas fa-envelope",
+    "label": "Send me an email"
+  }
+]
