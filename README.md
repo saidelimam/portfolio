@@ -1,6 +1,6 @@
-# Portfolio Website
+# Said Elimam - Portfolio Website
 
-A modern, responsive portfolio website built with HTML, CSS (compiled from LESS), and vanilla JavaScript, powered by Vite for optimal development and build experience.
+A modern, responsive portfolio website for Said Elimam - Filmmaker, Music Composer and Engineer from Paris. Built with HTML, CSS (compiled from LESS), and vanilla JavaScript, powered by Vite for optimal development and build experience.
 
 ## Project Structure
 
@@ -8,34 +8,64 @@ A modern, responsive portfolio website built with HTML, CSS (compiled from LESS)
 portfolio/
 ├── index.html              # Main HTML entry point
 ├── public/                 # Static assets (served from root)
-│   └── img/               # Images (logos, profile picture)
+│   ├── img/               # Images (logos, profile picture, icons, snapshots)
+│   │   ├── icon/          # Project icons
+│   │   └── snapshot/      # Project snapshots
+│   ├── favicon.webp       # WebP favicon
+│   ├── favicon.png        # PNG favicon fallback
+│   ├── robots.txt         # Search engine instructions
+│   ├── ai.txt            # AI system guidelines
+│   └── .well-known/      # Standard metadata files
+│       ├── security.txt   # Security contact info
+│       └── pgp-key.txt    # PGP public key
 ├── src/                   # Source files (processed by Vite)
 │   ├── js/
-│   │   └── main.js        # JavaScript functionality
+│   │   ├── main.js        # Core JavaScript functionality
+│   │   └── projects.js    # Project modal and data management
 │   ├── styles/
-│   │   ├── main.less      # LESS source file with variables and mixins
-│   │   └── main.css       # Compiled CSS file
-│   └── assets/            # Additional assets (empty for now)
+│   │   ├── main.less      # Main LESS file with imports
+│   │   ├── variables.less # LESS variables and constants
+│   │   ├── modals.less    # Modal-specific styles
+│   │   ├── tooltips.less  # Custom tooltip styles
+│   │   └── responsive.less # Responsive design styles
+│   └── privacy.html       # Privacy policy page
 ├── dist/                  # Production build output
 ├── vite.config.js        # Vite configuration
 ├── package.json           # NPM configuration with build scripts
+├── .gitignore            # Git ignore rules
 └── README.md             # This file
 ```
 
 ## Features
 
-- **Responsive Design**: Works on desktop, tablet, and mobile
+### Core Functionality
+- **Responsive Design**: Works on desktop, tablet, and mobile with optimized layouts
 - **Modern UI**: Gradient backgrounds, smooth animations, glassmorphism effects
 - **Vite-Powered**: Fast development server with Hot Module Replacement (HMR)
 - **LESS Preprocessing**: Organized styles with variables, mixins, and nesting
-- **CSS Variables**: For easy theme customization
+- **Modular Architecture**: Separated LESS files for maintainability
+
+### Interactive Elements
 - **Smooth Scrolling**: Enhanced navigation experience
-- **Interactive Elements**: Hover effects and animations
-- **Scroll Animations**: Elements animate in as they come into view
-- **Scroll-to-Top Button**: Convenient navigation back to top
-- **Modular JavaScript**: Well-organized, maintainable code structure
-- **Dynamic Logo**: Logo changes color based on scroll position
-- **Optimized Builds**: Production-ready builds with asset optimization
+- **Scroll Animations**: Elements animate in as they come into view using IntersectionObserver
+- **Scroll-to-Top Button**: Convenient navigation with Font Awesome chevron icon
+- **Dynamic Logo**: Logo changes color based on scroll position (white/black)
+- **Custom Tooltips**: Styled tooltips for social media links
+- **Project Modals**: Detailed project information with snapshots and metadata
+
+### Accessibility & SEO
+- **WCAG Compliant**: Full accessibility support with ARIA labels and semantic HTML
+- **SEO Optimized**: Meta tags, Open Graph, Twitter Cards, structured data
+- **Screen Reader Support**: Proper heading hierarchy and descriptive alt text
+- **Multi-language**: English, French, and Arabic language support
+- **Security Headers**: Security.txt, robots.txt, and AI guidelines
+
+### Project Showcase
+- **Project Cards**: Interactive cards with type indicators and hover effects
+- **Project Details**: Comprehensive modals with snapshots, tags, and metadata
+- **Company Showcase**: Links to companies worked with
+- **Skills Display**: Animated skill tags with hover effects
+- **Social Integration**: Links to Instagram, IMDB, Spotify, LinkedIn, YouTube
 
 ## Development
 
@@ -65,25 +95,48 @@ All development dependencies are included locally:
 
 ### Customization
 
-#### Colors
-Edit the CSS variables in `src/styles/main.css`:
-```css
-:root {
-  --primary-color: #667eea;
-  --secondary-color: #764ba2;
-  --accent-color: #ffd700;
-  --text-color: #333;
-  --text-light: #666;
-  --white: #fff;
-}
+#### LESS Variables
+Edit the LESS variables in `src/styles/variables.less`:
+```less
+// Color palette
+@accent-color: #c2185b;
+@accent-light: lighten(@accent-color, 50%);
+@primary-color: #667eea;
+@secondary-color: @accent-color;
+@accent-text-color: @white;
+@text-color: #333;
+@text-light: #666;
+@white: #fff;
+
+// Typography
+@font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+// Spacing
+@spacing-xs: 0.5rem;
+@spacing-sm: 1rem;
+@spacing-md: 1.5rem;
+@spacing-lg: 2rem;
+@spacing-xl: 3rem;
 ```
 
-#### LESS Variables
-Edit the LESS variables in `src/styles/main.less`:
-```less
-@primary-color: #667eea;
-@secondary-color: #764ba2;
-@accent-color: #ffd700;
+#### Project Data
+Edit project information in `src/js/projects.js`:
+```javascript
+const projectsData = [
+  {
+    type: 'dev',
+    date: '01/2025',
+    title: 'Project Name',
+    icon: 'img/icon/project.ico',
+    description: 'Project description',
+    details: 'Detailed project information',
+    snapshot: 'img/snapshot/project.jpg',
+    tags: ['React', 'Node.js', 'TypeScript'],
+    links: [
+      { text: 'Visit Project', url: 'https://example.com' }
+    ]
+  }
+];
 ```
 
 ### Vite Configuration
@@ -96,10 +149,21 @@ The project uses Vite for development and building. Key configuration in `vite.c
 
 ## Sections
 
-- **Hero**: Introduction with profile picture and social links
-- **About**: Personal description and background
-- **Projects**: Featured work showcase
-- **Skills**: Technology stack and expertise areas
+- **Hero**: Introduction with profile picture, subtitle, and social media links
+- **About**: Personal description and multidisciplinary background
+- **Projects**: Featured work showcase with interactive modals and project snapshots
+- **Skills**: Technology stack, expertise areas, and companies worked with
+- **Footer**: Copyright and privacy policy links
+
+## Current Projects
+
+### GoCollab.cc
+- **Type**: Development
+- **Date**: January 2025
+- **Description**: Social Network for Creative Professionals
+- **Technologies**: React, Node.js, Cloudflare, PostgreSQL, PWA, AI
+- **Features**: Real-time communication, project tracking, resource management
+- **Link**: [Visit Platform](https://gocollab.cc)
 
 ## Browser Support
 
@@ -107,6 +171,16 @@ The project uses Vite for development and building. Key configuration in `vite.c
 - Firefox (latest)
 - Safari (latest)
 - Edge (latest)
+
+## Contact
+
+- **Website**: [saidelimam.com](https://www.saidelimam.com)
+- **Email**: contact@saidelimam.com
+- **Instagram**: [@saidelimam](https://www.instagram.com/saidelimam)
+- **IMDB**: [Said Elimam](https://www.imdb.com/name/nm15497367/)
+- **Spotify**: [Said Elimam](https://open.spotify.com/artist/3lGVrfvhQFWnGtoM9LrFC4)
+- **LinkedIn**: [Said Elimam](https://www.linkedin.com/in/saidelimam/)
+- **YouTube**: [@saidelimam](https://www.youtube.com/@saidelimam)
 
 ## License
 
