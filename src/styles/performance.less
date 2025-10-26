@@ -1,0 +1,71 @@
+// Import variables
+@import 'variables.less';
+
+// Performance Optimization Styles
+// Disables animations for Opera browsers, low-performance devices, and users who prefer reduced motion
+
+// Disable animations and smooth scroll for users who prefer reduced motion
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
+// Opera-specific animation and smooth scroll disabling
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .opera-no-animations *,
+  .opera-no-animations *::before,
+  .opera-no-animations *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .opera-no-animations html {
+    scroll-behavior: auto !important;
+  }
+}
+
+// Low-performance device detection - disable animations and smooth scroll
+.low-performance *,
+.low-performance *::before,
+.low-performance *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.low-performance html {
+  scroll-behavior: auto !important;
+}
+
+// Disable heavy animations on mobile for better performance
+@media (max-width: @breakpoint-sm) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.15s !important; // Keep short transitions for UI feedback
+  }
+  
+  // Keep essential UI transitions for better UX
+  .hero-social-links a,
+  .project-card,
+  .company-tag,
+  .skill-tag {
+    transition-duration: 0.15s !important;
+  }
+}
+

@@ -3,6 +3,7 @@
 @import 'background.less';
 @import 'modals.less';
 @import 'tooltips.less';
+@import 'performance.less';
 
 // Screen reader only class
 .sr-only {
@@ -15,59 +16,6 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
-}
-
-// Disable animations for Opera and low-performance devices
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-// Opera-specific animation disabling
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  .opera-no-animations *,
-  .opera-no-animations *::before,
-  .opera-no-animations *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-// Low-performance device detection
-.low-performance *,
-.low-performance *::before,
-.low-performance *::after {
-  animation-duration: 0.01ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: 0.01ms !important;
-  scroll-behavior: auto !important;
-}
-
-// Disable heavy animations on mobile for better performance
-@media (max-width: @breakpoint-sm) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.15s !important; // Keep short transitions for UI feedback
-  }
-  
-  // Keep essential UI transitions
-  .hero-social-links a,
-  .project-card,
-  .company-tag,
-  .skill-tag {
-    transition-duration: 0.15s !important;
-  }
 }
 
 
@@ -191,11 +139,6 @@
   }
 }
 
-// Header scroll effect
-header.scrolled {
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
 // Base styles
 * {
   margin: 0;
@@ -220,11 +163,25 @@ body {
 // Header styles
 header {
   .glass-effect();
-  padding: 1rem 0;
+  padding: 0;
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1000;
+
+  // Header scroll effect
+  &.scrolled {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    // Scrolled state for nav links
+    .nav-links a {
+      color: #333;
+
+      &:hover {
+        color: @accent-light;
+      }
+    }
+  }
 }
 
 nav {
@@ -267,18 +224,9 @@ nav {
   }
 }
 
-// Scrolled state for nav links
-header.scrolled .nav-links a {
-  color: #333;
-
-  &:hover {
-    color: @accent-light;
-  }
-}
-
 // Main content
 main {
-  margin-top: 80px;
+  padding-top: 60px;
 }
 
 // Footer
@@ -395,6 +343,7 @@ footer {
   color: @accent-text-color;
   padding: 1rem 2rem;
   text-decoration: none;
+  border: 1px solid #fff3;
   border-radius: @border-radius-md;
   font-weight: bold;
   position: relative;
@@ -415,6 +364,7 @@ footer {
   &:hover {
     transform: translateY(-3px);
     background: lighten(@accent-color, 5%);
+    border-color: #fffa;
 
     &::before {
       left: 100%;
@@ -799,6 +749,7 @@ footer {
 
   // Make header totally transparent on mobile
   header {
+    padding: 0;
     background: transparent !important;
     backdrop-filter: none !important;
     border-bottom: none !important;
