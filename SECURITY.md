@@ -114,7 +114,18 @@ add_header Permissions-Policy "geolocation=(), microphone=(), camera=(), payment
 
 Add these in the Cloudflare dashboard under **Rules** → **Transform Rules** → **Modify Response Header**
 
-Alternatively, use the `_headers` file with Cloudflare Workers.
+#### Manual Dashboard Configuration
+Alternatively, add headers in the Cloudflare dashboard:
+1. Go to your Pages project
+2. Navigate to **Settings** → **Custom Headers**
+3. Add the following headers:
+   - `Content-Security-Policy`
+   - `X-Content-Type-Options: nosniff`
+   - `X-Frame-Options: DENY`
+   - `X-XSS-Protection: 1; mode=block`
+   - `Referrer-Policy: strict-origin-when-cross-origin`
+   - `Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), speaker=()`
+   - `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`
 
 ### GitHub Pages
 

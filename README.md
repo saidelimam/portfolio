@@ -51,7 +51,7 @@ portfolio/
 ├── package.json          # NPM configuration with build scripts
 ├── .gitignore            # Git ignore rules
 ├── README.md             # This file
-└── SECURITY.md           # Security documentation
+└── SECURITY.md           # Security documentation (see SECURITY.md for platform-specific details)
 ```
 
 ## Features
@@ -85,11 +85,15 @@ portfolio/
 ### Security
 - **XSS Prevention**: Input sanitization for all user-generated content
 - **Security Headers**: CSP, X-Frame-Options, X-Content-Type-Options, HSTS
+  - Automatic for Netlify: `public/_headers`
+  - Vercel: `vercel.json`
+  - Apache: `public/.htaccess`
 - **Secure External Links**: All links use rel="noopener noreferrer"
 - **URL Sanitization**: Prevents javascript: and data: URL attacks
 - **Content Security Policy**: Restricts resource loading
-- **Service Worker**: Implements secure caching
+- **Service Worker**: `public/service-worker.js` implements secure caching
 - **Robots.txt**: Prevents crawling of sensitive files and directories
+- **Documentation**: See `SECURITY.md` for platform-specific setup
 
 ### Project Showcase
 - **Project Cards**: Interactive cards with type indicators and hover effects
