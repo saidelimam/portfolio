@@ -1,0 +1,55 @@
+[
+  {
+    "type": "dev",
+    "date": "01/2025",
+    "title": "GoCollab.cc",
+    "icon": "img/icon/gocollab.ico",
+    "headline": "Social Network for Creative Professionals",
+    "description": "A collaborative platform for creative professionals, enabling seamless project management, team coordination, and resource sharing in the creative industry.",
+    "details": "GoCollab is a comprehensive platform designed to connect creative professionals, streamline project workflows, and facilitate collaboration across different creative disciplines. The platform features real-time communication, project tracking, resource management, and portfolio showcasing capabilities.",
+    "snapshot": "img/snapshot/gocollab.jpg",
+    "tags": ["Social Network", "React", "Node.js", "Cloudflare", "PostgreSQL", "PWA", "AI"],
+    "links": [
+      {
+        "text": "Visit Platform",
+        "url": "https://gocollab.cc"
+      }
+    ]
+  },
+  {
+    "type": "film",
+    "date": "01/2024",
+    "title": "The Knife",
+    "headline": "The Knife",
+    "embed": "<iframe width=\"100%\" height=\"500px\" src=\"https://www.youtube.com/embed/nJJq3_DXzGg?si=VigjUldovcJeJBV5\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
+    "description": "A short film highlighting the true value of hard work, dedication, craftsmanship, and finding joy and peace in the simple pleasures of life.",
+    "details": "The true value of hard work lies not just in the outcome but in the process itself. The short film highlights the importance of dedication, craftsmanship, and finding joy and peace in the simple pleasures of life, out of our busy and stressing schedules.",
+    "credits": "Pierre Jambu, Emre Okan, Christoffer Moe Ditlevsen, Said Elimam",
+    "snapshot": "img/snapshot/the-knife.webp",
+    "tags": ["Short Film", "Nikon Film Festival"],
+    "links": [
+      {
+        "text": "Watch on YouTube",
+        "url": "https://www.youtube.com/watch?v=nJJq3_DXzGg"
+      }
+    ]
+  },
+  {
+    "type": "music",
+    "date": "07/2023",
+    "title": "Bequest",
+    "headline": "Bequest Album",
+    "embed": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/album/0XFgBWBNXywegwqQKEbV1W?utm_source=generator&theme=0\" width=\"100%\" height=\"152\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>",
+    "description": "A musical journey combining ambient soundscapes, electronic textures, and emotional storytelling to create a unique auditory experience.",
+    "details": "Bequest is an ambient orchestral album that showcases a fusion of modern production techniques with classical composition approaches. The album features intricate sound design, atmospheric melodies, and dynamic arrangements that create an immersive listening experience.",
+    "snapshot": "img/snapshot/bequest.jpg",
+    "tags": ["Album", "Orchestral"],
+    "links": [
+      {
+        "text": "Listen on Spotify",
+        "url": "https://open.spotify.com/album/0XFgBWBNXywegwqQKEbV1W"
+      }
+    ]
+  }
+]
+
