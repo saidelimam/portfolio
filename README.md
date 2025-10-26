@@ -40,9 +40,10 @@ portfolio/
 │   └── privacy.html       # Privacy policy page
 ├── dist/                  # Production build output
 ├── vite.config.js        # Vite configuration
-├── vite.metadata-plugin.js # Vite plugin for site metadata
-├── vite.projects-plugin.js # Vite plugin for projects
-├── vite.links-plugin.js   # Vite plugin for social links
+├── plugins/              # Vite custom plugins
+│   ├── vite.metadata-plugin.js # Site metadata injection
+│   ├── vite.projects-plugin.js # Projects data injection
+│   └── vite.links-plugin.js     # Social links injection
 ├── package.json           # NPM configuration with build scripts
 ├── .gitignore            # Git ignore rules
 └── README.md             # This file
@@ -216,9 +217,9 @@ The project uses Vite for development and building. Key configuration in `vite.c
 - **Development Server**: Hot Module Replacement (HMR) enabled
 - **Production Builds**: Optimized bundles with asset optimization
 - **Custom Plugins**: 
-  - `vite.metadata-plugin.js`: Injects site metadata from `public/api/metadata.json`
-  - `vite.projects-plugin.js`: Injects project cards from `public/api/projects.json`
-  - `vite.links-plugin.js`: Injects social links from `public/api/links.json`
+  - `plugins/vite.metadata-plugin.js`: Injects site metadata from `public/api/metadata.json`
+  - `plugins/vite.projects-plugin.js`: Injects project cards from `public/api/projects.json`
+  - `plugins/vite.links-plugin.js`: Injects social links from `public/api/links.json`
 
 ## Sections
 

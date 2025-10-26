@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
-import projectsPlugin from './vite.projects-plugin.js'
-import linksPlugin from './vite.links-plugin.js'
-import metadataPlugin from './vite.metadata-plugin.js'
+import metadataPlugin from './plugins/vite.metadata-plugin.js'
+import projectsPlugin from './plugins/vite.projects-plugin.js'
+import linksPlugin from './plugins/vite.links-plugin.js'
 
 export default defineConfig({
   // Static site configuration
