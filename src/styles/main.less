@@ -4,6 +4,7 @@
 @import 'modals.less';
 @import 'tooltips.less';
 @import 'performance.less';
+@import 'gallery.less';
 
 // Screen reader only class
 .sr-only {
@@ -649,79 +650,6 @@ footer {
   }
 }
 
-// Galleries section
-.galleries-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin: 2rem auto;
-  max-width: 900px;
-
-  .gallery-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    padding: 2rem;
-    border: 2px solid;
-    border-radius: @border-radius-md;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    .transition();
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: @text-color;
-    user-select: none;
-
-    i {
-      font-size: 2rem;
-      color: inherit;
-    }
-
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      background: rgba(255, 255, 255, 0.8);
-    }
-
-    // Photography - Blue
-    &.gallery-photography {
-      border-color: @gallery-photo-color;
-      color: @gallery-photo-color;
-
-      &:hover {
-        background: fade(@gallery-photo-color, 10%);
-        border-color: darken(@gallery-photo-color, 10%);
-        box-shadow: 0 10px 30px fade(@gallery-photo-color, 20%);
-      }
-    }
-
-    // Videography - Red
-    &.gallery-videography {
-      border-color: @gallery-video-color;
-      color: @gallery-video-color;
-
-      &:hover {
-        background: fade(@gallery-video-color, 10%);
-        border-color: darken(@gallery-video-color, 10%);
-        box-shadow: 0 10px 30px fade(@gallery-video-color, 20%);
-      }
-    }
-
-    // Discography - Yellow (matches music projects)
-    &.gallery-discography {
-      border-color: @gallery-disco-color;
-      color: @gallery-disco-color;
-
-      &:hover {
-        background: fade(@gallery-disco-color, 10%);
-        border-color: darken(@gallery-disco-color, 10%);
-        box-shadow: 0 10px 30px fade(@gallery-disco-color, 20%);
-      }
-    }
-  }
-}
 
 // Demoreels accordion
 .videography-accordion {
@@ -970,3 +898,4 @@ footer {
     border-bottom: none !important;
   }
 }
+

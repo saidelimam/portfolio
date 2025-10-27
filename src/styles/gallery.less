@@ -1,0 +1,173 @@
+// Import variables for color definitions
+@import 'variables.less';
+
+// Galleries section (buttons on index page)
+.galleries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 900px;
+
+  .gallery-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    border: 2px solid;
+    border-radius: @border-radius-md;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    .transition();
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: @text-color;
+    user-select: none;
+
+    i {
+      font-size: 2rem;
+      color: inherit;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    // Photography - Blue
+    &.gallery-photography {
+      border-color: @gallery-photo-color;
+      color: @gallery-photo-color;
+
+      &:hover {
+        background: fade(@gallery-photo-color, 10%);
+        border-color: darken(@gallery-photo-color, 10%);
+        box-shadow: 0 10px 30px fade(@gallery-photo-color, 20%);
+      }
+    }
+
+    // Videography - Red
+    &.gallery-videography {
+      border-color: @gallery-video-color;
+      color: @gallery-video-color;
+
+      &:hover {
+        background: fade(@gallery-video-color, 10%);
+        border-color: darken(@gallery-video-color, 10%);
+        box-shadow: 0 10px 30px fade(@gallery-video-color, 20%);
+      }
+    }
+
+    // Discography - Yellow (matches music projects)
+    &.gallery-discography {
+      border-color: @gallery-disco-color;
+      color: @gallery-disco-color;
+
+      &:hover {
+        background: fade(@gallery-disco-color, 10%);
+        border-color: darken(@gallery-disco-color, 10%);
+        box-shadow: 0 10px 30px fade(@gallery-disco-color, 20%);
+      }
+    }
+  }
+}
+
+// Gallery pages (Photography, Videography, Discography)
+.gallery-section {
+  min-height: 100vh;
+  padding-top: 6rem;
+  
+  .gallery-container {
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  .gallery-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: @white;
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+  
+  .photo-mosaic {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 0;
+    
+    .photo-item {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        .transition();
+        
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+    
+    @media (max-width: @breakpoint-md) {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    
+    @media (max-width: @breakpoint-sm) {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+  }
+}
+
+// Image Lightbox Modal
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: @z-modal;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  
+  &.active {
+    display: flex;
+  }
+  
+  .image-modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(200, 200, 200, 0);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  .image-modal-content {
+    position: relative;
+    z-index: 1;
+    max-width: 95%;
+    max-height: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    img {
+      max-width: 100%;
+      max-height: 90vh;
+      height: auto;
+      border-radius: @border-radius-md;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+

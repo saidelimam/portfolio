@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Photography Gallery - Said Elimam</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/webp" href="public/favicon.webp" />
+    <link rel="icon" type="image/png" href="public/favicon.png" />
+
+    <!-- Preconnect to external domains for faster resource loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="src/styles/main.less" as="style" />
+
+    <!-- Stylesheets - Load main CSS (blocking for above-the-fold content) -->
+    <link rel="stylesheet" href="src/styles/main.less" media="all" />
+
+    <!-- External stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="description" content="Photography Gallery by Said Elimam - A collection of professional photographs" />
+    <meta name="author" content="Said Elimam" />
+    <meta name="copyright" content="© 2025 Said Elimam" />
+  </head>
+
+  <body>
+    <header role="banner">
+      <nav class="container" role="navigation" aria-label="Main navigation">
+        <a class="logo" href="/" aria-label="Home - Said Elimam">
+          <img src="/img/logo-white.webp" alt="Said Elimam - Filmmaker, Music Composer and Engineer from Paris" />
+        </a>
+        <ul class="nav-links" role="list">
+          <li role="listitem"><a href="/" aria-label="Go to Home">Home</a></li>
+          <li role="listitem"><a href="/photography.html" aria-label="Go to Photography gallery">Photography</a></li>
+          <li role="listitem"><a href="/videography.html" aria-label="Go to Videography gallery">Videography</a></li>
+          <li role="listitem"><a href="/discography.html" aria-label="Go to Discography gallery">Discography</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main role="main">
+      <section id="photography-gallery" class="gallery-section">
+        <div class="gallery-container">
+          <h1 class="gallery-title">Photography</h1>
+          
+          <div class="photo-mosaic" role="list" aria-label="Photography gallery">
+            <!-- Photo items will be added here -->
+            <div class="photo-item" role="listitem">
+              <img src="/img/snapshot/gocollab.jpg" alt="Photo 1" loading="lazy" />
+            </div>
+            <div class="photo-item" role="listitem">
+              <img src="/img/profile_picture.jpg" alt="Photo 2" loading="lazy" />
+            </div>
+            <div class="photo-item" role="listitem">
+              <img src="/img/snapshot/gocollab.jpg" alt="Photo 3" loading="lazy" />
+            </div>
+            <div class="photo-item" role="listitem">
+              <img src="/img/profile_picture.jpg" alt="Photo 4" loading="lazy" />
+            </div>
+            <div class="photo-item" role="listitem">
+              <img src="/img/snapshot/gocollab.jpg" alt="Photo 5" loading="lazy" />
+            </div>
+            <div class="photo-item" role="listitem">
+              <img src="/img/profile_picture.jpg" alt="Photo 6" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          &copy; 2025 - Said Elimam | <a href="/privacy.html">Privacy Policy</a> |
+          <a href="https://github.com/saidelimam/portfolio" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+        </p>
+      </div>
+    </footer>
+
+    <button class="scroll-to-top" aria-label="Scroll to top" style="display: none;">
+      <i class="fas fa-chevron-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- Image Lightbox Modal -->
+    <div id="image-modal" class="image-modal" role="dialog" aria-modal="true" aria-label="Image viewer">
+      <div class="image-modal-backdrop"></div>
+      <div class="image-modal-content">
+        <img src="" alt="" class="image-modal-img" />
+      </div>
+    </div>
+
+    <script type="module" src="src/js/main.js"></script>
+    <script type="module" src="src/js/gallery.js"></script>
+  </body>
+</html>
+

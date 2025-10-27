@@ -40,6 +40,7 @@ export default defineConfig({
       input: {
         index: 'index.html',
         privacy: 'privacy.html',
+        photography: 'photography.html',
       },
       output: {
         manualChunks: undefined, // Single chunk for better caching
