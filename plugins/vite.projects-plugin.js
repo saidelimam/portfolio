@@ -34,7 +34,7 @@ export default function projectsPlugin() {
               : `<i class="fas ${typeIcon}" aria-hidden="true"></i>`;
 
             return `                    <article class="project-card" data-project="${index}" role="listitem">
-                      <div class="project-type-icon">
+                      <div class="project-type-icon project-type-${project.type}">
                           <i class="fas ${typeIcon}" aria-label="${project.type} project type" title="${project.type.charAt(0).toUpperCase() + project.type.slice(1)} Project"></i>
                       </div>
                       <div class="project-header">
