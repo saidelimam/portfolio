@@ -4,7 +4,7 @@ import { resolve } from 'path';
 export default function metadataPlugin() {
   return {
     name: 'inject-metadata',
-    transformIndexHtml(html) {
+    transformIndexHtml(html, context) {
       try {
         const metadataPath = resolve(process.cwd(), 'public/api/metadata.json');
 
@@ -30,11 +30,12 @@ export default function metadataPlugin() {
               `                            <a href="${company.url}" target="_blank" class="company-tag" role="listitem" rel="noopener noreferrer" aria-label="${company.name} company">${company.name}</a>`
           )
           .join('\n');
-
+        
         // Replace all tags
+        
         html = html.replace(
           /<!-- TITLE -->/g,
-          `${metadata.person.name} - ${metadata.person.tagline} | Portfolio`
+          metadata.person.name
         );
         html = html.replace(
           /<!-- META_DESCRIPTION -->/g,
@@ -52,9 +53,12 @@ export default function metadataPlugin() {
           /<!-- FACEBOOK_APP_ID -->/g,
           `<meta property="fb:app_id" content="${metadata.person.facebookAppId}"/>`
         );
+        // Set OG URL based on page
+        let ogUrl = `${metadata.person.website}`;
+        
         html = html.replace(
           /<!-- OG_URL -->/g,
-          `<meta property="og:url" content="${metadata.person.website}/"/>`
+          ogUrl
         );
         html = html.replace(
           /<!-- OG_TITLE -->/g,
@@ -78,7 +82,7 @@ export default function metadataPlugin() {
         );
         html = html.replace(
           /<!-- TWITTER_URL -->/g,
-          `<meta property="twitter:url" content="${metadata.person.website}/"/>`
+          ogUrl
         );
         html = html.replace(
           /<!-- TWITTER_TITLE -->/g,
