@@ -502,34 +502,34 @@ footer {
 
     // Dev projects - Green
     &.project-type-dev {
-      background: #10b981; // Green
-      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+      background: @type-dev-color;
+      box-shadow: 0 2px 8px fade(@type-dev-color, 30%);
       
       &:hover {
         transform: scale(1.1);
-        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        box-shadow: 0 4px 12px fade(@type-dev-color, 40%);
       }
     }
 
-    // Film projects - Blue
+    // Film projects - Red
     &.project-type-film {
-      background: #3b82f6; // Blue
-      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+      background: @type-film-color;
+      box-shadow: 0 2px 8px fade(@type-film-color, 30%);
       
       &:hover {
         transform: scale(1.1);
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        box-shadow: 0 4px 12px fade(@type-film-color, 40%);
       }
     }
 
     // Music projects - Yellow
     &.project-type-music {
-      background: #eab308; // Yellow
-      box-shadow: 0 2px 8px rgba(234, 179, 8, 0.3);
+      background: @type-music-color;
+      box-shadow: 0 2px 8px fade(@type-music-color, 30%);
       
       &:hover {
         transform: scale(1.1);
-        box-shadow: 0 4px 12px rgba(234, 179, 8, 0.4);
+        box-shadow: 0 4px 12px fade(@type-music-color, 40%);
       }
     }
 
@@ -646,6 +646,80 @@ footer {
     color: @white;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(194, 24, 91, 0.3);
+  }
+}
+
+// Galleries section
+.galleries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 900px;
+
+  .gallery-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    border: 2px solid;
+    border-radius: @border-radius-md;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    .transition();
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: @text-color;
+    user-select: none;
+
+    i {
+      font-size: 2rem;
+      color: inherit;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    // Photography - Blue
+    &.gallery-photography {
+      border-color: @gallery-photo-color;
+      color: @gallery-photo-color;
+
+      &:hover {
+        background: fade(@gallery-photo-color, 10%);
+        border-color: darken(@gallery-photo-color, 10%);
+        box-shadow: 0 10px 30px fade(@gallery-photo-color, 20%);
+      }
+    }
+
+    // Videography - Red
+    &.gallery-videography {
+      border-color: @gallery-video-color;
+      color: @gallery-video-color;
+
+      &:hover {
+        background: fade(@gallery-video-color, 10%);
+        border-color: darken(@gallery-video-color, 10%);
+        box-shadow: 0 10px 30px fade(@gallery-video-color, 20%);
+      }
+    }
+
+    // Discography - Yellow (matches music projects)
+    &.gallery-discography {
+      border-color: @gallery-disco-color;
+      color: @gallery-disco-color;
+
+      &:hover {
+        background: fade(@gallery-disco-color, 10%);
+        border-color: darken(@gallery-disco-color, 10%);
+        box-shadow: 0 10px 30px fade(@gallery-disco-color, 20%);
+      }
+    }
   }
 }
 
@@ -883,7 +957,7 @@ footer {
 
   // Hide sections on mobile except hero
   .cta-button,
-  .section:not(#demoreels),
+  .section,
   footer {
     display: none;
   }
