@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   initializeHeaderScrollEffect();
   initializeAnimations();
   initializeScrollToTop();
+  initializeVideoAccordion();
 
   // Initialize projects module
   if (window.ProjectsModule) {
@@ -261,14 +262,34 @@ function initializeScrollToTop() {
   });
 }
 
-// Initialize additional features
-document.addEventListener('DOMContentLoaded', function () {
-  initializeScrollToTop();
-  initializeMobileMenu();
-  initializeLazyLoading();
+/**
+ * Initialize video accordion functionality
+ */
+function initializeVideoAccordion() {
+  const videoHeaders = document.querySelectorAll('.video-header');
 
-  // Initialize projects module
-  if (window.ProjectsModule) {
-    window.ProjectsModule.initializeProjectCards();
-  }
-});
+  videoHeaders.forEach((header) => {
+    header.addEventListener('click', () => {
+      const item = header.parentElement;
+      const content = item.querySelector('.video-content');
+      const isActive = header.classList.contains('active');
+
+      // Close all other items
+      document.querySelectorAll('.video-item').forEach((otherItem) => {
+        if (otherItem !== item) {
+          otherItem.querySelector('.video-header').classList.remove('active');
+          otherItem.querySelector('.video-content').classList.remove('active');
+        }
+      });
+
+      // Toggle current item
+      if (isActive) {
+        header.classList.remove('active');
+        content.classList.remove('active');
+      } else {
+        header.classList.add('active');
+        content.classList.add('active');
+      }
+    });
+  });
+}
