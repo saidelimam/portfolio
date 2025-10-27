@@ -14,6 +14,7 @@ portfolio/
 ├── public/                 # Static assets (served from root)
 │   ├── api/               # Data files
 │   │   ├── projects.json  # Projects data
+│   │   ├── demoreels.json # Demoreels data
 │   │   ├── links.json     # Social media links data
 │   │   └── metadata.json  # Site metadata (name, tagline, skills, etc.)
 │   ├── img/               # Images (logos, profile picture, icons, snapshots)
@@ -32,24 +33,32 @@ portfolio/
 ├── src/                   # Source files (processed by Vite)
 │   ├── js/
 │   │   ├── main.js        # Core JavaScript functionality
-│   │   └── projects.js    # Project modal and data management
+│   │   ├── projects.js    # Project modal and data management
+│   │   └── utils.js       # Utility functions (sanitization)
 │   ├── styles/
 │   │   ├── main.less      # Main LESS file with imports
 │   │   ├── background.less # Animated background effects
-│   │   ├── variables.less # LESS variables and constants
+│   │   ├── variables.less  # LESS variables and constants
 │   │   ├── modals.less    # Modal-specific styles
 │   │   ├── tooltips.less  # Custom tooltip styles
-│   │   └── responsive.less # Responsive design styles
+│   │   ├── responsive.less # Responsive design styles
+│   │   └── performance.less # Performance optimizations
 │   └── privacy.html       # Privacy policy page
 ├── dist/                  # Production build output
 ├── vite.config.js        # Vite configuration
+├── utils/                # Shared utilities
+│   └── sanitize.js       # HTML/URL sanitization functions
 ├── plugins/              # Vite custom plugins
 │   ├── vite.metadata-plugin.js # Site metadata injection
 │   ├── vite.projects-plugin.js # Projects data injection
-│   └── vite.links-plugin.js     # Social links injection
+│   ├── vite.links-plugin.js     # Social links injection
+│   └── vite.demoreels-plugin.js # Demoreels data injection
 ├── vercel.json           # Vercel deployment config with security headers
 ├── package.json          # NPM configuration with build scripts
+├── .prettierrc           # Prettier code formatter configuration
+├── .prettierignore      # Prettier ignore rules
 ├── .gitignore            # Git ignore rules
+├── LICENSE                # Creative Commons license
 ├── README.md             # This file
 └── SECURITY.md           # Security documentation (see SECURITY.md for platform-specific details)
 ```
@@ -63,7 +72,8 @@ portfolio/
 - **Vite-Powered**: Fast development server with Hot Module Replacement (HMR)
 - **LESS Preprocessing**: Organized styles with variables, mixins, and nesting
 - **Modular Architecture**: Separated LESS files for maintainability
-- **Data-Driven Content**: Projects and links loaded from JSON files via Vite plugins
+- **Data-Driven Content**: Projects, demoreels, and links loaded from JSON files via Vite plugins
+- **Shared Utilities**: Centralized sanitization functions for XSS prevention
 - **Performance Optimized**: Animation disabling for low-performance devices and Opera browsers
 
 ### Interactive Elements
@@ -101,8 +111,9 @@ portfolio/
 
 ### Project Showcase
 
-- **Project Cards**: Interactive cards with type indicators and hover effects
-- **Project Details**: Comprehensive modals with snapshots, tags, and metadata
+- **Project Cards**: Interactive cards with type indicators, blurred backgrounds, and hover effects
+- **Project Details**: Comprehensive modals with snapshots, tags, metadata, and embed support
+- **Demoreels Accordion**: Interactive video showcase with YouTube embeds, first item expanded by default
 - **Company Showcase**: Links to companies worked with
 - **Skills Display**: Animated skill tags with hover effects
 - **Social Integration**: Links to Instagram, IMDB, Spotify, LinkedIn, YouTube, GitHub, and Email
@@ -250,6 +261,19 @@ Edit social media links in `public/api/links.json`:
 ]
 ```
 
+#### Demoreels Data
+
+Edit demoreels information in `public/api/demoreels.json`:
+
+```json
+[
+  {
+    "title": "Short Film - Title",
+    "videoId": "youtube-video-id"
+  }
+]
+```
+
 ### Vite Configuration
 
 The project uses Vite for development and building. Key configuration in `vite.config.js`:
@@ -263,12 +287,14 @@ The project uses Vite for development and building. Key configuration in `vite.c
   - `plugins/vite.metadata-plugin.js`: Injects site metadata from `public/api/metadata.json`
   - `plugins/vite.projects-plugin.js`: Injects project cards from `public/api/projects.json`
   - `plugins/vite.links-plugin.js`: Injects social links from `public/api/links.json`
+  - `plugins/vite.demoreels-plugin.js`: Injects demoreels accordion from `public/api/demoreels.json`
 
 ## Sections
 
 - **Hero**: Introduction with profile picture, subtitle, and social media links with custom tooltips
 - **About**: Personal description, skills expertise, and companies worked with
 - **Projects**: Featured work showcase with interactive modals, project snapshots, and metadata
+- **Demoreels**: Accordion-style video showcase with YouTube embeds organized by year
 - **Footer**: Copyright and privacy policy links
 
 ## Browser Support
