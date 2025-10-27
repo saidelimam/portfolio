@@ -1,5 +1,6 @@
 import { readFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
+import { sanitizeHTML, sanitizeURL } from '../utils/sanitize.js';
 
 export default function projectsPlugin() {
   return {
@@ -33,7 +34,11 @@ export default function projectsPlugin() {
               ? `<img src="${project.icon}" alt="${project.title} icon" class="project-icon">`
               : `<i class="fas ${typeIcon}" aria-hidden="true"></i>`;
 
-            return `                    <article class="project-card" data-project="${index}" role="listitem">
+            // Sanitize snapshot URL for use in CSS
+            const snapshotURL = project.snapshot ? sanitizeURL(project.snapshot) : '';
+            
+            return `                    <article class="project-card" data-project="${index}" role="listitem" ${snapshotURL ? `style="background-image: url('${snapshotURL}');"` : ''}>
+                      <div class="project-card-overlay"></div>
                       <div class="project-type-icon project-type-${project.type}">
                           <i class="fas ${typeIcon}" aria-label="${project.type} project type" title="${project.type.charAt(0).toUpperCase() + project.type.slice(1)} Project"></i>
                       </div>
@@ -46,7 +51,7 @@ export default function projectsPlugin() {
                           ${project.links
                             .map(
                               (link) =>
-                                `<a href="${link.url}" target="_blank" class="project-link" rel="noopener noreferrer">${link.text}</a>`
+                                `<a href="${sanitizeURL(link.url)}" target="_blank" class="project-link" rel="noopener noreferrer">${sanitizeHTML(link.text)}</a>`
                             )
                             .join('')}
                       </div>
