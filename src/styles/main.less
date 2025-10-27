@@ -444,10 +444,41 @@ footer {
   .border-radius();
   .transition(transform);
   position: relative;
+  overflow: hidden;
+  font-weight: bold;
+  
+  // Background image with blur
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  // Overlay for better text readability
+  .project-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(248, 249, 250, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1;
+    .transition();
+  }
+  
+  // Content should be above overlay
+  > *:not(.project-card-overlay) {
+    position: relative;
+    z-index: 2;
+  }
 
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    
+    .project-card-overlay {
+      background: rgba(248, 249, 250, 0.8);
+    }
   }
 
   .project-type-icon {
