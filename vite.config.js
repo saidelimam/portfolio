@@ -3,6 +3,7 @@ import metadataPlugin from './plugins/vite.metadata-plugin.js';
 import projectsPlugin from './plugins/vite.projects-plugin.js';
 import linksPlugin from './plugins/vite.links-plugin.js';
 import demoreelsPlugin from './plugins/vite.demoreels-plugin.js';
+import photographyPlugin from './plugins/vite.photography-plugin.js';
 
 export default defineConfig({
   // Static site configuration
@@ -69,7 +70,7 @@ export default defineConfig({
   assetsInclude: ['**/*.webp', '**/*.jpg', '**/*.png', '**/*.svg'],
 
   // Plugins
-  plugins: [metadataPlugin(), projectsPlugin(), linksPlugin(), demoreelsPlugin()],
+  plugins: [metadataPlugin(), projectsPlugin(), linksPlugin(), demoreelsPlugin(), photographyPlugin()],
 
   // Optimize dependencies
   optimizeDeps: {
