@@ -78,7 +78,7 @@ function openPhotoModal(index) {
   modalImg.setAttribute('src', photo.src);
   modalImg.setAttribute('alt', photo.alt);
   
-  // Show modal
+  // Show modal - backdrop will animate automatically
   modal.classList.add('active');
   document.body.classList.add('modal-open');
   
@@ -90,16 +90,80 @@ function openPhotoModal(index) {
  * Navigate to previous photo
  */
 function navigateToPrevious() {
-  currentPhotoIndex = (currentPhotoIndex - 1 + allPhotos.length) % allPhotos.length;
-  openPhotoModal(currentPhotoIndex);
+  const modal = document.getElementById('image-modal');
+  const modalImg = modal?.querySelector('.image-modal-img');
+  
+  if (!modalImg) return;
+  
+  // Prevent multiple navigations during animation
+  if (modalImg.classList.contains('slide-out-left') || modalImg.classList.contains('slide-out-right')) {
+    return;
+  }
+  
+  // Animate slide out
+  modalImg.classList.add('slide-out-right');
+  
+  // Wait for animation to complete, then change image
+  setTimeout(() => {
+    modalImg.classList.remove('slide-out-right');
+    currentPhotoIndex = (currentPhotoIndex - 1 + allPhotos.length) % allPhotos.length;
+    const photo = allPhotos[currentPhotoIndex];
+    
+    // Change image src without removing the modal
+    modalImg.setAttribute('src', photo.src);
+    modalImg.setAttribute('alt', photo.alt);
+    
+    // Reset position for slide in
+    modalImg.style.transform = 'translateX(0)';
+    
+    // Trigger slide in animation
+    requestAnimationFrame(() => {
+      modalImg.classList.add('slide-in-left');
+      setTimeout(() => {
+        modalImg.classList.remove('slide-in-left');
+      }, 300);
+    });
+  }, 300);
 }
 
 /**
  * Navigate to next photo
  */
 function navigateToNext() {
-  currentPhotoIndex = (currentPhotoIndex + 1) % allPhotos.length;
-  openPhotoModal(currentPhotoIndex);
+  const modal = document.getElementById('image-modal');
+  const modalImg = modal?.querySelector('.image-modal-img');
+  
+  if (!modalImg) return;
+  
+  // Prevent multiple navigations during animation
+  if (modalImg.classList.contains('slide-out-left') || modalImg.classList.contains('slide-out-right')) {
+    return;
+  }
+  
+  // Animate slide out
+  modalImg.classList.add('slide-out-left');
+  
+  // Wait for animation to complete, then change image
+  setTimeout(() => {
+    modalImg.classList.remove('slide-out-left');
+    currentPhotoIndex = (currentPhotoIndex + 1) % allPhotos.length;
+    const photo = allPhotos[currentPhotoIndex];
+    
+    // Change image src without removing the modal
+    modalImg.setAttribute('src', photo.src);
+    modalImg.setAttribute('alt', photo.alt);
+    
+    // Reset position for slide in
+    modalImg.style.transform = 'translateX(0)';
+    
+    // Trigger slide in animation
+    requestAnimationFrame(() => {
+      modalImg.classList.add('slide-in-right');
+      setTimeout(() => {
+        modalImg.classList.remove('slide-in-right');
+      }, 300);
+    });
+  }, 300);
 }
 
 /**
