@@ -27,7 +27,7 @@ export default function linksPlugin() {
           })
           .join('\n');
 
-        return html.replace(/<!--\s*SOCIAL_LINKS\s*-->/, linksHTML);
+        return html.replace(/{{SOCIAL_LINKS}}/, linksHTML);
       } catch (error) {
         console.error('Error in links plugin:', error);
         return html;

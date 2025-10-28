@@ -33,82 +33,77 @@ export default function metadataPlugin() {
         
         // Replace all tags
         
+        html = html.replace(/{{TITLE}}/g, metadata.person.name);
         html = html.replace(
-          /<!-- TITLE -->/g,
-          metadata.person.name
-        );
-        html = html.replace(
-          /<!-- META_DESCRIPTION -->/g,
+          /{{META_DESCRIPTION}}/g,
           `<meta name="description" content="${metadata.person.name}, ${metadata.person.tagline}. Check out his work and contact him for booking requests!"/>`
         );
         html = html.replace(
-          /<!-- META_AUTHOR -->/g,
+          /{{META_AUTHOR}}/g,
           `<meta name="author" content="${metadata.person.name}"/>`
         );
         html = html.replace(
-          /<!-- META_COPYRIGHT -->/g,
+          /{{META_COPYRIGHT}}/g,
           `<meta name="copyright" content="© 2025 ${metadata.person.name}"/>`
         );
         html = html.replace(
-          /<!-- FACEBOOK_APP_ID -->/g,
+          /{{FACEBOOK_APP_ID}}/g,
           `<meta property="fb:app_id" content="${metadata.person.facebookAppId}"/>`
         );
-        // Set OG URL based on page
-        let ogUrl = `${metadata.person.website}`;
         
         html = html.replace(
-          /<!-- OG_URL -->/g,
-          ogUrl
+          /{{OG_URL}}/g,
+          `<meta property="og:url" content="${metadata.person.website}"/>`
         );
         html = html.replace(
-          /<!-- OG_TITLE -->/g,
+          /{{OG_TITLE}}/g,
           `<meta property="og:title" content="${metadata.person.name} - Portfolio"/>`
         );
         html = html.replace(
-          /<!-- OG_DESCRIPTION -->/g,
+          /{{OG_DESCRIPTION}}/g,
           `<meta property="og:description" content="${metadata.person.tagline}. Check out my work and contact me for booking requests!"/>`
         );
         html = html.replace(
-          /<!-- OG_IMAGE -->/g,
+          /{{OG_IMAGE}}/g,
           `<meta property="og:image" content="${metadata.person.website}/img/profile_picture.jpg"/>`
         );
         html = html.replace(
-          /<!-- OG_IMAGE_ALT -->/g,
+          /{{OG_IMAGE_ALT}}/g,
           `<meta property="og:image:alt" content="${metadata.person.name} - Profile Picture"/>`
         );
         html = html.replace(
-          /<!-- OG_SITE_NAME -->/g,
+          /{{OG_SITE_NAME}}/g,
           `<meta property="og:site_name" content="${metadata.person.name} Portfolio"/>`
         );
         html = html.replace(
-          /<!-- TWITTER_URL -->/g,
-          ogUrl
+          /{{TWITTER_URL}}/g,
+          `<meta property="twitter:url" content="${metadata.person.website}"/>`
         );
         html = html.replace(
-          /<!-- TWITTER_TITLE -->/g,
+          /{{TWITTER_TITLE}}/g,
           `<meta property="twitter:title" content="${metadata.person.name} - Portfolio"/>`
         );
         html = html.replace(
-          /<!-- TWITTER_DESCRIPTION -->/g,
+          /{{TWITTER_DESCRIPTION}}/g,
           `<meta property="twitter:description" content="${metadata.person.tagline}. Check out my work and contact me for booking requests!"/>`
         );
         html = html.replace(
-          /<!-- TWITTER_IMAGE -->/g,
+          /{{TWITTER_IMAGE}}/g,
           `<meta property="twitter:image" content="${metadata.person.website}/img/profile_picture.jpg"/>`
         );
         html = html.replace(
-          /<!-- TWITTER_IMAGE_ALT -->/g,
+          /{{TWITTER_IMAGE_ALT}}/g,
           `<meta property="twitter:image:alt" content="${metadata.person.name} - Profile Picture"/>`
         );
         html = html.replace(
-          /<!-- LOGO_IMG -->/g,
+          /{{LOGO_IMG}}/g,
           `<img src="/img/logo-white.webp" alt="${metadata.person.fullName}" />`
         );
-        html = html.replace(/<!-- HERO_H1 -->/g, metadata.person.fullName);
-        html = html.replace(/<!-- HERO_TAGLINE -->/g, metadata.person.tagline);
-        html = html.replace(/<!-- ABOUT_DESCRIPTION -->/g, metadata.about.description);
-        html = html.replace(/<!-- SKILLS -->/g, skillsHTML);
-        html = html.replace(/<!-- COMPANIES -->/g, companiesHTML);
+        html = html.replace(/{{HERO_H1}}/g, metadata.person.fullName);
+        html = html.replace(/{{HERO_TAGLINE}}/g, metadata.person.tagline);
+        html = html.replace(/{{ABOUT_DESCRIPTION}}/g, metadata.about.description);
+        html = html.replace(/{{SKILLS}}/g, skillsHTML);
+        html = html.replace(/{{COMPANIES}}/g, companiesHTML);
 
         return html;
       } catch (error) {

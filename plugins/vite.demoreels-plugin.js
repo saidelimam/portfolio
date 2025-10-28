@@ -47,7 +47,7 @@ export default function demoreelsPlugin() {
           })
           .join('\n');
 
-        return html.replace(/<!--\s*DEMOREELS\s*-->/, demoreelsHTML);
+                return html.replace(/{{DEMOREELS}}/, demoreelsHTML);
       } catch (error) {
         console.error('Error in demoreels plugin:', error);
         return html;

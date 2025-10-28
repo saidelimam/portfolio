@@ -38,7 +38,7 @@ export default function photographyPlugin() {
           })
           .join('\n');
 
-        return html.replace(/<!--\s*PHOTOS\s*-->/, photosHTML);
+        return html.replace(/{{PHOTOS}}/, photosHTML);
       } catch (error) {
         console.error('Error in photography plugin:', error);
         return html;

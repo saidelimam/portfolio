@@ -1,56 +1,10 @@
 import { defineConfig } from 'vite';
-import { copyFileSync, rmSync, existsSync } from 'fs';
-import { dirname, resolve } from 'path';
 import metadataPlugin from './plugins/vite.metadata-plugin.js';
 import projectsPlugin from './plugins/vite.projects-plugin.js';
 import linksPlugin from './plugins/vite.links-plugin.js';
 import demoreelsPlugin from './plugins/vite.demoreels-plugin.js';
 import photographyPlugin from './plugins/vite.photography-plugin.js';
-
-// Plugin to reorganize pages from pages/ folder to dist/ folder
-// example: pages/privacy.html -> dist/privacy/index.html
-function pagesPlugin() {
-  return {
-    name: 'pages-reorganizer',
-    writeBundle() {
-      const distDir = resolve(process.cwd(), 'dist');
-      const pagesDir = resolve(process.cwd(), 'pages');
-      
-      // Check if pages directory exists
-      if (!existsSync(pagesDir)) {
-        return;
-      }
-      
-      // Read all HTML files in pages directory
-      const pagesFiles = require('fs').readdirSync(pagesDir).filter(file => file.endsWith('.html'));
-      
-      // Process each HTML file
-      pagesFiles.forEach(filename => {
-        const pageName = filename.replace('.html', '');
-        // Check both dist/pages/ and dist/ for the built file
-        const srcDist = resolve(distDir, 'pages', filename);
-        const srcRoot = resolve(distDir, filename);
-        
-        let srcPath = null;
-        if (existsSync(srcDist)) {
-          srcPath = srcDist;
-        } else if (existsSync(srcRoot)) {
-          srcPath = srcRoot;
-        }
-        
-        if (srcPath) {
-          const dest = resolve(distDir, pageName, 'index.html');
-          const dir = dirname(dest);
-          if (!existsSync(dir)) {
-            require('fs').mkdirSync(dir, { recursive: true });
-          }
-          copyFileSync(srcPath, dest);
-          rmSync(srcPath);
-        }
-      });
-    },
-  };
-}
+import pagesPlugin from './plugins/vite.pages-plugin.js';
 
 export default defineConfig({
   // Static site configuration
