@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   initializeSmoothScrolling();
   initializeHeaderScrollEffect();
-  initializeAnimations();
+  // initializeAnimations(); // Disabled animations on home
   initializeScrollToTop();
   initializeVideoAccordion();
 
