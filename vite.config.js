@@ -4,6 +4,7 @@ import projectsPlugin from './plugins/vite.projects-plugin.js';
 import linksPlugin from './plugins/vite.links-plugin.js';
 import photographyPlugin from './plugins/vite.photography-plugin.js';
 import videographyPlugin from './plugins/vite.videography-plugin.js';
+import discographyPlugin from './plugins/vite.discography-plugin.js';
 import pagesPlugin from './plugins/vite.pages-plugin.js';
 
 export default defineConfig({
@@ -44,6 +45,7 @@ export default defineConfig({
         privacy: 'pages/privacy.html',
         photography: 'pages/photography.html',
         videography: 'pages/videography.html',
+        discography: 'pages/discography.html',
       },
       output: {
         manualChunks: undefined, // Single chunk for better caching
@@ -78,6 +80,7 @@ export default defineConfig({
     linksPlugin(),
     photographyPlugin(),
     videographyPlugin(),
+    discographyPlugin(),
     pagesPlugin(),
   ],
 
