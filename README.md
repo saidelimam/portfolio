@@ -14,12 +14,14 @@ portfolio/
 ├── public/                 # Static assets (served from root)
 │   ├── api/               # Data files
 │   │   ├── projects.json  # Projects data
-│   │   ├── demoreels.json # Demoreels data
+│   │   ├── videography.json # Videography data
 │   │   ├── links.json     # Social media links data
 │   │   └── metadata.json  # Site metadata (name, tagline, skills, etc.)
 │   ├── img/               # Images (logos, profile picture, icons, snapshots)
 │   │   ├── icon/          # Project icons
-│   │   └── snapshot/      # Project snapshots
+│   │   ├── snapshot/      # Project snapshots
+│   │   ├── photography/   # Photography gallery images
+│   │   └── videography/   # Videography cover images
 │   ├── favicon.webp       # WebP favicon
 │   ├── favicon.png        # PNG favicon fallback
 │   ├── robots.txt         # Search engine instructions
@@ -30,10 +32,16 @@ portfolio/
 │   └── .well-known/      # Standard metadata files
 │       ├── security.txt   # Security contact info
 │       └── pgp-key.txt    # PGP public key
+├── pages/                 # Additional HTML pages
+│   ├── photography.html   # Photography gallery page
+│   ├── videography.html  # Videography gallery page
+│   └── privacy.html       # Privacy policy page
 ├── src/                   # Source files (processed by Vite)
 │   ├── js/
 │   │   ├── main.js        # Core JavaScript functionality
 │   │   ├── projects.js    # Project modal and data management
+│   │   ├── gallery.js     # Photography gallery lightbox
+│   │   ├── videography.js # Videography video loading
 │   │   └── utils.js       # Utility functions (sanitization)
 │   ├── styles/
 │   │   ├── main.less      # Main LESS file with imports
@@ -42,8 +50,8 @@ portfolio/
 │   │   ├── modals.less    # Modal-specific styles
 │   │   ├── tooltips.less  # Custom tooltip styles
 │   │   ├── responsive.less # Responsive design styles
-│   │   └── performance.less # Performance optimizations
-│   └── privacy.html       # Privacy policy page
+│   │   ├── performance.less # Performance optimizations
+│   │   └── gallery.less   # Gallery styles (photography & videography)
 ├── dist/                  # Production build output
 ├── vite.config.js        # Vite configuration
 ├── utils/                # Shared utilities
@@ -52,7 +60,9 @@ portfolio/
 │   ├── vite.metadata-plugin.js # Site metadata injection
 │   ├── vite.projects-plugin.js # Projects data injection
 │   ├── vite.links-plugin.js     # Social links injection
-│   └── vite.demoreels-plugin.js # Demoreels data injection
+│   ├── vite.photography-plugin.js # Photography gallery injection
+│   ├── vite.videography-plugin.js # Videography gallery injection
+│   └── vite.pages-plugin.js # Pages reorganization
 ├── vercel.json           # Vercel deployment config with security headers
 ├── package.json          # NPM configuration with build scripts
 ├── .prettierrc           # Prettier code formatter configuration
@@ -72,7 +82,7 @@ portfolio/
 - **Vite-Powered**: Fast development server with Hot Module Replacement (HMR)
 - **LESS Preprocessing**: Organized styles with variables, mixins, and nesting
 - **Modular Architecture**: Separated LESS files for maintainability
-- **Data-Driven Content**: Projects, demoreels, and links loaded from JSON files via Vite plugins
+- **Data-Driven Content**: Projects, videography, and links loaded from JSON files via Vite plugins
 - **Shared Utilities**: Centralized sanitization functions for XSS prevention
 - **Performance Optimized**: Animation disabling for low-performance devices and Opera browsers
 
@@ -86,6 +96,8 @@ portfolio/
 - **Project Modals**: Detailed project information with snapshots and metadata
 - **Cinematic Background**: Rotating gradient background with animated light effects
 - **Dust Particles**: Floating purple particles with individual movement patterns
+- **Photography Gallery**: Lightbox with swipe navigation and keyboard controls
+- **Videography Gallery**: Click-to-play video grid with one video at a time
 
 ### Accessibility & SEO
 
@@ -113,10 +125,14 @@ portfolio/
 
 - **Project Cards**: Interactive cards with type indicators, blurred backgrounds, and hover effects
 - **Project Details**: Comprehensive modals with snapshots, tags, metadata, and embed support
-- **Demoreels Accordion**: Interactive video showcase with YouTube embeds, first item expanded by default
 - **Company Showcase**: Links to companies worked with
 - **Skills Display**: Animated skill tags with hover effects
 - **Social Integration**: Links to Instagram, IMDB, Spotify, LinkedIn, YouTube, GitHub, and Email
+
+### Gallery Pages
+
+- **Photography Gallery**: Full-screen mosaic grid with lightbox modal, swipe navigation, and keyboard controls
+- **Videography Gallery**: Video grid (1-3 columns responsive) with cover images, click-to-play YouTube embeds, only one video plays at a time
 
 ## Development
 
@@ -261,18 +277,21 @@ Edit social media links in `public/api/links.json`:
 ]
 ```
 
-#### Demoreels Data
+#### Videography Data
 
-Edit demoreels information in `public/api/demoreels.json`:
+Edit videography gallery in `public/api/videography.json`:
 
 ```json
 [
   {
-    "title": "Short Film - Title",
-    "videoId": "youtube-video-id"
+    "title": "Video Title",
+    "videoId": "youtube-video-id",
+    "cover": "cover-image.jpg"
   }
 ]
 ```
+
+Add cover images to `public/img/videography/` with the filename matching the `cover` field.
 
 ### Vite Configuration
 
@@ -287,15 +306,22 @@ The project uses Vite for development and building. Key configuration in `vite.c
   - `plugins/vite.metadata-plugin.js`: Injects site metadata from `public/api/metadata.json`
   - `plugins/vite.projects-plugin.js`: Injects project cards from `public/api/projects.json`
   - `plugins/vite.links-plugin.js`: Injects social links from `public/api/links.json`
-  - `plugins/vite.demoreels-plugin.js`: Injects demoreels accordion from `public/api/demoreels.json`
+  - `plugins/vite.photography-plugin.js`: Injects photography gallery from `public/img/photography/`
+  - `plugins/vite.videography-plugin.js`: Injects videography gallery from `public/api/videography.json`
+  - `plugins/vite.pages-plugin.js`: Reorganizes pages from `pages/` to clean URLs
 
 ## Sections
 
 - **Hero**: Introduction with profile picture, subtitle, and social media links with custom tooltips
-- **About**: Personal description, skills expertise, and companies worked with
+- **About**: Personal description, skills expertise, and companies worked with in a responsive 2-column layout
 - **Projects**: Featured work showcase with interactive modals, project snapshots, and metadata
-- **Demoreels**: Accordion-style video showcase with YouTube embeds organized by year
+- **Galleries**: Navigation buttons to Photography, Videography, and Discography gallery pages
 - **Footer**: Copyright and privacy policy links
+
+### Gallery Pages
+
+- **Photography (`/photography`)**: Full-screen image mosaic with lightbox modal, keyboard navigation (arrow keys), and swipe support on touch devices
+- **Videography (`/videography`)**: Video grid with cover images, play button overlay, one video plays at a time, responsive 1-2-3 column layout
 
 ## Browser Support
 
