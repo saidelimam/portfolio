@@ -15,6 +15,7 @@ portfolio/
 │   ├── api/               # Data files
 │   │   ├── projects.json  # Projects data
 │   │   ├── videography.json # Videography data
+│   │   ├── discography.json # Discography data
 │   │   ├── links.json     # Social media links data
 │   │   └── metadata.json  # Site metadata (name, tagline, skills, etc.)
 │   ├── img/               # Images (logos, profile picture, icons, snapshots)
@@ -35,6 +36,7 @@ portfolio/
 ├── pages/                 # Additional HTML pages
 │   ├── photography.html   # Photography gallery page
 │   ├── videography.html  # Videography gallery page
+│   ├── discography.html   # Discography page
 │   └── privacy.html       # Privacy policy page
 ├── src/                   # Source files (processed by Vite)
 │   ├── js/
@@ -62,6 +64,7 @@ portfolio/
 │   ├── vite.links-plugin.js     # Social links injection
 │   ├── vite.photography-plugin.js # Photography gallery injection
 │   ├── vite.videography-plugin.js # Videography gallery injection
+│   ├── vite.discography-plugin.js # Discography injection
 │   └── vite.pages-plugin.js # Pages reorganization
 ├── vercel.json           # Vercel deployment config with security headers
 ├── package.json          # NPM configuration with build scripts
@@ -293,6 +296,22 @@ Edit videography gallery in `public/api/videography.json`:
 
 Add cover images to `public/img/videography/` with the filename matching the `cover` field.
 
+#### Discography Data
+
+Edit discography albums in `public/api/discography.json`:
+
+```json
+[
+  {
+    "title": "Album Title",
+    "date": "MM/YYYY",
+    "embed": "<iframe>Spotify or other embed code</iframe>"
+  }
+]
+```
+
+The `embed` field should contain the full HTML iframe code from Spotify or other streaming platforms.
+
 ### Vite Configuration
 
 The project uses Vite for development and building. Key configuration in `vite.config.js`:
@@ -308,6 +327,7 @@ The project uses Vite for development and building. Key configuration in `vite.c
   - `plugins/vite.links-plugin.js`: Injects social links from `public/api/links.json`
   - `plugins/vite.photography-plugin.js`: Injects photography gallery from `public/img/photography/`
   - `plugins/vite.videography-plugin.js`: Injects videography gallery from `public/api/videography.json`
+  - `plugins/vite.discography-plugin.js`: Injects discography albums from `public/api/discography.json`
   - `plugins/vite.pages-plugin.js`: Reorganizes pages from `pages/` to clean URLs
 
 ## Sections
@@ -322,6 +342,7 @@ The project uses Vite for development and building. Key configuration in `vite.c
 
 - **Photography (`/photography`)**: Full-screen image mosaic with lightbox modal, keyboard navigation (arrow keys), and swipe support on touch devices
 - **Videography (`/videography`)**: Video grid with cover images, play button overlay, one video plays at a time, responsive 1-2-3 column layout
+- **Discography (`/discography`)**: Album showcase with Spotify embeds, title and date headers, responsive 1-2 column layout
 
 ## Browser Support
 
