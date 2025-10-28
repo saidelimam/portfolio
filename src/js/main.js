@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   // initializeAnimations(); // Disabled animations on home
   initializeScrollToTop();
   initializeVideoAccordion();
+  initializeBackgroundAnimations();
 
   // Initialize projects module
   if (window.ProjectsModule) {
@@ -288,5 +289,30 @@ function initializeVideoAccordion() {
         content.classList.add('active');
       }
     });
+  });
+}
+
+/**
+ * Initialize background animations control based on scroll position
+ * Stops animations when user scrolls past 500px
+ */
+function initializeBackgroundAnimations() {
+  const cinematicBackground = document.querySelector('.cinematic-background');
+  const dustParticles = document.querySelectorAll('.dust-particles');
+
+  if (!cinematicBackground) return;
+
+  window.addEventListener('scroll', function () {
+    const scrollY = window.scrollY;
+    const shouldPause = scrollY > 500;
+
+    // Add/remove class to body to pause all animations via CSS
+    if (shouldPause) {
+      if (!document.body.classList.contains('animations-paused')) {
+        document.body.classList.add('animations-paused');
+      }
+    } else {
+      document.body.classList.remove('animations-paused');
+    }
   });
 }
