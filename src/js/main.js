@@ -145,12 +145,6 @@ function initializePerformanceOptimizations() {
 
     // Disable smooth scrolling
     document.documentElement.style.scrollBehavior = 'auto';
-
-    // Log performance optimization
-    console.log('Performance optimizations applied:', {
-      opera: isOpera,
-      lowPerformance: isLowPerformance,
-    });
   }
 }
 
