@@ -1,6 +1,7 @@
-# Portfolio Website Template
+# Said Elimam's Portfolio Website Template
 
-A modern, performant, and responsive portfolio website template. Built with HTML, LESS, and vanilla JavaScript, powered by Vite.
+A light, modern, performant, and responsive portfolio website template.
+Built with HTML, LESS, and vanilla JavaScript, powered by Vite, enhanced by AI.
 
 **Preview:** [saidelimam.com](https://www.saidelimam.com)
 
