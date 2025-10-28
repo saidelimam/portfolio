@@ -3,6 +3,8 @@
  * Loads YouTube videos when clicking on cover images
  */
 
+let currentPlayingVideo = null;
+
 document.addEventListener('DOMContentLoaded', () => {
   initializeVideoGallery();
 });
@@ -30,6 +32,24 @@ function initializeVideoGallery() {
 }
 
 /**
+ * Reset video to cover state
+ */
+function resetVideoToCover(videoItem) {
+  const cover = videoItem.querySelector('.video-cover');
+  const playButton = videoItem.querySelector('.play-button');
+  const iframe = videoItem.querySelector('iframe');
+  
+  if (iframe) {
+    // Pause the video by removing the iframe
+    iframe.remove();
+  }
+  
+  // Show cover and play button
+  if (cover) cover.style.display = '';
+  if (playButton) playButton.style.display = '';
+}
+
+/**
  * Load YouTube video embed
  */
 function loadVideo(videoItem) {
@@ -38,6 +58,17 @@ function loadVideo(videoItem) {
   const playButton = videoItem.querySelector('.play-button');
   
   if (!videoId || !cover || !playButton) return;
+  
+  // If this video is already playing, do nothing
+  if (currentPlayingVideo === videoItem) return;
+  
+  // Reset the previously playing video
+  if (currentPlayingVideo) {
+    resetVideoToCover(currentPlayingVideo);
+  }
+  
+  // Set as current playing video
+  currentPlayingVideo = videoItem;
   
   // Hide cover and play button
   cover.style.display = 'none';
