@@ -2,22 +2,128 @@
   {
     "title": "2024 Demo Reel",
     "videoId": "aZYXPeW2V2Y",
-    "cover": "demoreel24-cover.webp"
+    "cover": "demoreel24-cover.webp",
+    "type": "demoreel"
   },
   {
     "title": "2023 Demo Reel",
     "videoId": "0J_yDRB97rU",
-    "cover": "demoreel23-cover.webp"
+    "cover": "demoreel23-cover.webp",
+    "type": "demoreel"
   },
   {
     "title": "2022 Demo Reel",
     "videoId": "T9lLtkif4mU",
-    "cover": "demoreel22_cover.jpg"
+    "cover": "demoreel22_cover.jpg",
+    "type": "demoreel"
   },
   {
     "title": "A Life Experience",
     "videoId": "YqBK4ZWubFY",
-    "cover": "alifeexp-cover.jpg"
+    "cover": "alifeexp-cover.jpg",
+    "type": "demoreel"
+  },
+  {
+    "title": "Manon Dance",
+    "videoId": "ifFyyXcDRB0",
+    "cover": "manon-dance-cover.jpg",
+    "type": "dance"
+  },
+  {
+    "title": "Orianne Dance",
+    "videoId": "PeTv2RZLOqI",
+    "cover": "orianne-dance-cover.webp",
+    "type": "dance"
+  },
+  {
+    "title": "Verukka Dance",
+    "videoId": "SWw57NzZN1o",
+    "cover": "verukka-dance-cover.webp",
+    "type": "dance"
+  },
+  {
+    "title": "Nora Taekwondo",
+    "videoId": "pEjvFK65aXE",
+    "cover": "nora-taekwondo-cover.jpg",
+    "type": "dance"
+  },
+  {
+    "title": "Sara Ballet",
+    "videoId": "n5APChp0lfg",
+    "cover": "sara-ballet-cover.webp",
+    "type": "dance"
+  },
+  {
+    "title": "Lisbon Special FX",
+    "videoId": "55Gtx1H5xI0",
+    "cover": "lisbon-specialfx-cover.webp",
+    "type": "specialfx"
+  },
+  {
+    "title": "Dutch Rope",
+    "videoId": "byJSdtw9vBg",
+    "cover": "dutch-rope-cover.jpg",
+    "type": "specialfx"
+  },
+  {
+    "title": "Sara Special FX",
+    "videoId": "AjWCN9sRBr4",
+    "cover": "ballet-specialfx-cover.webp",
+    "type": "specialfx"
+  },
+  {
+    "title": "Paris Fashion",
+    "videoId": "PplwREAl5tY",
+    "cover": "paris-fashion-cover.jpg",
+    "type": "fashion"
+  },
+  {
+    "title": "London Fashion",
+    "videoId": "coJxXp6ilz4",
+    "cover": "london-fashion-cover.jpg",
+    "type": "fashion"
+  },
+  {
+    "title": "NYC Fashion",
+    "videoId": "SwcHk4niyio",
+    "cover": "nyc-fashion-cover.jpg",
+    "type": "fashion"
+  },
+  {
+    "title": "Paris Travel 2",
+    "videoId": "CgPgIru_ouI",
+    "cover": "paris-travel-2-cover.webp",
+    "type": "travel"
+  },
+  {
+    "title": "Paris Travel 1",
+    "videoId": "g0uxeujBaW0",
+    "cover": "paris-travel-1-cover.webp",
+    "type": "travel"
+  },
+  {
+    "title": "Paris Travel 0",
+    "videoId": "ab-3MVjNqwQ",
+    "cover": "paris-travel-0-cover.jpeg",
+    "type": "travel"
+  },
+  {
+    "title": "Barcelona Travel",
+    "videoId": "TEpste8lXls",
+    "cover": "barcelona-travel-cover.webp",
+    "type": "travel"
+  },
+  {
+    "title": "Lisbon Travel",
+    "videoId": "o1dUgV59m0c",
+    "cover": "lisbon-travel-cover.jpeg",
+    "type": "travel"
+  },
+  {
+    "title": "Berlin Travel",
+    "videoId": "IZHm_SeFfmo",
+    "cover": "berlin-travel-cover.webp",
+    "type": "travel"
   }
 ]
 
