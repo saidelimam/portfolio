@@ -82,12 +82,16 @@ function openProjectModal(projectIndex) {
       <button class="modal-close" aria-label="Close details">&times;</button>
     </div>
     <div class="modal-body">
-      ${project.embed ? `<div class="${project.type === 'film' ? 'modal-embed-responsive' : 'modal-embed'}">
+      ${
+        project.embed
+          ? `<div class="${project.type === 'film' ? 'modal-embed-responsive' : 'modal-embed'}">
         <div class="iframe-loading">
           <div class="loading-spinner"></div>
         </div>
         ${project.embed}
-      </div>` : `<p class="modal-description">${headline}</p>`}
+      </div>`
+          : `<p class="modal-description">${headline}</p>`
+      }
       <div class="modal-content-wrapper">
         <div class="modal-details">
           <h3>Project Details</h3>
@@ -127,7 +131,7 @@ function openProjectModal(projectIndex) {
   if (project.embed) {
     const iframe = modalContent.querySelector('iframe');
     const loadingSpinner = modalContent.querySelector('.iframe-loading');
-    
+
     if (iframe && loadingSpinner) {
       // Check if iframe is already loaded
       if (iframe.complete) {
@@ -137,7 +141,7 @@ function openProjectModal(projectIndex) {
         iframe.addEventListener('load', () => {
           loadingSpinner.style.display = 'none';
         });
-        
+
         // Fallback: hide spinner after 5 seconds if iframe doesn't load
         setTimeout(() => {
           if (loadingSpinner) {

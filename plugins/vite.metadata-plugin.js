@@ -30,9 +30,9 @@ export default function metadataPlugin() {
               `                            <a href="${company.url}" target="_blank" class="company-tag" role="listitem" rel="noopener noreferrer" aria-label="${company.name} company">${company.name}</a>`
           )
           .join('\n');
-        
+
         // Replace all tags
-        
+
         html = html.replace(/{{TITLE}}/g, metadata.person.name);
         html = html.replace(
           /{{META_DESCRIPTION}}/g,
@@ -50,7 +50,7 @@ export default function metadataPlugin() {
           /{{FACEBOOK_APP_ID}}/g,
           `<meta property="fb:app_id" content="${metadata.person.facebookAppId}"/>`
         );
-        
+
         html = html.replace(
           /{{OG_URL}}/g,
           `<meta property="og:url" content="${metadata.person.website}"/>`

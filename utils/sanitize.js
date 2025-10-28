@@ -11,7 +11,7 @@ export function sanitizeHTML(str) {
     '>': '&gt;',
     '"': '&quot;',
     "'": '&#x27;',
-    '/': '&#x2F;'
+    '/': '&#x2F;',
   };
   const reg = /[&<>"'/]/gi;
   return String(str).replace(reg, (match) => map[match]);
@@ -27,4 +27,3 @@ export function sanitizeURL(url) {
   }
   return url;
 }
-

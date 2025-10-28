@@ -36,7 +36,7 @@ export default function projectsPlugin() {
 
             // Sanitize snapshot URL for use in CSS
             const snapshotURL = project.snapshot ? sanitizeURL(project.snapshot) : '';
-            
+
             return `                    <article class="project-card" data-project="${index}" role="listitem" ${snapshotURL ? `style="background-image: url('${snapshotURL}');"` : ''}>
                       <div class="project-card-overlay"></div>
                       <div class="project-type-icon project-type-${project.type}">

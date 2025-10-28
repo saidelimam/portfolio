@@ -20,7 +20,7 @@ export default function photographyPlugin() {
 
         // Read all image files from the directory
         const files = readdirSync(photoDir)
-          .filter(file => /\.(jpg|jpeg|webp|png)$/i.test(file))
+          .filter((file) => /\.(jpg|jpeg|webp|png)$/i.test(file))
           .sort();
 
         if (files.length === 0) {
@@ -46,4 +46,3 @@ export default function photographyPlugin() {
     },
   };
 }
-
