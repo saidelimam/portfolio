@@ -32,7 +32,7 @@ export default function photographyPlugin() {
         const photosHTML = files
           .map((file, index) => {
             const alt = `Photography ${index + 1}`;
-            return `            <div class="photo-item" role="listitem">
+            return `            <div class="photo-item" role="listitem" tabindex="0" aria-label="View image ${index + 1}: ${alt}">
               <img src="/img/photography/${file}" alt="${alt}" loading="lazy" />
             </div>`;
           })
