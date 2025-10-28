@@ -412,7 +412,7 @@ footer {
       gap: 2rem;
     }
 
-    @media (min-width: @breakpoint-md + 1px) {
+    @media (min-width: @breakpoint-md-up) {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
@@ -650,80 +650,6 @@ footer {
   }
 }
 
-
-// Demoreels accordion
-.videography-accordion {
-  max-width: 900px;
-  margin: 2rem auto;
-  
-  .video-item {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    margin-bottom: 1rem;
-    
-    .video-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.5rem;
-      cursor: pointer;
-      background: rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(10px);
-      border-radius: 8px;
-      .transition();
-      user-select: none;
-      
-      &:hover {
-        background: rgba(255, 255, 255, 0.8);
-      }
-      
-      .video-title {
-        font-size: 1.2rem;
-        font-weight: 500;
-        color: @text-color;
-        margin: 0;
-      }
-      
-      .video-toggle {
-        font-size: 1.5rem;
-        color: @accent-color;
-        .transition(transform);
-      }
-      
-      &.active .video-toggle {
-        transform: rotate(180deg);
-      }
-    }
-    
-    .video-content {
-      max-height: 0;
-      overflow: hidden;
-      .transition(max-height);
-      padding: 0 1.5rem;
-      
-      &.active {
-        max-height: 1000px;
-        padding: 1.5rem;
-      }
-      
-      .video-embed {
-        position: relative;
-        padding-bottom: 56.25%; // 16:9 aspect ratio
-        height: 0;
-        overflow: hidden;
-        border-radius: 8px;
-        
-        iframe {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border: none;
-        }
-      }
-    }
-  }
-}
 
 // Skills section
 .skills {
