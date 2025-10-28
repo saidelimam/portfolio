@@ -337,3 +337,53 @@
     border-radius: @border-radius-md;
   }
 }
+
+// Discography grid
+.discography-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  margin: 2rem auto;
+  max-width: 800px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .album-card {
+    background: @white;
+    border-radius: @border-radius-lg;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    .transition();
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  .album-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    .album-title {
+      margin: 0;
+      font-size: 1.5rem;
+      color: @text-color;
+    }
+
+    .album-date {
+      font-size: 0.9rem;
+      color: @text-light;
+    }
+  }
+
+  .album-embed {
+    width: 100%;
+    border-radius: @border-radius-md;
+    overflow: hidden;
+  }
+}

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Photography Gallery - {{TITLE}}</title>
+    <title>Discography - {{TITLE}}</title>
 
     <!-- Favicons -->
     <link rel="icon" type="image/webp" href="public/favicon.webp" />
@@ -31,13 +31,11 @@
     <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     {{META_DESCRIPTION}}
-
+    
     <!-- SEO -->
-    <meta
-      name="keywords"
-      content="photography, portfolio, Said Elimam, gallery, professional photography, visual arts"
-    />
-    {{META_AUTHOR}} {{META_COPYRIGHT}}
+    <meta name="keywords" content="discography, music, Said Elimam, albums, music production, compositions" />
+    {{META_AUTHOR}}
+    {{META_COPYRIGHT}}
     <meta name="language" content="en" />
     <meta name="revisit-after" content="7 days" />
     <meta name="rating" content="general" />
@@ -46,14 +44,38 @@
     <meta name="geo.placename" content="Paris" />
     <meta name="geo.position" content="48.8566;2.3522" />
     <meta name="ICBM" content="48.8566, 2.3522" />
-    <meta name="theme-color" content="#3b82f6" />
-    <meta name="msapplication-TileColor" content="#3b82f6" />
+    <meta name="theme-color" content="#eab308" />
+    <meta name="msapplication-TileColor" content="#eab308" />
+    <link rel="canonical" href="{{OG_URL}}/discography" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{OG_URL}}/discography" />
+    <meta property="og:title" content="Discography - {{TITLE}}" />
+    <meta property="og:description" content="Explore my discography - A collection of music compositions and albums" />
+    <meta property="og:image" content="{{OG_IMAGE}}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Discography - {{TITLE}}" />
+    {{FACEBOOK_APP_ID}}
+    <meta property="og:site_name" content="{{TITLE}} Portfolio" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="{{OG_URL}}/discography" />
+    <meta property="twitter:title" content="Discography - {{TITLE}}" />
+    <meta property="twitter:description" content="Explore my discography - A collection of music compositions and albums" />
+    <meta property="twitter:image" content="{{OG_IMAGE}}" />
+    <meta property="twitter:image:alt" content="Discography - {{TITLE}}" />
   </head>
 
   <body>
     <header role="banner">
       <nav class="container" role="navigation" aria-label="Main navigation">
-        <a class="logo" href="/" aria-label="Home - Said Elimam"> {{LOGO_IMG}} </a>
+        <a class="logo" href="/" aria-label="Home - Said Elimam">
+          {{LOGO_IMG}}
+        </a>
         <ul class="nav-links" role="list">
           <li role="listitem"><a href="/" aria-label="Go to Home">Home</a></li>
           <li role="listitem"><a href="/photography" aria-label="Go to Photography gallery">Photography</a></li>
@@ -64,11 +86,13 @@
     </header>
 
     <main role="main">
-      <section id="photography-gallery" class="gallery-section">
+      <section id="discography-gallery" class="gallery-section">
         <div class="gallery-container">
-          <h1 class="gallery-title">Photography</h1>
-
-          <div class="photo-mosaic" role="list" aria-label="Photography gallery">{{PHOTOS}}</div>
+          <h1 class="gallery-title">Discography</h1>
+          
+          <div class="discography-grid" role="list" aria-label="Discography">
+            {{ALBUMS}}
+          </div>
         </div>
       </section>
     </main>
@@ -82,19 +106,11 @@
       </div>
     </footer>
 
-    <button class="scroll-to-top" aria-label="Scroll to top" style="display: none">
+    <button class="scroll-to-top" aria-label="Scroll to top" style="display: none;">
       <i class="fas fa-chevron-up" aria-hidden="true"></i>
     </button>
 
-    <!-- Image Lightbox Modal -->
-    <div id="image-modal" class="image-modal" role="dialog" aria-modal="true" aria-label="Image viewer">
-      <div class="image-modal-backdrop"></div>
-      <div class="image-modal-content">
-        <img src="" alt="" class="image-modal-img" />
-      </div>
-    </div>
-
     <script type="module" src="../src/js/main.js"></script>
-    <script type="module" src="../src/js/gallery.js"></script>
   </body>
 </html>
+
