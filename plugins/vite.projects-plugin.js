@@ -46,6 +46,7 @@ export default function projectsPlugin() {
                           ${projectIcon}
                           <h3>${project.title}</h3>
                       </div>
+                      ${project.date ? `<span class="project-date">${sanitizeHTML(project.date)}</span>` : ''}
                       <p>${project.description}</p>
                       <div class="project-links">
                           ${project.links
