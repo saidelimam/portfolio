@@ -59,7 +59,7 @@ export default function projectsPlugin() {
           })
           .join('\n');
 
-        return html.replace(/<!--\s*PROJECTS\s*-->/, projectsHTML);
+        return html.replace(/{{PROJECTS}}/, projectsHTML);
       } catch (error) {
         console.error('Error in projects plugin:', error);
         return html;

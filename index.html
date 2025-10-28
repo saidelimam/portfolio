@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title><!-- TITLE --> | Portfolio</title>
+    <title>{{TITLE}} | Portfolio</title>
 
     <!-- Favicons -->
     <link rel="icon" type="image/webp" href="public/favicon.webp" />
@@ -30,15 +30,15 @@
     <meta http-equiv="X-Frame-Options" content="DENY" />
     <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <!-- META_DESCRIPTION -->
+    {{META_DESCRIPTION}}
 
     <!-- SEO -->
     <meta
       name="keywords"
       content="Said Elimam, filmmaker, music composer, engineer, Paris, portfolio, videographer, photographer, music production, film production"
     />
-    <!-- META_AUTHOR -->
-    <!-- META_COPYRIGHT -->
+    {{META_AUTHOR}}
+    {{META_COPYRIGHT}}
     <meta name="language" content="en" />
     <meta name="revisit-after" content="7 days" />
     <meta name="rating" content="general" />
@@ -57,27 +57,27 @@
     <link rel="alternate" hreflang="x-default" href="https://www.saidelimam.com/" />
 
     <!-- Open Graph / Facebook -->
-    <!-- FACEBOOK_APP_ID -->
+    {{FACEBOOK_APP_ID}}
     <meta property="og:type" content="website" />
-    <!-- OG_URL -->
-    <!-- OG_TITLE -->
-    <!-- OG_DESCRIPTION -->
-    <!-- OG_IMAGE -->
+    {{OG_URL}}
+    {{OG_TITLE}}
+    {{OG_DESCRIPTION}}
+    {{OG_IMAGE}}
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <!-- OG_IMAGE_ALT -->
-    <!-- OG_SITE_NAME -->
+    {{OG_IMAGE_ALT}}
+    {{OG_SITE_NAME}}
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="fr_FR" />
     <meta property="og:locale:alternate" content="ar_AR" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <!-- TWITTER_URL -->
-    <!-- TWITTER_TITLE -->
-    <!-- TWITTER_DESCRIPTION -->
-    <!-- TWITTER_IMAGE -->
-    <!-- TWITTER_IMAGE_ALT -->
+    {{TWITTER_URL}}
+    {{TWITTER_TITLE}}
+    {{TWITTER_DESCRIPTION}}
+    {{TWITTER_IMAGE}}
+    {{TWITTER_IMAGE_ALT}}
   </head>
   <body>
     <div class="cinematic-background"></div>
@@ -95,7 +95,7 @@
     <header role="banner">
       <nav class="container" role="navigation" aria-label="Main navigation">
         <a class="logo" href="/" aria-label="Home - Said Elimam">
-          <!-- LOGO_IMG -->
+          {{LOGO_IMG}}
         </a>
         <ul class="nav-links" role="list">
           <li role="listitem"><a href="#about" aria-label="Go to About section">About</a></li>
@@ -116,10 +116,10 @@
               onerror="this.style.display='none'; this.parentElement.style.display='none';"
             />
           </div>
-          <h1 id="home-heading" class="sr-only"><!-- HERO_H1 --></h1>
-          <p><!-- HERO_TAGLINE --></p>
+          <h1 id="home-heading" class="sr-only">{{HERO_H1}}</h1>
+          <p>{{HERO_TAGLINE}}</p>
           <div class="hero-social-links" role="list" aria-label="Social media links">
-            <!-- SOCIAL_LINKS -->
+            {{SOCIAL_LINKS}}
           </div>
           <a href="#projects" class="cta-button" aria-label="View featured projects">Featured Projects</a>
         </div>
@@ -129,21 +129,21 @@
         <div class="container">
           <h2 id="about-heading">About Me</h2>
           <p style="text-align: center; font-size: 1.1rem; max-width: 800px; margin: 0 auto">
-            <!-- ABOUT_DESCRIPTION -->
+            {{ABOUT_DESCRIPTION}}
           </p>
 
           <div class="about-subsections">
             <div class="about-subsection">
               <h3>Skills & Expertise</h3>
               <div class="skills" role="list" aria-label="Skills">
-                <!-- SKILLS -->
+                {{SKILLS}}
               </div>
             </div>
 
             <div class="about-subsection">
               <h3>They trusted me</h3>
               <div class="companies" role="list" aria-label="Companies worked with">
-                <!-- COMPANIES -->
+                {{COMPANIES}}
               </div>
             </div>
           </div>
@@ -154,7 +154,7 @@
         <div class="container">
           <h2 id="projects-heading">Featured Projects:</h2>
           <div class="projects-grid" role="list" aria-label="Project cards">
-            <!-- PROJECTS -->
+            {{PROJECTS}}
           </div>
         </div>
       </section>
@@ -166,7 +166,7 @@
             A showcase of my work organized by year. Click on a year to see the demoreel.
           </p>
           <div class="videography-accordion" role="list" aria-label="Video projects">
-            <!-- DEMOREELS -->
+            {{DEMOREELS}}
           </div>
         </div>
       </section>
