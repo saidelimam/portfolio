@@ -79,12 +79,12 @@
 .gallery-section {
   min-height: 100vh;
   padding-top: 6rem;
-  
+
   .gallery-container {
     max-width: 100%;
     padding: 0;
   }
-  
+
   .gallery-title {
     text-align: center;
     margin-bottom: 3rem;
@@ -92,33 +92,33 @@
     font-size: 2.5rem;
     font-weight: 700;
   }
-  
+
   .photo-mosaic {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 0;
-    
+
     .photo-item {
       position: relative;
       overflow: hidden;
       aspect-ratio: 1;
-      
+
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         .transition();
-        
+
         &:hover {
           transform: scale(1.05);
         }
       }
     }
-    
+
     @media (max-width: @breakpoint-md) {
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
-    
+
     @media (max-width: @breakpoint-sm) {
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
@@ -139,12 +139,12 @@
   opacity: 0;
   visibility: hidden;
   .transition();
-  
+
   &.active {
     opacity: 1;
     visibility: visible;
   }
-  
+
   .image-modal-backdrop {
     position: absolute;
     top: 0;
@@ -157,13 +157,13 @@
     opacity: 1;
     .transition();
   }
-  
+
   &.active .image-modal-backdrop {
     background: rgba(0, 0, 0, 0.9);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
   }
-  
+
   .image-modal-content {
     position: relative;
     z-index: 1;
@@ -172,7 +172,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     img {
       max-width: 100%;
       max-height: 90vh;
@@ -181,25 +181,25 @@
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
       .transition(all, 0.3s, ease-out);
       transform: translateX(0);
-      
+
       &.slide-out-left {
         animation: slideOutLeft 0.2s ease-out forwards;
       }
-      
+
       &.slide-out-right {
         animation: slideOutRight 0.2s ease-out forwards;
       }
-      
+
       &.slide-in-left {
         animation: slideInLeft 0.2s ease-out forwards;
       }
-      
+
       &.slide-in-right {
         animation: slideInRight 0.2s ease-out forwards;
       }
     }
   }
-  
+
   // Disable animations on low-performance devices
   .low-performance &,
   .opera-no-animations & {
@@ -297,7 +297,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     img {
       width: 100%;
       height: 100%;
@@ -337,4 +337,3 @@
     border-radius: @border-radius-md;
   }
 }
-

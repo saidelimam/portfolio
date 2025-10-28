@@ -4,4 +4,3 @@
  */
 
 export { sanitizeHTML, sanitizeURL } from '../../utils/sanitize.js';
-

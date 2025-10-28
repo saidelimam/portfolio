@@ -447,12 +447,12 @@ footer {
   position: relative;
   overflow: hidden;
   font-weight: bold;
-  
+
   // Background image with blur
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  
+
   // Overlay for better text readability
   .project-card-overlay {
     position: absolute;
@@ -466,7 +466,7 @@ footer {
     z-index: 1;
     .transition();
   }
-  
+
   // Content should be above overlay
   > *:not(.project-card-overlay) {
     position: relative;
@@ -476,7 +476,7 @@ footer {
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    
+
     .project-card-overlay {
       background: rgba(248, 249, 250, 0.8);
     }
@@ -505,7 +505,7 @@ footer {
     &.project-type-dev {
       background: @type-dev-color;
       box-shadow: 0 2px 8px fade(@type-dev-color, 30%);
-      
+
       &:hover {
         transform: scale(1.1);
         box-shadow: 0 4px 12px fade(@type-dev-color, 40%);
@@ -516,7 +516,7 @@ footer {
     &.project-type-film {
       background: @type-film-color;
       box-shadow: 0 2px 8px fade(@type-film-color, 30%);
-      
+
       &:hover {
         transform: scale(1.1);
         box-shadow: 0 4px 12px fade(@type-film-color, 40%);
@@ -527,7 +527,7 @@ footer {
     &.project-type-music {
       background: @type-music-color;
       box-shadow: 0 2px 8px fade(@type-music-color, 30%);
-      
+
       &:hover {
         transform: scale(1.1);
         box-shadow: 0 4px 12px fade(@type-music-color, 40%);
@@ -538,7 +538,7 @@ footer {
     &:not(.project-type-dev):not(.project-type-film):not(.project-type-music) {
       background: @accent-color;
       box-shadow: 0 2px 8px rgba(194, 24, 91, 0.3);
-      
+
       &:hover {
         transform: scale(1.1);
         box-shadow: 0 4px 12px rgba(194, 24, 91, 0.4);
@@ -649,7 +649,6 @@ footer {
     box-shadow: 0 4px 12px rgba(194, 24, 91, 0.3);
   }
 }
-
 
 // Skills section
 .skills {
@@ -824,4 +823,3 @@ footer {
     border-bottom: none !important;
   }
 }
-

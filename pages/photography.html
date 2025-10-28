@@ -31,11 +31,13 @@
     <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     {{META_DESCRIPTION}}
-    
+
     <!-- SEO -->
-    <meta name="keywords" content="photography, portfolio, Said Elimam, gallery, professional photography, visual arts" />
-    {{META_AUTHOR}}
-    {{META_COPYRIGHT}}
+    <meta
+      name="keywords"
+      content="photography, portfolio, Said Elimam, gallery, professional photography, visual arts"
+    />
+    {{META_AUTHOR}} {{META_COPYRIGHT}}
     <meta name="language" content="en" />
     <meta name="revisit-after" content="7 days" />
     <meta name="rating" content="general" />
@@ -51,9 +53,7 @@
   <body>
     <header role="banner">
       <nav class="container" role="navigation" aria-label="Main navigation">
-        <a class="logo" href="/" aria-label="Home - Said Elimam">
-          {{LOGO_IMG}}
-        </a>
+        <a class="logo" href="/" aria-label="Home - Said Elimam"> {{LOGO_IMG}} </a>
         <ul class="nav-links" role="list">
           <li role="listitem"><a href="/" aria-label="Go to Home">Home</a></li>
           <li role="listitem"><a href="/photography" aria-label="Go to Photography gallery">Photography</a></li>
@@ -67,10 +67,8 @@
       <section id="photography-gallery" class="gallery-section">
         <div class="gallery-container">
           <h1 class="gallery-title">Photography</h1>
-          
-          <div class="photo-mosaic" role="list" aria-label="Photography gallery">
-            {{PHOTOS}}
-          </div>
+
+          <div class="photo-mosaic" role="list" aria-label="Photography gallery">{{PHOTOS}}</div>
         </div>
       </section>
     </main>
@@ -84,7 +82,7 @@
       </div>
     </footer>
 
-    <button class="scroll-to-top" aria-label="Scroll to top" style="display: none;">
+    <button class="scroll-to-top" aria-label="Scroll to top" style="display: none">
       <i class="fas fa-chevron-up" aria-hidden="true"></i>
     </button>
 
@@ -100,4 +98,3 @@
     <script type="module" src="../src/js/gallery.js"></script>
   </body>
 </html>
-

@@ -72,7 +72,14 @@ export default defineConfig({
   assetsInclude: ['**/*.webp', '**/*.jpg', '**/*.png', '**/*.svg'],
 
   // Plugins
-  plugins: [metadataPlugin(), projectsPlugin(), linksPlugin(), photographyPlugin(), videographyPlugin(), pagesPlugin()],
+  plugins: [
+    metadataPlugin(),
+    projectsPlugin(),
+    linksPlugin(),
+    photographyPlugin(),
+    videographyPlugin(),
+    pagesPlugin(),
+  ],
 
   // Optimize dependencies
   optimizeDeps: {
