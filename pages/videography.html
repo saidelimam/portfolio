@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Photography Gallery - {{TITLE}}</title>
+    <title>Videography Gallery - {{TITLE}}</title>
 
     <!-- Favicons -->
     <link rel="icon" type="image/webp" href="public/favicon.webp" />
@@ -33,7 +33,7 @@
     {{META_DESCRIPTION}}
     
     <!-- SEO -->
-    <meta name="keywords" content="photography, portfolio, Said Elimam, gallery, professional photography, visual arts" />
+    <meta name="keywords" content="videography, portfolio, Said Elimam, gallery, professional videography, video production" />
     {{META_AUTHOR}}
     {{META_COPYRIGHT}}
     <meta name="language" content="en" />
@@ -44,8 +44,8 @@
     <meta name="geo.placename" content="Paris" />
     <meta name="geo.position" content="48.8566;2.3522" />
     <meta name="ICBM" content="48.8566, 2.3522" />
-    <meta name="theme-color" content="#3b82f6" />
-    <meta name="msapplication-TileColor" content="#3b82f6" />
+    <meta name="theme-color" content="#ef4444" />
+    <meta name="msapplication-TileColor" content="#ef4444" />
   </head>
 
   <body>
@@ -64,12 +64,12 @@
     </header>
 
     <main role="main">
-      <section id="photography-gallery" class="gallery-section">
+      <section id="videography-gallery" class="gallery-section">
         <div class="gallery-container">
-          <h1 class="gallery-title">Photography</h1>
+          <h1 class="gallery-title">Videography</h1>
           
-          <div class="photo-mosaic" role="list" aria-label="Photography gallery">
-            {{PHOTOS}}
+          <div class="video-grid" role="list" aria-label="Videography gallery">
+            {{VIDEOS}}
           </div>
         </div>
       </section>
@@ -88,16 +88,8 @@
       <i class="fas fa-chevron-up" aria-hidden="true"></i>
     </button>
 
-    <!-- Image Lightbox Modal -->
-    <div id="image-modal" class="image-modal" role="dialog" aria-modal="true" aria-label="Image viewer">
-      <div class="image-modal-backdrop"></div>
-      <div class="image-modal-content">
-        <img src="" alt="" class="image-modal-img" />
-      </div>
-    </div>
-
     <script type="module" src="../src/js/main.js"></script>
-    <script type="module" src="../src/js/gallery.js"></script>
+    <script type="module" src="../src/js/videography.js"></script>
   </body>
 </html>
 
