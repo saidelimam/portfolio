@@ -25,13 +25,13 @@ export default function discographyPlugin() {
             const date = album.date || '';
             const embed = album.embed || '';
 
-            return `            <div class="album-card" role="listitem">
+            return `            <article class="album-card" role="listitem">
               <div class="album-header">
                 <h2 class="album-title">${title}</h2>
-                <span class="album-date">${date}</span>
+                ${date ? `<time class="album-date" datetime="${date}">${date}</time>` : ''}
               </div>
-              ${embed ? `<div class="album-embed">${embed}</div>` : ''}
-            </div>`;
+              ${embed ? `<div class="album-embed" aria-label="Music player for ${title}">${embed}</div>` : ''}
+            </article>`;
           })
           .join('\n');
 

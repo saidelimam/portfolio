@@ -26,9 +26,9 @@ export default function videographyPlugin() {
             const title = sanitizeHTML(video.title);
             const videoId = video.videoId;
 
-            return `            <div class="video-item" role="listitem" data-video-id="${videoId}">
-              <div class="video-cover">
-                <img src="${coverSrc}" alt="${title}" loading="lazy" />
+            return `            <div class="video-item" role="listitem" data-video-id="${videoId}" tabindex="0" aria-label="Play video: ${title}">
+              <div class="video-cover" role="button" aria-label="Play ${title}">
+                <img src="${coverSrc}" alt="Cover image for ${title}" loading="lazy" />
                 <div class="play-button" aria-label="Play ${title}">
                   <i class="fas fa-play" aria-hidden="true"></i>
                 </div>
