@@ -3,6 +3,9 @@
  * Handles smooth scrolling, header effects, and other interactive features
  */
 
+// Import LESS styles for processing by Vite
+import '../styles/main.less';
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', async function () {
   // Performance and browser detection
