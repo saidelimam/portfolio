@@ -3,8 +3,15 @@
  * Opens images in a full-screen modal when clicked
  */
 
+// Animation duration in milliseconds
+const SWIPE_ANIMATION_DURATION = 200;
+
 let currentPhotoIndex = 0;
 let allPhotos = [];
+let touchStartX = null;
+let touchStartY = null;
+let touchEndX = null;
+let touchEndY = null;
 
 // Initialize gallery lightbox on DOM load
 document.addEventListener('DOMContentLoaded', () => {
@@ -60,6 +67,11 @@ function initializeGalleryLightbox() {
       }
     }
   });
+
+  // Touch/swipe navigation
+  modal.addEventListener('touchstart', handleTouchStart, { passive: true });
+  modal.addEventListener('touchmove', handleTouchMove, { passive: true });
+  modal.addEventListener('touchend', handleTouchEnd, { passive: true });
 }
 
 /**
@@ -121,9 +133,9 @@ function navigateToPrevious() {
       modalImg.classList.add('slide-in-left');
       setTimeout(() => {
         modalImg.classList.remove('slide-in-left');
-      }, 300);
+      }, SWIPE_ANIMATION_DURATION);
     });
-  }, 300);
+  }, SWIPE_ANIMATION_DURATION);
 }
 
 /**
@@ -161,9 +173,9 @@ function navigateToNext() {
       modalImg.classList.add('slide-in-right');
       setTimeout(() => {
         modalImg.classList.remove('slide-in-right');
-      }, 300);
+      }, SWIPE_ANIMATION_DURATION);
     });
-  }, 300);
+  }, SWIPE_ANIMATION_DURATION);
 }
 
 /**
@@ -178,5 +190,67 @@ function closeImageModal() {
   
   // Re-enable body scroll
   document.body.style.overflow = '';
+}
+
+/**
+ * Handle touch start event
+ */
+function handleTouchStart(e) {
+  const modal = document.getElementById('image-modal');
+  if (!modal?.classList.contains('active')) return;
+  
+  // Get the first touch point
+  const touch = e.touches[0];
+  touchStartX = touch.clientX;
+  touchStartY = touch.clientY;
+}
+
+/**
+ * Handle touch move event
+ */
+function handleTouchMove(e) {
+  if (touchStartX === null || touchStartY === null) return;
+  
+  // Get current touch position
+  const touch = e.touches[0];
+  touchEndX = touch.clientX;
+  touchEndY = touch.clientY;
+}
+
+/**
+ * Handle touch end event and detect swipe gesture
+ */
+function handleTouchEnd(e) {
+  if (touchStartX === null || touchStartY === null || touchEndX === null || touchEndY === null) {
+    return;
+  }
+
+  const modal = document.getElementById('image-modal');
+  if (!modal?.classList.contains('active')) return;
+
+  // Calculate swipe distance
+  const deltaX = touchEndX - touchStartX;
+  const deltaY = touchEndY - touchStartY;
+
+  // Minimum swipe distance (in pixels) to trigger navigation
+  const minSwipeDistance = 50;
+
+  // Check if it's a horizontal swipe (more horizontal than vertical)
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    // Swipe left (negative deltaX) = next photo
+    if (deltaX < -minSwipeDistance) {
+      navigateToNext();
+    }
+    // Swipe right (positive deltaX) = previous photo
+    else if (deltaX > minSwipeDistance) {
+      navigateToPrevious();
+    }
+  }
+
+  // Reset touch coordinates
+  touchStartX = null;
+  touchStartY = null;
+  touchEndX = null;
+  touchEndY = null;
 }
 
