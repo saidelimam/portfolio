@@ -12,7 +12,8 @@ This is the complete documentation for Said Elimam's Portfolio Website Template.
 - [Browser Support](#browser-support)
 - [License](#license)
 
-For contributing guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
+For contributing guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).  
+For security configuration, see [SECURITY.md](SECURITY.md).
 
 ---
 

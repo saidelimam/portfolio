@@ -108,7 +108,7 @@ npm run preview  # Preview production build
 - ✅ Fast performance
 - ✅ Accessible (WCAG compliant)
 - ✅ Gallery pages for photos/videos/music
-- ✅ Security headers included
+- ✅ Security headers included (see [SECURITY.md](SECURITY.md))
 - ✅ Hot Module Replacement (HMR)
 - ✅ Data-driven with JSON files
 
