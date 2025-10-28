@@ -4,6 +4,7 @@ import projectsPlugin from './plugins/vite.projects-plugin.js';
 import linksPlugin from './plugins/vite.links-plugin.js';
 import demoreelsPlugin from './plugins/vite.demoreels-plugin.js';
 import photographyPlugin from './plugins/vite.photography-plugin.js';
+import videographyPlugin from './plugins/vite.videography-plugin.js';
 import pagesPlugin from './plugins/vite.pages-plugin.js';
 
 export default defineConfig({
@@ -43,6 +44,7 @@ export default defineConfig({
         index: 'index.html',
         privacy: 'pages/privacy.html',
         photography: 'pages/photography.html',
+        videography: 'pages/videography.html',
       },
       output: {
         manualChunks: undefined, // Single chunk for better caching
@@ -71,7 +73,7 @@ export default defineConfig({
   assetsInclude: ['**/*.webp', '**/*.jpg', '**/*.png', '**/*.svg'],
 
   // Plugins
-  plugins: [metadataPlugin(), projectsPlugin(), linksPlugin(), demoreelsPlugin(), photographyPlugin(), pagesPlugin()],
+  plugins: [metadataPlugin(), projectsPlugin(), linksPlugin(), demoreelsPlugin(), photographyPlugin(), videographyPlugin(), pagesPlugin()],
 
   // Optimize dependencies
   optimizeDeps: {
