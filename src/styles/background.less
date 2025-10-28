@@ -67,6 +67,16 @@
       animation: none;
     }
   }
+
+  // Pause animations when class is added to body
+  .animations-paused & {
+    animation-play-state: paused;
+
+    &::before,
+    &::after {
+      animation-play-state: paused;
+    }
+  }
 }
 
 .dust-particles {
@@ -142,6 +152,11 @@
 .opera-no-animations .dust-particles,
 .low-performance .dust-particles {
   animation: none;
+}
+
+// Pause dust animations when class is added to body
+.animations-paused .dust-particles {
+  animation-play-state: paused;
 }
 
 // Keyframes
