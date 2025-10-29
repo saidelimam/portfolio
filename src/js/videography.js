@@ -74,6 +74,12 @@ function loadVideo(videoItem) {
   cover.style.display = 'none';
   playButton.style.display = 'none';
 
+  // Create loading spinner
+  const loadingSpinner = document.createElement('div');
+  loadingSpinner.className = 'iframe-loading';
+  loadingSpinner.innerHTML = '<div class="loading-spinner"></div>';
+  videoItem.appendChild(loadingSpinner);
+
   // Create iframe for YouTube embed
   const iframe = document.createElement('iframe');
   iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
@@ -91,4 +97,18 @@ function loadVideo(videoItem) {
 
   // Append iframe to video item
   videoItem.appendChild(iframe);
+
+  // Hide spinner when iframe loads
+  iframe.addEventListener('load', () => {
+    if (loadingSpinner) {
+      loadingSpinner.style.display = 'none';
+    }
+  });
+
+  // Fallback: hide spinner after 5 seconds if iframe doesn't load
+  setTimeout(() => {
+    if (loadingSpinner && loadingSpinner.parentElement) {
+      loadingSpinner.style.display = 'none';
+    }
+  }, 5000);
 }

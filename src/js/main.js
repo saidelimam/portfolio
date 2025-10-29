@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   initializeHeaderScrollEffect();
   // initializeAnimations(); // Disabled animations on home
   initializeScrollToTop();
-  initializeVideoAccordion();
   initializeBackgroundAnimations();
+  initializeDiscographyEmbeds();
 
   // Initialize projects module
   if (window.ProjectsModule) {
@@ -261,38 +261,6 @@ function initializeScrollToTop() {
 }
 
 /**
- * Initialize video accordion functionality
- */
-function initializeVideoAccordion() {
-  const videoHeaders = document.querySelectorAll('.video-header');
-
-  videoHeaders.forEach((header) => {
-    header.addEventListener('click', () => {
-      const item = header.parentElement;
-      const content = item.querySelector('.video-content');
-      const isActive = header.classList.contains('active');
-
-      // Close all other items
-      document.querySelectorAll('.video-item').forEach((otherItem) => {
-        if (otherItem !== item) {
-          otherItem.querySelector('.video-header').classList.remove('active');
-          otherItem.querySelector('.video-content').classList.remove('active');
-        }
-      });
-
-      // Toggle current item
-      if (isActive) {
-        header.classList.remove('active');
-        content.classList.remove('active');
-      } else {
-        header.classList.add('active');
-        content.classList.add('active');
-      }
-    });
-  });
-}
-
-/**
  * Initialize background animations control based on scroll position
  * Stops animations when user scrolls past 500px
  */
@@ -314,5 +282,40 @@ function initializeBackgroundAnimations() {
     } else {
       document.body.classList.remove('animations-paused');
     }
+  });
+}
+
+/**
+ * Initialize discography embeds with loading spinners
+ */
+function initializeDiscographyEmbeds() {
+  const albumEmbeds = document.querySelectorAll('.album-embed');
+
+  albumEmbeds.forEach((embed) => {
+    const iframe = embed.querySelector('iframe');
+    const loadingSpinner = embed.querySelector('.iframe-loading');
+
+    if (!iframe || !loadingSpinner) return;
+
+    // Function to hide spinner
+    const hideSpinner = () => {
+      if (loadingSpinner) {
+        loadingSpinner.style.opacity = '0';
+        loadingSpinner.style.pointerEvents = 'none';
+        // Remove after transition
+        setTimeout(() => {
+          if (loadingSpinner) {
+            loadingSpinner.style.display = 'none';
+          }
+        }, 300);
+      }
+    };
+
+    // Hide spinner when iframe loads
+    iframe.addEventListener('load', hideSpinner);
+
+    // For Spotify embeds, hide spinner quickly to ensure iframe is visible
+    // Use a short timeout to allow iframe to start rendering
+    setTimeout(hideSpinner, 500);
   });
 }

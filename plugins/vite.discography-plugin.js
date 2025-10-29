@@ -30,7 +30,12 @@ export default function discographyPlugin() {
                 <h2 class="album-title">${title}</h2>
                 ${date ? `<time class="album-date" datetime="${date}">${date}</time>` : ''}
               </div>
-              ${embed ? `<div class="album-embed" aria-label="Music player for ${title}">${embed}</div>` : ''}
+              ${embed ? `<div class="album-embed" aria-label="Music player for ${title}">
+                <div class="iframe-loading">
+                  <div class="loading-spinner"></div>
+                </div>
+                ${embed}
+              </div>` : ''}
             </article>`;
           })
           .join('\n');
