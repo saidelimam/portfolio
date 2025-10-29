@@ -124,6 +124,9 @@ function openProjectModal(projectIndex) {
   modal.classList.add('active');
   document.body.classList.add('modal-open');
 
+  // Add browser history entry for modal
+  history.pushState({ modalOpen: true, projectIndex: projectIndex }, '', '#' + projectIndex);
+
   // Scroll modal content to top
   modalContent.scrollTop = 0;
 
@@ -193,7 +196,43 @@ function closeProjectModal() {
 
   modal.classList.remove('active');
   document.body.classList.remove('modal-open');
+
+  // Restore URL to original without adding history entry
+  history.replaceState(null, '', window.location.pathname);
 }
+
+/**
+ * Initialize browser navigation support for modals
+ */
+function initializeModalNavigation() {
+  window.addEventListener('popstate', function(event) {
+    const modal = document.getElementById('project-modal');
+    
+    if (modal && modal.classList.contains('active')) {
+      // Close the modal when browser back button is pressed
+      const modalContent = document.getElementById('modal-content');
+      
+      // Pause all media
+      const videos = modalContent.querySelectorAll('video');
+      videos.forEach((video) => video.pause());
+      
+      const audios = modalContent.querySelectorAll('audio');
+      audios.forEach((audio) => audio.pause());
+      
+      // Remove iframes to stop playback
+      const iframes = modalContent.querySelectorAll('iframe');
+      iframes.forEach((iframe) => {
+        iframe.src = '';
+      });
+      
+      modal.classList.remove('active');
+      document.body.classList.remove('modal-open');
+    }
+  });
+}
+
+// Initialize modal navigation support
+initializeModalNavigation();
 
 // Export functions for use in main.js
 window.ProjectsModule = {
