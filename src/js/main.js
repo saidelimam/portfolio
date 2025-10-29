@@ -8,6 +8,9 @@ import '../styles/main.less';
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', async function () {
+  // Mark body as loaded to show content after CSS is ready
+  document.body.classList.add('loaded');
+  
   // Performance and browser detection
   initializePerformanceOptimizations();
 
