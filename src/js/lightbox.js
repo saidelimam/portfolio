@@ -96,10 +96,8 @@ function openPhotoModal(index) {
 
   // Show modal - backdrop will animate automatically
   modal.classList.add('active');
+  document.documentElement.classList.add('modal-open');
   document.body.classList.add('modal-open');
-
-  // Prevent body scroll
-  document.body.style.overflow = 'hidden';
 }
 
 /**
@@ -196,10 +194,8 @@ function closeImageModal() {
   if (!modal) return;
 
   modal.classList.remove('active');
+  document.documentElement.classList.remove('modal-open');
   document.body.classList.remove('modal-open');
-
-  // Re-enable body scroll
-  document.body.style.overflow = '';
 }
 
 /**
