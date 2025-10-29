@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Privacy Policy - Said Elimam</title>
     <!-- Stylesheets - Loaded via JavaScript import for proper Vite processing -->
+    
+    <!-- Inline critical CSS to prevent FOUC -->
+    <style>
+      /* Prevent layout shift by hiding content until CSS loads */
+      body:not(.loaded) { opacity: 0; visibility: hidden; }
+      body:not(.loaded) * { opacity: 0; }
+      
+      /* Provide minimal styling before main CSS loads */
+      * { box-sizing: border-box; }
+    </style>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />

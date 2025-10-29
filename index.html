@@ -17,6 +17,16 @@
 
     <!-- Stylesheets - Loaded via JavaScript import for proper Vite processing -->
 
+    <!-- Inline critical CSS to prevent FOUC -->
+    <style>
+      /* Prevent layout shift by hiding content until CSS loads */
+      body:not(.loaded) { opacity: 0; visibility: hidden; }
+      body:not(.loaded) * { opacity: 0; }
+      
+      /* Provide minimal styling before main CSS loads */
+      * { box-sizing: border-box; }
+    </style>
+
     <!-- External stylesheets -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -97,6 +107,8 @@
             <img
               src="/img/profile_picture.jpg"
               alt="Said Elimam - Portrait"
+              width="200"
+              height="200"
               onerror="this.style.display='none'; this.parentElement.style.display='none';"
             />
           </div>
