@@ -122,6 +122,7 @@ function openProjectModal(projectIndex) {
 
   // Show modal
   modal.classList.add('active');
+  document.documentElement.classList.add('modal-open');
   document.body.classList.add('modal-open');
 
   // Add browser history entry for modal
@@ -195,6 +196,7 @@ function closeProjectModal() {
   });
 
   modal.classList.remove('active');
+  document.documentElement.classList.remove('modal-open');
   document.body.classList.remove('modal-open');
 
   // Restore URL to original without adding history entry
@@ -226,6 +228,7 @@ function initializeModalNavigation() {
       });
       
       modal.classList.remove('active');
+      document.documentElement.classList.remove('modal-open');
       document.body.classList.remove('modal-open');
     }
   });
