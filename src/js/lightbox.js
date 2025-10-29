@@ -1,5 +1,5 @@
 /**
- * Gallery Lightbox functionality
+ * Lightbox functionality
  * Opens images in a full-screen modal when clicked
  */
 

@@ -53,7 +53,7 @@ portfolio/
 │   ├── js/
 │   │   ├── main.js        # Core JavaScript functionality
 │   │   ├── projects.js    # Project modal and data management
-│   │   ├── gallery.js     # Photography gallery lightbox
+│   │   ├── lightbox.js    # Photography gallery lightbox
 │   │   ├── videography.js # Videography video loading
 │   │   └── utils.js       # Utility functions (sanitization)
 │   ├── styles/
