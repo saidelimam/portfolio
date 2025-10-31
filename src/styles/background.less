@@ -19,6 +19,11 @@
   animation: cinematicLights 60s ease-in-out infinite;
   pointer-events: none;
   transform-origin: center center;
+  // Hardware acceleration for smooth animations
+  transform: translateZ(0);
+  will-change: transform, filter;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 
   &::before,
   &::after {
@@ -90,6 +95,11 @@
   animation-duration: 40s, 8s;
   animation-timing-function: ease-in-out, ease-in-out;
   animation-iteration-count: infinite, infinite;
+  // Hardware acceleration for smooth particle animations
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .dust-particles:nth-child(1) {
