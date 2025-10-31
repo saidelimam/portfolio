@@ -51,6 +51,12 @@
 .glass-effect() {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  // Fallback for mobile devices - reduce blur for better performance
+  @media (max-width: 768px) {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
 }
 
 // Animations
@@ -122,6 +128,11 @@
   .transition();
   z-index: 1000;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  // Hardware acceleration for smooth animations
+  transform: translateZ(0);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 
   &.visible {
     opacity: 1;
@@ -181,6 +192,11 @@ header {
   width: 100%;
   top: 0;
   z-index: 1000;
+  // Hardware acceleration for smooth scrolling on mobile
+  transform: translateZ(0);
+  will-change: background-color;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 
   // Header scroll effect
   &.scrolled {
@@ -466,6 +482,10 @@ footer {
   position: relative;
   overflow: hidden;
   font-weight: bold;
+  // Hardware acceleration for hover transforms
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 
   // Background image with blur
   background-size: cover;

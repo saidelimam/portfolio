@@ -25,6 +25,10 @@
     font-weight: 500;
     color: @text-color;
     user-select: none;
+    // Hardware acceleration for hover transforms
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 
     i {
       font-size: 2rem;
@@ -139,6 +143,11 @@
   opacity: 0;
   visibility: hidden;
   .transition();
+  // Hardware acceleration for smooth animations
+  transform: translateZ(0);
+  will-change: opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 
   &.active {
     opacity: 1;
@@ -181,6 +190,10 @@
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
       .transition(all, 0.3s, ease-out);
       transform: translateX(0);
+      // Hardware acceleration for slide animations
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
 
       &.slide-out-left {
         animation: slideOutLeft 0.2s ease-out forwards;
@@ -281,6 +294,10 @@
     overflow: hidden;
     cursor: pointer;
     .transition();
+    // Hardware acceleration for hover transforms
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 
     &:hover {
       transform: scale(1.02);
@@ -380,6 +397,10 @@
     padding: 2rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     .transition();
+    // Hardware acceleration for hover transforms
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 
     &:hover {
       transform: translateY(-5px);

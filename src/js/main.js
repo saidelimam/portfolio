@@ -66,45 +66,59 @@ function initializeHeaderScrollEffect() {
 
   if (!header || !logoImg) return;
 
+  let isScrolled = false;
+  let rafId = null;
+
   window.addEventListener('scroll', function () {
-    const scrollY = window.scrollY;
-
-    if (scrollY > 100) {
-      header.style.background = 'rgba(255, 255, 255, 0.6)';
-      header.classList.add('scrolled');
-
-      // Change to black logo when scrolled
-      if (logoImg.src !== window.location.origin + '/img/logo-black.webp') {
-        logoImg.style.opacity = '0.7';
-        setTimeout(() => {
-          logoImg.src = '/img/logo-black.webp';
-          logoImg.style.opacity = '1';
-        }, 150);
-      }
-
-      // Change nav links to black when scrolled
-      navLinks.forEach((link) => {
-        link.style.color = '#333';
-      });
-    } else {
-      header.style.background = 'rgba(255, 255, 255, 0.1)';
-      header.classList.remove('scrolled');
-
-      // Change to white logo when at top
-      if (logoImg.src !== window.location.origin + '/img/logo-white.webp') {
-        logoImg.style.opacity = '0.7';
-        setTimeout(() => {
-          logoImg.src = '/img/logo-white.webp';
-          logoImg.style.opacity = '1';
-        }, 150);
-      }
-
-      // Change nav links to white when at top
-      navLinks.forEach((link) => {
-        link.style.color = '#fff';
-      });
+    // Cancel previous frame if still pending
+    if (rafId !== null) {
+      cancelAnimationFrame(rafId);
     }
-  });
+
+    rafId = requestAnimationFrame(function () {
+      const scrollY = window.scrollY;
+      const shouldBeScrolled = scrollY > 100;
+
+      // Only update if state changed to avoid unnecessary repaints
+      if (shouldBeScrolled !== isScrolled) {
+        isScrolled = shouldBeScrolled;
+
+        if (shouldBeScrolled) {
+          header.classList.add('scrolled');
+
+          // Change to black logo when scrolled
+          if (!logoImg.src.includes('logo-black.webp')) {
+            logoImg.style.opacity = '0.7';
+            setTimeout(() => {
+              logoImg.src = '/img/logo-black.webp';
+              logoImg.style.opacity = '1';
+            }, 150);
+          }
+
+          // Change nav links to black when scrolled
+          navLinks.forEach((link) => {
+            link.style.color = '#333';
+          });
+        } else {
+          header.classList.remove('scrolled');
+
+          // Change to white logo when at top
+          if (!logoImg.src.includes('logo-white.webp')) {
+            logoImg.style.opacity = '0.7';
+            setTimeout(() => {
+              logoImg.src = '/img/logo-white.webp';
+              logoImg.style.opacity = '1';
+            }, 150);
+          }
+
+          // Change nav links to white when at top
+          navLinks.forEach((link) => {
+            link.style.color = '#fff';
+          });
+        }
+      }
+    });
+  }, { passive: true });
 }
 
 /**
@@ -243,15 +257,22 @@ function initializeScrollToTop() {
   document.body.appendChild(scrollToTopButton);
 
   // Show/hide button based on scroll position
+  let scrollButtonRafId = null;
   window.addEventListener(
     'scroll',
-    debounce(function () {
-      if (window.scrollY > 50) {
-        scrollToTopButton.classList.add('visible');
-      } else {
-        scrollToTopButton.classList.remove('visible');
+    function () {
+      if (scrollButtonRafId !== null) {
+        cancelAnimationFrame(scrollButtonRafId);
       }
-    }, 100)
+      scrollButtonRafId = requestAnimationFrame(function () {
+        if (window.scrollY > 50) {
+          scrollToTopButton.classList.add('visible');
+        } else {
+          scrollToTopButton.classList.remove('visible');
+        }
+      });
+    },
+    { passive: true }
   );
 
   // Scroll to top functionality
@@ -273,19 +294,25 @@ function initializeBackgroundAnimations() {
 
   if (!cinematicBackground) return;
 
+  let backgroundAnimRafId = null;
   window.addEventListener('scroll', function () {
-    const scrollY = window.scrollY;
-    const shouldPause = scrollY > 500;
-
-    // Add/remove class to body to pause all animations via CSS
-    if (shouldPause) {
-      if (!document.body.classList.contains('animations-paused')) {
-        document.body.classList.add('animations-paused');
-      }
-    } else {
-      document.body.classList.remove('animations-paused');
+    if (backgroundAnimRafId !== null) {
+      cancelAnimationFrame(backgroundAnimRafId);
     }
-  });
+    backgroundAnimRafId = requestAnimationFrame(function () {
+      const scrollY = window.scrollY;
+      const shouldPause = scrollY > 500;
+
+      // Add/remove class to body to pause all animations via CSS
+      if (shouldPause) {
+        if (!document.body.classList.contains('animations-paused')) {
+          document.body.classList.add('animations-paused');
+        }
+      } else {
+        document.body.classList.remove('animations-paused');
+      }
+    });
+  }, { passive: true });
 }
 
 /**
