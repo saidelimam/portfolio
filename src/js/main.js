@@ -1,11 +1,13 @@
 /**
- * Portfolio Website JavaScript
- * Handles smooth scrolling, header effects, and other interactive features
+ * Portfolio Website JavaScript - Core transversal functionality
+ * Handles features used across all pages: smooth scrolling, header effects, scroll-to-top, background animations control, performance optimizations
+ * For home page specific functionality, see home.js
+ * For discography page specific functionality, see discography.js
  */
 
 // Import LESS styles for processing by Vite
 import '../styles/main.less';
-import { debounce, isInstagramBrowser, detectLowPerformanceDevice, createScrollHandler, hideIframeSpinner, preventImageDragAndRightClick } from './utils.js';
+import { debounce, isInstagramBrowser, detectLowPerformanceDevice, createScrollHandler } from './utils.js';
 
 // Constants
 const ANIMATION_PAUSE_SCROLL_THRESHOLD = 500; // Pause animations when scrolling past this pixel value
@@ -22,8 +24,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   initializeHeaderScrollEffect();
   initializeScrollToTop();
   initializeBackgroundAnimations();
-  initializeDiscographyEmbeds();
-  initializeProfilePictureSecurity();
 
   // Initialize projects module
   if (window.ProjectsModule) {
@@ -282,38 +282,4 @@ function initializeBackgroundAnimations() {
   });
   
   window.addEventListener('scroll', scrollHandler, { passive: true });
-}
-
-/**
- * Secure profile picture from drag and right-click
- */
-function initializeProfilePictureSecurity() {
-  const profilePicture = document.querySelector('.profile-picture img');
-  if (profilePicture) {
-    preventImageDragAndRightClick(profilePicture);
-  }
-}
-
-/**
- * Initialize discography embeds with loading spinners
- */
-function initializeDiscographyEmbeds() {
-  const albumEmbeds = document.querySelectorAll('.album-embed');
-
-  albumEmbeds.forEach((embed) => {
-    const iframe = embed.querySelector('iframe');
-    const loadingSpinner = embed.querySelector('.iframe-loading');
-
-    if (!iframe || !loadingSpinner) return;
-
-    // Function to hide spinner
-    const hideSpinner = () => hideIframeSpinner(loadingSpinner, 300);
-
-    // Hide spinner when iframe loads
-    iframe.addEventListener('load', hideSpinner);
-
-    // For Spotify embeds, hide spinner quickly to ensure iframe is visible
-    // Use a short timeout to allow iframe to start rendering
-    setTimeout(hideSpinner, 500);
-  });
 }
