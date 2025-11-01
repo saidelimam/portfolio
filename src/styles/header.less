@@ -179,49 +179,10 @@ nav {
   }
 }
 
-// Mobile and medium styles (≤480px)
-@media (max-width: @breakpoint-sm) {
-  .logo img {
-    height: 70px;
-    max-width: 300px;
-  }
-
-  .nav-links {
-    display: none;
-  }
-
-  // Header adjustments
-  header nav {
-    justify-content: center;
-  }
-
-  // Make header invisible with no filter on mobile
+// Mobile and tablet styles (≤768px) - hide header completely
+@media (max-width: @breakpoint-md) {
   header {
-    background: transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    box-shadow: none !important;
-    border-bottom: none !important;
-
-    // Even when scrolled, keep it transparent on mobile
-    &.scrolled {
-      background: transparent !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      box-shadow: none !important;
-    }
-  }
-}
-
-// Mobile styles (≤480px)
-@media (max-width: @breakpoint-sm) {
-  .logo img {
-    height: 50px;
-    max-width: 300px;
-  }
-
-  header {
-    padding: 0;
+    display: none !important;
   }
 }
 

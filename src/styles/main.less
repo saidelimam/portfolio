@@ -143,6 +143,12 @@ body {
   &.animations-paused {
     animation-play-state: paused;
   }
+
+  // Disable body gradient animation on mobile and tablet (≤768px)
+  @media (max-width: @breakpoint-md) {
+    animation: none !important;
+    background-size: 100% 100%;
+  }
 }
 
 // Animated gradient keyframes
@@ -168,6 +174,11 @@ body {
 // Main content
 main {
   padding-top: 60px;
+
+  // Remove padding on mobile/tablet since header is hidden
+  @media (max-width: @breakpoint-md) {
+    padding-top: 0;
+  }
 }
 
 // Footer

@@ -99,6 +99,21 @@
       animation-play-state: paused;
     }
   }
+
+  // Disable animations on mobile and tablet (≤768px)
+  @media (max-width: @breakpoint-md) {
+    animation: none !important;
+    will-change: auto;
+    transform: none;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+
+    &::before,
+    &::after {
+      animation: none !important;
+      display: none;
+    }
+  }
 }
 
 // Dust particles - only in hero/home section
@@ -197,6 +212,18 @@
 // Pause dust animations when class is added to body
 body.animations-paused .hero .dust-particles {
   animation-play-state: paused;
+}
+
+// Disable dust particle animations on mobile and tablet (≤768px)
+@media (max-width: @breakpoint-md) {
+  .hero .dust-particles {
+    animation: none !important;
+    will-change: auto;
+    transform: none;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+    display: none;
+  }
 }
 
 // Keyframes
