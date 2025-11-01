@@ -28,7 +28,7 @@ export default function videographyPlugin() {
 
             return `            <div class="video-item" role="listitem" data-video-id="${videoId}" tabindex="0" aria-label="Play video: ${title}">
               <div class="video-cover" role="button" aria-label="Play ${title}">
-                <img src="${coverSrc}" alt="Cover image for ${title}" loading="lazy" />
+                <img src="${coverSrc}" alt="Cover image for ${title}" loading="lazy" draggable="false" />
                 <div class="play-button" aria-label="Play ${title}">
                   <i class="fas fa-play" aria-hidden="true"></i>
                 </div>
