@@ -4,6 +4,7 @@
  */
 
 export { sanitizeHTML, sanitizeURL, sanitizeEmbed } from '../../utils/sanitize.js';
+export { getProjectTypeIcon } from '../../utils/project-icons.js';
 
 /**
  * Prevents dragging and right-clicking on an image element

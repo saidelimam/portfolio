@@ -115,6 +115,27 @@
     ]
   },
   {
+    "type": "community",
+    "date": "05/2018",
+    "title": "A Life Experience",
+    "icon": "img/icon/alifeexp.ico",
+    "headline": "Building a Global Community Around Talent and Travel",
+    "description": "An influencer brand that created a vibrant community of tens of thousands of followers across Facebook, Instagram, and YouTube, celebrating talented individuals from around the world through photos and videos.",
+    "details": "A Life Experience was an innovative influencer brand launched in 2018 that successfully built a global community around the themes of Travel and Talent. Over the course of three years, the brand amassed tens of thousands of followers across major social media platforms, creating a space where photos and videos were shared featuring talented individuals from different locations worldwide. The brand executed numerous large-scale projects including fashion shoots, dance performances, and video series showcasing Paris tourist spots. Hundreds of people participated in these collaborative projects, contributing to a rich tapestry of creative content. The brand operated from 2018 to 2021, creating lasting connections and memorable experiences before closing as a completed life experience.",
+    "embed": "<iframe width=\"100%\" height=\"500px\" src=\"https://www.youtube.com/embed/qfpU2F2pkqo?si=VigjUldovcJeJBV5\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
+    "tags": ["Influencer Brand", "Community", "Social Media", "Talent", "Travel", "Fashion", "Dance", "Paris"],
+    "links": [
+      {
+        "text": "Watch on YouTube",
+        "url": "https://www.youtube.com/watch?v=qfpU2F2pkqo"
+      },
+      {
+        "text": "Facebook Page",
+        "url": "https://www.facebook.com/ALifeExp/"
+      }
+    ]
+  },
+  {
     "type": "dev",
     "date": "05/2014",
     "title": "DCP Setup Maker",
