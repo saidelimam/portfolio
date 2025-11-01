@@ -5,7 +5,7 @@
 
 // Import LESS styles for processing by Vite
 import '../styles/main.less';
-import { debounce, isInstagramBrowser, detectLowPerformanceDevice, createScrollHandler, hideIframeSpinner } from './utils.js';
+import { debounce, isInstagramBrowser, detectLowPerformanceDevice, createScrollHandler, hideIframeSpinner, preventImageDragAndRightClick } from './utils.js';
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', async function () {
@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   initializeSmoothScrolling();
   initializeHeaderScrollEffect();
-  // initializeAnimations(); // Disabled animations on home
   initializeScrollToTop();
   initializeBackgroundAnimations();
   initializeDiscographyEmbeds();
+  initializeProfilePictureSecurity();
 
   // Initialize projects module
   if (window.ProjectsModule) {
@@ -151,30 +151,6 @@ function initializeHeaderScrollEffect() {
 }
 
 /**
- * Initialize scroll-triggered animations
- */
-function initializeAnimations() {
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px',
-  };
-
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('animate-in');
-      }
-    });
-  }, observerOptions);
-
-  // Observe elements for animation
-  const animatedElements = document.querySelectorAll(
-    '.project-card, .skill-tag, .company-tag, .section h2'
-  );
-  animatedElements.forEach((el) => observer.observe(el));
-}
-
-/**
  * Initialize performance optimizations
  * Disables animations for Opera browsers, in-app browsers, and low-performance devices
  */
@@ -276,7 +252,8 @@ function initializeScrollToTop() {
 
 /**
  * Initialize background animations control based on scroll position
- * Stops animations when user scrolls past 500px
+ * Pauses all animations (body gradient, cinematic background, lights, dust particles) 
+ * when user scrolls past 500px
  */
 function initializeBackgroundAnimations() {
   const cinematicBackground = document.querySelector('.cinematic-background');
@@ -288,7 +265,10 @@ function initializeBackgroundAnimations() {
     const scrollY = window.scrollY;
     const shouldPause = scrollY > 500;
 
-    // Add/remove class to body to pause all animations via CSS
+    // Add/remove class to body to pause all animations via CSS:
+    // - Body gradient animation (gradientShift)
+    // - Cinematic background and lights
+    // - Dust particles
     if (shouldPause) {
       if (!document.body.classList.contains('animations-paused')) {
         document.body.classList.add('animations-paused');
@@ -299,6 +279,16 @@ function initializeBackgroundAnimations() {
   });
   
   window.addEventListener('scroll', scrollHandler, { passive: true });
+}
+
+/**
+ * Secure profile picture from drag and right-click
+ */
+function initializeProfilePictureSecurity() {
+  const profilePicture = document.querySelector('.profile-picture img');
+  if (profilePicture) {
+    preventImageDragAndRightClick(profilePicture);
+  }
 }
 
 /**

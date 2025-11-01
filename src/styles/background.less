@@ -1,9 +1,9 @@
 // Import variables
 @import 'variables.less';
 
-// Cinematic animated background
-.cinematic-background {
-  position: fixed;
+// Cinematic animated background - only in hero/home section
+.hero .cinematic-background {
+  position: absolute;
   top: -50%;
   left: -50%;
   width: 200%;
@@ -26,7 +26,8 @@
   -webkit-backface-visibility: hidden;
   
   // Disable expensive background animations on Instagram browser
-  .instagram-browser & {
+  .instagram-browser .hero &,
+  .hero .instagram-browser & {
     animation: none !important;
     will-change: auto;
     transform: none;
@@ -77,8 +78,10 @@
     }
   }
 
-  .opera-no-animations &,
-  .low-performance & {
+  .opera-no-animations .hero &,
+  .hero .opera-no-animations &,
+  .low-performance .hero &,
+  .hero .low-performance & {
     animation: none;
 
     &::before,
@@ -88,7 +91,7 @@
   }
 
   // Pause animations when class is added to body
-  .animations-paused & {
+  body.animations-paused & {
     animation-play-state: paused;
 
     &::before,
@@ -98,8 +101,9 @@
   }
 }
 
-.dust-particles {
-  position: fixed;
+// Dust particles - only in hero/home section
+.hero .dust-particles {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -116,7 +120,8 @@
   -webkit-backface-visibility: hidden;
   
   // Disable particle animations on Instagram browser
-  .instagram-browser & {
+  .instagram-browser .hero &,
+  .hero .instagram-browser & {
     animation: none !important;
     will-change: auto;
     transform: none;
@@ -182,13 +187,15 @@
 }
 
 // Disable dust animation for non-performant devices
-.opera-no-animations .dust-particles,
-.low-performance .dust-particles {
+.opera-no-animations .hero .dust-particles,
+.hero .opera-no-animations .dust-particles,
+.low-performance .hero .dust-particles,
+.hero .low-performance .dust-particles {
   animation: none;
 }
 
 // Pause dust animations when class is added to body
-.animations-paused .dust-particles {
+body.animations-paused .hero .dust-particles {
   animation-play-state: paused;
 }
 
