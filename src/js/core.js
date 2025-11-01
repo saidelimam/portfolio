@@ -162,7 +162,12 @@ export function initializeHeaderScrollEffect() {
 export function initializeScrollToTop() {
   // Create scroll-to-top button
   const scrollToTopButton = document.createElement('button');
-  scrollToTopButton.innerHTML = '<i class="fas fa-chevron-up"></i>';
+  // Create icon element with Font Awesome chevron up icon and set aria-hidden to true for accessibility
+  // This is a more secure way to add the icon than using innerHTML
+  const icon = document.createElement('i');
+  icon.className = 'fas fa-chevron-up';
+  icon.setAttribute('aria-hidden', 'true');
+  scrollToTopButton.appendChild(icon);
   scrollToTopButton.className = 'scroll-to-top';
   scrollToTopButton.setAttribute('aria-label', 'Scroll to top');
 

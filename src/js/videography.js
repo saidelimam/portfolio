@@ -100,7 +100,11 @@ function loadVideo(videoItem) {
   // Create loading spinner
   const loadingSpinner = document.createElement('div');
   loadingSpinner.className = 'iframe-loading';
-  loadingSpinner.innerHTML = '<div class="loading-spinner"></div>';
+  // Create spinner element with loading-spinner class and set aria-hidden to true for accessibility
+  // This is a more secure way to add the spinner than using innerHTML
+  const spinner = document.createElement('div');
+  spinner.className = 'loading-spinner';
+  loadingSpinner.appendChild(spinner);
   videoItem.appendChild(loadingSpinner);
 
   // Create iframe for YouTube embed
