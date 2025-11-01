@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import layoutPlugin from './plugins/vite.layout-plugin.js';
 import metadataPlugin from './plugins/vite.metadata-plugin.js';
 import projectsPlugin from './plugins/vite.projects-plugin.js';
 import linksPlugin from './plugins/vite.links-plugin.js';
@@ -75,6 +76,7 @@ export default defineConfig({
 
   // Plugins
   plugins: [
+    layoutPlugin(), // Run first to merge layout.html with all pages
     metadataPlugin(),
     projectsPlugin(),
     linksPlugin(),

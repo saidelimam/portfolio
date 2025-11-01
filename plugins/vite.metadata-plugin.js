@@ -48,7 +48,7 @@ export default function metadataPlugin() {
         );
         html = html.replace(
           /{{FACEBOOK_APP_ID}}/g,
-          `<meta property="fb:app_id" content="${metadata.person.facebookAppId}"/>`
+          `<meta property="fb:app_id" content="${metadata.facebookAppId}"/>`
         );
 
         html = html.replace(
@@ -104,6 +104,10 @@ export default function metadataPlugin() {
         html = html.replace(/{{ABOUT_DESCRIPTION}}/g, metadata.about.description);
         html = html.replace(/{{SKILLS}}/g, skillsHTML);
         html = html.replace(/{{COMPANIES}}/g, companiesHTML);
+
+        // Replace theme color placeholder
+        const themeColor = metadata.themeColor || '#c2185b'; // Fallback to default if not set
+        html = html.replace(/{{THEME_COLOR}}/g, themeColor);
 
         return html;
       } catch (error) {
