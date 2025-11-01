@@ -3,7 +3,7 @@
  * Re-exports from shared utils file
  */
 
-export { sanitizeHTML, sanitizeURL } from '../../utils/sanitize.js';
+export { sanitizeHTML, sanitizeURL, sanitizeEmbed } from '../../utils/sanitize.js';
 
 /**
  * Prevents dragging and right-clicking on an image element

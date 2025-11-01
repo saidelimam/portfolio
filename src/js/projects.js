@@ -3,7 +3,7 @@
  * Handles modal functionality for static project cards
  */
 
-import { sanitizeHTML, sanitizeURL, pauseAllMedia, preventImageDragAndRightClick } from './utils.js';
+import { sanitizeHTML, sanitizeURL, sanitizeEmbed, pauseAllMedia, preventImageDragAndRightClick } from './utils.js';
 import { setModalOpen, removeModalOpen, initializeModalCloseHandlers, initializeModalNavigation, handleModalIframeSpinner } from './modals.js';
 
 // Project data loaded from JSON file
@@ -89,7 +89,7 @@ function openProjectModal(projectIndex) {
         <div class="iframe-loading">
           <div class="loading-spinner"></div>
         </div>
-        ${project.embed}
+        ${sanitizeEmbed(project.embed)}
       </div>`
           : `<p class="modal-description">${headline}</p>`
       }
