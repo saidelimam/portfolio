@@ -3,7 +3,7 @@
  * Handles modal functionality for static project cards
  */
 
-import { sanitizeHTML, sanitizeURL } from './utils.js';
+import { sanitizeHTML, sanitizeURL, setModalOpen, removeModalOpen, pauseAllMedia, hideIframeSpinner, preventImageDragAndRightClick } from './utils.js';
 
 // Project data loaded from JSON file
 let projectsData = [];
@@ -100,7 +100,7 @@ function openProjectModal(projectIndex) {
           ${project.credits ? `<p class="modal-credits"><strong>Credits:</strong> ${credits}</p>` : ''}
           <p class="modal-details-text">${details}</p>
         </div>
-        ${project.snapshot ? `<img src="${snapshotURL}" alt="${title} snapshot" class="modal-screenshot">` : ''}
+        ${project.snapshot ? `<img src="${snapshotURL}" alt="${title} snapshot" class="modal-screenshot" draggable="false">` : ''}
       </div>
       <div class="modal-technologies">
         <h3>Tags</h3>
@@ -122,8 +122,7 @@ function openProjectModal(projectIndex) {
 
   // Show modal
   modal.classList.add('active');
-  document.documentElement.classList.add('modal-open');
-  document.body.classList.add('modal-open');
+  setModalOpen();
 
   // Add browser history entry for modal
   history.pushState({ modalOpen: true, projectIndex: projectIndex }, '', '#' + projectIndex);
@@ -137,22 +136,23 @@ function openProjectModal(projectIndex) {
     const loadingSpinner = modalContent.querySelector('.iframe-loading');
 
     if (iframe && loadingSpinner) {
-      // Check if iframe is already loaded
-      if (iframe.complete) {
-        loadingSpinner.style.display = 'none';
-      } else {
-        // Hide spinner when iframe loads
-        iframe.addEventListener('load', () => {
-          loadingSpinner.style.display = 'none';
-        });
+      // Hide spinner when iframe loads
+      iframe.addEventListener('load', () => {
+        hideIframeSpinner(loadingSpinner);
+      });
 
-        // Fallback: hide spinner after 5 seconds if iframe doesn't load
-        setTimeout(() => {
-          if (loadingSpinner) {
-            loadingSpinner.style.display = 'none';
-          }
-        }, 5000);
-      }
+      // Fallback: hide spinner after 5 seconds if iframe doesn't load
+      setTimeout(() => {
+        hideIframeSpinner(loadingSpinner);
+      }, 5000);
+    }
+  }
+
+  // Secure snapshot image (prevent drag and right-click)
+  if (project.snapshot) {
+    const snapshotImg = modalContent.querySelector('.modal-screenshot');
+    if (snapshotImg) {
+      preventImageDragAndRightClick(snapshotImg);
     }
   }
 
@@ -182,22 +182,10 @@ function closeProjectModal() {
   const modalContent = document.getElementById('modal-content');
 
   // Pause all media (videos, audio, iframes) when closing modal
-  const videos = modalContent.querySelectorAll('video');
-  videos.forEach((video) => video.pause());
-
-  const audios = modalContent.querySelectorAll('audio');
-  audios.forEach((audio) => audio.pause());
-
-  // Remove iframes to stop playback (YouTube, Spotify, etc.)
-  const iframes = modalContent.querySelectorAll('iframe');
-  iframes.forEach((iframe) => {
-    // Save the src to restore later if needed
-    iframe.src = '';
-  });
+  pauseAllMedia(modalContent);
 
   modal.classList.remove('active');
-  document.documentElement.classList.remove('modal-open');
-  document.body.classList.remove('modal-open');
+  removeModalOpen();
 
   // Restore URL to original without adding history entry
   history.replaceState(null, '', window.location.pathname);
@@ -215,21 +203,10 @@ function initializeModalNavigation() {
       const modalContent = document.getElementById('modal-content');
       
       // Pause all media
-      const videos = modalContent.querySelectorAll('video');
-      videos.forEach((video) => video.pause());
-      
-      const audios = modalContent.querySelectorAll('audio');
-      audios.forEach((audio) => audio.pause());
-      
-      // Remove iframes to stop playback
-      const iframes = modalContent.querySelectorAll('iframe');
-      iframes.forEach((iframe) => {
-        iframe.src = '';
-      });
+      pauseAllMedia(modalContent);
       
       modal.classList.remove('active');
-      document.documentElement.classList.remove('modal-open');
-      document.body.classList.remove('modal-open');
+      removeModalOpen();
     }
   });
 }
