@@ -184,7 +184,7 @@ function initializeProjectModalNavigation() {
 // Initialize modal navigation support
 initializeProjectModalNavigation();
 
-// Export functions for use in main.js
+// Export functions for use in home.js
 window.ProjectsModule = {
   loadProjectsData,
   initializeProjectCards,

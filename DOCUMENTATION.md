@@ -57,13 +57,13 @@ portfolio/
 │   │   ├── videography-item.html # Videography item template
 │   │   └── discography-item.html # Discography item template
 │   ├── js/
-│   │   ├── main.js        # Core JavaScript functionality (header, scroll, scroll-to-top, background animations control) - transversal across pages
+│   │   ├── core.js        # Core transversal functionality exported as functions (header, scroll, scroll-to-top, performance optimizations)
 │   │   ├── discography.js  # Discography page specific functionality (album embeds with loading spinners)
-│   │   ├── projects.js    # Project modal and data management
-│   │   ├── lightbox.js    # Photography gallery lightbox with touch/swipe navigation
+│   │   ├── projects.js     # Project modal and data management
+│   │   ├── photography.js # Photography gallery lightbox with touch/swipe navigation
 │   │   ├── videography.js # Videography video loading with YouTube embeds
 │   │   ├── modals.js      # Shared modal functionality (open/close, navigation, spinners)
-│   │   ├── home.js        # Home page specific functionality (hero, profile picture, social links)
+│   │   ├── home.js        # Home page entry point (LESS styles, transversal functionality, background animations, profile picture, social links)
 │   │   └── utils.js       # Utility functions (sanitization, debounce, browser detection, image security)
 │   ├── styles/
 │   │   ├── main.less      # Main LESS file with imports
@@ -397,7 +397,6 @@ The HTML uses placeholder tags with double brackets `{{TAG}}` that are replaced 
 **Layout Placeholders:**
 - `{{MAIN_CONTENT}}` - Main page content (replaced with page's `<main>` inner content)
 - `{{NAV_LINKS}}` - Navigation links (replaced with page's nav links, or empty string if not found)
-- `{{MAIN_JS_PATH}}` - Main JavaScript path (auto-resolved: `src/js/main.js` or `../src/js/main.js`)
 - `{{ADDITIONAL_SCRIPTS}}` - Additional page-specific scripts
 
 #### Component Templates
@@ -447,13 +446,13 @@ The codebase is organized into several layers:
 - **`src/components/`**: HTML templates for gallery items (photography-item.html, videography-item.html, discography-item.html)
 
 **JavaScript Modules:**
-- **`src/js/main.js`**: Core functionality used across all pages (header scroll effects, smooth scrolling, scroll-to-top, background animations control, performance optimizations)
+- **`src/js/core.js`**: Core transversal functionality exported as functions (header scroll effects, smooth scrolling, scroll-to-top, performance optimizations)
+- **`src/js/home.js`**: Home page entry point (LESS styles import, transversal functionality, background animations control, projects module, profile picture security, social links)
 - **`src/js/projects.js`**: Project data loading, project cards initialization, and project modal management
-- **`src/js/lightbox.js`**: Photography gallery lightbox with touch/swipe navigation, keyboard controls, and image protection
+- **`src/js/photography.js`**: Photography gallery lightbox with touch/swipe navigation, keyboard controls, and image protection
 - **`src/js/videography.js`**: Video gallery initialization, YouTube embed loading with spinners, and cover image protection
 - **`src/js/discography.js`**: Discography page initialization, album embeds with loading spinners
 - **`src/js/modals.js`**: Shared modal utilities (open/close, browser navigation, close handlers, iframe spinner management)
-- **`src/js/home.js`**: Home page specific functionality (hero section, profile picture security, social links)
 - **`src/js/utils.js`**: Utility functions (debounce, browser detection, low-performance device detection, scroll handler creation, image security, iframe spinner hiding, media pausing)
 
 **Vite Plugins:**

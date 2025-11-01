@@ -1,12 +1,26 @@
 /**
- * Discography Page JavaScript
- * Handles discography page specific functionality: album embeds with loading spinners
+ * Discography Page JavaScript Entry Point
+ * Imports LESS styles and initializes transversal functionality and discography embeds
  */
 
+// Import LESS styles for processing by Vite
+import '../styles/main.less';
+import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop } from './core.js';
 import { hideIframeSpinner } from './utils.js';
 
-// Wait for DOM to be fully loaded
+// Initialize transversal functionality and discography embeds on DOM load
 document.addEventListener('DOMContentLoaded', function () {
+  // Mark body as loaded to show content after CSS is ready
+  document.body.classList.add('loaded');
+  
+  // Performance and browser detection
+  initializePerformanceOptimizations();
+
+  initializeSmoothScrolling();
+  initializeHeaderScrollEffect();
+  initializeScrollToTop();
+  
+  // Initialize discography embeds
   initializeDiscographyEmbeds();
 });
 

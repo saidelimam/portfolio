@@ -1,10 +1,29 @@
 /**
- * Lightbox functionality
- * Opens images in a full-screen modal when clicked
+ * Photography Gallery JavaScript Entry Point
+ * Imports LESS styles and initializes transversal functionality and lightbox
  */
 
+// Import LESS styles for processing by Vite
+import '../styles/main.less';
+import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop } from './core.js';
 import { preventImageDragAndRightClick } from './utils.js';
 import { setModalOpen, removeModalOpen } from './modals.js';
+
+// Initialize transversal functionality on DOM load
+document.addEventListener('DOMContentLoaded', () => {
+  // Mark body as loaded to show content after CSS is ready
+  document.body.classList.add('loaded');
+  
+  // Performance and browser detection
+  initializePerformanceOptimizations();
+
+  initializeSmoothScrolling();
+  initializeHeaderScrollEffect();
+  initializeScrollToTop();
+  
+  // Initialize lightbox
+  initializeGalleryLightbox();
+});
 
 // Animation duration in milliseconds
 const SWIPE_ANIMATION_DURATION = 200;
@@ -15,14 +34,6 @@ let touchStartX = null;
 let touchStartY = null;
 let touchEndX = null;
 let touchEndY = null;
-
-// Initialize gallery lightbox on DOM load
-document.addEventListener('DOMContentLoaded', () => {
-  // Use a small delay to ensure all content is rendered
-  setTimeout(() => {
-    initializeGalleryLightbox();
-  }, 100);
-});
 
 /**
  * Initialize the gallery lightbox functionality
@@ -296,3 +307,4 @@ function handleTouchEnd(e) {
   touchEndX = null;
   touchEndY = null;
 }
+

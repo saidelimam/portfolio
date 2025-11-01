@@ -65,24 +65,16 @@ export default function layoutPlugin() {
           // Merge body content: replace placeholders in layout with page content
           let mergedBody = layoutBodyContent;
           
-          // Determine main.js path based on page location
-          // For pages in pages/ directory, use ../src/js/main.js (relative path for dev)
-          // For pages in root, use src/js/main.js (relative path for dev)
-          // NOTE: In production, Vite will automatically:
-          // - Bundle and minify the JS files
-          // - Add content hashes to filenames (e.g., assets/main-abc123.js)
-          // - Replace these script paths with the actual hashed filenames
-          // So we just need to set the correct relative paths here for Vite to process
-          const isPageInSubdirectory = context.path && (context.path.includes('/pages/') || context.path.includes('pages/'));
-          const mainJsPath = isPageInSubdirectory ? '../src/js/main.js' : 'src/js/main.js';
-          mergedBody = mergedBody.replace(/\{\{MAIN_JS_PATH\}\}/g, mainJsPath);
+          // NOTE: We no longer inject a main.js script tag here
+          // Each page-specific script (home.js, photography.js, videography.js, discography.js)
+          // imports what it needs from core.js internally
+          // Vite handles bundling, minification, and hashing automatically in production
           
           // Combine all scripts (from head and body), remove duplicates
           const allScripts = [...new Set([...pageHeadScripts, ...pageBodyScripts])];
           
-          // Separate main.js from additional scripts
-          const mainJsScript = allScripts.find(script => script.includes('main.js'));
-          let additionalScripts = allScripts.filter(script => !script.includes('main.js'));
+          // All scripts are additional scripts (no main.js anymore - it's merged into home.js)
+          let additionalScripts = allScripts;
           
           // NOTE: Script path handling for production builds
           // In development: Vite serves files as-is, relative paths work correctly
@@ -125,11 +117,11 @@ export default function layoutPlugin() {
             .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
             .trim();
           
-          if (pageOtherContent) {
-            // Insert before closing body tag (before scripts)
-            // Find the first script tag (main.js or additional scripts) and insert content before it
-            mergedBody = mergedBody.replace(/(\s*)(<script type="module"[^>]*>)/i, `${pageOtherContent}\n    $1$2`);
-          }
+                  if (pageOtherContent) {
+                    // Insert before closing body tag (before scripts)
+                    // Find the first script tag and insert content before it
+                    mergedBody = mergedBody.replace(/(\s*)(<script type="module"[^>]*>)/i, `${pageOtherContent}\n    $1$2`);
+                  }
 
           // Reconstruct the HTML with merged content
           const htmlMatch = html.match(/<!doctype html>/i);

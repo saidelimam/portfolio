@@ -77,7 +77,7 @@ Edit `src/styles/variables.less` to match your brand colors.
 - `src/styles/variables.less` - Color scheme and styling
 - `src/js/utils.js` - Utility functions (debounce, browser detection, image security, etc.)
 - `src/js/modals.js` - Shared modal functionality
-- `src/js/lightbox.js` - Image lightbox functionality
+- `src/js/photography.js` - Photography gallery lightbox functionality
 
 ## 🎨 Gallery Pages
 

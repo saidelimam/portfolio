@@ -111,7 +111,7 @@
     </button>
 
     <!-- JavaScript - Load as modules for modern browsers (automatically deferred) -->
-    <script type="module" src="{{MAIN_JS_PATH}}" fetchpriority="high"></script>
+    <!-- NOTE: Vite automatically processes <script type="module"> tags and handles bundling/hashing -->
     {{ADDITIONAL_SCRIPTS}}
   </body>
 </html>
