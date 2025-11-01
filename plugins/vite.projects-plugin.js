@@ -1,6 +1,7 @@
 import { readFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
 import { sanitizeHTML, sanitizeURL } from '../utils/sanitize.js';
+import { getProjectTypeIcon } from '../utils/project-icons.js';
 
 export default function projectsPlugin() {
   return {
@@ -21,14 +22,7 @@ export default function projectsPlugin() {
         // Generate HTML for projects grid
         const projectsHTML = projectsData
           .map((project, index) => {
-            const typeIcon =
-              project.type === 'dev'
-                ? 'fa-code'
-                : project.type === 'film'
-                  ? 'fa-video'
-                  : project.type === 'music'
-                    ? 'fa-music'
-                    : 'fa-folder';
+            const typeIcon = getProjectTypeIcon(project.type);
 
             const projectIcon = project.icon
               ? `<img src="${project.icon}" alt="${project.title} icon" class="project-icon">`

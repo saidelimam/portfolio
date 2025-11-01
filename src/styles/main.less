@@ -505,8 +505,19 @@ footer {
       }
     }
 
+    // Community projects - Purple
+    &.project-type-community {
+      background: @type-community-color;
+      box-shadow: 0 2px 8px fade(@type-community-color, 30%);
+
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px fade(@type-community-color, 40%);
+      }
+    }
+
     // Default fallback
-    &:not(.project-type-dev):not(.project-type-film):not(.project-type-music) {
+    &:not(.project-type-dev):not(.project-type-film):not(.project-type-music):not(.project-type-community) {
       background: @accent-color;
       box-shadow: 0 2px 8px rgba(194, 24, 91, 0.3);
 

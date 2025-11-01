@@ -3,7 +3,7 @@
  * Handles modal functionality for static project cards
  */
 
-import { sanitizeHTML, sanitizeURL, sanitizeEmbed, pauseAllMedia, preventImageDragAndRightClick } from './utils.js';
+import { sanitizeHTML, sanitizeURL, sanitizeEmbed, pauseAllMedia, preventImageDragAndRightClick, getProjectTypeIcon } from './utils.js';
 import { setModalOpen, removeModalOpen, initializeModalCloseHandlers, initializeModalNavigation, handleModalIframeSpinner } from './modals.js';
 
 // Project data loaded from JSON file
@@ -76,7 +76,7 @@ function openProjectModal(projectIndex) {
         ${
           project.icon
             ? `<img src="${iconURL}" alt="${title} icon" class="modal-icon">`
-            : `<i class="fas ${project.type === 'dev' ? 'fa-code' : project.type === 'film' ? 'fa-video' : project.type === 'music' ? 'fa-music' : 'fa-folder'}" class="modal-icon-fallback" aria-hidden="true"></i>`
+            : `<i class="fas ${getProjectTypeIcon(project.type)}" class="modal-icon-fallback" aria-hidden="true"></i>`
         }
         <h2 class="modal-title">${title}</h2>
       </div>
