@@ -4,10 +4,20 @@
 // Galleries section (buttons on index page)
 .galleries-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: 1fr;
   gap: 2rem;
   margin: 2rem auto;
-  max-width: 900px;
+  max-width: 1200px;
+
+  // 2 columns on medium screens
+  @media (min-width: @breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // 4 columns on larger screens
+  @media (min-width: @breakpoint-lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 
   .gallery-button {
     display: flex;
@@ -85,6 +95,18 @@
         background: fade(@gallery-disco-color, 10%);
         border-color: darken(@gallery-disco-color, 10%);
         box-shadow: 0 10px 30px fade(@gallery-disco-color, 20%);
+      }
+    }
+
+    // Dev Projects - Green (matches dev projects)
+    &.gallery-dev {
+      border-color: @gallery-dev-color;
+      color: @gallery-dev-color;
+
+      &:hover {
+        background: fade(@gallery-dev-color, 10%);
+        border-color: darken(@gallery-dev-color, 10%);
+        box-shadow: 0 10px 30px fade(@gallery-dev-color, 20%);
       }
     }
   }
