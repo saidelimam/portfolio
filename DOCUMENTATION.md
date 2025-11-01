@@ -56,6 +56,7 @@ portfolio/
 │   │   ├── lightbox.js    # Photography gallery lightbox with touch/swipe navigation
 │   │   ├── videography.js # Videography video loading with YouTube embeds
 │   │   ├── modals.js      # Shared modal functionality (open/close, navigation, spinners)
+│   │   ├── links.js       # Social links initialization
 │   │   └── utils.js       # Utility functions (sanitization, debounce, browser detection, image security)
 │   ├── styles/
 │   │   ├── main.less      # Main LESS file with imports
@@ -63,6 +64,7 @@ portfolio/
 │   │   ├── variables.less  # LESS variables and constants
 │   │   ├── modals.less    # Modal-specific styles
 │   │   ├── tooltips.less  # Custom tooltip styles
+│   │   ├── links.less     # Social links styles with responsive layout
 │   │   ├── performance.less # Performance optimizations (Instagram browser, low-performance devices)
 │   │   └── gallery.less   # Gallery styles (photography & videography)
 ├── dist/                  # Production build output
@@ -108,6 +110,8 @@ portfolio/
 - **Dynamic Logo**: Logo changes color based on scroll position (white/black) with smooth transitions
 - **Custom Tooltips**: Styled tooltips for social media links
 - **Social Links**: Brand-colored hover effects for each platform (Instagram gradient, Spotify green, etc.)
+  - Desktop (>768px): Rounded square icons with brand-colored hover effects
+  - Mobile/Tablet (≤768px): Full-width button layout in a column for better touch interaction
 - **Project Modals**: Detailed project information with snapshots, metadata, browser navigation support
 - **Modal System**: Shared modal utilities for consistent behavior (open/close, navigation, media pausing)
 - **Cinematic Background**: Rotating gradient background with animated spotlight effects (hero section only)
@@ -373,7 +377,7 @@ The project uses Vite for development and building. Key configuration in `vite.c
 
 ## Sections
 
-- **Hero**: Introduction with profile picture (protected), subtitle, animated background (gradient, cinematic lights, dust particles), social media links with brand-colored hover effects, and custom tooltips
+- **Hero**: Introduction with profile picture (protected), subtitle, animated background (gradient, cinematic lights, dust particles), social media links with responsive layout (rounded squares on desktop, full-width buttons on mobile/tablet), brand-colored hover effects, and custom tooltips
 - **About**: Personal description, skills expertise, and companies worked with in a responsive 2-column layout
 - **Projects**: Featured work showcase with interactive modals, browser navigation support, protected project snapshots, and metadata
 - **Galleries**: Navigation buttons to Photography, Videography, and Discography gallery pages

@@ -1,0 +1,107 @@
+// Import variables
+@import 'variables.less';
+
+// Social links styles
+.hero-social-links {
+  display: flex;
+  .flex-center();
+  gap: 1.5rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+
+  a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 1.8rem;
+    .transition();
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    .border-radius(50%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    i {
+      font-size: 1.3rem;
+      .transition();
+    }
+
+    // Instagram - gradient from purple to pink to orange
+    &:hover .fa-instagram {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    // IMDB - yellow/gold
+    &:hover .fa-imdb {
+      color: #725d11;
+    }
+
+    // Spotify - green
+    &:hover .fa-spotify {
+      color: #00af3d;
+    }
+
+    // LinkedIn - blue
+    &:hover .fa-linkedin {
+      color: #0077B5;
+    }
+
+    // YouTube - red
+    &:hover .fa-youtube {
+      color: #d60000;
+    }
+
+    // GitHub - dark gray/black
+    &:hover .fa-github {
+      color: #181717;
+    }
+
+    // Email - blue or accent color
+    &:hover .fa-envelope {
+      color: @white;
+    }
+  }
+}
+
+// Mobile and tablet responsive styles for social links
+// Desktop (>768px): Rounded square icons with brand-colored hover effects
+// Mobile/Tablet (≤768px): Full-width button layout in a column
+@media (max-width: @breakpoint-md) {
+  .hero-social-links {
+    gap: 0.5rem;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    margin: 0.5rem 0;
+
+    a {
+      min-width: 280px;
+      width: 80%;
+      height: auto;
+      border-radius: @border-radius-sm;
+      padding: 0.4rem 0.6rem;
+      display: inline-flex;
+      justify-content: flex-start;
+      white-space: nowrap;
+      font-size: 0.85rem;
+      color: @white !important;
+
+      &:hover {
+        color: @white !important;
+      }
+    }
+  }
+}
+
