@@ -3,6 +3,8 @@
  * Opens images in a full-screen modal when clicked
  */
 
+import { preventImageDragAndRightClick, setModalOpen, removeModalOpen } from './utils.js';
+
 // Animation duration in milliseconds
 const SWIPE_ANIMATION_DURATION = 200;
 
@@ -116,38 +118,12 @@ function openPhotoModal(index) {
   modalImg.setAttribute('alt', photo.alt);
   
   // Prevent dragging and right-click (only for mouse events, not touch)
-  modalImg.setAttribute('draggable', 'false');
-  
-  // Remove old listeners if they exist to avoid duplicates
-  if (modalImg._dragStartHandler) {
-    modalImg.removeEventListener('dragstart', modalImg._dragStartHandler);
-  }
-  if (modalImg._contextMenuHandler) {
-    modalImg.removeEventListener('contextmenu', modalImg._contextMenuHandler);
-  }
-  if (modalImg._selectStartHandler) {
-    modalImg.removeEventListener('selectstart', modalImg._selectStartHandler);
-  }
-  
-  // Create new handlers (contextmenu and dragstart are mouse-only, so safe to prevent)
-  modalImg._dragStartHandler = (e) => e.preventDefault();
-  modalImg._contextMenuHandler = (e) => e.preventDefault();
-  // selectstart might interfere with touch, so be more careful
-  modalImg._selectStartHandler = (e) => {
-    // Only prevent if it's definitely a mouse event (not part of a touch sequence)
-    if (!touchStartX && !touchEndX) {
-      e.preventDefault();
-    }
-  };
-  
-  modalImg.addEventListener('dragstart', modalImg._dragStartHandler, { passive: false });
-  modalImg.addEventListener('contextmenu', modalImg._contextMenuHandler, { passive: false });
-  modalImg.addEventListener('selectstart', modalImg._selectStartHandler, { passive: false });
+  // Only prevent selectstart if it's definitely a mouse event (not part of a touch sequence)
+  preventImageDragAndRightClick(modalImg, () => !touchStartX && !touchEndX);
 
   // Show modal - backdrop will animate automatically
   modal.classList.add('active');
-  document.documentElement.classList.add('modal-open');
-  document.body.classList.add('modal-open');
+  setModalOpen();
 }
 
 /**
@@ -244,8 +220,7 @@ function closeImageModal() {
   if (!modal) return;
 
   modal.classList.remove('active');
-  document.documentElement.classList.remove('modal-open');
-  document.body.classList.remove('modal-open');
+  removeModalOpen();
 }
 
 /**

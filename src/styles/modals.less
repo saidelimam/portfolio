@@ -237,6 +237,16 @@
     border-radius: @border-radius-md;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     align-self: center;
+    // Prevent image dragging and selection
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    pointer-events: auto;
   }
 
   h3 {

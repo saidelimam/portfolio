@@ -5,6 +5,7 @@
 
 // Import LESS styles for processing by Vite
 import '../styles/main.less';
+import { debounce, isInstagramBrowser, detectLowPerformanceDevice, createScrollHandler, hideIframeSpinner } from './utils.js';
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', async function () {
@@ -56,18 +57,6 @@ function initializeSmoothScrolling() {
   });
 }
 
-/**
- * Detect Instagram browser
- */
-function isInstagramBrowser() {
-  const userAgent = navigator.userAgent || '';
-  return (
-    userAgent.indexOf('Instagram') >= 0 || 
-    userAgent.indexOf('FBAN') >= 0 || 
-    userAgent.indexOf('FBAV') >= 0 ||
-    (userAgent.indexOf('Android') >= 0 && userAgent.indexOf('Version/') >= 0 && userAgent.indexOf('Chrome') < 0)
-  );
-}
 
 /**
  * Initialize header scroll effect
@@ -80,7 +69,6 @@ function initializeHeaderScrollEffect() {
   if (!header || !logoImg) return;
 
   let isScrolled = false;
-  let rafId = null;
 
   // Check if Instagram browser for simplified scroll handling
   const isInstaBrowser = isInstagramBrowser();
@@ -114,56 +102,51 @@ function initializeHeaderScrollEffect() {
     }, 100), { passive: true });
   } else {
     // Normal optimized scroll handling
-    window.addEventListener('scroll', function () {
-      // Cancel previous frame if still pending
-      if (rafId !== null) {
-        cancelAnimationFrame(rafId);
-      }
+    const scrollHandler = createScrollHandler(() => {
+      const scrollY = window.scrollY;
+      const shouldBeScrolled = scrollY > 100;
 
-      rafId = requestAnimationFrame(function () {
-        const scrollY = window.scrollY;
-        const shouldBeScrolled = scrollY > 100;
+      // Only update if state changed to avoid unnecessary repaints
+      if (shouldBeScrolled !== isScrolled) {
+        isScrolled = shouldBeScrolled;
 
-        // Only update if state changed to avoid unnecessary repaints
-        if (shouldBeScrolled !== isScrolled) {
-          isScrolled = shouldBeScrolled;
+        if (shouldBeScrolled) {
+          header.classList.add('scrolled');
 
-          if (shouldBeScrolled) {
-            header.classList.add('scrolled');
-
-            // Change to black logo when scrolled
-            if (!logoImg.src.includes('logo-black.webp')) {
-              logoImg.style.opacity = '0.7';
-              setTimeout(() => {
-                logoImg.src = '/img/logo-black.webp';
-                logoImg.style.opacity = '1';
-              }, 150);
-            }
-
-            // Change nav links to black when scrolled
-            navLinks.forEach((link) => {
-              link.style.color = '#333';
-            });
-          } else {
-            header.classList.remove('scrolled');
-
-            // Change to white logo when at top
-            if (!logoImg.src.includes('logo-white.webp')) {
-              logoImg.style.opacity = '0.7';
-              setTimeout(() => {
-                logoImg.src = '/img/logo-white.webp';
-                logoImg.style.opacity = '1';
-              }, 150);
-            }
-
-            // Change nav links to white when at top
-            navLinks.forEach((link) => {
-              link.style.color = '#fff';
-            });
+          // Change to black logo when scrolled
+          if (!logoImg.src.includes('logo-black.webp')) {
+            logoImg.style.opacity = '0.7';
+            setTimeout(() => {
+              logoImg.src = '/img/logo-black.webp';
+              logoImg.style.opacity = '1';
+            }, 150);
           }
+
+          // Change nav links to black when scrolled
+          navLinks.forEach((link) => {
+            link.style.color = '#333';
+          });
+        } else {
+          header.classList.remove('scrolled');
+
+          // Change to white logo when at top
+          if (!logoImg.src.includes('logo-white.webp')) {
+            logoImg.style.opacity = '0.7';
+            setTimeout(() => {
+              logoImg.src = '/img/logo-white.webp';
+              logoImg.style.opacity = '1';
+            }, 150);
+          }
+
+          // Change nav links to white when at top
+          navLinks.forEach((link) => {
+            link.style.color = '#fff';
+          });
         }
-      });
-    }, { passive: true });
+      }
+    });
+    
+    window.addEventListener('scroll', scrollHandler, { passive: true });
   }
 }
 
@@ -223,45 +206,6 @@ function initializePerformanceOptimizations() {
   }
 }
 
-/**
- * Detect low-performance devices based on hardware concurrency and memory
- */
-function detectLowPerformanceDevice() {
-  // Check hardware concurrency (CPU cores)
-  const cores = navigator.hardwareConcurrency || 4;
-
-  // Check device memory (if available)
-  const memory = navigator.deviceMemory || 4;
-
-  // Check connection speed (if available)
-  const connection = navigator.connection;
-  const slowConnection =
-    connection &&
-    (connection.effectiveType === 'slow-2g' ||
-      connection.effectiveType === '2g' ||
-      connection.saveData === true);
-
-  // Consider device low-performance if:
-  // - Less than 4 CPU cores
-  // - Less than 4GB RAM
-  // - Slow connection
-  return cores < 4 || memory < 4 || slowConnection;
-}
-
-/**
- * Utility function to debounce function calls
- */
-function debounce(func, wait) {
-  let timeout;
-  return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
-}
 
 /**
  * Handle mobile menu toggle (for future enhancement)
@@ -311,23 +255,15 @@ function initializeScrollToTop() {
   document.body.appendChild(scrollToTopButton);
 
   // Show/hide button based on scroll position
-  let scrollButtonRafId = null;
-  window.addEventListener(
-    'scroll',
-    function () {
-      if (scrollButtonRafId !== null) {
-        cancelAnimationFrame(scrollButtonRafId);
-      }
-      scrollButtonRafId = requestAnimationFrame(function () {
-        if (window.scrollY > 50) {
-          scrollToTopButton.classList.add('visible');
-        } else {
-          scrollToTopButton.classList.remove('visible');
-        }
-      });
-    },
-    { passive: true }
-  );
+  const scrollHandler = createScrollHandler(() => {
+    if (window.scrollY > 50) {
+      scrollToTopButton.classList.add('visible');
+    } else {
+      scrollToTopButton.classList.remove('visible');
+    }
+  });
+  
+  window.addEventListener('scroll', scrollHandler, { passive: true });
 
   // Scroll to top functionality
   scrollToTopButton.addEventListener('click', function () {
@@ -348,25 +284,21 @@ function initializeBackgroundAnimations() {
 
   if (!cinematicBackground) return;
 
-  let backgroundAnimRafId = null;
-  window.addEventListener('scroll', function () {
-    if (backgroundAnimRafId !== null) {
-      cancelAnimationFrame(backgroundAnimRafId);
-    }
-    backgroundAnimRafId = requestAnimationFrame(function () {
-      const scrollY = window.scrollY;
-      const shouldPause = scrollY > 500;
+  const scrollHandler = createScrollHandler(() => {
+    const scrollY = window.scrollY;
+    const shouldPause = scrollY > 500;
 
-      // Add/remove class to body to pause all animations via CSS
-      if (shouldPause) {
-        if (!document.body.classList.contains('animations-paused')) {
-          document.body.classList.add('animations-paused');
-        }
-      } else {
-        document.body.classList.remove('animations-paused');
+    // Add/remove class to body to pause all animations via CSS
+    if (shouldPause) {
+      if (!document.body.classList.contains('animations-paused')) {
+        document.body.classList.add('animations-paused');
       }
-    });
-  }, { passive: true });
+    } else {
+      document.body.classList.remove('animations-paused');
+    }
+  });
+  
+  window.addEventListener('scroll', scrollHandler, { passive: true });
 }
 
 /**
@@ -382,18 +314,7 @@ function initializeDiscographyEmbeds() {
     if (!iframe || !loadingSpinner) return;
 
     // Function to hide spinner
-    const hideSpinner = () => {
-      if (loadingSpinner) {
-        loadingSpinner.style.opacity = '0';
-        loadingSpinner.style.pointerEvents = 'none';
-        // Remove after transition
-        setTimeout(() => {
-          if (loadingSpinner) {
-            loadingSpinner.style.display = 'none';
-          }
-        }, 300);
-      }
-    };
+    const hideSpinner = () => hideIframeSpinner(loadingSpinner, 300);
 
     // Hide spinner when iframe loads
     iframe.addEventListener('load', hideSpinner);
