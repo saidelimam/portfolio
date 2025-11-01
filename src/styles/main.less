@@ -522,16 +522,25 @@ footer {
   position: relative;
   overflow: hidden;
   font-weight: bold;
-  // Hardware acceleration for hover transforms
-  will-change: transform;
+  // Hardware acceleration - force GPU layer to prevent flickering on scroll
+  transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  // Paint containment for better scroll performance
+  contain: layout style paint;
+  
+  // Only apply will-change on hover to avoid unnecessary optimization during scroll
+  &:hover {
+    will-change: transform;
+  }
   
   // Disable expensive transforms on problematic browsers
   .instagram-browser & {
+    transform: none;
     will-change: auto;
     backface-visibility: visible;
     -webkit-backface-visibility: visible;
+    contain: none;
     
     &:hover {
       transform: none;
@@ -556,6 +565,16 @@ footer {
     -webkit-backdrop-filter: blur(10px);
     z-index: 1;
     .transition();
+    // Hardware acceleration for overlay to prevent flickering
+    transform: translateZ(0);
+    will-change: background-color;
+    
+    // Disable expensive backdrop-filter on low-performance devices
+    .low-performance & {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: rgba(248, 249, 250, 0.95); // Slightly more opaque to compensate
+    }
   }
 
   // Content should be above overlay
