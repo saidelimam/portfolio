@@ -66,8 +66,13 @@ export default function layoutPlugin() {
           let mergedBody = layoutBodyContent;
           
           // Determine main.js path based on page location
-          // For pages in pages/ directory, use ../src/js/main.js
-          // For pages in root, use src/js/main.js
+          // For pages in pages/ directory, use ../src/js/main.js (relative path for dev)
+          // For pages in root, use src/js/main.js (relative path for dev)
+          // NOTE: In production, Vite will automatically:
+          // - Bundle and minify the JS files
+          // - Add content hashes to filenames (e.g., assets/main-abc123.js)
+          // - Replace these script paths with the actual hashed filenames
+          // So we just need to set the correct relative paths here for Vite to process
           const isPageInSubdirectory = context.path && (context.path.includes('/pages/') || context.path.includes('pages/'));
           const mainJsPath = isPageInSubdirectory ? '../src/js/main.js' : 'src/js/main.js';
           mergedBody = mergedBody.replace(/\{\{MAIN_JS_PATH\}\}/g, mainJsPath);
@@ -77,7 +82,17 @@ export default function layoutPlugin() {
           
           // Separate main.js from additional scripts
           const mainJsScript = allScripts.find(script => script.includes('main.js'));
-          const additionalScripts = allScripts.filter(script => !script.includes('main.js'));
+          let additionalScripts = allScripts.filter(script => !script.includes('main.js'));
+          
+          // NOTE: Script path handling for production builds
+          // In development: Vite serves files as-is, relative paths work correctly
+          // In production: Vite automatically processes all <script type="module"> tags:
+          //   1. Bundles and minifies the JS files
+          //   2. Adds content hashes to filenames (e.g., assets/main-abc123.js)
+          //   3. Replaces script src paths in HTML with the actual hashed filenames
+          //   4. Resolves paths relative to the source HTML file location
+          // So we keep relative paths here (../src/js/ or src/js/) and let Vite handle the rest
+          // The pages plugin moves files after build, but Vite has already resolved all paths correctly
           
           // Inject additional scripts
           if (additionalScripts.length > 0) {
@@ -112,7 +127,8 @@ export default function layoutPlugin() {
           
           if (pageOtherContent) {
             // Insert before closing body tag (before scripts)
-            mergedBody = mergedBody.replace(/(\s*)<script type="module" src="src\/js\/main\.js"/i, `${pageOtherContent}\n    $1<script type="module" src="src/js/main.js"`);
+            // Find the first script tag (main.js or additional scripts) and insert content before it
+            mergedBody = mergedBody.replace(/(\s*)(<script type="module"[^>]*>)/i, `${pageOtherContent}\n    $1$2`);
           }
 
           // Reconstruct the HTML with merged content

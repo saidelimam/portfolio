@@ -57,12 +57,13 @@ portfolio/
 │   │   ├── videography-item.html # Videography item template
 │   │   └── discography-item.html # Discography item template
 │   ├── js/
-│   │   ├── main.js        # Core JavaScript functionality (header, scroll, background animations)
+│   │   ├── main.js        # Core JavaScript functionality (header, scroll, scroll-to-top, background animations control) - transversal across pages
+│   │   ├── discography.js  # Discography page specific functionality (album embeds with loading spinners)
 │   │   ├── projects.js    # Project modal and data management
 │   │   ├── lightbox.js    # Photography gallery lightbox with touch/swipe navigation
 │   │   ├── videography.js # Videography video loading with YouTube embeds
 │   │   ├── modals.js      # Shared modal functionality (open/close, navigation, spinners)
-│   │   ├── links.js       # Social links initialization
+│   │   ├── home.js        # Home page specific functionality (hero, profile picture, social links)
 │   │   └── utils.js       # Utility functions (sanitization, debounce, browser detection, image security)
 │   ├── styles/
 │   │   ├── main.less      # Main LESS file with imports
@@ -446,12 +447,13 @@ The codebase is organized into several layers:
 - **`src/components/`**: HTML templates for gallery items (photography-item.html, videography-item.html, discography-item.html)
 
 **JavaScript Modules:**
-- **`src/js/main.js`**: Core functionality (header scroll effects, smooth scrolling, background animations, scroll-to-top, discography embeds, profile picture security)
+- **`src/js/main.js`**: Core functionality used across all pages (header scroll effects, smooth scrolling, scroll-to-top, background animations control, performance optimizations)
 - **`src/js/projects.js`**: Project data loading, project cards initialization, and project modal management
 - **`src/js/lightbox.js`**: Photography gallery lightbox with touch/swipe navigation, keyboard controls, and image protection
 - **`src/js/videography.js`**: Video gallery initialization, YouTube embed loading with spinners, and cover image protection
+- **`src/js/discography.js`**: Discography page initialization, album embeds with loading spinners
 - **`src/js/modals.js`**: Shared modal utilities (open/close, browser navigation, close handlers, iframe spinner management)
-- **`src/js/links.js`**: Social links initialization
+- **`src/js/home.js`**: Home page specific functionality (hero section, profile picture security, social links)
 - **`src/js/utils.js`**: Utility functions (debounce, browser detection, low-performance device detection, scroll handler creation, image security, iframe spinner hiding, media pausing)
 
 **Vite Plugins:**

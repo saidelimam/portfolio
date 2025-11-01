@@ -18,7 +18,10 @@ let touchEndY = null;
 
 // Initialize gallery lightbox on DOM load
 document.addEventListener('DOMContentLoaded', () => {
-  initializeGalleryLightbox();
+  // Use a small delay to ensure all content is rendered
+  setTimeout(() => {
+    initializeGalleryLightbox();
+  }, 100);
 });
 
 /**
@@ -29,7 +32,15 @@ function initializeGalleryLightbox() {
   const modal = document.getElementById('image-modal');
   const modalImg = modal?.querySelector('.image-modal-img');
 
-  if (!modal || !modalImg) return;
+  if (!modal || !modalImg) {
+    console.warn('Lightbox: Modal or modal image not found');
+    return;
+  }
+
+  if (photoItems.length === 0) {
+    console.warn('Lightbox: No photo items found');
+    return;
+  }
 
   // Store all photos in array for navigation
   allPhotos = Array.from(photoItems)

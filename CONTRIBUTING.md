@@ -37,7 +37,7 @@ The codebase follows a modular structure:
 - **Component Templates** (`src/components/`): HTML templates for gallery items (photography-item.html, videography-item.html, discography-item.html)
 - **Utilities** (`src/js/utils.js`): Extract reusable functions here (debounce, browser detection, image security, etc.)
 - **Modals** (`src/js/modals.js`): Shared modal functionality should go here
-- **Feature Modules**: Each feature has its own file (projects.js, lightbox.js, videography.js, links.js)
+- **Feature Modules**: Each feature has its own file (projects.js, lightbox.js, videography.js, home.js)
 - **Style Organization**: LESS files are organized by purpose (main, gallery, modals, background, header, performance)
 - **Vite Plugins** (`plugins/`): Custom build-time plugins for layout merging, data injection, and gallery generation
 
