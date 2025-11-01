@@ -60,7 +60,8 @@ function openProjectModal(projectIndex) {
   // Sanitize all input
   const title = sanitizeHTML(project.title || '');
   const headline = sanitizeHTML(project.headline || '');
-  const type = sanitizeHTML(project.type || '');
+  const rawType = project.type || '';
+  const type = rawType ? sanitizeHTML(rawType.charAt(0).toUpperCase() + rawType.slice(1).toLowerCase()) : '';
   const date = sanitizeHTML(project.date || '');
   const credits = sanitizeHTML(project.credits || '');
   const details = sanitizeHTML(project.details || '');
@@ -96,9 +97,11 @@ function openProjectModal(projectIndex) {
       <div class="modal-content-wrapper">
         <div class="modal-details">
           <h3>Project Details</h3>
-          ${project.type ? `<p class="modal-type"><strong>Type:</strong> ${type}</p>` : ''}
-          ${project.date ? `<p class="modal-date"><strong>Date:</strong> ${date}</p>` : ''}
-          ${project.credits ? `<p class="modal-credits"><strong>Credits:</strong> ${credits}</p>` : ''}
+          <div class="modal-meta">
+            ${project.type ? `<p class="modal-type"><strong>Type:</strong> ${type}</p>` : ''}
+            ${project.date ? `<p class="modal-date"><strong>Date:</strong> ${date}</p>` : ''}
+            ${project.credits ? `<p class="modal-credits"><strong>Credits:</strong> ${credits}</p>` : ''}
+          </div>
           <p class="modal-details-text">${details}</p>
         </div>
         ${project.snapshot ? `<img src="${snapshotURL}" alt="${title} snapshot" class="modal-screenshot" draggable="false">` : ''}

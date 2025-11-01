@@ -209,25 +209,21 @@
     flex: 1;
   }
 
-  .modal-type {
-    color: @text-light;
-    font-size: 0.9rem;
-    margin: 0.5rem 0 0.25rem;
-    font-style: italic;
+  .modal-meta {
+    margin: 0.5rem 0 1.5rem;
   }
 
-  .modal-date {
-    color: @text-light;
-    font-size: 0.9rem;
-    margin: 0.5rem 0 0.25rem;
-    font-style: italic;
-  }
-
+  .modal-type,
+  .modal-date,
   .modal-credits {
     color: @text-light;
     font-size: 0.9rem;
-    margin: 0.5rem 0 1rem;
+    margin: 0 0 0.5rem;
     font-style: italic;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .modal-screenshot {
