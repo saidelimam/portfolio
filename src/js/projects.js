@@ -3,7 +3,8 @@
  * Handles modal functionality for static project cards
  */
 
-import { sanitizeHTML, sanitizeURL, setModalOpen, removeModalOpen, pauseAllMedia, hideIframeSpinner, preventImageDragAndRightClick } from './utils.js';
+import { sanitizeHTML, sanitizeURL, pauseAllMedia, preventImageDragAndRightClick } from './utils.js';
+import { setModalOpen, removeModalOpen, initializeModalCloseHandlers, initializeModalNavigation, handleModalIframeSpinner } from './modals.js';
 
 // Project data loaded from JSON file
 let projectsData = [];
@@ -132,19 +133,9 @@ function openProjectModal(projectIndex) {
 
   // Handle iframe loading spinner
   if (project.embed) {
-    const iframe = modalContent.querySelector('iframe');
-    const loadingSpinner = modalContent.querySelector('.iframe-loading');
-
-    if (iframe && loadingSpinner) {
-      // Hide spinner when iframe loads
-      iframe.addEventListener('load', () => {
-        hideIframeSpinner(loadingSpinner);
-      });
-
-      // Fallback: hide spinner after 5 seconds if iframe doesn't load
-      setTimeout(() => {
-        hideIframeSpinner(loadingSpinner);
-      }, 5000);
+    const embedContainer = modalContent.querySelector('.modal-embed, .modal-embed-responsive');
+    if (embedContainer) {
+      handleModalIframeSpinner(embedContainer);
     }
   }
 
@@ -156,34 +147,20 @@ function openProjectModal(projectIndex) {
     }
   }
 
-  // Add close handlers
-  const closeBtn = modalContent.querySelector('.modal-close');
-  closeBtn.addEventListener('click', closeProjectModal);
-
-  modal.addEventListener('click', function (e) {
-    if (e.target === modal) {
-      closeProjectModal();
-    }
-  });
-
-  // Close on Escape key
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && modal.classList.contains('active')) {
-      closeProjectModal();
-    }
-  });
+  // Initialize modal close handlers
+  initializeModalCloseHandlers('project-modal', closeProjectModal);
 }
 
 /**
  * Close project modal
  */
 function closeProjectModal() {
-  const modal = document.getElementById('project-modal');
   const modalContent = document.getElementById('modal-content');
 
   // Pause all media (videos, audio, iframes) when closing modal
   pauseAllMedia(modalContent);
 
+  const modal = document.getElementById('project-modal');
   modal.classList.remove('active');
   removeModalOpen();
 
@@ -194,25 +171,18 @@ function closeProjectModal() {
 /**
  * Initialize browser navigation support for modals
  */
-function initializeModalNavigation() {
-  window.addEventListener('popstate', function(event) {
+function initializeProjectModalNavigation() {
+  const modalContent = document.getElementById('modal-content');
+  initializeModalNavigation('project-modal', () => {
+    pauseAllMedia(modalContent);
     const modal = document.getElementById('project-modal');
-    
-    if (modal && modal.classList.contains('active')) {
-      // Close the modal when browser back button is pressed
-      const modalContent = document.getElementById('modal-content');
-      
-      // Pause all media
-      pauseAllMedia(modalContent);
-      
-      modal.classList.remove('active');
-      removeModalOpen();
-    }
-  });
+    modal.classList.remove('active');
+    removeModalOpen();
+  }, modalContent);
 }
 
 // Initialize modal navigation support
-initializeModalNavigation();
+initializeProjectModalNavigation();
 
 // Export functions for use in main.js
 window.ProjectsModule = {
