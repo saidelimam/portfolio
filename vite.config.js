@@ -3,9 +3,7 @@ import layoutPlugin from './plugins/vite.layout-plugin.js';
 import metadataPlugin from './plugins/vite.metadata-plugin.js';
 import projectsPlugin from './plugins/vite.projects-plugin.js';
 import linksPlugin from './plugins/vite.links-plugin.js';
-import photographyPlugin from './plugins/vite.photography-plugin.js';
-import videographyPlugin from './plugins/vite.videography-plugin.js';
-import discographyPlugin from './plugins/vite.discography-plugin.js';
+import galleryPlugin from './plugins/vite.gallery-plugin.js';
 import pagesPlugin from './plugins/vite.pages-plugin.js';
 
 export default defineConfig({
@@ -80,9 +78,7 @@ export default defineConfig({
     metadataPlugin(),
     projectsPlugin(),
     linksPlugin(),
-    photographyPlugin(),
-    videographyPlugin(),
-    discographyPlugin(),
+    galleryPlugin(), // Generic gallery plugin for photography, videography, and discography
     pagesPlugin(),
   ],
 
