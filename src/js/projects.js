@@ -193,10 +193,5 @@ if (document.readyState === 'loading') {
   initializeProjectModalNavigation();
 }
 
-// Export functions for use in home.js
-window.ProjectsModule = {
-  loadProjectsData,
-  initializeProjectCards,
-  openProjectModal,
-  closeProjectModal,
-};
+// Export functions as ESM module exports
+export { loadProjectsData, initializeProjectCards, openProjectModal, closeProjectModal };
