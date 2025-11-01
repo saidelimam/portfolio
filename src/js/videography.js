@@ -1,13 +1,28 @@
 /**
- * Videography Gallery functionality
- * Loads YouTube videos when clicking on cover images
+ * Videography Gallery JavaScript Entry Point
+ * Imports LESS styles and initializes transversal functionality and video gallery
  */
 
+// Import LESS styles for processing by Vite
+import '../styles/main.less';
+import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop } from './core.js';
 import { preventImageDragAndRightClick, hideIframeSpinner } from './utils.js';
 
 let currentPlayingVideo = null;
 
+// Initialize transversal functionality and video gallery on DOM load
 document.addEventListener('DOMContentLoaded', () => {
+  // Mark body as loaded to show content after CSS is ready
+  document.body.classList.add('loaded');
+  
+  // Performance and browser detection
+  initializePerformanceOptimizations();
+
+  initializeSmoothScrolling();
+  initializeHeaderScrollEffect();
+  initializeScrollToTop();
+  
+  // Initialize video gallery
   initializeVideoGallery();
 });
 

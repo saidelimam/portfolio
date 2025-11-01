@@ -1,43 +1,47 @@
 /**
- * Portfolio Website JavaScript - Core transversal functionality
- * Handles features used across all pages: smooth scrolling, header effects, scroll-to-top, background animations control, performance optimizations
- * For home page specific functionality, see home.js
- * For discography page specific functionality, see discography.js
+ * Core transversal functionality
+ * Exports initialization functions for header, scroll-to-top, smooth scrolling, performance optimizations
+ * This is imported by page-specific scripts as needed
  */
 
-// Import LESS styles for processing by Vite
-import '../styles/main.less';
 import { debounce, isInstagramBrowser, detectLowPerformanceDevice, createScrollHandler } from './utils.js';
 
-// Constants
-const ANIMATION_PAUSE_SCROLL_THRESHOLD = 500; // Pause animations when scrolling past this pixel value
-
-// Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', async function () {
-  // Mark body as loaded to show content after CSS is ready
-  document.body.classList.add('loaded');
+/**
+ * Initialize performance optimizations
+ * Disables animations for Opera browsers, in-app browsers, and low-performance devices
+ */
+export function initializePerformanceOptimizations() {
+  const userAgent = navigator.userAgent || '';
   
-  // Performance and browser detection
-  initializePerformanceOptimizations();
+  // Detect Opera browser
+  const isOpera =
+    (!!window.opr && !!opr.addons) || !!window.opera || userAgent.indexOf(' OPR/') >= 0;
 
-  initializeSmoothScrolling();
-  initializeHeaderScrollEffect();
-  initializeScrollToTop();
-  initializeBackgroundAnimations();
+  // Detect Instagram/Facebook in-app browser (Android)
+  const isInstaBrowser = isInstagramBrowser();
 
-  // Initialize projects module
-  if (window.ProjectsModule) {
-    // Load project data from JSON
-    await window.ProjectsModule.loadProjectsData();
-    // Initialize project cards after data is loaded
-    window.ProjectsModule.initializeProjectCards();
+  // Detect low-performance devices
+  const isLowPerformance = detectLowPerformanceDevice();
+
+  // Apply performance optimizations
+  if (isOpera || isLowPerformance || isInstaBrowser) {
+    document.body.classList.add('opera-no-animations');
+    if (isLowPerformance || isInstaBrowser) {
+      document.body.classList.add('low-performance');
+    }
+    if (isInstaBrowser) {
+      document.body.classList.add('instagram-browser');
+    }
+
+    // Disable smooth scrolling
+    document.documentElement.style.scrollBehavior = 'auto';
   }
-});
+}
 
 /**
  * Initialize smooth scrolling for navigation links
  */
-function initializeSmoothScrolling() {
+export function initializeSmoothScrolling() {
   const navigationLinks = document.querySelectorAll('a[href^="#"]');
 
   navigationLinks.forEach((anchor) => {
@@ -60,11 +64,10 @@ function initializeSmoothScrolling() {
   });
 }
 
-
 /**
  * Initialize header scroll effect
  */
-function initializeHeaderScrollEffect() {
+export function initializeHeaderScrollEffect() {
   const header = document.querySelector('header');
   const logoImg = document.querySelector('.logo img');
   const navLinks = document.querySelectorAll('.nav-links a');
@@ -154,77 +157,9 @@ function initializeHeaderScrollEffect() {
 }
 
 /**
- * Initialize performance optimizations
- * Disables animations for Opera browsers, in-app browsers, and low-performance devices
- */
-function initializePerformanceOptimizations() {
-  const userAgent = navigator.userAgent || '';
-  
-  // Detect Opera browser
-  const isOpera =
-    (!!window.opr && !!opr.addons) || !!window.opera || userAgent.indexOf(' OPR/') >= 0;
-
-  // Detect Instagram/Facebook in-app browser (Android)
-  const isInstaBrowser = isInstagramBrowser();
-
-  // Detect low-performance devices
-  const isLowPerformance = detectLowPerformanceDevice();
-
-  // Apply performance optimizations
-  if (isOpera || isLowPerformance || isInstaBrowser) {
-    document.body.classList.add('opera-no-animations');
-    if (isLowPerformance || isInstaBrowser) {
-      document.body.classList.add('low-performance');
-    }
-    if (isInstaBrowser) {
-      document.body.classList.add('instagram-browser');
-    }
-
-    // Disable smooth scrolling
-    document.documentElement.style.scrollBehavior = 'auto';
-  }
-}
-
-
-/**
- * Handle mobile menu toggle (for future enhancement)
- */
-function initializeMobileMenu() {
-  const mobileMenuButton = document.querySelector('.mobile-menu-button');
-  const navLinks = document.querySelector('.nav-links');
-
-  if (mobileMenuButton && navLinks) {
-    mobileMenuButton.addEventListener('click', function () {
-      navLinks.classList.toggle('active');
-      this.classList.toggle('active');
-    });
-  }
-}
-
-/**
- * Initialize lazy loading for images (for future enhancement)
- */
-function initializeLazyLoading() {
-  const images = document.querySelectorAll('img[data-src]');
-
-  const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        img.src = img.dataset.src;
-        img.classList.remove('lazy');
-        imageObserver.unobserve(img);
-      }
-    });
-  });
-
-  images.forEach((img) => imageObserver.observe(img));
-}
-
-/**
  * Add scroll-to-top functionality
  */
-function initializeScrollToTop() {
+export function initializeScrollToTop() {
   // Create scroll-to-top button
   const scrollToTopButton = document.createElement('button');
   scrollToTopButton.innerHTML = '<i class="fas fa-chevron-up"></i>';
@@ -253,33 +188,3 @@ function initializeScrollToTop() {
   });
 }
 
-/**
- * Initialize background animations control based on scroll position
- * Pauses all animations (body gradient, cinematic background, lights, dust particles) 
- * when user scrolls past the threshold
- */
-function initializeBackgroundAnimations() {
-  const cinematicBackground = document.querySelector('.cinematic-background');
-  const dustParticles = document.querySelectorAll('.dust-particles');
-
-  if (!cinematicBackground) return;
-
-  const scrollHandler = createScrollHandler(() => {
-    const scrollY = window.scrollY;
-    const shouldPause = scrollY > ANIMATION_PAUSE_SCROLL_THRESHOLD;
-
-    // Add/remove class to body to pause all animations via CSS:
-    // - Body gradient animation (gradientShift)
-    // - Cinematic background and lights
-    // - Dust particles
-    if (shouldPause) {
-      if (!document.body.classList.contains('animations-paused')) {
-        document.body.classList.add('animations-paused');
-      }
-    } else {
-      document.body.classList.remove('animations-paused');
-    }
-  });
-  
-  window.addEventListener('scroll', scrollHandler, { passive: true });
-}
