@@ -18,6 +18,7 @@ function initializeVideoGallery() {
   videoItems.forEach((item) => {
     const cover = item.querySelector('.video-cover');
     const playButton = item.querySelector('.play-button');
+    const coverImg = cover?.querySelector('img');
 
     if (!cover || !playButton) return;
 
@@ -28,6 +29,32 @@ function initializeVideoGallery() {
 
     cover.addEventListener('click', handleClick);
     playButton.addEventListener('click', handleClick);
+
+    // Prevent dragging and right-click on cover images (only for mouse events, not touch)
+    if (coverImg) {
+      coverImg.setAttribute('draggable', 'false');
+      
+      // Remove old listeners if they exist to avoid duplicates
+      if (coverImg._dragStartHandler) {
+        coverImg.removeEventListener('dragstart', coverImg._dragStartHandler);
+      }
+      if (coverImg._contextMenuHandler) {
+        coverImg.removeEventListener('contextmenu', coverImg._contextMenuHandler);
+      }
+      if (coverImg._selectStartHandler) {
+        coverImg.removeEventListener('selectstart', coverImg._selectStartHandler);
+      }
+      
+      // Create new handlers (contextmenu and dragstart are mouse-only, so safe to prevent)
+      coverImg._dragStartHandler = (e) => e.preventDefault();
+      coverImg._contextMenuHandler = (e) => e.preventDefault();
+      // selectstart might interfere with touch, but since we're only on images and touch uses separate events, it should be safe
+      coverImg._selectStartHandler = (e) => e.preventDefault();
+      
+      coverImg.addEventListener('dragstart', coverImg._dragStartHandler, { passive: false });
+      coverImg.addEventListener('contextmenu', coverImg._contextMenuHandler, { passive: false });
+      coverImg.addEventListener('selectstart', coverImg._selectStartHandler, { passive: false });
+    }
   });
 }
 

@@ -76,6 +76,27 @@ function initializeGalleryLightbox() {
   modal.addEventListener('touchstart', handleTouchStart, { passive: true });
   modal.addEventListener('touchmove', handleTouchMove, { passive: true });
   modal.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+  // Prevent right-click and dragging on modal (only for mouse events, not touch)
+  // Note: contextmenu and dragstart are mouse-only events, so they won't interfere with touch
+  modal.addEventListener('contextmenu', (e) => {
+    if (e.target.tagName === 'IMG') {
+      e.preventDefault();
+    }
+  }, { passive: false });
+  modal.addEventListener('dragstart', (e) => {
+    // Only prevent mouse drag, not touch drag
+    if (e.target.tagName === 'IMG') {
+      e.preventDefault();
+    }
+  }, { passive: false });
+  // selectstart can fire on both mouse and touch, but touch uses separate touch events
+  // So preventing selectstart won't interfere with touch handlers (touchstart/touchmove/touchend)
+  modal.addEventListener('selectstart', (e) => {
+    if (e.target.tagName === 'IMG') {
+      e.preventDefault();
+    }
+  }, { passive: false });
 }
 
 /**
@@ -93,6 +114,35 @@ function openPhotoModal(index) {
   // Set image source and alt
   modalImg.setAttribute('src', photo.src);
   modalImg.setAttribute('alt', photo.alt);
+  
+  // Prevent dragging and right-click (only for mouse events, not touch)
+  modalImg.setAttribute('draggable', 'false');
+  
+  // Remove old listeners if they exist to avoid duplicates
+  if (modalImg._dragStartHandler) {
+    modalImg.removeEventListener('dragstart', modalImg._dragStartHandler);
+  }
+  if (modalImg._contextMenuHandler) {
+    modalImg.removeEventListener('contextmenu', modalImg._contextMenuHandler);
+  }
+  if (modalImg._selectStartHandler) {
+    modalImg.removeEventListener('selectstart', modalImg._selectStartHandler);
+  }
+  
+  // Create new handlers (contextmenu and dragstart are mouse-only, so safe to prevent)
+  modalImg._dragStartHandler = (e) => e.preventDefault();
+  modalImg._contextMenuHandler = (e) => e.preventDefault();
+  // selectstart might interfere with touch, so be more careful
+  modalImg._selectStartHandler = (e) => {
+    // Only prevent if it's definitely a mouse event (not part of a touch sequence)
+    if (!touchStartX && !touchEndX) {
+      e.preventDefault();
+    }
+  };
+  
+  modalImg.addEventListener('dragstart', modalImg._dragStartHandler, { passive: false });
+  modalImg.addEventListener('contextmenu', modalImg._contextMenuHandler, { passive: false });
+  modalImg.addEventListener('selectstart', modalImg._selectStartHandler, { passive: false });
 
   // Show modal - backdrop will animate automatically
   modal.classList.add('active');
