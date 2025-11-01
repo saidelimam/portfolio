@@ -1,62 +1,16 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
     <title>Photography Gallery - {{TITLE}}</title>
 
-    <!-- Favicons -->
-    <link rel="icon" type="image/webp" href="public/favicon.webp" />
-    <link rel="icon" type="image/png" href="public/favicon.png" />
-
-    <!-- Preconnect to external domains for faster resource loading -->
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
-
-    <!-- Stylesheets - Loaded via JavaScript import for proper Vite processing -->
-
-    <!-- Inline critical CSS to prevent FOUC -->
-    <style>
-      /* Prevent layout shift by hiding content until CSS loads */
-      body:not(.loaded) { opacity: 0; visibility: hidden; }
-      body:not(.loaded) * { opacity: 0; }
-      
-      /* Provide minimal styling before main CSS loads */
-      * { box-sizing: border-box; }
-    </style>
-
-    <!-- External stylesheets -->
-    <link rel="stylesheet" href="/fonts/roboto.css" media="print" onload="this.media='all'" fetchpriority="high" />
-    <noscript><link rel="stylesheet" href="/fonts/roboto.css" fetchpriority="high" /></noscript>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="X-Frame-Options" content="DENY" />
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
-    <meta name="referrer" content="strict-origin-when-cross-origin" />
-    {{META_DESCRIPTION}}
-
-    <!-- SEO -->
     <meta
       name="keywords"
       content="photography, portfolio, Said Elimam, gallery, professional photography, visual arts"
     />
-    {{META_AUTHOR}} {{META_COPYRIGHT}}
-    <meta name="language" content="en" />
-    <meta name="revisit-after" content="7 days" />
-    <meta name="rating" content="general" />
-    <meta name="distribution" content="global" />
-    <meta name="geo.region" content="FR-75" />
-    <meta name="geo.placename" content="Paris" />
-    <meta name="geo.position" content="48.8566;2.3522" />
-    <meta name="ICBM" content="48.8566, 2.3522" />
-    <meta name="theme-color" content="#3b82f6" />
-    <meta name="msapplication-TileColor" content="#3b82f6" />
   </head>
-
   <body>
     <header role="banner">
       <nav class="container" role="navigation" aria-label="Main navigation">
-        <a class="logo" href="/" aria-label="Home - Said Elimam"> {{LOGO_IMG}} </a>
         <ul class="nav-links" role="list">
           <li role="listitem"><a href="/" aria-label="Go to Home">Home</a></li>
           <li role="listitem"><a href="/photography" aria-label="Go to Photography gallery">Photography</a></li>
@@ -75,19 +29,6 @@
         </div>
       </section>
     </main>
-
-    <footer role="contentinfo">
-      <div class="container">
-        <p>
-          &copy; 2025 - Said Elimam | <a href="/privacy">Privacy Policy</a> |
-          <a href="https://github.com/saidelimam/portfolio" target="_blank" rel="noopener noreferrer">View on GitHub</a>
-        </p>
-      </div>
-    </footer>
-
-    <button class="scroll-to-top" aria-label="Scroll to top" style="display: none">
-      <i class="fas fa-chevron-up" aria-hidden="true"></i>
-    </button>
 
     <!-- Image Lightbox Modal -->
     <div id="image-modal" class="image-modal" role="dialog" aria-modal="true" aria-label="Image viewer">

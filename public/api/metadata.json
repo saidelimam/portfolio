@@ -1,11 +1,12 @@
 {
+  "facebookAppId": "791925360318781",
+  "themeColor": "#c2185b",
   "person": {
     "name": "Said Elimam",
     "location": "Paris",
     "tagline": "Filmmaker, Music Composer and Engineer from Paris",
     "fullName": "Said Elimam - Filmmaker, Music Composer and Engineer from Paris",
-    "website": "https://www.saidelimam.com",
-    "facebookAppId": "791925360318781"
+    "website": "https://www.saidelimam.com"
   },
   "about": {
     "description": "I'm a multidisciplinary creative professional based in Paris, combining technical engineering expertise with artistic vision in filmmaking and music composition. My work bridges the gap between technology and creativity, bringing innovative solutions to storytelling and audio-visual experiences."
