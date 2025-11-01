@@ -97,7 +97,7 @@ export default function metadataPlugin() {
         );
         html = html.replace(
           /{{LOGO_IMG}}/g,
-          `<img src="/img/logo-white.webp" alt="${metadata.person.fullName}" />`
+          `<img src="/img/logo-white.webp" alt="${metadata.person.fullName}" fetchpriority="high" />`
         );
         html = html.replace(/{{HERO_H1}}/g, metadata.person.fullName);
         html = html.replace(/{{HERO_TAGLINE}}/g, metadata.person.tagline);
