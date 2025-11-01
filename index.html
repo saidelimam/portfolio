@@ -24,8 +24,8 @@
     </style>
 
     <!-- External stylesheets -->
-    <link rel="stylesheet" href="/fonts/roboto.css" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="/fonts/roboto.css" /></noscript>
+    <link rel="stylesheet" href="/fonts/roboto.css" media="print" onload="this.media='all'" fetchpriority="high" />
+    <noscript><link rel="stylesheet" href="/fonts/roboto.css" fetchpriority="high" /></noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -107,6 +107,7 @@
               width="200"
               height="200"
               draggable="false"
+              fetchpriority="high"
               onerror="this.style.display='none'; this.parentElement.style.display='none';"
             />
           </div>
@@ -188,7 +189,7 @@
     </div>
 
     <!-- JavaScript - Load as modules for modern browsers (automatically deferred) -->
-    <script type="module" src="src/js/main.js"></script>
+    <script type="module" src="src/js/main.js" fetchpriority="high"></script>
     <script type="module" src="src/js/links.js"></script>
     <script type="module" src="src/js/projects.js"></script>
   </body>
