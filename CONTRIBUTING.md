@@ -29,6 +29,21 @@ If you find a bug or have a suggestion:
 - Write meaningful commit messages
 - Keep changes focused and modular
 
+## Code Organization
+
+The codebase follows a modular structure:
+
+- **Utilities** (`src/js/utils.js`): Extract reusable functions here (debounce, browser detection, etc.)
+- **Modals** (`src/js/modals.js`): Shared modal functionality should go here
+- **Feature Modules**: Each feature has its own file (projects.js, lightbox.js, videography.js)
+- **Style Organization**: LESS files are organized by purpose (main, gallery, modals, background, performance)
+
+When adding new features:
+- Use existing utilities when possible
+- Add new utilities to `utils.js` if they're reusable
+- Keep modal-related code in `modals.js`
+- Follow the existing pattern for feature modules
+
 ## Development Setup
 
 ```bash
@@ -54,7 +69,21 @@ npm run build
 - 🎨 UI/UX enhancements
 - ♿ Accessibility improvements
 - 🚀 Performance optimizations
+- 🔒 Security enhancements
 - 🧪 Testing
+
+## Testing Guidelines
+
+When submitting changes, please test:
+
+- **Cross-browser**: Chrome, Firefox, Safari, Edge
+- **Mobile devices**: Touch interactions, swipe gestures
+- **Responsive design**: Different screen sizes
+- **Accessibility**: Keyboard navigation, screen readers
+- **Performance**: Especially on low-end devices
+- **Image security**: Ensure drag and right-click protection works
+- **Modal functionality**: Browser navigation (back button) works correctly
+- **Animation pausing**: Animations pause when scrolling past the threshold (ANIMATION_PAUSE_SCROLL_THRESHOLD)
 
 ## Questions?
 
