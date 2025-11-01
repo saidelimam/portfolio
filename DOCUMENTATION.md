@@ -21,19 +21,21 @@ For security configuration, see [SECURITY.md](SECURITY.md).
 
 ```
 portfolio/
-├── index.html              # Main HTML entry point
+├── layout.html            # Base HTML template (common head, header, footer, scripts)
+├── index.html             # Main HTML entry point (merged with layout.html at build time)
 ├── public/                 # Static assets (served from root)
 │   ├── api/               # Data files
 │   │   ├── projects.json  # Projects data
 │   │   ├── videography.json # Videography data
 │   │   ├── discography.json # Discography data
 │   │   ├── links.json     # Social media links data
-│   │   └── metadata.json  # Site metadata (name, tagline, skills, etc.)
+│   │   └── metadata.json  # Site metadata (name, tagline, skills, themeColor, facebookAppId)
 │   ├── img/               # Images (logos, profile picture, icons, snapshots)
 │   │   ├── icon/          # Project icons
 │   │   ├── snapshot/      # Project snapshots
 │   │   ├── photography/   # Photography gallery images
 │   │   └── videography/   # Videography cover images
+│   ├── fonts/             # Local font files (Roboto)
 │   ├── favicon.webp       # WebP favicon
 │   ├── favicon.png        # PNG favicon fallback
 │   ├── robots.txt         # Search engine instructions
@@ -44,12 +46,16 @@ portfolio/
 │   └── .well-known/      # Standard metadata files
 │       ├── security.txt   # Security contact info
 │       └── pgp-key.txt    # PGP public key
-├── pages/                 # Additional HTML pages
+├── pages/                 # Additional HTML pages (merged with layout.html at build time)
 │   ├── photography.html   # Photography gallery page
 │   ├── videography.html  # Videography gallery page
 │   ├── discography.html   # Discography page
 │   └── privacy.html       # Privacy policy page
 ├── src/                   # Source files (processed by Vite)
+│   ├── components/        # HTML component templates
+│   │   ├── photography-item.html # Photography item template
+│   │   ├── videography-item.html # Videography item template
+│   │   └── discography-item.html # Discography item template
 │   ├── js/
 │   │   ├── main.js        # Core JavaScript functionality (header, scroll, background animations)
 │   │   ├── projects.js    # Project modal and data management
@@ -65,6 +71,7 @@ portfolio/
 │   │   ├── modals.less    # Modal-specific styles
 │   │   ├── tooltips.less  # Custom tooltip styles
 │   │   ├── links.less     # Social links styles with responsive layout
+│   │   ├── header.less    # Header and navigation styles
 │   │   ├── performance.less # Performance optimizations (Instagram browser, low-performance devices)
 │   │   └── gallery.less   # Gallery styles (photography & videography)
 ├── dist/                  # Production build output
@@ -72,12 +79,11 @@ portfolio/
 ├── utils/                # Shared utilities
 │   └── sanitize.js       # HTML/URL sanitization functions
 ├── plugins/              # Vite custom plugins
+│   ├── vite.layout-plugin.js # Layout merge plugin (merges layout.html with pages)
 │   ├── vite.metadata-plugin.js # Site metadata injection
 │   ├── vite.projects-plugin.js # Projects data injection
 │   ├── vite.links-plugin.js     # Social links injection
-│   ├── vite.photography-plugin.js # Photography gallery injection
-│   ├── vite.videography-plugin.js # Videography gallery injection
-│   ├── vite.discography-plugin.js # Discography injection
+│   ├── vite.gallery-plugin.js   # Generic gallery plugin (photography, videography, discography)
 │   └── vite.pages-plugin.js # Pages reorganization
 ├── vercel.json           # Vercel deployment config with security headers
 ├── package.json          # NPM configuration with build scripts
@@ -86,6 +92,8 @@ portfolio/
 ├── .gitignore            # Git ignore rules
 ├── LICENSE                # Creative Commons license
 ├── README.md             # Quick start guide
+├── DOCUMENTATION.md       # Full documentation
+├── CONTRIBUTING.md        # Contributing guidelines
 └── SECURITY.md           # Security documentation
 ```
 
@@ -221,13 +229,14 @@ Edit site-wide information in `public/api/metadata.json`:
 
 ```json
 {
+  "facebookAppId": "your-facebook-app-id",
+  "themeColor": "#c2185b",
   "person": {
     "name": "Your Name",
     "location": "City, Country",
     "tagline": "Your Professional Tagline",
-    "fullName": "Your Full Professional Name",
-    "website": "https://yourwebsite.com",
-    "facebookAppId": "your-facebook-app-id"
+    "fullName": "Your Full Name - Professional Title",
+    "website": "https://yourwebsite.com"
   },
   "about": {
     "description": "Your professional description..."
@@ -335,18 +344,45 @@ Edit discography albums in `public/api/discography.json`:
 
 The `embed` field should contain the full HTML iframe code from Spotify or other streaming platforms.
 
-### Vite HTML Placeholder System
+### HTML Templating System
+
+The project uses a **layout-based templating system** where common HTML structure is defined in `layout.html` and merged with individual page HTML files at build time.
+
+#### Layout Template (`layout.html`)
+
+The `layout.html` file contains:
+- Common `<head>` elements (meta tags, favicons, stylesheets, SEO tags)
+- Common `<body>` structure (header, footer, scroll-to-top button, scripts)
+- Placeholders for dynamic content: `{{MAIN_CONTENT}}`, `{{NAV_LINKS}}`, `{{ADDITIONAL_SCRIPTS}}`, `{{MAIN_JS_PATH}}`
+
+#### Page HTML Files
+
+Individual page HTML files (`index.html`, `pages/*.html`) contain:
+- Page-specific content (sections, modals, etc.)
+- Page-specific meta tags (which override layout meta tags with the same key)
+- Page-specific scripts
+
+At build time, the `vite.layout-plugin.js` merges:
+1. Head tags: Layout tags first, then page tags (page tags override layout tags with the same key)
+2. Body content: Replaces `{{MAIN_CONTENT}}` with page content, injects scripts, etc.
+
+#### Vite HTML Placeholder System
 
 The HTML uses placeholder tags with double brackets `{{TAG}}` that are replaced at build time by Vite plugins:
 
+**Metadata Placeholders:**
 - `{{TITLE}}` - Site title
 - `{{META_DESCRIPTION}}` - Meta description
 - `{{META_AUTHOR}}` - Author meta tag
 - `{{META_COPYRIGHT}}` - Copyright meta tag
-- `{{FACEBOOK_APP_ID}}` - Facebook App ID
+- `{{FACEBOOK_APP_ID}}` - Facebook App ID (from metadata.json root)
+- `{{THEME_COLOR}}` - Theme color (from metadata.json root)
+- `{{CANONICAL_URL}}` - Canonical URL (auto-generated based on page path)
 - `{{OG_URL}}`, `{{OG_TITLE}}`, `{{OG_DESCRIPTION}}`, etc. - Open Graph tags
 - `{{TWITTER_URL}}`, `{{TWITTER_TITLE}}`, etc. - Twitter Card tags
-- `{{LOGO_IMG}}` - Logo image
+- `{{LOGO_IMG_ALT}}` - Logo image alt text
+
+**Content Placeholders:**
 - `{{HERO_H1}}`, `{{HERO_TAGLINE}}` - Hero section content
 - `{{ABOUT_DESCRIPTION}}` - About me description
 - `{{SKILLS}}` - Skills list
@@ -357,6 +393,21 @@ The HTML uses placeholder tags with double brackets `{{TAG}}` that are replaced 
 - `{{VIDEOS}}` - Videography gallery items
 - `{{ALBUMS}}` - Discography albums
 
+**Layout Placeholders:**
+- `{{MAIN_CONTENT}}` - Main page content (replaced with page's `<main>` inner content)
+- `{{NAV_LINKS}}` - Navigation links (replaced with page's nav links, or empty string if not found)
+- `{{MAIN_JS_PATH}}` - Main JavaScript path (auto-resolved: `src/js/main.js` or `../src/js/main.js`)
+- `{{ADDITIONAL_SCRIPTS}}` - Additional page-specific scripts
+
+#### Component Templates
+
+Gallery items are generated using HTML templates from `src/components/`:
+- `photography-item.html` - Template for photography gallery items
+- `videography-item.html` - Template for videography gallery items
+- `discography-item.html` - Template for discography album items
+
+The `vite.gallery-plugin.js` reads these templates and injects data from JSON files or directory listings.
+
 ## Vite Configuration
 
 The project uses Vite for development and building. Key configuration in `vite.config.js`:
@@ -366,22 +417,16 @@ The project uses Vite for development and building. Key configuration in `vite.c
 - **Asset Handling**: Optimized handling of images and fonts
 - **Development Server**: Hot Module Replacement (HMR) enabled
 - **Production Builds**: Optimized bundles with asset optimization
-- **Custom Plugins**:
-  - `plugins/vite.metadata-plugin.js`: Injects site metadata from `public/api/metadata.json`
-  - `plugins/vite.projects-plugin.js`: Injects project cards from `public/api/projects.json`
-  - `plugins/vite.links-plugin.js`: Injects social links from `public/api/links.json`
-  - `plugins/vite.photography-plugin.js`: Injects photography gallery from `public/img/photography/`
-  - `plugins/vite.videography-plugin.js`: Injects videography gallery from `public/api/videography.json`
-  - `plugins/vite.discography-plugin.js`: Injects discography albums from `public/api/discography.json`
-  - `plugins/vite.pages-plugin.js`: Reorganizes pages from `pages/` to clean URLs
-
-## Sections
-
-- **Hero**: Introduction with profile picture (protected), subtitle, animated background (gradient, cinematic lights, dust particles), social media links with responsive layout (rounded squares on desktop, full-width buttons on mobile/tablet), brand-colored hover effects, and custom tooltips
-- **About**: Personal description, skills expertise, and companies worked with in a responsive 2-column layout
-- **Projects**: Featured work showcase with interactive modals, browser navigation support, protected project snapshots, and metadata
-- **Galleries**: Navigation buttons to Photography, Videography, and Discography gallery pages
-- **Footer**: Copyright and privacy policy links
+- **Custom Plugins** (in execution order):
+  1. `plugins/vite.layout-plugin.js`: Merges `layout.html` with page HTML files (runs first with `enforce: 'pre'`)
+  2. `plugins/vite.metadata-plugin.js`: Injects site metadata from `public/api/metadata.json` (replaces placeholders in merged HTML)
+  3. `plugins/vite.projects-plugin.js`: Injects project cards from `public/api/projects.json`
+  4. `plugins/vite.links-plugin.js`: Injects social links from `public/api/links.json`
+  5. `plugins/vite.gallery-plugin.js`: Generic gallery plugin that injects gallery items using component templates:
+     - Photography: Reads from `public/img/photography/` directory, uses `src/components/photography-item.html`
+     - Videography: Reads from `public/api/videography.json`, uses `src/components/videography-item.html`
+     - Discography: Reads from `public/api/discography.json`, uses `src/components/discography-item.html`
+  6. `plugins/vite.pages-plugin.js`: Reorganizes pages from `pages/` to clean URLs
 
 ### Gallery Pages
 
@@ -391,14 +436,33 @@ The project uses Vite for development and building. Key configuration in `vite.c
 
 ### Code Organization
 
-The JavaScript code is organized into modular files:
+The codebase is organized into several layers:
 
+**HTML Structure:**
+- **`layout.html`**: Base template with common structure (head, header, footer, scripts)
+- **`index.html` and `pages/*.html`**: Page-specific content that merges with `layout.html` at build time
+
+**Component Templates:**
+- **`src/components/`**: HTML templates for gallery items (photography-item.html, videography-item.html, discography-item.html)
+
+**JavaScript Modules:**
 - **`src/js/main.js`**: Core functionality (header scroll effects, smooth scrolling, background animations, scroll-to-top, discography embeds, profile picture security)
 - **`src/js/projects.js`**: Project data loading, project cards initialization, and project modal management
 - **`src/js/lightbox.js`**: Photography gallery lightbox with touch/swipe navigation, keyboard controls, and image protection
 - **`src/js/videography.js`**: Video gallery initialization, YouTube embed loading with spinners, and cover image protection
 - **`src/js/modals.js`**: Shared modal utilities (open/close, browser navigation, close handlers, iframe spinner management)
-- **`src/js/utils.js`**: Utility functions (debounce, browser detection, low-performance device detection, scroll handler creation, image security, modal state management, iframe spinner hiding, media pausing)
+- **`src/js/links.js`**: Social links initialization
+- **`src/js/utils.js`**: Utility functions (debounce, browser detection, low-performance device detection, scroll handler creation, image security, iframe spinner hiding, media pausing)
+
+**Vite Plugins:**
+- **`plugins/vite.layout-plugin.js`**: Merges layout.html with pages
+- **`plugins/vite.metadata-plugin.js`**: Injects metadata placeholders
+- **`plugins/vite.gallery-plugin.js`**: Generic gallery plugin using component templates
+- **`plugins/vite.projects-plugin.js`**: Injects project cards
+- **`plugins/vite.links-plugin.js`**: Injects social links
+- **`plugins/vite.pages-plugin.js`**: Reorganizes pages for clean URLs
+
+For contributing guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md#code-organization).
 
 ### Performance Optimizations
 
@@ -411,10 +475,7 @@ The JavaScript code is organized into modular files:
 
 ## Browser Support
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+Chrome, Firefox, Safari, Edge (latest versions)
 
 ## License
 

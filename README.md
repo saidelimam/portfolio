@@ -34,10 +34,13 @@ npm run build
 Edit `public/api/metadata.json`:
 ```json
 {
+  "facebookAppId": "your-facebook-app-id",
+  "themeColor": "#c2185b",
   "person": {
     "name": "Your Name",
     "location": "City, Country",
     "tagline": "Your Professional Tagline",
+    "fullName": "Your Full Name - Professional Title",
     "website": "https://yourwebsite.com"
   },
   "about": {
@@ -64,11 +67,13 @@ Edit `src/styles/variables.less` to match your brand colors.
 
 ## 📁 Key Files
 
-- `public/api/metadata.json` - Personal information, skills, companies
+- `layout.html` - Base HTML template with common structure (head, header, footer, scripts)
+- `public/api/metadata.json` - Personal information, skills, companies, theme color, facebook app ID
 - `public/api/projects.json` - Project showcase data
 - `public/api/links.json` - Social media links
 - `public/api/videography.json` - Video gallery data
 - `public/api/discography.json` - Music albums data
+- `src/components/` - Gallery item templates (photography-item.html, videography-item.html, discography-item.html)
 - `src/styles/variables.less` - Color scheme and styling
 - `src/js/utils.js` - Utility functions (debounce, browser detection, image security, etc.)
 - `src/js/modals.js` - Shared modal functionality
@@ -76,11 +81,7 @@ Edit `src/styles/variables.less` to match your brand colors.
 
 ## 🎨 Gallery Pages
 
-- **Photography** (`/photography`) - Image gallery with lightbox and touch/swipe navigation
-- **Videography** (`/videography`) - Video showcase with YouTube embeds and loading spinners
-- **Discography** (`/discography`) - Music albums with Spotify embeds and loading spinners
-
-All images are protected from dragging and right-clicking for content protection.
+See [DOCUMENTATION.md](DOCUMENTATION.md#gallery-pages) for details about the photography, videography, and discography galleries.
 
 ## 📚 Documentation
 
@@ -106,14 +107,11 @@ npm run preview  # Preview production build
 - **LESS** - CSS preprocessing with variables and mixins
 - **Vanilla JavaScript** - No frameworks, ES6 modules
 - **Font Awesome** - Icons with brand-colored hover effects
-- **Google Fonts** - Typography (Roboto)
+- **Local Fonts** - Typography (Roboto loaded locally from `public/fonts/` to avoid external requests)
 
 ### Code Organization
 
-- **Modular JavaScript** - Utilities, modals, and features separated into dedicated modules
-- **Component-based CSS** - Organized LESS files (main, gallery, modals, background, performance)
-- **Vite Plugins** - Custom plugins for data injection at build time
-- **Performance Optimized** - RequestAnimationFrame, passive event listeners, hardware acceleration
+See [DOCUMENTATION.md](DOCUMENTATION.md#code-organization) for detailed code structure information.
 
 ## ✨ Features
 

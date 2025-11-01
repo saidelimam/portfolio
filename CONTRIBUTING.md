@@ -33,16 +33,21 @@ If you find a bug or have a suggestion:
 
 The codebase follows a modular structure:
 
-- **Utilities** (`src/js/utils.js`): Extract reusable functions here (debounce, browser detection, etc.)
+- **HTML Templating**: Common HTML structure in `layout.html`, page-specific content in `index.html` and `pages/*.html`
+- **Component Templates** (`src/components/`): HTML templates for gallery items (photography-item.html, videography-item.html, discography-item.html)
+- **Utilities** (`src/js/utils.js`): Extract reusable functions here (debounce, browser detection, image security, etc.)
 - **Modals** (`src/js/modals.js`): Shared modal functionality should go here
-- **Feature Modules**: Each feature has its own file (projects.js, lightbox.js, videography.js)
-- **Style Organization**: LESS files are organized by purpose (main, gallery, modals, background, performance)
+- **Feature Modules**: Each feature has its own file (projects.js, lightbox.js, videography.js, links.js)
+- **Style Organization**: LESS files are organized by purpose (main, gallery, modals, background, header, performance)
+- **Vite Plugins** (`plugins/`): Custom build-time plugins for layout merging, data injection, and gallery generation
 
 When adding new features:
 - Use existing utilities when possible
 - Add new utilities to `utils.js` if they're reusable
 - Keep modal-related code in `modals.js`
 - Follow the existing pattern for feature modules
+- For new gallery types, add a component template to `src/components/` and update `vite.gallery-plugin.js`
+- For new pages, add HTML file and ensure it merges with `layout.html` correctly
 
 ## Development Setup
 
