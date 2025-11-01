@@ -7,10 +7,10 @@
     "description": "A free, modern, performant, and responsive portfolio website template built with Vite, LESS, and vanilla JavaScript.",
     "details": "This portfolio template is a fully static, data-driven website that generates plain HTML files at build time. It's perfect for creative professionals, developers, artists, and musicians who want a professional portfolio without CMS subscriptions. Features include a responsive design, modern UI with animations, SEO optimization, gallery pages for photos/videos/music, and easy customization via JSON files.",
     "snapshot": "img/snapshot/portfolio.webp",
-    "tags": ["Portfolio Website", "Vite", "LESS", "Vanilla JS", "GitHub Template", "Static Site"],
+    "tags": ["Portfolio Website", "Vite", "LESS", "Vanilla JS", "GitHub Template", "Static Site", "Open Source"],
     "links": [
       {
-        "text": "View Repository",
+        "text": "View Code",
         "url": "https://github.com/saidelimam/portfolio"
       }
     ]
@@ -27,7 +27,7 @@
     "tags": ["Social Network", "React", "Node.js", "Cloudflare", "PostgreSQL", "PWA", "AI"],
     "links": [
       {
-        "text": "Visit Platform",
+        "text": "Visit Website",
         "url": "https://gocollab.cc"
       }
     ]
@@ -48,6 +48,10 @@
       {
         "text": "Watch on YouTube",
         "url": "https://www.youtube.com/watch?v=nJJq3_DXzGg"
+      },
+      {
+        "text": "IMDb",
+        "url": "https://www.imdb.com/title/tt30869506/"
       }
     ]
   },
@@ -67,6 +71,10 @@
       {
         "text": "Watch on YouTube",
         "url": "https://www.youtube.com/watch?v=Zc6LZIPo1Ig"
+      },
+      {
+        "text": "IMDb",
+        "url": "https://www.imdb.com/title/tt30056682/"
       }
     ]
   },
@@ -115,15 +123,15 @@
     "description": "\"All in all, DCP Setup Maker comes packed with a powerful suite of tools for helping you create Java installation packages and customize them in detail.\" - Softpedia.com",
     "details": "What started as a dev project for a european company, then released open-source. The software got rated by biggest software hosts as a powerful set of tools with 4 stars out of 5, and registered tens of thousands of downloads from companies worldwide. DCP Setup Maker is a Java program to generate complex, stable and cross-platform Java installers. It provides an intuitive UI and exceptional ease of use to build complex installers with large amounts of files through a wizard-like interface.",
     "snapshot": "img/snapshot/dcpsetupmaker.webp",
-    "tags": ["Java", "Installer", "Cross-Platform", "Open Source", "IzPack", "Apache Pivot"],
+    "tags": ["Java", "Cross-Platform", "Open Source", "IzPack"],
     "links": [
-      {
-        "text": "View Repository",
-        "url": "https://github.com/DevComPack/setupmaker"
-      },
       {
         "text": "Visit Website",
         "url": "https://dev.saidelimam.com/setupmaker/"
+      },
+      {
+        "text": "View Code",
+        "url": "https://github.com/DevComPack/setupmaker"
       }
     ]
   }
