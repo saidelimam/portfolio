@@ -31,10 +31,14 @@ export default function projectsPlugin() {
             // Sanitize snapshot URL for use in CSS
             const snapshotURL = project.snapshot ? sanitizeURL(project.snapshot) : '';
 
+            // Capitalize project type for tooltip
+            const capitalizedType = project.type ? project.type.charAt(0).toUpperCase() + project.type.slice(1).toLowerCase() : '';
+            
             return `                    <article class="project-card" data-project="${index}" role="listitem" ${snapshotURL ? `style="background-image: url('${snapshotURL}');"` : ''}>
                       <div class="project-card-overlay"></div>
-                      <div class="project-type-icon project-type-${project.type}">
-                          <i class="fas ${typeIcon}" aria-label="${project.type} project type" title="${project.type.charAt(0).toUpperCase() + project.type.slice(1)} Project"></i>
+                      <div class="project-type-icon project-type-${project.type} tooltip-container">
+                          <i class="fas ${typeIcon}" aria-label="${project.type} project type" aria-hidden="true"></i>
+                          <div class="tooltip tooltip-left" aria-hidden="true">${capitalizedType}</div>
                       </div>
                       <div class="project-header">
                           ${projectIcon}

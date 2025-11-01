@@ -45,6 +45,30 @@
   transform: translateX(-50%) translateY(-8px);
 }
 
+// Tooltip on the left (for project type icons)
+.tooltip-container .tooltip.tooltip-left {
+  bottom: auto;
+  top: 50%;
+  left: auto;
+  right: 100%;
+  transform: translateY(-50%) translateX(-8px);
+
+  &::after {
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%) translateX(0);
+    border: 6px solid transparent;
+    border-left-color: rgba(0, 0, 0, 0.9);
+    border-right: none;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+  }
+}
+
+.tooltip-container:hover .tooltip.tooltip-left {
+  transform: translateY(-50%) translateX(-12px);
+}
+
 // Responsive tooltips
 @media (max-width: @breakpoint-md) {
   .tooltip {

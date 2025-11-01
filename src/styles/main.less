@@ -467,9 +467,16 @@ footer {
     font-size: 0.9rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     .transition();
+    z-index: 3; // Ensure it's above overlay and can receive hover events
+    pointer-events: auto; // Ensure hover events work
 
     i {
       pointer-events: none;
+    }
+
+    // Ensure tooltip container captures hover on entire area
+    &.tooltip-container {
+      cursor: pointer;
     }
 
     // Dev projects - Green
