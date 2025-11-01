@@ -173,16 +173,25 @@ function closeProjectModal() {
  */
 function initializeProjectModalNavigation() {
   const modalContent = document.getElementById('modal-content');
+  if (!modalContent) return; // DOM not ready yet
+  
   initializeModalNavigation('project-modal', () => {
     pauseAllMedia(modalContent);
     const modal = document.getElementById('project-modal');
-    modal.classList.remove('active');
+    if (modal) {
+      modal.classList.remove('active');
+    }
     removeModalOpen();
   }, modalContent);
 }
 
-// Initialize modal navigation support
-initializeProjectModalNavigation();
+// Initialize modal navigation support when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeProjectModalNavigation);
+} else {
+  // DOM already loaded
+  initializeProjectModalNavigation();
+}
 
 // Export functions for use in home.js
 window.ProjectsModule = {

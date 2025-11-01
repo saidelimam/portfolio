@@ -8,6 +8,8 @@
 import '../styles/main.less';
 import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop } from './core.js';
 import { createScrollHandler, preventImageDragAndRightClick } from './utils.js';
+// Import projects module to ensure ProjectsModule is available
+import './projects.js';
 
 // Constants
 const ANIMATION_PAUSE_SCROLL_THRESHOLD = 500; // Pause animations when scrolling past this pixel value
@@ -25,12 +27,19 @@ document.addEventListener('DOMContentLoaded', async function () {
   initializeScrollToTop();
   initializeBackgroundAnimations();
 
-  // Initialize projects module
+  // Initialize projects module (projects.js is imported above, so ProjectsModule should be available)
+  // Import statement executes before this code, so window.ProjectsModule should be set
   if (window.ProjectsModule) {
-    // Load project data from JSON
-    await window.ProjectsModule.loadProjectsData();
-    // Initialize project cards after data is loaded
-    window.ProjectsModule.initializeProjectCards();
+    try {
+      // Load project data from JSON
+      await window.ProjectsModule.loadProjectsData();
+      // Initialize project cards after data is loaded
+      window.ProjectsModule.initializeProjectCards();
+    } catch (error) {
+      console.error('Error initializing projects:', error);
+    }
+  } else {
+    console.error('ProjectsModule not available. Make sure projects.js is imported correctly.');
   }
   
   // Initialize home-specific features
