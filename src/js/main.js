@@ -57,6 +57,19 @@ function initializeSmoothScrolling() {
 }
 
 /**
+ * Detect Instagram browser
+ */
+function isInstagramBrowser() {
+  const userAgent = navigator.userAgent || '';
+  return (
+    userAgent.indexOf('Instagram') >= 0 || 
+    userAgent.indexOf('FBAN') >= 0 || 
+    userAgent.indexOf('FBAV') >= 0 ||
+    (userAgent.indexOf('Android') >= 0 && userAgent.indexOf('Version/') >= 0 && userAgent.indexOf('Chrome') < 0)
+  );
+}
+
+/**
  * Initialize header scroll effect
  */
 function initializeHeaderScrollEffect() {
@@ -69,56 +82,89 @@ function initializeHeaderScrollEffect() {
   let isScrolled = false;
   let rafId = null;
 
-  window.addEventListener('scroll', function () {
-    // Cancel previous frame if still pending
-    if (rafId !== null) {
-      cancelAnimationFrame(rafId);
-    }
-
-    rafId = requestAnimationFrame(function () {
+  // Check if Instagram browser for simplified scroll handling
+  const isInstaBrowser = isInstagramBrowser();
+  
+  if (isInstaBrowser) {
+    // Simplified scroll handling for Instagram browser - only update on significant scroll
+    let lastScrollY = 0;
+    window.addEventListener('scroll', debounce(function () {
       const scrollY = window.scrollY;
       const shouldBeScrolled = scrollY > 100;
-
-      // Only update if state changed to avoid unnecessary repaints
-      if (shouldBeScrolled !== isScrolled) {
+      
+      // Only update if scroll changed significantly or state changed
+      if (Math.abs(scrollY - lastScrollY) > 50 || shouldBeScrolled !== isScrolled) {
+        lastScrollY = scrollY;
         isScrolled = shouldBeScrolled;
-
+        
         if (shouldBeScrolled) {
           header.classList.add('scrolled');
-
-          // Change to black logo when scrolled
-          if (!logoImg.src.includes('logo-black.webp')) {
-            logoImg.style.opacity = '0.7';
-            setTimeout(() => {
-              logoImg.src = '/img/logo-black.webp';
-              logoImg.style.opacity = '1';
-            }, 150);
-          }
-
-          // Change nav links to black when scrolled
           navLinks.forEach((link) => {
             link.style.color = '#333';
           });
+          // Skip logo switching on Instagram browser to reduce flicker
         } else {
           header.classList.remove('scrolled');
-
-          // Change to white logo when at top
-          if (!logoImg.src.includes('logo-white.webp')) {
-            logoImg.style.opacity = '0.7';
-            setTimeout(() => {
-              logoImg.src = '/img/logo-white.webp';
-              logoImg.style.opacity = '1';
-            }, 150);
-          }
-
-          // Change nav links to white when at top
           navLinks.forEach((link) => {
             link.style.color = '#fff';
           });
+          // Skip logo switching on Instagram browser to reduce flicker
         }
       }
-    });
-  }, { passive: true });
+    }, 100), { passive: true });
+  } else {
+    // Normal optimized scroll handling
+    window.addEventListener('scroll', function () {
+      // Cancel previous frame if still pending
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
+
+      rafId = requestAnimationFrame(function () {
+        const scrollY = window.scrollY;
+        const shouldBeScrolled = scrollY > 100;
+
+        // Only update if state changed to avoid unnecessary repaints
+        if (shouldBeScrolled !== isScrolled) {
+          isScrolled = shouldBeScrolled;
+
+          if (shouldBeScrolled) {
+            header.classList.add('scrolled');
+
+            // Change to black logo when scrolled
+            if (!logoImg.src.includes('logo-black.webp')) {
+              logoImg.style.opacity = '0.7';
+              setTimeout(() => {
+                logoImg.src = '/img/logo-black.webp';
+                logoImg.style.opacity = '1';
+              }, 150);
+            }
+
+            // Change nav links to black when scrolled
+            navLinks.forEach((link) => {
+              link.style.color = '#333';
+            });
+          } else {
+            header.classList.remove('scrolled');
+
+            // Change to white logo when at top
+            if (!logoImg.src.includes('logo-white.webp')) {
+              logoImg.style.opacity = '0.7';
+              setTimeout(() => {
+                logoImg.src = '/img/logo-white.webp';
+                logoImg.style.opacity = '1';
+              }, 150);
+            }
+
+            // Change nav links to white when at top
+            navLinks.forEach((link) => {
+              link.style.color = '#fff';
+            });
+          }
+        }
+      });
+    }, { passive: true });
+  }
 }
 
 /**
@@ -147,21 +193,29 @@ function initializeAnimations() {
 
 /**
  * Initialize performance optimizations
- * Disables animations for Opera browsers and low-performance devices
+ * Disables animations for Opera browsers, in-app browsers, and low-performance devices
  */
 function initializePerformanceOptimizations() {
+  const userAgent = navigator.userAgent || '';
+  
   // Detect Opera browser
   const isOpera =
-    (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+    (!!window.opr && !!opr.addons) || !!window.opera || userAgent.indexOf(' OPR/') >= 0;
+
+  // Detect Instagram/Facebook in-app browser (Android)
+  const isInstaBrowser = isInstagramBrowser();
 
   // Detect low-performance devices
   const isLowPerformance = detectLowPerformanceDevice();
 
   // Apply performance optimizations
-  if (isOpera || isLowPerformance) {
+  if (isOpera || isLowPerformance || isInstaBrowser) {
     document.body.classList.add('opera-no-animations');
-    if (isLowPerformance) {
+    if (isLowPerformance || isInstaBrowser) {
       document.body.classList.add('low-performance');
+    }
+    if (isInstaBrowser) {
+      document.body.classList.add('instagram-browser');
     }
 
     // Disable smooth scrolling

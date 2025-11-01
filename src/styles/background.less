@@ -24,6 +24,20 @@
   will-change: transform, filter;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  
+  // Disable expensive background animations on Instagram browser
+  .instagram-browser & {
+    animation: none !important;
+    will-change: auto;
+    transform: none;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+    
+    &::before,
+    &::after {
+      animation: none !important;
+    }
+  }
 
   &::before,
   &::after {
@@ -100,6 +114,15 @@
   will-change: transform, opacity;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  
+  // Disable particle animations on Instagram browser
+  .instagram-browser & {
+    animation: none !important;
+    will-change: auto;
+    transform: none;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+  }
 }
 
 .dust-particles:nth-child(1) {
