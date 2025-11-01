@@ -199,6 +199,11 @@ body {
     animation: none;
     background-size: 100% 100%;
   }
+
+  // Pause gradient animation when scrolling past 500px
+  &.animations-paused {
+    animation-play-state: paused;
+  }
 }
 
 // Animated gradient keyframes
@@ -342,6 +347,7 @@ footer {
 
 // Hero section
 .hero {
+  position: relative;
   text-align: center;
   padding: 0;
   color: @white;
@@ -350,6 +356,7 @@ footer {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  overflow: hidden;
 
   h1 {
     font-size: 3rem;
@@ -380,6 +387,16 @@ footer {
   img {
     width: 200px;
     height: 200px;
+    // Prevent image dragging and selection
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    pointer-events: auto;
     .border-radius(50%);
     object-fit: cover;
     border: 4px solid rgba(255, 255, 255, 0.3);
@@ -416,14 +433,52 @@ footer {
     border: 1px solid rgba(255, 255, 255, 0.2);
 
     &:hover {
-      color: @white;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.3);
       transform: translateY(-3px);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     }
 
     i {
       font-size: 1.3rem;
+      .transition();
+    }
+
+    // Instagram - gradient from purple to pink to orange
+    &:hover .fa-instagram {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    // IMDB - yellow/gold
+    &:hover .fa-imdb {
+      color: #725d11;
+    }
+
+    // Spotify - green
+    &:hover .fa-spotify {
+      color: #00af3d;
+    }
+
+    // LinkedIn - blue
+    &:hover .fa-linkedin {
+      color: #0077B5;
+    }
+
+    // YouTube - red
+    &:hover .fa-youtube {
+      color: #d60000;
+    }
+
+    // GitHub - dark gray/black
+    &:hover .fa-github {
+      color: #181717;
+    }
+
+    // Email - blue or accent color
+    &:hover .fa-envelope {
+      color: @white;
     }
   }
 }
