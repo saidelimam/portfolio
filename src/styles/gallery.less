@@ -29,6 +29,17 @@
     will-change: transform;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    
+    // Disable expensive transforms on problematic browsers
+    .instagram-browser & {
+      will-change: auto;
+      backface-visibility: visible;
+      -webkit-backface-visibility: visible;
+      
+      &:hover {
+        transform: none;
+      }
+    }
 
     i {
       font-size: 2rem;
@@ -148,6 +159,14 @@
   will-change: opacity;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  
+  // Reduce flickering on Instagram browser
+  .instagram-browser & {
+    will-change: auto;
+    transform: none;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
 
   &.active {
     opacity: 1;
@@ -194,6 +213,13 @@
       will-change: transform, opacity;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
+      
+      // Simplify slide animations on Instagram browser
+      .instagram-browser & {
+        will-change: auto;
+        backface-visibility: visible;
+        -webkit-backface-visibility: visible;
+      }
 
       &.slide-out-left {
         animation: slideOutLeft 0.2s ease-out forwards;
@@ -298,6 +324,17 @@
     will-change: transform;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    
+    // Disable expensive transforms on problematic browsers
+    .instagram-browser & {
+      will-change: auto;
+      backface-visibility: visible;
+      -webkit-backface-visibility: visible;
+      
+      &:hover {
+        transform: none;
+      }
+    }
 
     &:hover {
       transform: scale(1.02);
@@ -401,6 +438,17 @@
     will-change: transform;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    
+    // Disable expensive transforms on problematic browsers
+    .instagram-browser & {
+      will-change: auto;
+      backface-visibility: visible;
+      -webkit-backface-visibility: visible;
+      
+      &:hover {
+        transform: none;
+      }
+    }
 
     &:hover {
       transform: translateY(-5px);

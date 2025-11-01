@@ -50,6 +50,47 @@
   scroll-behavior: auto !important;
 }
 
+// Instagram browser specific optimizations - aggressively disable expensive operations
+.instagram-browser *,
+.instagram-browser *::before,
+.instagram-browser *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+  will-change: auto !important;
+  transform: none !important;
+}
+
+.instagram-browser {
+  html {
+    scroll-behavior: auto !important;
+  }
+  
+  // Disable all backdrop filters
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  
+  // Simplify fixed elements
+  header,
+  .scroll-to-top,
+  .modal,
+  .image-modal {
+    transform: none !important;
+    will-change: auto !important;
+    backface-visibility: visible !important;
+    -webkit-backface-visibility: visible !important;
+  }
+  
+  // Disable background animations completely
+  .cinematic-background,
+  .dust-particles {
+    display: none !important;
+  }
+}
+
 // Disable heavy animations on mobile for better performance
 @media (max-width: @breakpoint-sm) {
   *,
