@@ -3,7 +3,8 @@
  * Opens images in a full-screen modal when clicked
  */
 
-import { preventImageDragAndRightClick, setModalOpen, removeModalOpen } from './utils.js';
+import { preventImageDragAndRightClick } from './utils.js';
+import { setModalOpen, removeModalOpen } from './modals.js';
 
 // Animation duration in milliseconds
 const SWIPE_ANIMATION_DURATION = 200;

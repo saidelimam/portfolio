@@ -129,21 +129,6 @@ export function createScrollHandler(callback) {
   return scrollHandler;
 }
 
-/**
- * Set modal open state by adding classes to html and body
- */
-export function setModalOpen() {
-  document.documentElement.classList.add('modal-open');
-  document.body.classList.add('modal-open');
-}
-
-/**
- * Remove modal open state by removing classes from html and body
- */
-export function removeModalOpen() {
-  document.documentElement.classList.remove('modal-open');
-  document.body.classList.remove('modal-open');
-}
 
 /**
  * Hide iframe loading spinner with smooth transition
