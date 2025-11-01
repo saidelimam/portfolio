@@ -105,5 +105,26 @@
         "url": "https://www.youtube.com/watch?v=SQDebYJCxrc"
       }
     ]
+  },
+  {
+    "type": "dev",
+    "date": "05/2014",
+    "title": "DCP Setup Maker",
+    "icon": "img/icon/dcpsetupmaker.ico",
+    "headline": "Cross-Platform Installer Generator",
+    "description": "\"All in all, DCP Setup Maker comes packed with a powerful suite of tools for helping you create Java installation packages and customize them in detail.\" - Softpedia.com",
+    "details": "What started as a dev project for a european company, then released open-source. The software got rated by biggest software hosts as a powerful set of tools with 4 stars out of 5, and registered tens of thousands of downloads from companies worldwide. DCP Setup Maker is a Java program to generate complex, stable and cross-platform Java installers. It provides an intuitive UI and exceptional ease of use to build complex installers with large amounts of files through a wizard-like interface.",
+    "snapshot": "img/snapshot/dcpsetupmaker.webp",
+    "tags": ["Java", "Installer", "Cross-Platform", "Open Source", "IzPack", "Apache Pivot"],
+    "links": [
+      {
+        "text": "View Repository",
+        "url": "https://github.com/DevComPack/setupmaker"
+      },
+      {
+        "text": "Visit Website",
+        "url": "https://dev.saidelimam.com/setupmaker/"
+      }
+    ]
   }
 ]
