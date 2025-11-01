@@ -1,6 +1,7 @@
 // Import other LESS files
 @import 'variables.less';
 @import 'background.less';
+@import 'header.less';
 @import 'modals.less';
 @import 'tooltips.less';
 @import 'performance.less';
@@ -47,24 +48,6 @@
 
 .gradient-bg() {
   background: @bg-gradient;
-}
-
-.glass-effect() {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  // Fallback for mobile devices - reduce blur for better performance
-  @media (max-width: 768px) {
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-  }
-  // Disable backdrop-filter for problematic browsers
-  .instagram-browser &,
-  .low-performance & {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    background: rgba(255, 255, 255, 0.9);
-  }
 }
 
 // Animations
@@ -118,51 +101,6 @@
   animation: slideInFromRight 0.6s ease-out forwards;
 }
 
-// Scroll to top button
-.scroll-to-top {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
-  .border-radius(50%);
-  border: none;
-  background: @accent-color;
-  color: @accent-text-color;
-  font-size: 20px;
-  cursor: pointer;
-  opacity: 0;
-  visibility: hidden;
-  .transition();
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  // Hardware acceleration for smooth animations
-  transform: translateZ(0);
-  will-change: opacity, transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  
-  // Reduce flickering on Instagram browser
-  .instagram-browser & {
-    will-change: auto;
-    transform: none;
-  }
-
-  &.visible {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  &:hover {
-    background: darken(@accent-color, 10%);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-}
 
 // Base styles
 * {
@@ -226,94 +164,6 @@ body {
   padding: 0 20px;
 }
 
-// Header styles
-header {
-  .glass-effect();
-  padding: 0;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-  // Hardware acceleration for smooth scrolling on mobile
-  transform: translateZ(0);
-  will-change: background-color;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  // Animate background color change
-  transition: background-color 0.3s ease, backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease, box-shadow 0.3s ease;
-  
-  // Reduce flickering on Instagram browser
-  .instagram-browser & {
-    will-change: auto;
-    transform: none;
-  }
-
-  // Header scroll effect
-  &.scrolled {
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-
-    // Scrolled state for nav links
-    .nav-links a {
-      color: #333;
-
-      &:hover {
-        color: @accent-light;
-      }
-    }
-    
-    // Disable backdrop-filter for problematic browsers
-    .instagram-browser &,
-    .low-performance &,
-    .opera-no-animations & {
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-    }
-  }
-}
-
-nav {
-  .flex-between();
-}
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: @white;
-  display: flex;
-  align-items: center;
-
-  img {
-    height: 50px;
-    width: auto;
-    max-width: 200px;
-    object-fit: contain;
-    .transition(transform, opacity);
-
-    &:hover {
-      transform: scale(1.05);
-    }
-  }
-}
-
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 2rem;
-
-  a {
-    color: @white;
-    text-decoration: none;
-    .transition(color);
-
-    &:hover {
-      color: @accent-light;
-    }
-  }
-}
 
 // Main content
 main {
@@ -770,11 +620,6 @@ footer {
 
 // From medium to large screens styles (≥768px)
 @media (min-width: @breakpoint-md) {
-  .logo img {
-    height: 60px;
-    max-width: 300px;
-  }
-
   // Container padding
   .container {
     padding: 0 15px;
@@ -783,24 +628,6 @@ footer {
 
 // Mobile and medium styles (≤768px)
 @media (max-width: @breakpoint-md) {
-  .logo img {
-    height: 70px;
-    max-width: 300px;
-  }
-
-  .nav-links {
-    display: none;
-  }
-
-  // Header adjustments
-  header nav {
-    justify-content: center;
-  }
-
-  .nav-links {
-    display: none;
-  }
-
   // Remove main margin
   main {
     margin-top: 0;
@@ -872,11 +699,6 @@ footer {
 
 // Mobile styles (≤480px)
 @media (max-width: @breakpoint-sm) {
-  .logo img {
-    height: 50px;
-    max-width: 300px;
-  }
-
   .hero {
     .profile-picture img {
       width: 150px;
@@ -889,13 +711,5 @@ footer {
   .section,
   footer {
     display: none;
-  }
-
-  // Make header totally transparent on mobile
-  header {
-    padding: 0;
-    background: transparent !important;
-    backdrop-filter: none !important;
-    border-bottom: none !important;
   }
 }
