@@ -45,13 +45,49 @@ export default function layoutPlugin() {
           const pageHeadContent = pageHeadMatch[1];
           const pageBodyContent = pageBodyMatch[1];
 
+          // Extract scripts from page body
+          const pageBodyScripts = [];
+          const allBodyScriptsMatch = pageBodyContent.match(/<script[^>]*>[\s\S]*?<\/script>/gi);
+          if (allBodyScriptsMatch) {
+            pageBodyScripts.push(...allBodyScriptsMatch);
+          }
+
           // Merge head tags: add layout tags that don't exist in page
           const mergedHead = mergeHeadTags(layoutHeadContent, pageHeadContent);
+          
+          // Extract scripts from page head
+          const pageHeadScripts = [];
+          const allHeadScriptsMatch = pageHeadContent.match(/<script[^>]*>[\s\S]*?<\/script>/gi);
+          if (allHeadScriptsMatch) {
+            pageHeadScripts.push(...allHeadScriptsMatch);
+          }
 
           // Merge body content: replace placeholders in layout with page content
           let mergedBody = layoutBodyContent;
           
-              // Extract and replace {{MAIN_CONTENT}} placeholder with only the inner content (not the main tag itself)
+          // Determine main.js path based on page location
+          // For pages in pages/ directory, use ../src/js/main.js
+          // For pages in root, use src/js/main.js
+          const isPageInSubdirectory = context.path && (context.path.includes('/pages/') || context.path.includes('pages/'));
+          const mainJsPath = isPageInSubdirectory ? '../src/js/main.js' : 'src/js/main.js';
+          mergedBody = mergedBody.replace(/\{\{MAIN_JS_PATH\}\}/g, mainJsPath);
+          
+          // Combine all scripts (from head and body), remove duplicates
+          const allScripts = [...new Set([...pageHeadScripts, ...pageBodyScripts])];
+          
+          // Separate main.js from additional scripts
+          const mainJsScript = allScripts.find(script => script.includes('main.js'));
+          const additionalScripts = allScripts.filter(script => !script.includes('main.js'));
+          
+          // Inject additional scripts
+          if (additionalScripts.length > 0) {
+            mergedBody = mergedBody.replace(/\{\{ADDITIONAL_SCRIPTS\}\}/g, additionalScripts.join('\n    '));
+          } else {
+            // Remove placeholder if no additional scripts found
+            mergedBody = mergedBody.replace(/\{\{ADDITIONAL_SCRIPTS\}\}/g, '');
+          }
+          
+          // Extract and replace {{MAIN_CONTENT}} placeholder with only the inner content (not the main tag itself)
           const pageMainMatch = pageBodyContent.match(/<main[^>]*>([\s\S]*?)<\/main>/i);
           if (pageMainMatch) {
             mergedBody = mergedBody.replace(/\{\{MAIN_CONTENT\}\}/g, pageMainMatch[1]);
@@ -65,19 +101,6 @@ export default function layoutPlugin() {
             // Replace with empty string if no nav links found
             mergedBody = mergedBody.replace(/\{\{NAV_LINKS\}\}/g, '');
           }
-          
-          // Extract and replace {{ADDITIONAL_SCRIPTS}} placeholder
-          const pageScripts = [];
-          const allScriptsMatch = pageBodyContent.match(/<script[^>]*>[\s\S]*?<\/script>/gi);
-          if (allScriptsMatch) {
-            // Get scripts that are not main.js (since layout already has it)
-            const additionalScripts = allScriptsMatch.filter(script => !script.includes('main.js'));
-            if (additionalScripts.length > 0) {
-              mergedBody = mergedBody.replace(/\{\{ADDITIONAL_SCRIPTS\}\}/g, additionalScripts.join('\n    '));
-            }
-          }
-          // Remove placeholder if no additional scripts found
-          mergedBody = mergedBody.replace(/\{\{ADDITIONAL_SCRIPTS\}\}/g, '');
           
           // Extract any other page-specific content (modals, etc.) and append after footer
           const pageOtherContent = pageBodyContent
