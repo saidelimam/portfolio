@@ -30,7 +30,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="X-Frame-Options" content="DENY" />
     <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="description" content="{{META_DESCRIPTION}}" />
@@ -111,7 +110,7 @@
     </button>
 
     <!-- JavaScript - Load as modules for modern browsers (automatically deferred) -->
-    <!-- NOTE: Vite automatically processes <script type="module"> tags and handles bundling/hashing -->
+    <!-- NOTE: Vite automatically processes script modules and handles bundling/hashing -->
     {{ADDITIONAL_SCRIPTS}}
   </body>
 </html>
