@@ -7,6 +7,9 @@
 import '../styles/main.less';
 import { debounce, isInstagramBrowser, detectLowPerformanceDevice, createScrollHandler, hideIframeSpinner, preventImageDragAndRightClick } from './utils.js';
 
+// Constants
+const ANIMATION_PAUSE_SCROLL_THRESHOLD = 500; // Pause animations when scrolling past this pixel value
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', async function () {
   // Mark body as loaded to show content after CSS is ready
@@ -253,7 +256,7 @@ function initializeScrollToTop() {
 /**
  * Initialize background animations control based on scroll position
  * Pauses all animations (body gradient, cinematic background, lights, dust particles) 
- * when user scrolls past 500px
+ * when user scrolls past the threshold
  */
 function initializeBackgroundAnimations() {
   const cinematicBackground = document.querySelector('.cinematic-background');
@@ -263,7 +266,7 @@ function initializeBackgroundAnimations() {
 
   const scrollHandler = createScrollHandler(() => {
     const scrollY = window.scrollY;
-    const shouldPause = scrollY > 500;
+    const shouldPause = scrollY > ANIMATION_PAUSE_SCROLL_THRESHOLD;
 
     // Add/remove class to body to pause all animations via CSS:
     // - Body gradient animation (gradientShift)

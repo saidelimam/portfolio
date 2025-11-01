@@ -70,12 +70,17 @@ Edit `src/styles/variables.less` to match your brand colors.
 - `public/api/videography.json` - Video gallery data
 - `public/api/discography.json` - Music albums data
 - `src/styles/variables.less` - Color scheme and styling
+- `src/js/utils.js` - Utility functions (debounce, browser detection, image security, etc.)
+- `src/js/modals.js` - Shared modal functionality
+- `src/js/lightbox.js` - Image lightbox functionality
 
 ## 🎨 Gallery Pages
 
-- **Photography** (`/photography`) - Image gallery with lightbox
-- **Videography** (`/videography`) - Video showcase with YouTube embeds
-- **Discography** (`/discography`) - Music albums with Spotify embeds
+- **Photography** (`/photography`) - Image gallery with lightbox and touch/swipe navigation
+- **Videography** (`/videography`) - Video showcase with YouTube embeds and loading spinners
+- **Discography** (`/discography`) - Music albums with Spotify embeds and loading spinners
+
+All images are protected from dragging and right-clicking for content protection.
 
 ## 📚 Documentation
 
@@ -98,22 +103,33 @@ npm run preview  # Preview production build
 ## 📦 Tech Stack
 
 - **Vite** - Build tool and dev server
-- **LESS** - CSS preprocessing
-- **Vanilla JavaScript** - No frameworks
-- **Font Awesome** - Icons
+- **LESS** - CSS preprocessing with variables and mixins
+- **Vanilla JavaScript** - No frameworks, ES6 modules
+- **Font Awesome** - Icons with brand-colored hover effects
 - **Google Fonts** - Typography (Roboto)
+
+### Code Organization
+
+- **Modular JavaScript** - Utilities, modals, and features separated into dedicated modules
+- **Component-based CSS** - Organized LESS files (main, gallery, modals, background, performance)
+- **Vite Plugins** - Custom plugins for data injection at build time
+- **Performance Optimized** - RequestAnimationFrame, passive event listeners, hardware acceleration
 
 ## ✨ Features
 
 - ✅ Fully responsive design
-- ✅ Modern UI with animations
+- ✅ Modern UI with animated background (hero section only)
 - ✅ SEO optimized
-- ✅ Fast performance
+- ✅ Fast performance with optimized animations
 - ✅ Accessible (WCAG compliant)
-- ✅ Gallery pages for photos/videos/music
+- ✅ Gallery pages for photos/videos/music with lightbox
+- ✅ Image protection (drag and right-click prevention)
+- ✅ Smart animation pausing on scroll (saves resources)
+- ✅ Browser navigation support for modals
 - ✅ Security headers included (see [SECURITY.md](SECURITY.md))
 - ✅ Hot Module Replacement (HMR)
 - ✅ Data-driven with JSON files
+- ✅ Performance optimizations for low-end devices and Instagram browser
 
 ## 💰 Why Choose This Over WordPress, Squarespace, or Wix?
 

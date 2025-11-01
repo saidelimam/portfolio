@@ -51,19 +51,19 @@ portfolio/
 │   └── privacy.html       # Privacy policy page
 ├── src/                   # Source files (processed by Vite)
 │   ├── js/
-│   │   ├── main.js        # Core JavaScript functionality
+│   │   ├── main.js        # Core JavaScript functionality (header, scroll, background animations)
 │   │   ├── projects.js    # Project modal and data management
-│   │   ├── lightbox.js    # Photography gallery lightbox
-│   │   ├── videography.js # Videography video loading
-│   │   └── utils.js       # Utility functions (sanitization)
+│   │   ├── lightbox.js    # Photography gallery lightbox with touch/swipe navigation
+│   │   ├── videography.js # Videography video loading with YouTube embeds
+│   │   ├── modals.js      # Shared modal functionality (open/close, navigation, spinners)
+│   │   └── utils.js       # Utility functions (sanitization, debounce, browser detection, image security)
 │   ├── styles/
 │   │   ├── main.less      # Main LESS file with imports
-│   │   ├── background.less # Animated background effects
+│   │   ├── background.less # Animated background effects (hero section only)
 │   │   ├── variables.less  # LESS variables and constants
 │   │   ├── modals.less    # Modal-specific styles
 │   │   ├── tooltips.less  # Custom tooltip styles
-│   │   ├── responsive.less # Responsive design styles
-│   │   ├── performance.less # Performance optimizations
+│   │   ├── performance.less # Performance optimizations (Instagram browser, low-performance devices)
 │   │   └── gallery.less   # Gallery styles (photography & videography)
 ├── dist/                  # Production build output
 ├── vite.config.js        # Vite configuration
@@ -92,27 +92,32 @@ portfolio/
 ### Core Functionality
 
 - **Responsive Design**: Works on desktop, tablet, and mobile with optimized layouts
-- **Modern UI**: Animated gradient backgrounds, cinematic lighting effects, glassmorphism
+- **Modern UI**: Animated gradient backgrounds (body), cinematic lighting effects and dust particles (hero section only), glassmorphism
 - **Vite-Powered**: Fast development server with Hot Module Replacement (HMR)
 - **LESS Preprocessing**: Organized styles with variables, mixins, and nesting
-- **Modular Architecture**: Separated LESS files for maintainability
+- **Modular Architecture**: Separated LESS and JavaScript files for maintainability
 - **Data-Driven Content**: Projects, videography, and links loaded from JSON files via Vite plugins
-- **Shared Utilities**: Centralized sanitization functions for XSS prevention
-- **Performance Optimized**: Animation disabling for low-performance devices and Opera browsers
+- **Shared Utilities**: Centralized functions (sanitization, debounce, browser detection, image security, modal management)
+- **Performance Optimized**: Animation disabling for low-performance devices, Opera browsers, and Instagram browser
+- **Smart Animation Control**: Animations pause automatically when scrolling past 500px to save resources
 
 ### Interactive Elements
 
-- **Smooth Scrolling**: Enhanced navigation experience
-- **Scroll Animations**: Elements animate in as they come into view using IntersectionObserver
-- **Scroll-to-Top Button**: Convenient navigation with Font Awesome chevron icon
-- **Dynamic Logo**: Logo changes color based on scroll position (white/black)
+- **Smooth Scrolling**: Enhanced navigation experience with passive event listeners
+- **Scroll-to-Top Button**: Convenient navigation with Font Awesome chevron icon, shows after 50px scroll
+- **Dynamic Logo**: Logo changes color based on scroll position (white/black) with smooth transitions
 - **Custom Tooltips**: Styled tooltips for social media links
-- **Project Modals**: Detailed project information with snapshots and metadata
-- **Cinematic Background**: Rotating gradient background with animated light effects
-- **Dust Particles**: Floating purple particles with individual movement patterns
-- **Photography Gallery**: Lightbox with swipe navigation and keyboard controls
-- **Videography Gallery**: Click-to-play video grid with one video at a time
-- **Discography**: Album showcase with Spotify embeds
+- **Social Links**: Brand-colored hover effects for each platform (Instagram gradient, Spotify green, etc.)
+- **Project Modals**: Detailed project information with snapshots, metadata, browser navigation support
+- **Modal System**: Shared modal utilities for consistent behavior (open/close, navigation, media pausing)
+- **Cinematic Background**: Rotating gradient background with animated spotlight effects (hero section only)
+- **Dust Particles**: Floating purple particles with individual movement patterns (hero section only)
+- **Body Gradient**: Animated linear gradient background with blue, purple, and pink shades
+- **Animation Pausing**: All background animations pause when scrolling past 500px
+- **Photography Gallery**: Lightbox with swipe navigation, keyboard controls, and image protection
+- **Videography Gallery**: Click-to-play video grid with YouTube embeds and loading spinners
+- **Discography**: Album showcase with Spotify embeds and loading spinners
+- **Image Security**: All images protected from dragging and right-clicking
 
 ### Accessibility & SEO
 
@@ -124,7 +129,8 @@ portfolio/
 
 ### Security
 
-- **XSS Prevention**: Input sanitization for all user-generated content
+- **XSS Prevention**: Input sanitization for all user-generated content via `utils/sanitize.js`
+- **Image Protection**: All images (profile, gallery, project snapshots) protected from dragging and right-clicking
 - **Security Headers**: CSP, X-Frame-Options, X-Content-Type-Options, HSTS
   - Automatic for Netlify: `public/_headers`
   - Vercel: `vercel.json`
@@ -146,9 +152,9 @@ portfolio/
 
 ### Gallery Pages
 
-- **Photography Gallery**: Full-screen mosaic grid with lightbox modal, swipe navigation, and keyboard controls
-- **Videography Gallery**: Video grid (1-3 columns responsive) with cover images, click-to-play YouTube embeds, only one video plays at a time
-- **Discography**: Album showcase with Spotify embeds, title and date headers, responsive 1-2 column layout
+- **Photography Gallery** (`/photography`): Full-screen mosaic grid with lightbox modal, swipe navigation, keyboard controls (arrow keys, Escape), and protected images (no drag, no right-click)
+- **Videography Gallery** (`/videography`): Video grid (1-3 columns responsive) with cover images, click-to-play YouTube embeds, loading spinners, only one video plays at a time, protected cover images
+- **Discography** (`/discography`): Album showcase with Spotify embeds, loading spinners, title and date headers, responsive 1-2 column layout
 
 ## Development
 
@@ -367,17 +373,37 @@ The project uses Vite for development and building. Key configuration in `vite.c
 
 ## Sections
 
-- **Hero**: Introduction with profile picture, subtitle, and social media links with custom tooltips
+- **Hero**: Introduction with profile picture (protected), subtitle, animated background (gradient, cinematic lights, dust particles), social media links with brand-colored hover effects, and custom tooltips
 - **About**: Personal description, skills expertise, and companies worked with in a responsive 2-column layout
-- **Projects**: Featured work showcase with interactive modals, project snapshots, and metadata
+- **Projects**: Featured work showcase with interactive modals, browser navigation support, protected project snapshots, and metadata
 - **Galleries**: Navigation buttons to Photography, Videography, and Discography gallery pages
 - **Footer**: Copyright and privacy policy links
 
 ### Gallery Pages
 
-- **Photography (`/photography`)**: Full-screen image mosaic with lightbox modal, keyboard navigation (arrow keys), and swipe support on touch devices
-- **Videography (`/videography`)**: Video grid with cover images, play button overlay, one video plays at a time, responsive 1-2-3 column layout
-- **Discography (`/discography`)**: Album showcase with Spotify embeds, title and date headers, responsive 1-2 column layout
+- **Photography (`/photography`)**: Full-screen image mosaic with lightbox modal, keyboard navigation (arrow keys, Escape), swipe support on touch devices, and protected images (no drag, no right-click)
+- **Videography (`/videography`)**: Video grid with protected cover images, play button overlay, YouTube embeds with loading spinners, one video plays at a time, responsive 1-2-3 column layout
+- **Discography (`/discography`)**: Album showcase with Spotify embeds and loading spinners, title and date headers, responsive 1-2 column layout
+
+### Code Organization
+
+The JavaScript code is organized into modular files:
+
+- **`src/js/main.js`**: Core functionality (header scroll effects, smooth scrolling, background animations, scroll-to-top, discography embeds, profile picture security)
+- **`src/js/projects.js`**: Project data loading, project cards initialization, and project modal management
+- **`src/js/lightbox.js`**: Photography gallery lightbox with touch/swipe navigation, keyboard controls, and image protection
+- **`src/js/videography.js`**: Video gallery initialization, YouTube embed loading with spinners, and cover image protection
+- **`src/js/modals.js`**: Shared modal utilities (open/close, browser navigation, close handlers, iframe spinner management)
+- **`src/js/utils.js`**: Utility functions (debounce, browser detection, low-performance device detection, scroll handler creation, image security, modal state management, iframe spinner hiding, media pausing)
+
+### Performance Optimizations
+
+- **RequestAnimationFrame**: Used for smooth scroll handlers to optimize repaints
+- **Passive Event Listeners**: Applied to scroll and touch events for better performance
+- **Hardware Acceleration**: CSS transforms with translateZ(0) for GPU acceleration
+- **Animation Pausing**: Background animations pause when scrolling past 500px
+- **Instagram Browser Detection**: Simplified animations and disabled expensive effects
+- **Low-Performance Device Detection**: Based on CPU cores, RAM, and connection speed
 
 ## Browser Support
 

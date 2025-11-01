@@ -6,7 +6,8 @@
     "headline": "Modern Portfolio Website Template",
     "description": "A free, modern, performant, and responsive portfolio website template built with Vite, LESS, and vanilla JavaScript.",
     "details": "This portfolio template is a fully static, data-driven website that generates plain HTML files at build time. It's perfect for creative professionals, developers, artists, and musicians who want a professional portfolio without CMS subscriptions. Features include a responsive design, modern UI with animations, SEO optimization, gallery pages for photos/videos/music, and easy customization via JSON files.",
-    "tags": ["Portfolio Template", "Vite", "LESS", "Vanilla JS", "GitHub Template", "Static Site"],
+    "snapshot": "img/snapshot/portfolio.webp",
+    "tags": ["Portfolio Website", "Vite", "LESS", "Vanilla JS", "GitHub Template", "Static Site"],
     "links": [
       {
         "text": "View Repository",
