@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 /**
  * Initialize "Read more" functionality for about description
  */
-function initializeAboutReadMore() {
+export function initializeAboutReadMore() {
   const readMoreLink = document.querySelector('.about-read-more');
   if (!readMoreLink) return;
 
