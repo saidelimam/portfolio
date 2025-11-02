@@ -132,7 +132,6 @@ body {
   }
   
   // Disable animation on problematic browsers
-  .instagram-browser &,
   .low-performance &, 
   .opera-no-animations & {
     animation: none;
@@ -421,20 +420,6 @@ footer {
   // Only apply will-change on hover to avoid unnecessary optimization during scroll
   &:hover {
     will-change: transform;
-  }
-  
-  // Disable expensive transforms on problematic browsers
-  .instagram-browser & {
-    transform: none;
-    will-change: auto;
-    backface-visibility: visible;
-    -webkit-backface-visibility: visible;
-    contain: none;
-    
-    &:hover {
-      transform: none;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
-    }
   }
 
   // Background image with blur
