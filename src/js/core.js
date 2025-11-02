@@ -17,20 +17,14 @@ export function initializePerformanceOptimizations() {
   const isOpera =
     (!!window.opr && !!opr.addons) || !!window.opera || userAgent.indexOf(' OPR/') >= 0;
 
-  // Detect Instagram/Facebook in-app browser (Android)
-  const isInstaBrowser = isInstagramBrowser();
-
   // Detect low-performance devices
   const isLowPerformance = detectLowPerformanceDevice();
 
   // Apply performance optimizations
-  if (isOpera || isLowPerformance || isInstaBrowser) {
+  if (isOpera || isLowPerformance) {
     document.body.classList.add('opera-no-animations');
-    if (isLowPerformance || isInstaBrowser) {
+    if (isLowPerformance) {
       document.body.classList.add('low-performance');
-    }
-    if (isInstaBrowser) {
-      document.body.classList.add('instagram-browser');
     }
 
     // Disable smooth scrolling
