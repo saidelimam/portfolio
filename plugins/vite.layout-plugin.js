@@ -5,14 +5,21 @@ import { resolve } from 'path';
  * Vite plugin to merge layout.html with page HTML files
  * This plugin runs BEFORE other plugins that replace placeholders
  * It merges common structure from layout.html into each page HTML
+ * @param {Object} options - Plugin options
+ * @param {string} [options.layoutPath] - Override the default layout file path (useful for testing)
+ * @returns {Object} Vite plugin object
  */
-export default function layoutPlugin() {
+export default function layoutPlugin(options = {}) {
+  // Allow overriding layout path for testing
+  const defaultLayoutPath = resolve(process.cwd(), 'layout.html');
+  const getLayoutPath = () => options.layoutPath || defaultLayoutPath;
+
   return {
     name: 'layout-merge',
     enforce: 'pre', // Run before other plugins
     transformIndexHtml(html, context) {
         try {
-          const layoutPath = resolve(process.cwd(), 'layout.html');
+          const layoutPath = getLayoutPath();
 
           if (!existsSync(layoutPath)) {
             console.warn('Layout HTML not found at:', layoutPath);
