@@ -16,12 +16,10 @@
     rgba(168, 85, 247, 0.3) 50%,
     rgba(192, 132, 252, 0.3) 100%
   );
-  animation: cinematicLights 60s ease-in-out infinite;
   pointer-events: none;
   transform-origin: center center;
   // Hardware acceleration for smooth animations
   transform: translateZ(0);
-  will-change: transform, filter;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   
@@ -226,29 +224,13 @@ body.animations-paused .hero .dust-particles {
   }
 }
 
-// Keyframes
-@keyframes cinematicLights {
-  0% {
-    filter: hue-rotate(0deg) brightness(1);
-    transform: rotate(0deg);
-  }
-  50% {
-    filter: hue-rotate(20deg) brightness(1.1);
-    transform: rotate(180deg);
-  }
-  100% {
-    filter: hue-rotate(0deg) brightness(1);
-    transform: rotate(360deg);
-  }
-}
-
 @keyframes lightMovement1 {
   0%,
   100% {
     transform: translate(0, 0) scale(1);
   }
   33% {
-    transform: translate(15%, 15%) scale(1.15);
+    transform: translate(15%, 15%) scale(1.25);
   }
   66% {
     transform: translate(-15%, -15%) scale(0.85);
@@ -261,7 +243,7 @@ body.animations-paused .hero .dust-particles {
     transform: translate(0, 0) scale(1);
   }
   50% {
-    transform: translate(25%, -25%) scale(1.25);
+    transform: translate(25%, -25%) scale(1.45);
   }
 }
 
@@ -418,7 +400,7 @@ body.animations-paused .hero .dust-particles {
   25% {
     opacity: 1;
   }
-  30% {
+  50% {
     opacity: 0;
   }
   100% {
