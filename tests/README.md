@@ -27,7 +27,8 @@ npm run test:coverage
 
 - `tests/` - All test files
 - `tests/setup.js` - Test setup and global configuration
-- `tests/*.test.js` - Test files
+- `tests/runtime/` - Tests for runtime JavaScript (client-side code that runs in the browser)
+- `tests/build-time/` - Tests for build-time code (Vite plugins, build scripts, etc.)
 
 ## Writing Tests
 

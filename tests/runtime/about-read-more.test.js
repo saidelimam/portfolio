@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { screen, fireEvent } from '@testing-library/dom';
-import { initializeAboutReadMore } from '../src/js/home.js';
+import { fireEvent } from '@testing-library/dom';
+import { initializeAboutReadMore } from '../../src/js/home.js';
 
 describe('About Read More Functionality', () => {
   let container;
@@ -36,48 +36,22 @@ describe('About Read More Functionality', () => {
     expect(readMoreLink.getAttribute('aria-label')).toBe('Read more about me');
   });
 
-  it('should expand and show full text when "Read more" is clicked', () => {
+  it('should toggle between expanded and collapsed states', () => {
+    // Expand: click "Read more"
     fireEvent.click(readMoreLink);
-
     expect(truncatedText.style.display).toBe('none');
     expect(fullText.style.display).toBe('inline');
     expect(readMoreLink.textContent).toBe('Read less');
     expect(readMoreLink.getAttribute('aria-label')).toBe('Read less about me');
-  });
 
-  it('should collapse and show truncated text when "Read less" is clicked', () => {
-    // First expand
+    // Collapse: click "Read less"
     fireEvent.click(readMoreLink);
-    expect(truncatedText.style.display).toBe('none');
-    expect(fullText.style.display).toBe('inline');
-
-    // Then collapse
-    fireEvent.click(readMoreLink);
-
     expect(truncatedText.style.display).toBe('inline');
     expect(fullText.style.display).toBe('none');
     expect(readMoreLink.textContent).toBe('Read more');
     expect(readMoreLink.getAttribute('aria-label')).toBe('Read more about me');
-  });
 
-  it('should toggle between expanded and collapsed states multiple times', () => {
-    // Initial state: collapsed
-    expect(truncatedText.style.display).toBe('');
-    expect(fullText.style.display).toBe('none');
-
-    // First click: expand
-    fireEvent.click(readMoreLink);
-    expect(truncatedText.style.display).toBe('none');
-    expect(fullText.style.display).toBe('inline');
-    expect(readMoreLink.textContent).toBe('Read less');
-
-    // Second click: collapse
-    fireEvent.click(readMoreLink);
-    expect(truncatedText.style.display).toBe('inline');
-    expect(fullText.style.display).toBe('none');
-    expect(readMoreLink.textContent).toBe('Read more');
-
-    // Third click: expand again
+    // Expand again: verify it works multiple times
     fireEvent.click(readMoreLink);
     expect(truncatedText.style.display).toBe('none');
     expect(fullText.style.display).toBe('inline');
@@ -85,14 +59,8 @@ describe('About Read More Functionality', () => {
   });
 
   it('should prevent default link behavior on click', () => {
-    // Verify that clicking doesn't cause navigation
-    // by checking that href is still '#'
     const originalHref = readMoreLink.href;
-    
     fireEvent.click(readMoreLink);
-    
-    // Verify the click was handled and text changed
-    expect(readMoreLink.textContent).toBe('Read less');
     // Verify href didn't change (no navigation occurred)
     expect(readMoreLink.href).toBe(originalHref);
   });
@@ -108,31 +76,33 @@ describe('About Read More Functionality', () => {
   });
 
   it('should handle missing truncated or full text elements gracefully', () => {
-    // Remove truncated text
     truncatedText.remove();
-
-    // Click should not throw
+    // Click should not throw even if elements are missing
     expect(() => {
       fireEvent.click(readMoreLink);
     }).not.toThrow();
   });
 
-  it('should find read more link using querySelector', () => {
-    const link = screen.queryByRole('link', { name: /read more/i });
-    expect(link).toBeTruthy();
-    expect(link).toBe(readMoreLink);
+  it('should not show "Read more" link when text is shorter than truncation threshold', () => {
+    // Clear previous setup
+    document.body.innerHTML = '';
+
+    // Create description shorter than 350 characters (threshold)
+    const shortDescription = 'This is a short description that does not exceed the 350 character threshold.';
+
+    document.body.innerHTML = `
+      <div class="about-description-container">
+        <span class="about-description-text">
+          ${shortDescription}
+        </span>
+      </div>
+    `;
+
+    // Initialize - should not find read more link
+    initializeAboutReadMore();
+
+    const readMoreLink = document.querySelector('.about-read-more');
+    expect(readMoreLink).toBeNull();
   });
 
-  it('should update aria-label correctly when toggling', () => {
-    // Initial state
-    expect(readMoreLink.getAttribute('aria-label')).toBe('Read more about me');
-
-    // After expanding
-    fireEvent.click(readMoreLink);
-    expect(readMoreLink.getAttribute('aria-label')).toBe('Read less about me');
-
-    // After collapsing
-    fireEvent.click(readMoreLink);
-    expect(readMoreLink.getAttribute('aria-label')).toBe('Read more about me');
-  });
 });

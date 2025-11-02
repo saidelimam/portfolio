@@ -1,12 +1,22 @@
 import { readFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
 
-export default function metadataPlugin() {
+/**
+ * Vite plugin to inject metadata from metadata.json into HTML
+ * @param {Object} options - Plugin options
+ * @param {string} [options.metadataPath] - Override the default metadata file path (useful for testing)
+ * @returns {Object} Vite plugin object
+ */
+export default function metadataPlugin(options = {}) {
+  // Allow overriding metadata path for testing
+  const defaultMetadataPath = resolve(process.cwd(), 'public/api/metadata.json');
+  const getMetadataPath = () => options.metadataPath || defaultMetadataPath;
+
   return {
     name: 'inject-metadata',
     transformIndexHtml(html, context) {
       try {
-        const metadataPath = resolve(process.cwd(), 'public/api/metadata.json');
+        const metadataPath = getMetadataPath();
 
         if (!existsSync(metadataPath)) {
           console.warn('Metadata JSON not found at:', metadataPath);
