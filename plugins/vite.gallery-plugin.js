@@ -72,7 +72,7 @@ export default function galleryPlugin() {
               return '            ' + itemHTML.trim().replace(/\n/g, '\n            ');
             })
             .join('\n');
-        } else {
+        } else if (galleryType === 'videography' || galleryType === 'discography') {
           // Videography or Discography: read from JSON
           if (!existsSync(dataSource)) {
             console.warn(`Gallery data file not found at: ${dataSource}`);
@@ -89,20 +89,68 @@ export default function galleryPlugin() {
           const template = readFileSync(templatePath, 'utf-8');
 
           // Generate HTML for each item
-          itemsHTML = data
-            .map((item) => {
-              let itemHTML = template;
+          if (galleryType === 'videography') {
+            // Group videos by type and preserve order from JSON
+            const videosByType = {};
+            const typeOrder = []; // Preserve order from JSON
 
-              if (galleryType === 'videography') {
-                const coverSrc = sanitizeURL(`/img/videography/${item.cover}`);
-                const title = sanitizeHTML(item.title);
-                const videoId = item.videoId;
+            data.forEach((item) => {
+              const type = item.type || 'other';
+              if (!videosByType[type]) {
+                videosByType[type] = [];
+                typeOrder.push(type); // Add type to order array when first encountered
+              }
+              videosByType[type].push(item);
+            });
 
-                itemHTML = itemHTML
-                  .replace(/{{VIDEO_ID}}/g, videoId)
-                  .replace(/{{TITLE}}/g, title)
-                  .replace(/{{COVER_SRC}}/g, coverSrc);
-              } else if (galleryType === 'discography') {
+            // Generate HTML for each type section
+            const typeNames = {
+              demoreel: 'Demo Reels',
+              dance: 'Dance',
+              specialfx: 'Special FX',
+              fashion: 'Fashion',
+              travel: 'Travel',
+              other: 'Other',
+            };
+
+            // Use types in the order they appear in JSON
+            const sortedTypes = typeOrder;
+
+            itemsHTML = sortedTypes
+              .map((type) => {
+                const typeVideos = videosByType[type];
+                const typeName = typeNames[type] || type.charAt(0).toUpperCase() + type.slice(1);
+
+                // Generate HTML for videos in this type
+                const videosHTML = typeVideos
+                  .map((item) => {
+                    const coverSrc = sanitizeURL(`/img/videography/${item.cover}`);
+                    const title = sanitizeHTML(item.title);
+                    const videoId = item.videoId;
+
+                    let itemHTML = template
+                      .replace(/{{VIDEO_ID}}/g, videoId)
+                      .replace(/{{TITLE}}/g, title)
+                      .replace(/{{COVER_SRC}}/g, coverSrc);
+
+                    // Add consistent indentation (16 spaces for nested)
+                    return '                ' + itemHTML.trim().replace(/\n/g, '\n                ');
+                  })
+                  .join('\n');
+
+                // Create type section with heading
+                return `          <div class="video-type-section" data-type="${type}">
+            <h2 class="video-type-heading">${typeName}</h2>
+            <div class="video-grid">
+${videosHTML}
+            </div>
+          </div>`;
+              })
+              .join('\n\n');
+          } else if (galleryType === 'discography') {
+            // For discography, keep the original flat structure
+            itemsHTML = data
+              .map((item) => {
                 const title = sanitizeHTML(item.title);
                 const date = item.date || '';
                 const embed = item.embed || '';
@@ -122,16 +170,16 @@ export default function galleryPlugin() {
               </div>`
                   : '';
 
-                itemHTML = itemHTML
+                let itemHTML = template
                   .replace(/{{TITLE}}/g, title)
                   .replace(/{{DATE_HTML}}/g, dateHTML)
                   .replace(/{{EMBED_HTML}}/g, embedHTML);
-              }
 
-              // Add consistent indentation (12 spaces)
-              return '            ' + itemHTML.trim().replace(/\n/g, '\n            ');
-            })
-            .join('\n');
+                // Add consistent indentation (12 spaces)
+                return '            ' + itemHTML.trim().replace(/\n/g, '\n            ');
+              })
+              .join('\n');
+          }
         }
 
         // Replace placeholder in HTML
