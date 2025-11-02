@@ -107,6 +107,7 @@ export default function galleryPlugin() {
             const typeNames = {
               demoreel: 'Demo Reels',
               dance: 'Dance',
+              '3d': '3D Animation',
               specialfx: 'Special FX',
               fashion: 'Fashion',
               travel: 'Travel',
@@ -124,7 +125,10 @@ export default function galleryPlugin() {
                 // Generate HTML for videos in this type
                 const videosHTML = typeVideos
                   .map((item) => {
-                    const coverSrc = sanitizeURL(`/img/videography/${item.cover}`);
+                    // Use cover URL directly if it's a full URL, otherwise prepend the path
+                    const coverSrc = item.cover && (item.cover.startsWith('http://') || item.cover.startsWith('https://'))
+                      ? sanitizeURL(item.cover)
+                      : sanitizeURL(`/img/videography/${item.cover}`);
                     const title = sanitizeHTML(item.title);
                     const videoId = item.videoId;
 

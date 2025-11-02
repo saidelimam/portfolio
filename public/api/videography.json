@@ -124,5 +124,29 @@
     "videoId": "IZHm_SeFfmo",
     "cover": "berlin-travel-cover.webp",
     "type": "travel"
+  },
+  {
+    "title": "ElVio",
+    "videoId": "y5334jFZ_58",
+    "cover": "elvio-cover.jpg",
+    "type": "3d"
+  },
+  {
+    "title": "Ou Bikhir!",
+    "videoId": "oktweb_FXIs",
+    "cover": "oubikhir-cover.jpg",
+    "type": "3d"
+  },
+  {
+    "title": "Final Destiny",
+    "videoId": "kvcCSjkIQJ4",
+    "cover": "finaldestiny-cover.jpg",
+    "type": "3d"
+  },
+  {
+    "title": "Bellota",
+    "videoId": "woGXlwEWzR0",
+    "cover": "bellota-cover.jpg",
+    "type": "3d"
   }
 ]
