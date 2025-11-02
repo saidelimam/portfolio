@@ -70,7 +70,7 @@ export default function metadataPlugin() {
 
         // Replace about description placeholder with truncated version and Read more link
         const fullDescription = metadata.about.description || '';
-        const truncatedLength = 500;
+        const truncatedLength = 350;
         let descriptionHTML = fullDescription;
         
         if (fullDescription.length > truncatedLength) {
@@ -92,7 +92,7 @@ export default function metadataPlugin() {
           const truncatedText = fullDescription.substring(0, breakPoint).trim();
           const remainingText = fullDescription.substring(breakPoint).trim();
           
-          descriptionHTML = `<span class="about-description-text"><span class="about-description-truncated">${truncatedText}</span><span class="about-description-full" style="display: none;">${fullDescription}</span></span> <a href="#" class="about-read-more" aria-label="Read more about me">Read more</a>`;
+          descriptionHTML = `<span class="about-description-text"><span class="about-description-truncated">${truncatedText}...</span><span class="about-description-full" style="display: none;">${fullDescription}</span></span> <a href="#" class="about-read-more" aria-label="Read more about me">Read more</a>`;
         }
         
         html = html.replace(/{{ABOUT_DESCRIPTION}}/g, descriptionHTML);
