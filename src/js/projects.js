@@ -4,7 +4,7 @@
  */
 
 import { sanitizeHTML, sanitizeURL, sanitizeEmbed, pauseAllMedia, preventImageDragAndRightClick, getProjectTypeIcon } from './utils.js';
-import { setModalOpen, removeModalOpen, initializeModalCloseHandlers, initializeModalNavigation, handleModalIframeSpinner } from './modals.js';
+import { setModalOpen, removeModalOpen, initializeModalCloseHandlers, initializeModalNavigation, handleModalIframeSpinner, initializeModalTouchSwipe, closeModal, resetModalStyles } from './modals.js';
 
 // Project data loaded from JSON file
 let projectsData = [];
@@ -54,6 +54,10 @@ function openProjectModal(projectIndex) {
   const modalContent = document.getElementById('modal-content');
 
   if (!modal || !modalContent) return;
+  
+  // Reset any inline styles that might interfere with animations
+  // This ensures normal animations work even after swipe-close
+  resetModalStyles(modal, modalContent);
 
   const project = projectsData[projectIndex];
 
@@ -134,11 +138,47 @@ function openProjectModal(projectIndex) {
   // Scroll modal content to top
   modalContent.scrollTop = 0;
 
-  // Handle iframe loading spinner
+  // Handle iframe loading with delay to wait for animation to complete
   if (project.embed) {
     const embedContainer = modalContent.querySelector('.modal-embed, .modal-embed-responsive');
     if (embedContainer) {
-      handleModalIframeSpinner(embedContainer);
+      // Find all iframes in the embed container
+      const iframes = embedContainer.querySelectorAll('iframe, embed, object');
+      
+      if (iframes.length > 0) {
+        // Store original src values and clear them temporarily
+        const originalSources = Array.from(iframes).map(iframe => {
+          const src = iframe.getAttribute('src') || iframe.getAttribute('data');
+          if (src) {
+            iframe.removeAttribute('src');
+            if (iframe.hasAttribute('data')) {
+              iframe.removeAttribute('data');
+            }
+          }
+          return src;
+        });
+        
+        // Wait for modal animation to complete (300ms + 50ms buffer)
+        setTimeout(() => {
+          // Restore src attributes to start loading iframes
+          iframes.forEach((iframe, index) => {
+            if (originalSources[index]) {
+              // Restore src or data attribute based on element type
+              if (iframe.tagName === 'IFRAME' || iframe.tagName === 'EMBED') {
+                iframe.setAttribute('src', originalSources[index]);
+              } else if (iframe.tagName === 'OBJECT') {
+                iframe.setAttribute('data', originalSources[index]);
+              }
+            }
+          });
+          
+          // Handle loading spinner
+          handleModalIframeSpinner(embedContainer);
+        }, 350);
+      } else {
+        // If no embed elements, handle spinner immediately
+        handleModalIframeSpinner(embedContainer);
+      }
     }
   }
 
@@ -152,20 +192,20 @@ function openProjectModal(projectIndex) {
 
   // Initialize modal close handlers
   initializeModalCloseHandlers('project-modal', closeProjectModal);
+  
+  // Initialize touch swipe-down to close on mobile
+  initializeModalTouchSwipe('project-modal', closeProjectModal);
 }
 
 /**
  * Close project modal
+ * @param {string} [closeMethod='button'] - How the modal was closed: 'swipe' for swipe-down, 'button' for button/click outside
  */
-function closeProjectModal() {
+function closeProjectModal(closeMethod = 'button') {
   const modalContent = document.getElementById('modal-content');
-
-  // Pause all media (videos, audio, iframes) when closing modal
-  pauseAllMedia(modalContent);
-
-  const modal = document.getElementById('project-modal');
-  modal.classList.remove('active');
-  removeModalOpen();
+  
+  // Use the generic closeModal function from modals.js
+  closeModal('project-modal', modalContent, closeMethod);
 
   // Restore URL to original without adding history entry
   history.replaceState(null, '', window.location.pathname);
