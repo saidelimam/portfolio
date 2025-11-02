@@ -1,12 +1,27 @@
 import { readFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
+import { sanitizeURL, sanitizeHTML } from '../utils/sanitize.js';
 
-export default function linksPlugin() {
+/**
+ * Vite plugin to inject social links from links.json into HTML
+ * Uses component template from src/components/social-link-item.html
+ * @param {Object} options - Plugin options
+ * @param {string} [options.linksPath] - Override the default links file path (useful for testing)
+ * @param {string} [options.templatePath] - Override the default template file path (useful for testing)
+ * @returns {Object} Vite plugin object
+ */
+export default function linksPlugin(options = {}) {
+  // Allow overriding paths for testing
+  const defaultLinksPath = resolve(process.cwd(), 'public/api/links.json');
+  const defaultTemplatePath = resolve(process.cwd(), 'src/components/social-link-item.html');
+  const getLinksPath = () => options.linksPath || defaultLinksPath;
+  const getTemplatePath = () => options.templatePath || defaultTemplatePath;
+
   return {
     name: 'inject-links',
     transformIndexHtml(html) {
       try {
-        const linksPath = resolve(process.cwd(), 'public/api/links.json');
+        const linksPath = getLinksPath();
 
         if (!existsSync(linksPath)) {
           console.warn('Links JSON not found at:', linksPath);
@@ -17,13 +32,26 @@ export default function linksPlugin() {
 
         if (linksData.length === 0) return html;
 
-        // Generate HTML for links
+        // Load template
+        const templatePath = getTemplatePath();
+        if (!existsSync(templatePath)) {
+          console.warn('Social link template not found at:', templatePath);
+          return html;
+        }
+
+        const template = readFileSync(templatePath, 'utf-8');
+
+        // Generate HTML for links using template
         const linksHTML = linksData
           .map((link) => {
-            return `                    <div class="tooltip-container" role="listitem">
-                        <a href="${link.url}" target="_blank" aria-label="${link.label}" data-tooltip="${link.label}" rel="noopener noreferrer"><i class="${link.icon}" aria-hidden="true"></i></a>
-                        <div class="tooltip" aria-hidden="true">${link.label}</div>
-                    </div>`;
+            const url = sanitizeURL(link.url);
+            const label = sanitizeHTML(link.label);
+            const icon = sanitizeHTML(link.icon);
+
+            return template
+              .replace(/{{URL}}/g, url)
+              .replace(/{{LABEL}}/g, label)
+              .replace(/{{ICON}}/g, icon);
           })
           .join('\n');
 

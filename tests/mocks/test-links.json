@@ -1,0 +1,20 @@
+[
+  {
+    "platform": "Instagram",
+    "url": "https://www.instagram.com/test",
+    "icon": "fab fa-instagram",
+    "label": "Follow me on Instagram"
+  },
+  {
+    "platform": "GitHub",
+    "url": "https://github.com/test",
+    "icon": "fab fa-github",
+    "label": "Review my code on GitHub"
+  },
+  {
+    "platform": "Email",
+    "url": "mailto:test@example.com",
+    "icon": "fas fa-envelope",
+    "label": "Send me an email"
+  }
+]
