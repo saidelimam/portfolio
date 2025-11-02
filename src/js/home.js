@@ -39,7 +39,41 @@ document.addEventListener('DOMContentLoaded', async function () {
   // Initialize home-specific features
   initializeProfilePictureSecurity();
   initializeSocialLinks();
+  initializeAboutReadMore();
 });
+
+/**
+ * Initialize "Read more" functionality for about description
+ */
+function initializeAboutReadMore() {
+  const readMoreLink = document.querySelector('.about-read-more');
+  if (!readMoreLink) return;
+
+  readMoreLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    const container = this.closest('.about-description-container');
+    const truncated = container.querySelector('.about-description-truncated');
+    const full = container.querySelector('.about-description-full');
+    
+    if (truncated && full) {
+      const isExpanded = truncated.style.display === 'none';
+      
+      if (isExpanded) {
+        // Collapse
+        truncated.style.display = 'inline';
+        full.style.display = 'none';
+        this.textContent = 'Read more';
+        this.setAttribute('aria-label', 'Read more about me');
+      } else {
+        // Expand
+        truncated.style.display = 'none';
+        full.style.display = 'inline';
+        this.textContent = 'Read less';
+        this.setAttribute('aria-label', 'Read less about me');
+      }
+    }
+  });
+}
 
 /**
  * Secure profile picture from drag and right-click

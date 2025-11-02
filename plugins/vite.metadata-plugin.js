@@ -68,8 +68,34 @@ export default function metadataPlugin() {
         // Replace hero tagline placeholder
         html = html.replace(/{{HERO_TAGLINE}}/g, metadata.person.tagline);
 
-        // Replace about description placeholder
-        html = html.replace(/{{ABOUT_DESCRIPTION}}/g, metadata.about.description);
+        // Replace about description placeholder with truncated version and Read more link
+        const fullDescription = metadata.about.description || '';
+        const truncatedLength = 500;
+        let descriptionHTML = fullDescription;
+        
+        if (fullDescription.length > truncatedLength) {
+          // Find a good break point (end of sentence or space near 1000 characters)
+          let breakPoint = truncatedLength;
+          const nearEnd = fullDescription.substring(truncatedLength - 50, truncatedLength + 50);
+          // Try to break at sentence end
+          const sentenceEnd = nearEnd.search(/[.!?]\s/);
+          if (sentenceEnd > 0) {
+            breakPoint = truncatedLength - 50 + sentenceEnd + 1;
+          } else {
+            // Try to break at space
+            const spaceIndex = nearEnd.lastIndexOf(' ');
+            if (spaceIndex > 0) {
+              breakPoint = truncatedLength - 50 + spaceIndex + 1;
+            }
+          }
+          
+          const truncatedText = fullDescription.substring(0, breakPoint).trim();
+          const remainingText = fullDescription.substring(breakPoint).trim();
+          
+          descriptionHTML = `<span class="about-description-text"><span class="about-description-truncated">${truncatedText}</span><span class="about-description-full" style="display: none;">${fullDescription}</span></span> <a href="#" class="about-read-more" aria-label="Read more about me">Read more</a>`;
+        }
+        
+        html = html.replace(/{{ABOUT_DESCRIPTION}}/g, descriptionHTML);
 
         // Generate skills HTML
         const skillsHTML = metadata.skills
