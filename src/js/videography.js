@@ -24,6 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize video gallery
   initializeVideoGallery();
+  
+  // Initialize video filters
+  initializeVideoFilters();
 });
 
 /**
@@ -134,4 +137,65 @@ function loadVideo(videoItem) {
   setTimeout(() => {
     hideIframeSpinner(loadingSpinner);
   }, 5000);
+}
+
+/**
+ * Initialize video type filters
+ */
+function initializeVideoFilters() {
+  const filterButtons = document.querySelectorAll('.video-filter-btn');
+  const videoTypeSections = document.querySelectorAll('.video-type-section');
+
+  if (filterButtons.length === 0 || videoTypeSections.length === 0) return;
+
+  // Track active filters
+  const activeFilters = new Set();
+
+  // Add click handler to each filter button
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const type = button.getAttribute('data-type');
+      const isPressed = button.getAttribute('aria-pressed') === 'true';
+
+      // Toggle filter
+      if (isPressed) {
+        // Deselect filter
+        activeFilters.delete(type);
+        button.setAttribute('aria-pressed', 'false');
+        button.classList.remove('active');
+      } else {
+        // Select filter
+        activeFilters.add(type);
+        button.setAttribute('aria-pressed', 'true');
+        button.classList.add('active');
+      }
+
+      // Apply filters
+      applyVideoFilters(activeFilters, videoTypeSections);
+    });
+  });
+}
+
+/**
+ * Apply video type filters to show/hide sections
+ * @param {Set<string>} activeFilters - Set of active filter types
+ * @param {NodeList} videoTypeSections - All video type sections
+ */
+function applyVideoFilters(activeFilters, videoTypeSections) {
+  if (activeFilters.size === 0) {
+    // No filters active: show all sections
+    videoTypeSections.forEach((section) => {
+      section.style.display = '';
+    });
+  } else {
+    // Filters active: show only matching sections
+    videoTypeSections.forEach((section) => {
+      const sectionType = section.getAttribute('data-type');
+      if (activeFilters.has(sectionType)) {
+        section.style.display = '';
+      } else {
+        section.style.display = 'none';
+      }
+    });
+  }
 }

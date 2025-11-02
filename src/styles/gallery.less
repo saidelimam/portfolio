@@ -300,12 +300,87 @@
   }
 }
 
+// Videography filters
+.video-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-filter-btn {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: @white;
+  padding: 0.75rem 1.5rem;
+  border-radius: @border-radius-md;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  &.active,
+  &[aria-pressed="true"] {
+    background: @secondary-color;
+    border-color: @secondary-color;
+    color: @white;
+    box-shadow: 0 4px 12px rgba(194, 24, 91, 0.3);
+  }
+
+  &:focus {
+    outline: 2px solid @secondary-color;
+    outline-offset: 2px;
+  }
+
+  @media (max-width: @breakpoint-md) {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+// Videography container and type sections
+.videography-container {
+  margin: 2rem auto;
+}
+
+.video-type-section {
+  margin-bottom: 4rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.video-type-heading {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: @white;
+  margin: 0 1rem 1.5rem 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+
+  @media (max-width: @breakpoint-md) {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+}
+
 // Videography grid
 .video-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
-  margin: 2rem auto;
+  margin: 0;
 
   // 2 columns starting from medium screens
   @media (min-width: 768px) {
