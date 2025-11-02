@@ -157,6 +157,12 @@ function initializeVideoFilters() {
       const type = button.getAttribute('data-type');
       const isPressed = button.getAttribute('aria-pressed') === 'true';
 
+      // Stop any currently playing video when filters change
+      if (currentPlayingVideo) {
+        resetVideoToCover(currentPlayingVideo);
+        currentPlayingVideo = null;
+      }
+
       // Toggle filter
       if (isPressed) {
         // Deselect filter
