@@ -155,5 +155,23 @@
         "url": "https://github.com/DevComPack/setupmaker"
       }
     ]
+  },
+  {
+    "type": "community",
+    "date": "07/2011",
+    "title": "GDG Casablanca",
+    "icon": "img/icon/gdgcasablanca.ico",
+    "headline": "Google Developer Group | Casablanca",
+    "credits": "Google, Microsoft, Samsung",
+    "description": "I founded this tech group to host events at schools, campuses or online. Multiple sponsors joined in and got involved with the group, like Google, Microsoft, Samsung and others.",
+    "details": "As a Google Student Ambassador, I founded GDG Casablanca in July 2011 as a Google Developer Group. This tech group was created to host events at schools, campuses, or online. Multiple sponsors joined in and got involved with the group, including Google, Microsoft, Samsung, and others. We also got important speakers join our events. Events hosted by the group included: Google World EMSI and The Google+ Way. The group won the price of best Marketing strategy among all groups in MENA region.",
+    "embed": "<iframe width=\"100%\" height=\"500px\" src=\"https://www.youtube.com/embed/LnlnQDHdqZo?si=VigjUldovcJeJBV5\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
+    "tags": ["Google Developer Group", "Community", "Tech Events", "Google Student Ambassador"],
+    "links": [
+      {
+        "text": "Facebook Page",
+        "url": "https://www.facebook.com/GDG.Casablanca"
+      }
+    ]
   }
 ]
