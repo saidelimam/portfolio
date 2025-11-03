@@ -5,7 +5,7 @@
 
 // Import LESS styles for processing by Vite
 import '../styles/main.less';
-import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop } from './core.js';
+import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop, initializePageLoadingSpinner } from './core.js';
 import { preventImageDragAndRightClick } from './utils.js';
 import { setModalOpen, removeModalOpen } from './modals.js';
 
@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeSmoothScrolling();
   initializeHeaderScrollEffect();
   initializeScrollToTop();
+  initializePageLoadingSpinner();
   
   // Initialize lightbox
   initializeGalleryLightbox();
@@ -129,12 +130,16 @@ function initializeGalleryLightbox() {
  */
 function openPhotoModal(index) {
   const modal = document.getElementById('image-modal');
+  const modalContent = modal?.querySelector('.image-modal-content');
   const modalImg = modal?.querySelector('.image-modal-img');
 
-  if (!modal || !modalImg || !allPhotos[index]) return;
+  if (!modal || !modalContent || !modalImg || !allPhotos[index]) return;
 
   currentPhotoIndex = index;
   const photo = allPhotos[index];
+
+  // Show spinner
+  modalContent.classList.remove('image-loaded');
 
   // Set image source and alt
   modalImg.setAttribute('src', photo.src);
@@ -147,6 +152,22 @@ function openPhotoModal(index) {
   // Show modal - backdrop will animate automatically
   modal.classList.add('active');
   setModalOpen();
+
+  // Hide spinner when image is loaded
+  if (modalImg.complete) {
+    // Image already loaded
+    modalContent.classList.add('image-loaded');
+  } else {
+    // Wait for image to load
+    modalImg.addEventListener('load', () => {
+      modalContent.classList.add('image-loaded');
+    }, { once: true });
+
+    // Fallback: hide spinner after timeout
+    setTimeout(() => {
+      modalContent.classList.add('image-loaded');
+    }, 5000);
+  }
 }
 
 /**
@@ -171,6 +192,13 @@ function navigateToPrevious() {
 
   // Wait for animation to complete, then change image
   setTimeout(() => {
+    const modalContent = modal?.querySelector('.image-modal-content');
+    
+    // Show spinner
+    if (modalContent) {
+      modalContent.classList.remove('image-loaded');
+    }
+
     modalImg.classList.remove('slide-out-right');
     currentPhotoIndex = (currentPhotoIndex - 1 + allPhotos.length) % allPhotos.length;
     const photo = allPhotos[currentPhotoIndex];
@@ -181,6 +209,25 @@ function navigateToPrevious() {
 
     // Reset position for slide in
     modalImg.style.transform = 'translateX(0)';
+
+    // Hide spinner when image is loaded
+    if (modalImg.complete) {
+      if (modalContent) {
+        modalContent.classList.add('image-loaded');
+      }
+    } else {
+      const handleLoad = () => {
+        if (modalContent) {
+          modalContent.classList.add('image-loaded');
+        }
+      };
+      modalImg.addEventListener('load', handleLoad, { once: true });
+      setTimeout(() => {
+        if (modalContent) {
+          modalContent.classList.add('image-loaded');
+        }
+      }, 5000);
+    }
 
     // Trigger slide in animation
     requestAnimationFrame(() => {
@@ -214,6 +261,13 @@ function navigateToNext() {
 
   // Wait for animation to complete, then change image
   setTimeout(() => {
+    const modalContent = modal?.querySelector('.image-modal-content');
+    
+    // Show spinner
+    if (modalContent) {
+      modalContent.classList.remove('image-loaded');
+    }
+
     modalImg.classList.remove('slide-out-left');
     currentPhotoIndex = (currentPhotoIndex + 1) % allPhotos.length;
     const photo = allPhotos[currentPhotoIndex];
@@ -224,6 +278,25 @@ function navigateToNext() {
 
     // Reset position for slide in
     modalImg.style.transform = 'translateX(0)';
+
+    // Hide spinner when image is loaded
+    if (modalImg.complete) {
+      if (modalContent) {
+        modalContent.classList.add('image-loaded');
+      }
+    } else {
+      const handleLoad = () => {
+        if (modalContent) {
+          modalContent.classList.add('image-loaded');
+        }
+      };
+      modalImg.addEventListener('load', handleLoad, { once: true });
+      setTimeout(() => {
+        if (modalContent) {
+          modalContent.classList.add('image-loaded');
+        }
+      }, 5000);
+    }
 
     // Trigger slide in animation
     requestAnimationFrame(() => {
@@ -241,6 +314,13 @@ function navigateToNext() {
 function closeImageModal() {
   const modal = document.getElementById('image-modal');
   if (!modal) return;
+
+  const modalContent = modal.querySelector('.image-modal-content');
+  
+  // Hide spinner when closing modal
+  if (modalContent) {
+    modalContent.classList.add('image-loaded');
+  }
 
   modal.classList.remove('active');
   removeModalOpen();

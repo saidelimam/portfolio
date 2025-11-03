@@ -5,7 +5,7 @@
 
 // Import LESS styles for processing by Vite
 import '../styles/main.less';
-import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop } from './core.js';
+import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop, initializePageLoadingSpinner } from './core.js';
 import { preventImageDragAndRightClick, hideIframeSpinner } from './utils.js';
 
 let currentPlayingVideo = null;
@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeSmoothScrolling();
   initializeHeaderScrollEffect();
   initializeScrollToTop();
+  initializePageLoadingSpinner();
   
   // Initialize video gallery
   initializeVideoGallery();

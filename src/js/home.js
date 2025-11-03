@@ -6,7 +6,7 @@
 
 // Import LESS styles for processing by Vite
 import '../styles/main.less';
-import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop } from './core.js';
+import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop, initializePageLoadingSpinner } from './core.js';
 import { createScrollHandler, preventImageDragAndRightClick } from './utils.js';
 import { loadProjectsData, initializeProjectCards } from './projects.js';
 
@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   initializeSmoothScrolling();
   initializeHeaderScrollEffect();
   initializeScrollToTop();
+  initializePageLoadingSpinner();
   initializeBackgroundAnimations();
 
   // Initialize projects module using imported functions
