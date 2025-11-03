@@ -187,3 +187,73 @@ export function initializeScrollToTop() {
   });
 }
 
+/**
+ * Initialize page loading spinner for internal navigation
+ * Shows spinner when clicking internal links and hides it when page loads
+ */
+export function initializePageLoadingSpinner() {
+  const spinner = document.getElementById('page-loading-spinner');
+  
+  if (!spinner) return;
+
+  // Function to show spinner
+  function showSpinner() {
+    spinner.classList.add('active');
+  }
+
+  // Function to hide spinner
+  function hideSpinner() {
+    spinner.classList.remove('active');
+  }
+
+  // Check if a link is internal (same origin and not external)
+  function isInternalLink(link) {
+    // Skip if link has target="_blank" (external link)
+    if (link.target === '_blank') {
+      return false;
+    }
+
+    // Skip anchor links (hash links)
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#')) {
+      return false;
+    }
+
+    // Check if link is same origin
+    try {
+      const url = new URL(href, window.location.origin);
+      return url.origin === window.location.origin;
+    } catch (e) {
+      // If URL parsing fails, check if it's a relative path
+      return href.startsWith('/') || !href.startsWith('http');
+    }
+  }
+
+  // Handle clicks on internal links
+  document.addEventListener('click', function (e) {
+    const link = e.target.closest('a');
+    
+    if (!link) return;
+    
+    // Only handle internal links
+    if (!isInternalLink(link)) return;
+
+    // Show spinner when internal link is clicked
+    showSpinner();
+  }, true); // Use capture phase to catch clicks early
+
+  // Hide spinner when page finishes loading
+  if (document.readyState === 'complete') {
+    // Page already loaded
+    hideSpinner();
+  } else {
+    // Wait for page to load
+    window.addEventListener('load', hideSpinner);
+    // Also hide on DOMContentLoaded as fallback
+    document.addEventListener('DOMContentLoaded', hideSpinner);
+  }
+
+  // Hide spinner if it's still visible after a delay (fallback)
+  setTimeout(hideSpinner, 5000);
+}
+
