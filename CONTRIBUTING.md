@@ -79,15 +79,22 @@ npm run build
 
 ## Testing Guidelines
 
+For detailed testing documentation, see:
+- [Main Testing Guide](tests/README.md) - Overview of test structure and running tests
+- [Build-Time Tests](tests/build-time/README.md) - Testing Vite plugins and build scripts
+- [Runtime Tests](tests/runtime/README.md) - Testing browser-side JavaScript code
+
 When submitting changes, please test:
 
 - **Cross-browser**: Chrome, Firefox, Safari, Edge
-- **Mobile devices**: Touch interactions, swipe gestures
-- **Responsive design**: Different screen sizes
+- **Mobile devices**: Touch interactions, swipe gestures, touch swipe-down to close modals
+- **Responsive design**: Different screen sizes (especially discography full-width layout)
 - **Accessibility**: Keyboard navigation, screen readers
 - **Performance**: Especially on low-end devices
 - **Image security**: Ensure drag and right-click protection works
-- **Modal functionality**: Browser navigation (back button) works correctly
+- **Modal functionality**: Browser navigation (back button) works correctly, touch swipe-down closes modals on mobile
+- **Loading spinners**: Page navigation spinner appears on internal links and hides on page load, image lightbox spinner shows until image loads
+- **Videography filtering**: Filter buttons work correctly, videos stop when filters change
 - **Animation pausing**: Animations pause when scrolling past the threshold (ANIMATION_PAUSE_SCROLL_THRESHOLD)
 
 ## Questions?

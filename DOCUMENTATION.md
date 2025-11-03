@@ -121,15 +121,16 @@ portfolio/
 - **Social Links**: Brand-colored hover effects for each platform (Instagram gradient, Spotify green, etc.)
   - Desktop (>768px): Rounded square icons with brand-colored hover effects
   - Mobile/Tablet (≤768px): Full-width button layout in a column for better touch interaction
-- **Project Modals**: Detailed project information with snapshots, metadata, browser navigation support
-- **Modal System**: Shared modal utilities for consistent behavior (open/close, navigation, media pausing)
+- **Page Loading Spinner**: Shows when clicking internal links (gallery pages) with backdrop blur, automatically hides when page loads
+- **Project Modals**: Detailed project information with snapshots, metadata, browser navigation support, touch swipe-down to close on mobile
+- **Modal System**: Shared modal utilities for consistent behavior (open/close, navigation, media pausing, touch swipe gestures)
 - **Cinematic Background**: Rotating gradient background with animated spotlight effects (hero section only)
 - **Dust Particles**: Floating purple particles with individual movement patterns (hero section only)
 - **Body Gradient**: Animated linear gradient background with blue, purple, and pink shades
 - **Animation Pausing**: All background animations pause when scrolling past 500px
-- **Photography Gallery**: Lightbox with swipe navigation, keyboard controls, and image protection
-- **Videography Gallery**: Click-to-play video grid with YouTube embeds and loading spinners
-- **Discography**: Album showcase with Spotify embeds and loading spinners
+- **Photography Gallery**: Lightbox with swipe navigation, keyboard controls, image protection, and **image loading spinner** until full image is loaded
+- **Videography Gallery**: Click-to-play video grid with YouTube embeds, loading spinners, **filter buttons** to filter by type, one video plays at a time (automatically stops on filter change)
+- **Discography**: Album showcase with Spotify embeds, loading spinners, **full-width layout** (one card per row on all devices)
 - **Image Security**: All images protected from dragging and right-clicking
 
 ### Accessibility & SEO
@@ -430,9 +431,25 @@ The project uses Vite for development and building. Key configuration in `vite.c
 
 ### Gallery Pages
 
-- **Photography (`/photography`)**: Full-screen image mosaic with lightbox modal, keyboard navigation (arrow keys, Escape), swipe support on touch devices, and protected images (no drag, no right-click)
-- **Videography (`/videography`)**: Video grid with protected cover images, play button overlay, YouTube embeds with loading spinners, one video plays at a time, responsive 1-2-3 column layout
-- **Discography (`/discography`)**: Album showcase with Spotify embeds and loading spinners, title and date headers, responsive 1-2 column layout
+- **Photography (`/photography`)**: 
+  - Full-screen image mosaic with lazy loading
+  - Lightbox modal with keyboard navigation (Arrow keys, Escape)
+  - Touch swipe navigation between images
+  - **Image loading spinner** - Shows until full image is loaded
+  - Protected images (no drag, no right-click)
+
+- **Videography (`/videography`)**: 
+  - Videos grouped by type (Demo Reels, Dance, 3D Animation, Special FX, Fashion, Travel)
+  - **Filter buttons** - Filter videos by type or show all grouped
+  - One video plays at a time (automatically stops previous video on navigation or filter change)
+  - Protected cover images with play button overlay
+  - YouTube embeds with loading spinners
+  - Responsive 1-2-3 column layout
+
+- **Discography (`/discography`)**: 
+  - **Full-width album cards** - Each card takes full width on all screen sizes
+  - Spotify embed support with loading spinners
+  - Album date and title display
 
 ### Code Organization
 
@@ -446,13 +463,13 @@ The codebase is organized into several layers:
 - **`src/components/`**: HTML templates for gallery items (photography-item.html, videography-item.html, discography-item.html)
 
 **JavaScript Modules:**
-- **`src/js/core.js`**: Core transversal functionality exported as functions (header scroll effects, smooth scrolling, scroll-to-top, performance optimizations)
+- **`src/js/core.js`**: Core transversal functionality exported as functions (header scroll effects, smooth scrolling, scroll-to-top, performance optimizations, page loading spinner)
 - **`src/js/home.js`**: Home page entry point (LESS styles import, transversal functionality, background animations control, projects module, profile picture security, social links)
 - **`src/js/projects.js`**: Project data loading, project cards initialization, and project modal management
-- **`src/js/photography.js`**: Photography gallery lightbox with touch/swipe navigation, keyboard controls, and image protection
-- **`src/js/videography.js`**: Video gallery initialization, YouTube embed loading with spinners, and cover image protection
+- **`src/js/photography.js`**: Photography gallery lightbox with touch/swipe navigation, keyboard controls, image protection, and image loading spinner
+- **`src/js/videography.js`**: Video gallery initialization, YouTube embed loading with spinners, video filtering by type, cover image protection, automatic video stopping on filter change
 - **`src/js/discography.js`**: Discography page initialization, album embeds with loading spinners
-- **`src/js/modals.js`**: Shared modal utilities (open/close, browser navigation, close handlers, iframe spinner management)
+- **`src/js/modals.js`**: Shared modal utilities (open/close, browser navigation, close handlers, iframe spinner management, touch swipe-down to close)
 - **`src/js/utils.js`**: Utility functions (debounce, browser detection, low-performance device detection, scroll handler creation, image security, iframe spinner hiding, media pausing)
 
 **Vite Plugins:**

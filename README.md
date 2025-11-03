@@ -76,8 +76,11 @@ Edit `src/styles/variables.less` to match your brand colors.
 - `src/components/` - Gallery item templates (photography-item.html, videography-item.html, discography-item.html)
 - `src/styles/variables.less` - Color scheme and styling
 - `src/js/utils.js` - Utility functions (debounce, browser detection, image security, etc.)
+- `src/js/core.js` - Core transversal functionality (header effects, smooth scrolling, page loading spinner)
 - `src/js/modals.js` - Shared modal functionality
-- `src/js/photography.js` - Photography gallery lightbox functionality
+- `src/js/photography.js` - Photography gallery lightbox with image loading spinner
+- `src/js/videography.js` - Video gallery with filtering and YouTube embed handling
+- `src/js/discography.js` - Discography page with Spotify embed support
 
 ## 🎨 Gallery Pages
 
@@ -121,6 +124,7 @@ See [DOCUMENTATION.md](DOCUMENTATION.md#code-organization) for detailed code str
 - ✅ Fast performance with optimized animations
 - ✅ Accessible (WCAG compliant)
 - ✅ Gallery pages for photos/videos/music with lightbox
+- ✅ Loading spinners - Page navigation spinner for internal links and image lightbox spinner
 - ✅ Image protection (drag and right-click prevention)
 - ✅ Smart animation pausing on scroll (saves resources)
 - ✅ Browser navigation support for modals
