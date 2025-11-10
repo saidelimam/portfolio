@@ -141,6 +141,47 @@ function loadVideo(videoItem) {
 }
 
 /**
+ * Get URL parameter value
+ * @param {string} name - Parameter name
+ * @returns {string|null} - Parameter value or null
+ */
+function getURLParameter(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
+/**
+ * Apply project filter from URL parameter
+ * @param {Set<string>} activeProjectFilters - Set of active project filters
+ * @param {NodeList} filterButtons - All filter buttons
+ * @returns {Set<string>} - Updated set of active project filters
+ */
+function applyProjectFilterFromURL(activeProjectFilters, filterButtons) {
+  const projectParam = getURLParameter('project');
+  
+  if (projectParam) {
+    // Find matching project filter button (case-insensitive)
+    const projectButtons = Array.from(filterButtons).filter(
+      (button) => button.getAttribute('data-filter') === 'project'
+    );
+    
+    const matchingButton = projectButtons.find((button) => {
+      const buttonValue = button.getAttribute('data-value');
+      return buttonValue && buttonValue.toLowerCase() === projectParam.toLowerCase();
+    });
+    
+    if (matchingButton) {
+      const projectValue = matchingButton.getAttribute('data-value');
+      activeProjectFilters.add(projectValue);
+      matchingButton.setAttribute('aria-pressed', 'true');
+      matchingButton.classList.add('active');
+    }
+  }
+  
+  return activeProjectFilters;
+}
+
+/**
  * Initialize video type and project filters
  */
 function initializeVideoFilters() {
@@ -153,6 +194,14 @@ function initializeVideoFilters() {
   // Track active filters for both type and project
   const activeTypeFilters = new Set();
   const activeProjectFilters = new Set();
+
+  // Apply project filter from URL parameter on page load
+  applyProjectFilterFromURL(activeProjectFilters, filterButtons);
+
+  // Apply initial filters if URL parameter was set
+  if (activeProjectFilters.size > 0) {
+    applyVideoFilters(activeTypeFilters, activeProjectFilters, videoTypeSections, videoItems);
+  }
 
   // Add click handler to each filter button
   filterButtons.forEach((button) => {
