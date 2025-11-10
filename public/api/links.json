@@ -36,6 +36,12 @@
     "label": "Review my code on GitHub"
   },
   {
+    "platform": "Airbnb",
+    "url": "https://www.airbnb.com/p/saidelimam",
+    "icon": "fab fa-airbnb",
+    "label": "Book me on Airbnb"
+  },
+  {
     "platform": "Email",
     "url": "mailto:contact@saidelimam.com",
     "icon": "fas fa-envelope",
