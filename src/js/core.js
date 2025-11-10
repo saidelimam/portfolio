@@ -196,14 +196,35 @@ export function initializePageLoadingSpinner() {
   
   if (!spinner) return;
 
+  // Store timeout reference to clear it if needed
+  let timeoutId = null;
+
   // Function to show spinner
   function showSpinner() {
     spinner.classList.add('active');
+    
+    // Clear any existing timeout
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+    
+    // Set timeout to hide spinner after 5 seconds if page hasn't loaded yet
+    timeoutId = setTimeout(() => {
+      hideSpinner();
+      timeoutId = null;
+    }, 5000);
   }
 
   // Function to hide spinner
   function hideSpinner() {
     spinner.classList.remove('active');
+    
+    // Clear timeout if spinner is hidden before timeout expires
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
   }
 
   // Check if a link is internal (same origin and not external)
@@ -252,8 +273,5 @@ export function initializePageLoadingSpinner() {
     // Also hide on DOMContentLoaded as fallback
     document.addEventListener('DOMContentLoaded', hideSpinner);
   }
-
-  // Hide spinner if it's still visible after a delay (fallback)
-  setTimeout(hideSpinner, 5000);
 }
 
