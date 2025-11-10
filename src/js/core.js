@@ -263,6 +263,9 @@ export function initializePageLoadingSpinner() {
     showSpinner();
   }, true); // Use capture phase to catch clicks early
 
+  // Hide spinner immediately on initialization (in case page was restored from cache)
+  hideSpinner();
+
   // Handle clicks on spinner backdrop to hide spinner
   const backdrop = spinner.querySelector('.page-loading-backdrop');
   if (backdrop) {
@@ -271,6 +274,15 @@ export function initializePageLoadingSpinner() {
 
   // Hide spinner when navigating backwards/forwards using browser navigation
   window.addEventListener('popstate', hideSpinner);
+
+  // Handle pageshow event (fires when page is loaded, including from bfcache)
+  // This is crucial for handling browser back/forward cache
+  window.addEventListener('pageshow', function (e) {
+    // If page was restored from cache (bfcache), hide spinner immediately
+    if (e.persisted) {
+      hideSpinner();
+    }
+  });
 
   // Hide spinner when page finishes loading
   if (document.readyState === 'complete') {
