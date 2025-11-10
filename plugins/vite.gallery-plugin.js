@@ -106,6 +106,7 @@ export default function galleryPlugin() {
             // Generate HTML for each type section
             const typeNames = {
               demoreel: 'Demo Reels',
+              film: 'Films',
               dance: 'Dance',
               '3d': '3D Animation',
               specialfx: 'Special FX',
