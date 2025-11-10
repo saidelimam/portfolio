@@ -79,7 +79,7 @@ Edit `src/styles/variables.less` to match your brand colors.
 - `src/js/core.js` - Core transversal functionality (header effects, smooth scrolling, page loading spinner)
 - `src/js/modals.js` - Shared modal functionality
 - `src/js/photography.js` - Photography gallery lightbox with image loading spinner
-- `src/js/videography.js` - Video gallery with filtering and YouTube embed handling
+- `src/js/videography.js` - Video gallery with dual filtering (type and project), URL parameter support, and YouTube embed handling
 - `src/js/discography.js` - Discography page with Spotify embed support
 
 ## 🎨 Gallery Pages

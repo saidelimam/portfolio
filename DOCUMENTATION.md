@@ -118,7 +118,7 @@ portfolio/
 - **Scroll-to-Top Button**: Convenient navigation with Font Awesome chevron icon, shows after 50px scroll
 - **Dynamic Logo**: Logo changes color based on scroll position (white/black) with smooth transitions
 - **Custom Tooltips**: Styled tooltips for social media links
-- **Social Links**: Brand-colored hover effects for each platform (Instagram gradient, Spotify green, etc.)
+- **Social Links**: Brand-colored hover effects for each platform (Instagram gradient, Spotify green, Airbnb coral, etc.)
   - Desktop (>768px): Rounded square icons with brand-colored hover effects
   - Mobile/Tablet (≤768px): Full-width button layout in a column for better touch interaction
 - **Page Loading Spinner**: Shows when clicking internal links (gallery pages) with backdrop blur, automatically hides when page loads
@@ -159,15 +159,17 @@ portfolio/
 ### Project Showcase
 
 - **Project Cards**: Interactive cards with type indicators, blurred backgrounds, and hover effects
-- **Project Details**: Comprehensive modals with snapshots, tags, metadata, and embed support
+  - Cards display only the first link from the project's links array
+  - All links are available in the detailed modal view
+- **Project Details**: Comprehensive modals with snapshots, tags, metadata, embed support, and all project links
 - **Company Showcase**: Links to companies worked with
 - **Skills Display**: Animated skill tags with hover effects
-- **Social Integration**: Links to Instagram, IMDB, Spotify, LinkedIn, YouTube, GitHub, and Email
+- **Social Integration**: Links to Instagram, IMDB, Spotify, LinkedIn, YouTube, GitHub, Airbnb, and Email
 
 ### Gallery Pages
 
 - **Photography Gallery** (`/photography`): Full-screen mosaic grid with lightbox modal, swipe navigation, keyboard controls (arrow keys, Escape), and protected images (no drag, no right-click)
-- **Videography Gallery** (`/videography`): Video grid (1-3 columns responsive) with cover images, click-to-play YouTube embeds, loading spinners, only one video plays at a time, protected cover images
+- **Videography Gallery** (`/videography`): Video grid (1-3 columns responsive) with cover images, click-to-play YouTube embeds, loading spinners, only one video plays at a time, protected cover images, dual filter system (type and project), URL parameter support for project filtering
 - **Discography** (`/discography`): Album showcase with Spotify embeds, loading spinners, title and date headers, responsive 1-2 column layout
 
 ## Development
@@ -294,10 +296,15 @@ Edit project information in `public/api/projects.json`:
     "details": "Detailed project information",
     "snapshot": "img/snapshot/project.jpg",
     "tags": ["React", "Node.js", "TypeScript"],
-    "links": [{ "text": "Visit Project", "url": "https://example.com" }]
+    "links": [
+      { "text": "Visit Project", "url": "https://example.com" },
+      { "text": "View Code", "url": "https://github.com/example" }
+    ]
   }
 ]
 ```
+
+**Note:** Project cards display only the first link from the `links` array. All links are shown in the detailed modal view when clicking on a project card.
 
 ### Social Links Data
 
@@ -314,6 +321,16 @@ Edit social media links in `public/api/links.json`:
 ]
 ```
 
+**Supported platforms with brand-colored hover effects:**
+- Instagram (gradient)
+- IMDB (yellow/gold)
+- Spotify (green)
+- LinkedIn (blue)
+- YouTube (red)
+- GitHub (dark gray/black)
+- Airbnb (coral/pink)
+- Email (white)
+
 ### Videography Data
 
 Edit videography gallery in `public/api/videography.json`:
@@ -323,10 +340,26 @@ Edit videography gallery in `public/api/videography.json`:
   {
     "title": "Video Title",
     "videoId": "youtube-video-id",
-    "cover": "cover-image.jpg"
+    "cover": "cover-image.jpg",
+    "type": "film",
+    "date": "01/2024",
+    "project": "Quazar"
   }
 ]
 ```
+
+**Fields:**
+- `title` - Video title
+- `videoId` - YouTube video ID
+- `cover` - Cover image filename (must be in `public/img/videography/`)
+- `type` - Video type
+- `date` - Release date (format: MM/YYYY)
+- `project` - Project name
+
+**Filtering:**
+- Videos can be filtered by type using the filter buttons
+- Videos can be filtered by project using the project filter buttons
+- URL parameter support: `/videography?project=quazar` (case-insensitive) automatically applies the project filter on page load
 
 Add cover images to `public/img/videography/` with the filename matching the `cover` field.
 
@@ -439,8 +472,10 @@ The project uses Vite for development and building. Key configuration in `vite.c
   - Protected images (no drag, no right-click)
 
 - **Videography (`/videography`)**: 
-  - Videos grouped by type (Demo Reels, Dance, 3D Animation, Special FX, Fashion, Travel)
-  - **Filter buttons** - Filter videos by type or show all grouped
+  - Videos grouped by type (Films, Demo Reels, Dance, Travel, Fashion, Special FX, 3D Animation)
+  - **Dual filter system** - Filter by video type (Films, Demo Reels, Dance, etc.) and/or by project (Quazar, ALifeExp, JackRED)
+  - Filter groups with labels ("Type:" and "Project:") and bordered containers
+  - **URL parameter support** - Use `?project=quazar` (case-insensitive) to automatically apply project filters on page load
   - One video plays at a time (automatically stops previous video on navigation or filter change)
   - Protected cover images with play button overlay
   - YouTube embeds with loading spinners
@@ -467,7 +502,7 @@ The codebase is organized into several layers:
 - **`src/js/home.js`**: Home page entry point (LESS styles import, transversal functionality, background animations control, projects module, profile picture security, social links)
 - **`src/js/projects.js`**: Project data loading, project cards initialization, and project modal management
 - **`src/js/photography.js`**: Photography gallery lightbox with touch/swipe navigation, keyboard controls, image protection, and image loading spinner
-- **`src/js/videography.js`**: Video gallery initialization, YouTube embed loading with spinners, video filtering by type, cover image protection, automatic video stopping on filter change
+- **`src/js/videography.js`**: Video gallery initialization, YouTube embed loading with spinners, dual video filtering (by type and project), URL parameter support for project filters, cover image protection, automatic video stopping on filter change
 - **`src/js/discography.js`**: Discography page initialization, album embeds with loading spinners
 - **`src/js/modals.js`**: Shared modal utilities (open/close, browser navigation, close handlers, iframe spinner management, touch swipe-down to close)
 - **`src/js/utils.js`**: Utility functions (debounce, browser detection, low-performance device detection, scroll handler creation, image security, iframe spinner hiding, media pausing)
