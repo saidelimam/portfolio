@@ -30,6 +30,11 @@ export default function pagesPlugin(options = {}) {
           return next();
         }
 
+        // Parse URL to get pathname (without query parameters)
+        // Split URL to separate pathname from query parameters
+        const [pathname, search = ''] = url.split('?');
+        const queryString = search ? `?${search}` : ''; // Preserve query parameters
+
         const pagesFiles = readdirSync(pagesDir)
           .filter((file) => file.endsWith('.html'));
 
@@ -37,8 +42,10 @@ export default function pagesPlugin(options = {}) {
           const pageName = filename.replace('.html', '');
 
           // Check if the request matches a page route (e.g., /photography or /photography/)
-          if (url === `/${pageName}` || url === `/${pageName}/`) {
-            req.url = `/pages/${filename}`;
+          // Match pathname only, preserving query parameters
+          if (pathname === `/${pageName}` || pathname === `/${pageName}/`) {
+            // Preserve query parameters when rewriting URL
+            req.url = `/pages/${filename}${queryString}`;
           }
         });
 

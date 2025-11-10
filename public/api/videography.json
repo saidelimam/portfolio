@@ -1,5 +1,29 @@
 [
   {
+    "title": "The Knife",
+    "videoId": "nJJq3_DXzGg",
+    "cover": "theknife-cover.jpg",
+    "type": "film",
+    "date": "01/2024",
+    "project": "Quazar"
+  },
+  {
+    "title": "Reflet d'une âme",
+    "videoId": "Zc6LZIPo1Ig",
+    "cover": "refletduneame-cover.jpg",
+    "type": "film",
+    "date": "11/2023",
+    "project": "Quazar"
+  },
+  {
+    "title": "Freedom",
+    "videoId": "SQDebYJCxrc",
+    "cover": "freedom-cover.jpg",
+    "type": "film",
+    "date": "11/2022",
+    "project": "Quazar"
+  },
+  {
     "title": "2024 Demo Reel",
     "videoId": "aZYXPeW2V2Y",
     "cover": "demoreel24-cover.webp",
@@ -30,30 +54,6 @@
     "type": "demoreel",
     "date": "03/2021",
     "project": "ALifeExp"
-  },
-  {
-    "title": "The Knife",
-    "videoId": "nJJq3_DXzGg",
-    "cover": "theknife-cover.jpg",
-    "type": "film",
-    "date": "01/2024",
-    "project": "Quazar"
-  },
-  {
-    "title": "Reflet d'une âme",
-    "videoId": "Zc6LZIPo1Ig",
-    "cover": "refletduneame-cover.jpg",
-    "type": "film",
-    "date": "11/2023",
-    "project": "Quazar"
-  },
-  {
-    "title": "Freedom",
-    "videoId": "SQDebYJCxrc",
-    "cover": "freedom-cover.jpg",
-    "type": "film",
-    "date": "11/2022",
-    "project": "Quazar"
   },
   {
     "title": "Manon Dance",
@@ -93,54 +93,6 @@
     "cover": "sara-ballet-cover.webp",
     "type": "dance",
     "date": "11/2021",
-    "project": "ALifeExp"
-  },
-  {
-    "title": "Lisbon Special FX",
-    "videoId": "55Gtx1H5xI0",
-    "cover": "lisbon-specialfx-cover.webp",
-    "type": "specialfx",
-    "date": "12/2019",
-    "project": "ALifeExp"
-  },
-  {
-    "title": "Dutch Rope",
-    "videoId": "byJSdtw9vBg",
-    "cover": "dutch-rope-cover.jpg",
-    "type": "specialfx",
-    "date": "05/2020",
-    "project": "ALifeExp"
-  },
-  {
-    "title": "Sara Special FX",
-    "videoId": "AjWCN9sRBr4",
-    "cover": "ballet-specialfx-cover.webp",
-    "type": "specialfx",
-    "date": "10/2019",
-    "project": "ALifeExp"
-  },
-  {
-    "title": "Paris Fashion",
-    "videoId": "PplwREAl5tY",
-    "cover": "paris-fashion-cover.jpg",
-    "type": "fashion",
-    "date": "10/2019",
-    "project": "ALifeExp"
-  },
-  {
-    "title": "London Fashion",
-    "videoId": "coJxXp6ilz4",
-    "cover": "london-fashion-cover.jpg",
-    "type": "fashion",
-    "date": "10/2019",
-    "project": "ALifeExp"
-  },
-  {
-    "title": "NYC Fashion",
-    "videoId": "SwcHk4niyio",
-    "cover": "nyc-fashion-cover.jpg",
-    "type": "fashion",
-    "date": "01/2020",
     "project": "ALifeExp"
   },
   {
@@ -189,6 +141,54 @@
     "cover": "berlin-travel-cover.webp",
     "type": "travel",
     "date": "09/2018",
+    "project": "ALifeExp"
+  },
+  {
+    "title": "Paris Fashion",
+    "videoId": "PplwREAl5tY",
+    "cover": "paris-fashion-cover.jpg",
+    "type": "fashion",
+    "date": "10/2019",
+    "project": "ALifeExp"
+  },
+  {
+    "title": "London Fashion",
+    "videoId": "coJxXp6ilz4",
+    "cover": "london-fashion-cover.jpg",
+    "type": "fashion",
+    "date": "10/2019",
+    "project": "ALifeExp"
+  },
+  {
+    "title": "NYC Fashion",
+    "videoId": "SwcHk4niyio",
+    "cover": "nyc-fashion-cover.jpg",
+    "type": "fashion",
+    "date": "01/2020",
+    "project": "ALifeExp"
+  },
+  {
+    "title": "Lisbon Special FX",
+    "videoId": "55Gtx1H5xI0",
+    "cover": "lisbon-specialfx-cover.webp",
+    "type": "specialfx",
+    "date": "12/2019",
+    "project": "ALifeExp"
+  },
+  {
+    "title": "Dutch Rope",
+    "videoId": "byJSdtw9vBg",
+    "cover": "dutch-rope-cover.jpg",
+    "type": "specialfx",
+    "date": "05/2020",
+    "project": "ALifeExp"
+  },
+  {
+    "title": "Sara Special FX",
+    "videoId": "AjWCN9sRBr4",
+    "cover": "ballet-specialfx-cover.webp",
+    "type": "specialfx",
+    "date": "10/2019",
     "project": "ALifeExp"
   },
   {
