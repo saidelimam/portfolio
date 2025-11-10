@@ -263,6 +263,12 @@ export function initializePageLoadingSpinner() {
     showSpinner();
   }, true); // Use capture phase to catch clicks early
 
+  // Handle clicks on spinner backdrop to hide spinner
+  const backdrop = spinner.querySelector('.page-loading-backdrop');
+  if (backdrop) {
+    backdrop.addEventListener('click', hideSpinner);
+  }
+
   // Hide spinner when page finishes loading
   if (document.readyState === 'complete') {
     // Page already loaded
