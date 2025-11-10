@@ -269,6 +269,9 @@ export function initializePageLoadingSpinner() {
     backdrop.addEventListener('click', hideSpinner);
   }
 
+  // Hide spinner when navigating backwards/forwards using browser navigation
+  window.addEventListener('popstate', hideSpinner);
+
   // Hide spinner when page finishes loading
   if (document.readyState === 'complete') {
     // Page already loaded
