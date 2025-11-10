@@ -141,21 +141,25 @@ function loadVideo(videoItem) {
 }
 
 /**
- * Initialize video type filters
+ * Initialize video type and project filters
  */
 function initializeVideoFilters() {
   const filterButtons = document.querySelectorAll('.video-filter-btn');
   const videoTypeSections = document.querySelectorAll('.video-type-section');
+  const videoItems = document.querySelectorAll('.video-item');
 
   if (filterButtons.length === 0 || videoTypeSections.length === 0) return;
 
-  // Track active filters
-  const activeFilters = new Set();
+  // Track active filters for both type and project
+  const activeTypeFilters = new Set();
+  const activeProjectFilters = new Set();
 
   // Add click handler to each filter button
   filterButtons.forEach((button) => {
     button.addEventListener('click', () => {
+      const filterType = button.getAttribute('data-filter') || 'type';
       const type = button.getAttribute('data-type');
+      const project = button.getAttribute('data-value');
       const isPressed = button.getAttribute('aria-pressed') === 'true';
 
       // Stop any currently playing video when filters change
@@ -164,45 +168,82 @@ function initializeVideoFilters() {
         currentPlayingVideo = null;
       }
 
-      // Toggle filter
-      if (isPressed) {
-        // Deselect filter
-        activeFilters.delete(type);
-        button.setAttribute('aria-pressed', 'false');
-        button.classList.remove('active');
+      // Toggle filter based on filter type
+      if (filterType === 'project') {
+        if (isPressed) {
+          // Deselect project filter
+          activeProjectFilters.delete(project);
+          button.setAttribute('aria-pressed', 'false');
+          button.classList.remove('active');
+        } else {
+          // Select project filter
+          activeProjectFilters.add(project);
+          button.setAttribute('aria-pressed', 'true');
+          button.classList.add('active');
+        }
       } else {
-        // Select filter
-        activeFilters.add(type);
-        button.setAttribute('aria-pressed', 'true');
-        button.classList.add('active');
+        // Type filter (legacy support)
+        if (isPressed) {
+          // Deselect type filter
+          activeTypeFilters.delete(type);
+          button.setAttribute('aria-pressed', 'false');
+          button.classList.remove('active');
+        } else {
+          // Select type filter
+          activeTypeFilters.add(type);
+          button.setAttribute('aria-pressed', 'true');
+          button.classList.add('active');
+        }
       }
 
       // Apply filters
-      applyVideoFilters(activeFilters, videoTypeSections);
+      applyVideoFilters(activeTypeFilters, activeProjectFilters, videoTypeSections, videoItems);
     });
   });
 }
 
 /**
- * Apply video type filters to show/hide sections
- * @param {Set<string>} activeFilters - Set of active filter types
+ * Apply video type and project filters to show/hide sections and items
+ * @param {Set<string>} activeTypeFilters - Set of active filter types
+ * @param {Set<string>} activeProjectFilters - Set of active project filters
  * @param {NodeList} videoTypeSections - All video type sections
+ * @param {NodeList} videoItems - All video items
  */
-function applyVideoFilters(activeFilters, videoTypeSections) {
-  if (activeFilters.size === 0) {
-    // No filters active: show all sections
-    videoTypeSections.forEach((section) => {
+function applyVideoFilters(activeTypeFilters, activeProjectFilters, videoTypeSections, videoItems) {
+  const hasTypeFilters = activeTypeFilters.size > 0;
+  const hasProjectFilters = activeProjectFilters.size > 0;
+
+  // Apply type filters to sections
+  videoTypeSections.forEach((section) => {
+    if (!hasTypeFilters) {
+      // No type filters active: show section
       section.style.display = '';
-    });
-  } else {
-    // Filters active: show only matching sections
-    videoTypeSections.forEach((section) => {
+    } else {
+      // Type filters active: show only matching sections
       const sectionType = section.getAttribute('data-type');
-      if (activeFilters.has(sectionType)) {
+      if (activeTypeFilters.has(sectionType)) {
         section.style.display = '';
       } else {
         section.style.display = 'none';
       }
-    });
-  }
+    }
+  });
+
+  // Apply project filters to individual video items
+  // This works in combination with type filters (AND logic)
+  videoItems.forEach((item) => {
+    if (!hasProjectFilters) {
+      // No project filters active: show item (if its section is visible)
+      item.style.display = '';
+    } else {
+      // Project filters active: show only matching items
+      const itemProject = item.getAttribute('data-project');
+      if (itemProject && activeProjectFilters.has(itemProject)) {
+        item.style.display = '';
+      } else {
+        // Hide item if it doesn't match project filter
+        item.style.display = 'none';
+      }
+    }
+  });
 }

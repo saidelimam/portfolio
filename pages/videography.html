@@ -25,28 +25,46 @@
         <div class="gallery-container">
           <h1 id="videography-heading" class="gallery-title">Videography</h1>
 
-          <div class="video-filters" role="group" aria-label="Filter videos by type">
-            <button type="button" class="video-filter-btn" data-type="demoreel" aria-pressed="false">
-              Demo Reels
-            </button>
-            <button type="button" class="video-filter-btn" data-type="film" aria-pressed="false">
-              Films
-            </button>
-            <button type="button" class="video-filter-btn" data-type="dance" aria-pressed="false">
-              Dance
-            </button>
-            <button type="button" class="video-filter-btn" data-type="specialfx" aria-pressed="false">
-              Special FX
-            </button>
-            <button type="button" class="video-filter-btn" data-type="fashion" aria-pressed="false">
-              Fashion
-            </button>
-            <button type="button" class="video-filter-btn" data-type="travel" aria-pressed="false">
-              Travel
-            </button>
-            <button type="button" class="video-filter-btn" data-type="3d" aria-pressed="false">
-              3D Animation
-            </button>
+          <div class="filter-group">
+            <label class="filter-label">Type:</label>
+            <div class="video-filters" role="group" aria-label="Filter videos by type">
+              <button type="button" class="video-filter-btn" data-type="demoreel" aria-pressed="false">
+                Demo Reels
+              </button>
+              <button type="button" class="video-filter-btn" data-type="film" aria-pressed="false">
+                Films
+              </button>
+              <button type="button" class="video-filter-btn" data-type="dance" aria-pressed="false">
+                Dance
+              </button>
+              <button type="button" class="video-filter-btn" data-type="specialfx" aria-pressed="false">
+                Special FX
+              </button>
+              <button type="button" class="video-filter-btn" data-type="fashion" aria-pressed="false">
+                Fashion
+              </button>
+              <button type="button" class="video-filter-btn" data-type="travel" aria-pressed="false">
+                Travel
+              </button>
+              <button type="button" class="video-filter-btn" data-type="3d" aria-pressed="false">
+                3D Animation
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label">Project:</label>
+            <div class="video-filters" role="group" aria-label="Filter videos by project">
+              <button type="button" class="video-filter-btn" data-filter="project" data-value="Quazar" aria-pressed="false">
+                Quazar
+              </button>
+              <button type="button" class="video-filter-btn" data-filter="project" data-value="ALifeExp" aria-pressed="false">
+                ALifeExp
+              </button>
+              <button type="button" class="video-filter-btn" data-filter="project" data-value="JackRED" aria-pressed="false">
+                JackRED
+              </button>
+            </div>
           </div>
 
           <div class="videography-container" role="list" aria-label="Videography gallery">{{VIDEOS}}</div>

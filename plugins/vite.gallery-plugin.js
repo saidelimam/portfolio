@@ -132,19 +132,34 @@ export default function galleryPlugin() {
                       : sanitizeURL(`/img/videography/${item.cover}`);
                     const title = sanitizeHTML(item.title);
                     const videoId = item.videoId;
+                    const project = item.project || '';
 
                     let itemHTML = template
                       .replace(/{{VIDEO_ID}}/g, videoId)
                       .replace(/{{TITLE}}/g, title)
                       .replace(/{{COVER_SRC}}/g, coverSrc);
 
+                    // Add data-project attribute if project exists
+                    if (project) {
+                      itemHTML = itemHTML.replace(
+                        /<div class="video-item"/,
+                        `<div class="video-item" data-project="${sanitizeHTML(project)}"`
+                      );
+                    }
+
                     // Add consistent indentation (16 spaces for nested)
                     return '                ' + itemHTML.trim().replace(/\n/g, '\n                ');
                   })
                   .join('\n');
 
+                // Get unique projects for this type section (space-separated for multiple projects)
+                const projectsInType = [...new Set(typeVideos.map(v => v.project).filter(Boolean))];
+                const projectAttr = projectsInType.length > 0 
+                  ? ` data-project="${projectsInType.map(p => sanitizeHTML(p)).join(' ')}"`
+                  : '';
+
                 // Create type section with heading
-                return `          <div class="video-type-section" data-type="${type}">
+                return `          <div class="video-type-section" data-type="${type}"${projectAttr}>
             <h2 class="video-type-heading">${typeName}</h2>
             <div class="video-grid">
 ${videosHTML}
