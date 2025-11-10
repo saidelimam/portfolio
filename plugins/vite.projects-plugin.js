@@ -47,12 +47,9 @@ export default function projectsPlugin() {
                       ${project.date ? `<span class="project-date">${sanitizeHTML(project.date)}</span>` : ''}
                       <p>${project.description}</p>
                       <div class="project-links">
-                          ${project.links
-                            .map(
-                              (link) =>
-                                `<a href="${sanitizeURL(link.url)}" target="_blank" class="project-link" rel="noopener noreferrer">${sanitizeHTML(link.text)}</a>`
-                            )
-                            .join('')}
+                          ${project.links && project.links.length > 0
+                            ? `<a href="${sanitizeURL(project.links[0].url)}" target="_blank" class="project-link" rel="noopener noreferrer">${sanitizeHTML(project.links[0].text)}</a>`
+                            : ''}
                       </div>
                   </article>`;
           })
