@@ -81,10 +81,16 @@ export default function galleryPlugin() {
           // Load template
           const template = readFileSync(templatePath, 'utf-8');
 
-          // Generate HTML for each photo, sorted by index
-          const sortedIndices = Object.keys(filesByIndex).sort((a, b) => parseInt(a) - parseInt(b));
+          // Generate HTML for each photo, randomized on each page load
+          const indices = Object.keys(filesByIndex);
           
-          itemsHTML = sortedIndices
+          // Shuffle array using Fisher-Yates algorithm
+          for (let i = indices.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [indices[i], indices[j]] = [indices[j], indices[i]];
+          }
+          
+          itemsHTML = indices
             .map((index) => {
               const fileData = filesByIndex[index];
               const alt = `Photography ${index}`;
