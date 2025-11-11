@@ -16,6 +16,15 @@ export function preventImageDragAndRightClick(imgElement, selectStartCheck = nul
     return;
   }
 
+  // Allow re-protection if a different selectStartCheck is provided (for special cases like photography modal)
+  const needsReprotection = imgElement._imageProtected && 
+    imgElement._selectStartCheck !== selectStartCheck;
+  
+  // Skip if already protected with same parameters (to avoid duplicate handlers)
+  if (imgElement._imageProtected && !needsReprotection) {
+    return;
+  }
+
   // Set draggable to false
   imgElement.setAttribute('draggable', 'false');
 
@@ -50,6 +59,47 @@ export function preventImageDragAndRightClick(imgElement, selectStartCheck = nul
   imgElement.addEventListener('dragstart', imgElement._dragStartHandler, { passive: false });
   imgElement.addEventListener('contextmenu', imgElement._contextMenuHandler, { passive: false });
   imgElement.addEventListener('selectstart', imgElement._selectStartHandler, { passive: false });
+
+  // Mark as protected and store the selectStartCheck function for comparison
+  imgElement._imageProtected = true;
+  imgElement._selectStartCheck = selectStartCheck;
+}
+
+/**
+ * Initialize global image protection for all images on the page
+ * Protects all existing images and watches for dynamically added images
+ */
+export function initializeGlobalImageProtection() {
+  // Protect all existing images
+  const allImages = document.querySelectorAll('img');
+  allImages.forEach((img) => {
+    preventImageDragAndRightClick(img);
+  });
+
+  // Watch for dynamically added images using MutationObserver
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        // If the added node is an image, protect it
+        if (node.nodeType === 1 && node.tagName === 'IMG') {
+          preventImageDragAndRightClick(node);
+        }
+        // If the added node contains images, protect them
+        if (node.nodeType === 1 && node.querySelectorAll) {
+          const images = node.querySelectorAll('img');
+          images.forEach((img) => {
+            preventImageDragAndRightClick(img);
+          });
+        }
+      });
+    });
+  });
+
+  // Start observing the document for changes
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
 }
 
 /**

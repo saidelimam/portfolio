@@ -4,11 +4,12 @@
  * This is imported by page-specific scripts as needed
  */
 
-import { debounce, isInstagramBrowser, detectLowPerformanceDevice, createScrollHandler } from './utils.js';
+import { debounce, isInstagramBrowser, detectLowPerformanceDevice, createScrollHandler, initializeGlobalImageProtection } from './utils.js';
 
 /**
  * Initialize performance optimizations
  * Disables animations for Opera browsers, in-app browsers, and low-performance devices
+ * Also initializes global image protection
  */
 export function initializePerformanceOptimizations() {
   const userAgent = navigator.userAgent || '';
@@ -30,6 +31,9 @@ export function initializePerformanceOptimizations() {
     // Disable smooth scrolling
     document.documentElement.style.scrollBehavior = 'auto';
   }
+
+  // Initialize global image protection (right-click and drag prevention for all images)
+  initializeGlobalImageProtection();
 }
 
 /**

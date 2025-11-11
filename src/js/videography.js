@@ -6,7 +6,7 @@
 // Import LESS styles for processing by Vite
 import '../styles/main.less';
 import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop, initializePageLoadingSpinner } from './core.js';
-import { preventImageDragAndRightClick, hideIframeSpinner } from './utils.js';
+import { hideIframeSpinner } from './utils.js';
 
 let currentPlayingVideo = null;
 
@@ -50,11 +50,6 @@ function initializeVideoGallery() {
 
     cover.addEventListener('click', handleClick);
     playButton.addEventListener('click', handleClick);
-
-    // Prevent dragging and right-click on cover images (only for mouse events, not touch)
-    if (coverImg) {
-      preventImageDragAndRightClick(coverImg);
-    }
   });
 }
 

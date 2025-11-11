@@ -1,13 +1,13 @@
 /**
  * Home Page JavaScript Entry Point
  * Imports LESS styles and initializes transversal functionality, home-specific features,
- * background animations, and profile picture security
+ * and background animations
  */
 
 // Import LESS styles for processing by Vite
 import '../styles/main.less';
 import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop, initializePageLoadingSpinner } from './core.js';
-import { createScrollHandler, preventImageDragAndRightClick } from './utils.js';
+import { createScrollHandler } from './utils.js';
 import { loadProjectsData, initializeProjectCards } from './projects.js';
 
 // Constants
@@ -38,8 +38,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
   
   // Initialize home-specific features
-  initializeProfilePictureSecurity();
-  initializeSocialLinks();
   initializeAboutReadMore();
 });
 
@@ -77,16 +75,6 @@ export function initializeAboutReadMore() {
 }
 
 /**
- * Secure profile picture from drag and right-click
- */
-function initializeProfilePictureSecurity() {
-  const profilePicture = document.querySelector('.profile-picture img');
-  if (profilePicture) {
-    preventImageDragAndRightClick(profilePicture);
-  }
-}
-
-/**
  * Initialize background animations control based on scroll position
  * Pauses all animations (body gradient, cinematic background, lights, dust particles) 
  * when user scrolls past the threshold
@@ -115,20 +103,5 @@ function initializeBackgroundAnimations() {
   });
   
   window.addEventListener('scroll', scrollHandler, { passive: true });
-}
-
-/**
- * Initialize social links functionality
- * Currently, links are injected via Vite plugin, but this can be used
- * for any future enhancements like analytics tracking or interaction handling
- */
-function initializeSocialLinks() {
-  const socialLinks = document.querySelectorAll('.hero-social-links a');
-
-  // Future: Add analytics tracking, click handlers, etc.
-  socialLinks.forEach((link) => {
-    // Links are already set up with proper attributes via Vite plugin
-    // This function can be extended for analytics or other enhancements
-  });
 }
 
