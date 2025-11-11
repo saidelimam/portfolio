@@ -24,6 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize lightbox
   initializeGalleryLightbox();
+  
+  // Preload HD images after page is fully loaded
+  if (document.readyState === 'complete') {
+    preloadHDImages();
+  } else {
+    window.addEventListener('load', preloadHDImages);
+  }
 });
 
 // Animation duration in milliseconds
@@ -35,6 +42,7 @@ let touchStartX = null;
 let touchStartY = null;
 let touchEndX = null;
 let touchEndY = null;
+const preloadedImages = new Set(); // Track preloaded image URLs
 
 /**
  * Initialize the gallery lightbox functionality
@@ -129,16 +137,9 @@ function openPhotoModal(index) {
   modalImg.setAttribute('src', photo.src);
   modalImg.setAttribute('alt', photo.alt);
   
-  // Apply touch-aware image protection (selectstart only prevented for mouse events, not touch)
-  preventImageDragAndRightClick(modalImg, () => !touchStartX && !touchEndX);
-
-  // Show modal - backdrop will animate automatically
-  modal.classList.add('active');
-  setModalOpen();
-
   // Hide spinner when image is loaded
   if (modalImg.complete) {
-    // Image already loaded
+    // Image already loaded (from cache)
     modalContent.classList.add('image-loaded');
   } else {
     // Wait for image to load
@@ -151,6 +152,74 @@ function openPhotoModal(index) {
       modalContent.classList.add('image-loaded');
     }, 5000);
   }
+  
+  // Apply touch-aware image protection (selectstart only prevented for mouse events, not touch)
+  preventImageDragAndRightClick(modalImg, () => !touchStartX && !touchEndX);
+
+  // Show modal - backdrop will animate automatically
+  modal.classList.add('active');
+  setModalOpen();
+}
+
+/**
+ * Preload HD images for faster lightbox display
+ * Preloads images progressively to avoid overwhelming the network
+ */
+function preloadHDImages() {
+  const photoItems = document.querySelectorAll('.photo-item');
+  if (photoItems.length === 0) return;
+
+  // Collect all HD image sources
+  const hdImages = Array.from(photoItems)
+    .map((item) => {
+      const hdSrc = item.getAttribute('data-hd-src');
+      const gallerySrc = item.querySelector('img')?.getAttribute('src');
+      // Only preload if HD version exists and is different from gallery image
+      return hdSrc && hdSrc !== gallerySrc ? hdSrc : null;
+    })
+    .filter(Boolean);
+
+  if (hdImages.length === 0) return;
+
+  // Preload images progressively (a few at a time to avoid network congestion)
+  const BATCH_SIZE = 3;
+  const DELAY_BETWEEN_BATCHES = 100; // ms
+
+  let currentIndex = 0;
+
+  function preloadBatch() {
+    const batch = hdImages.slice(currentIndex, currentIndex + BATCH_SIZE);
+    
+    batch.forEach((src) => {
+      // Skip if already preloaded
+      if (preloadedImages.has(src)) return;
+
+      // Create Image object to preload and cache the image
+      const img = new Image();
+      
+      img.onload = () => {
+        // Mark as preloaded once loaded
+        preloadedImages.add(src);
+      };
+      
+      img.onerror = () => {
+        // Silently handle errors
+      };
+      
+      // Set src to trigger loading (browser will cache it)
+      img.src = src;
+    });
+
+    currentIndex += BATCH_SIZE;
+
+    // Continue with next batch if there are more images
+    if (currentIndex < hdImages.length) {
+      setTimeout(preloadBatch, DELAY_BETWEEN_BATCHES);
+    }
+  }
+
+  // Start preloading after a short delay to ensure page is fully interactive
+  setTimeout(preloadBatch, 500);
 }
 
 /**
