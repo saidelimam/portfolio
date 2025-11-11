@@ -55,11 +55,16 @@ function initializeGalleryLightbox() {
   }
 
   // Store all photos in array for navigation
+  // Use HD version for lightbox if available, otherwise use gallery image
   allPhotos = Array.from(photoItems)
-    .map((item) => ({
-      src: item.querySelector('img')?.getAttribute('src'),
-      alt: item.querySelector('img')?.getAttribute('alt'),
-    }))
+    .map((item) => {
+      const img = item.querySelector('img');
+      const hdSrc = item.getAttribute('data-hd-src');
+      return {
+        src: hdSrc || img?.getAttribute('src'), // Use HD version for lightbox, fallback to gallery image
+        alt: img?.getAttribute('alt'),
+      };
+    })
     .filter((photo) => photo.src);
 
   // Add click handlers to all photo items

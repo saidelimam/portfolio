@@ -331,6 +331,30 @@ Edit social media links in `public/api/links.json`:
 - Airbnb (coral/pink)
 - Email (white)
 
+### Photography Data
+
+Photography images are automatically loaded from the `public/img/photography/` directory. Images should follow a specific naming convention to support both gallery and lightbox views:
+
+**Naming Convention:**
+- Format: `XXX-ld.ext` or `XXX-hd.ext` (e.g., `001-ld.jpg`, `001-hd.jpg`)
+- `XXX` - Three-digit index number (001, 002, 003, etc.)
+- `ld` - Low definition version (used for gallery grid)
+- `hd` - High definition version (used for lightbox modal)
+- `ext` - File extension (jpg, webp, png)
+
+**Image Usage:**
+- **Gallery grid**: Uses `-ld` version if available, falls back to `-hd` if only HD exists
+- **Lightbox modal**: Uses `-hd` version if available, falls back to `-ld` if only LD exists
+- **Single version**: If only one version exists (either `-ld` or `-hd`), it's used for both gallery and lightbox
+
+**Image Size Guidelines (examples, not strict rules):**
+- `-ld` images: Typically max dimension of 1024px (optimized for fast gallery loading)
+- `-hd` images: Typically max dimension of 2020px (higher quality for lightbox viewing)
+
+**Supported formats:** JPG, JPEG, WebP, PNG
+
+Images are automatically sorted by index number and displayed in the gallery. The plugin groups files by index, so `001-ld.jpg` and `001-hd.jpg` are treated as the same photo with different quality versions.
+
 ### Videography Data
 
 Edit videography gallery in `public/api/videography.json`:
@@ -457,7 +481,7 @@ The project uses Vite for development and building. Key configuration in `vite.c
   3. `plugins/vite.projects-plugin.js`: Injects project cards from `public/api/projects.json`
   4. `plugins/vite.links-plugin.js`: Injects social links from `public/api/links.json`
   5. `plugins/vite.gallery-plugin.js`: Generic gallery plugin that injects gallery items using component templates:
-     - Photography: Reads from `public/img/photography/` directory, uses `src/components/photography-item.html`
+     - Photography: Reads from `public/img/photography/` directory, groups images by index (`XXX-ld.ext` and `XXX-hd.ext`), uses `-ld` for gallery and `-hd` for lightbox, uses `src/components/photography-item.html`
      - Videography: Reads from `public/api/videography.json`, uses `src/components/videography-item.html`
      - Discography: Reads from `public/api/discography.json`, uses `src/components/discography-item.html`
   6. `plugins/vite.pages-plugin.js`: Reorganizes pages from `pages/` to clean URLs
@@ -466,6 +490,8 @@ The project uses Vite for development and building. Key configuration in `vite.c
 
 - **Photography (`/photography`)**: 
   - Full-screen image mosaic with lazy loading
+  - **Dual-quality images** - Gallery uses `-ld` versions (typically max 1024px), lightbox uses `-hd` versions (typically max 2020px)
+  - Automatic fallback - If only one version exists, it's used for both gallery and lightbox
   - Lightbox modal with keyboard navigation (Arrow keys, Escape)
   - Touch swipe navigation between images
   - **Image loading spinner** - Shows until full image is loaded
