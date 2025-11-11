@@ -3,7 +3,7 @@
  * Handles modal functionality for static project cards
  */
 
-import { sanitizeHTML, sanitizeURL, sanitizeEmbed, pauseAllMedia, preventImageDragAndRightClick, getProjectTypeIcon } from './utils.js';
+import { sanitizeHTML, sanitizeURL, sanitizeEmbed, pauseAllMedia, getProjectTypeIcon } from './utils.js';
 import { setModalOpen, removeModalOpen, initializeModalCloseHandlers, initializeModalNavigation, handleModalIframeSpinner, initializeModalTouchSwipe, closeModal, resetModalStyles } from './modals.js';
 
 // Project data loaded from JSON file
@@ -179,14 +179,6 @@ function openProjectModal(projectIndex) {
         // If no embed elements, handle spinner immediately
         handleModalIframeSpinner(embedContainer);
       }
-    }
-  }
-
-  // Secure snapshot image (prevent drag and right-click)
-  if (project.snapshot) {
-    const snapshotImg = modalContent.querySelector('.modal-screenshot');
-    if (snapshotImg) {
-      preventImageDragAndRightClick(snapshotImg);
     }
   }
 
