@@ -57,20 +57,59 @@ export default function galleryPlugin() {
             return html;
           }
 
+          // Group files by index (e.g., "001-ld.jpg" and "001-hd.jpg" have index "001")
+          const filesByIndex = {};
+          files.forEach((file) => {
+            const match = file.match(/^(\d+)-(ld|hd)\.(jpg|jpeg|webp|png)$/i);
+            if (match) {
+              const index = match[1];
+              const quality = match[2].toLowerCase();
+              const ext = match[3];
+              
+              if (!filesByIndex[index]) {
+                filesByIndex[index] = { ld: null, hd: null, ext: ext };
+              }
+              
+              if (quality === 'ld') {
+                filesByIndex[index].ld = file;
+              } else if (quality === 'hd') {
+                filesByIndex[index].hd = file;
+              }
+            }
+          });
+
           // Load template
           const template = readFileSync(templatePath, 'utf-8');
 
-          // Generate HTML for each photo
-          itemsHTML = files
-            .map((file, index) => {
-              const alt = `Photography ${index + 1}`;
+          // Generate HTML for each photo, sorted by index
+          const sortedIndices = Object.keys(filesByIndex).sort((a, b) => parseInt(a) - parseInt(b));
+          
+          itemsHTML = sortedIndices
+            .map((index) => {
+              const fileData = filesByIndex[index];
+              const alt = `Photography ${index}`;
+              
+              // Determine gallery image (prefer ld, fallback to hd if ld doesn't exist)
+              const galleryImage = fileData.ld || fileData.hd;
+              
+              // Determine lightbox image (prefer hd, fallback to ld if hd doesn't exist)
+              const lightboxImage = fileData.hd || fileData.ld;
+              
+              if (!galleryImage) return '';
+              
+              const gallerySrc = `/img/photography/${galleryImage}`;
+              const lightboxSrc = `/img/photography/${lightboxImage}`;
+              
               let itemHTML = template
-                .replace(/{{INDEX}}/g, index + 1)
+                .replace(/{{INDEX}}/g, index)
                 .replace(/{{ALT}}/g, alt)
-                .replace(/{{IMAGE_SRC}}/g, `/img/photography/${file}`);
+                .replace(/{{IMAGE_SRC}}/g, gallerySrc)
+                .replace(/{{HD_IMAGE_SRC}}/g, lightboxSrc);
+              
               // Add consistent indentation (12 spaces)
               return '            ' + itemHTML.trim().replace(/\n/g, '\n            ');
             })
+            .filter(Boolean)
             .join('\n');
         } else if (galleryType === 'videography' || galleryType === 'discography') {
           // Videography or Discography: read from JSON
