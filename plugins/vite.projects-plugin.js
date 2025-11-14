@@ -19,8 +19,13 @@ export default function projectsPlugin() {
 
         if (projectsData.length === 0) return html;
 
+        // Filter out hidden projects (only show projects where hidden is false or doesn't exist)
+        const visibleProjects = projectsData.filter(project => project.hidden !== true);
+
+        if (visibleProjects.length === 0) return html;
+
         // Generate HTML for projects grid
-        const projectsHTML = projectsData
+        const projectsHTML = visibleProjects
           .map((project, index) => {
             const typeIcon = getProjectTypeIcon(project.type);
 

@@ -18,7 +18,9 @@ async function loadProjectsData() {
     if (!response.ok) {
       throw new Error('Failed to load projects data');
     }
-    projectsData = await response.json();
+    const allProjects = await response.json();
+    // Filter out hidden projects (only show projects where hidden is false or doesn't exist)
+    projectsData = allProjects.filter(project => project.hidden !== true);
     return projectsData;
   } catch (error) {
     console.error('Error loading projects data:', error);
