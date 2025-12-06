@@ -30,6 +30,10 @@
       {
         "text": "Visit Website",
         "url": "https://gocollab.cc"
+      },
+      {
+        "text": "Play Store",
+        "url": "https://play.google.com/store/apps/details?id=cc.gocollab.twa"
       }
     ]
   },
