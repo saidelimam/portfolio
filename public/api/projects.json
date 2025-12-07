@@ -29,11 +29,15 @@
     "links": [
       {
         "text": "Visit Website",
-        "url": "https://gocollab.cc"
+        "url": "https://www.gocollab.cc"
       },
       {
         "text": "Play Store",
         "url": "https://play.google.com/store/apps/details?id=cc.gocollab.twa"
+      },
+      {
+        "text": "Launch App",
+        "url": "https://app.gocollab.cc"
       }
     ]
   },
