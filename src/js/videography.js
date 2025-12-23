@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize video filters
   initializeVideoFilters();
+  
+  // Initialize filter section toggle
+  initializeFilterSectionToggle();
 });
 
 /**
@@ -243,6 +246,55 @@ function initializeVideoFilters() {
       // Apply filters
       applyVideoFilters(activeTypeFilters, activeProjectFilters, videoTypeSections, videoItems);
     });
+  });
+
+  // Clear filters button
+  const clearFiltersBtn = document.querySelector('.clear-filters-btn');
+  if (clearFiltersBtn) {
+    clearFiltersBtn.addEventListener('click', () => {
+      // Stop any currently playing video
+      if (currentPlayingVideo) {
+        resetVideoToCover(currentPlayingVideo);
+        currentPlayingVideo = null;
+      }
+
+      // Clear all active filters
+      activeTypeFilters.clear();
+      activeProjectFilters.clear();
+
+      // Reset all filter buttons
+      filterButtons.forEach((button) => {
+        button.setAttribute('aria-pressed', 'false');
+        button.classList.remove('active');
+      });
+
+      // Apply filters (which will show all videos)
+      applyVideoFilters(activeTypeFilters, activeProjectFilters, videoTypeSections, videoItems);
+    });
+  }
+}
+
+/**
+ * Initialize filter section expand/collapse functionality
+ */
+function initializeFilterSectionToggle() {
+  const filterHeader = document.querySelector('.filter-section-header');
+  const filterContent = document.getElementById('filter-content');
+
+  if (!filterHeader || !filterContent) return;
+
+  filterHeader.addEventListener('click', () => {
+    const isExpanded = filterHeader.getAttribute('aria-expanded') === 'true';
+    
+    if (isExpanded) {
+      // Collapse
+      filterHeader.setAttribute('aria-expanded', 'false');
+      filterContent.setAttribute('aria-hidden', 'true');
+    } else {
+      // Expand
+      filterHeader.setAttribute('aria-expanded', 'true');
+      filterContent.setAttribute('aria-hidden', 'false');
+    }
   });
 }
 

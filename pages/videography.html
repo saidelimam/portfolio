@@ -25,45 +25,75 @@
         <div class="gallery-container">
           <h1 id="videography-heading" class="gallery-title">Videography</h1>
 
-          <div class="filter-group">
-            <label class="filter-label">Type:</label>
-            <div class="video-filters" role="group" aria-label="Filter videos by type">
-              <button type="button" class="video-filter-btn" data-type="film" aria-pressed="false">
-                Films
+          <div class="video-filters-container">
+            <div class="filter-section">
+              <button type="button" class="filter-section-header" aria-expanded="false" aria-controls="filter-content">
+                <i class="fas fa-filter" aria-hidden="true"></i>
+                <span class="filter-section-title">Filter Videos</span>
+                <i class="fas fa-chevron-down filter-toggle-icon" aria-hidden="true"></i>
               </button>
-              <button type="button" class="video-filter-btn" data-type="demoreel" aria-pressed="false">
-                Demo Reels
-              </button>
-              <button type="button" class="video-filter-btn" data-type="dance" aria-pressed="false">
-                Dance
-              </button>
-              <button type="button" class="video-filter-btn" data-type="travel" aria-pressed="false">
-                Travel
-              </button>
-              <button type="button" class="video-filter-btn" data-type="fashion" aria-pressed="false">
-                Fashion
-              </button>
-              <button type="button" class="video-filter-btn" data-type="specialfx" aria-pressed="false">
-                Special FX
-              </button>
-              <button type="button" class="video-filter-btn" data-type="3d" aria-pressed="false">
-                3D Animation
-              </button>
-            </div>
-          </div>
+              
+              <div id="filter-content" class="filter-content" aria-hidden="true">
+              <div class="filter-category">
+                <div class="filter-category-label">
+                  <i class="fas fa-tags" aria-hidden="true"></i>
+                  <span>Type</span>
+                </div>
+                <div class="video-filters" role="group" aria-label="Filter videos by type">
+                  <button type="button" class="video-filter-btn" data-type="film" aria-pressed="false">
+                    <i class="fas fa-film" aria-hidden="true"></i>
+                    <span>Films</span>
+                  </button>
+                  <button type="button" class="video-filter-btn" data-type="demoreel" aria-pressed="false">
+                    <i class="fas fa-play-circle" aria-hidden="true"></i>
+                    <span>Demo Reels</span>
+                  </button>
+                  <button type="button" class="video-filter-btn" data-type="dance" aria-pressed="false">
+                    <i class="fas fa-music" aria-hidden="true"></i>
+                    <span>Dance</span>
+                  </button>
+                  <button type="button" class="video-filter-btn" data-type="travel" aria-pressed="false">
+                    <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+                    <span>Travel</span>
+                  </button>
+                  <button type="button" class="video-filter-btn" data-type="fashion" aria-pressed="false">
+                    <i class="fas fa-tshirt" aria-hidden="true"></i>
+                    <span>Fashion</span>
+                  </button>
+                  <button type="button" class="video-filter-btn" data-type="specialfx" aria-pressed="false">
+                    <i class="fas fa-magic" aria-hidden="true"></i>
+                    <span>Special FX</span>
+                  </button>
+                  <button type="button" class="video-filter-btn" data-type="3d" aria-pressed="false">
+                    <i class="fas fa-cube" aria-hidden="true"></i>
+                    <span>3D Animation</span>
+                  </button>
+                </div>
+              </div>
 
-          <div class="filter-group">
-            <label class="filter-label">Project:</label>
-            <div class="video-filters" role="group" aria-label="Filter videos by project">
-              <button type="button" class="video-filter-btn" data-filter="project" data-value="Quazar" aria-pressed="false">
-                Quazar
+              <div class="filter-category">
+                <div class="filter-category-label">
+                  <i class="fas fa-folder" aria-hidden="true"></i>
+                  <span>Project</span>
+                </div>
+                <div class="video-filters" role="group" aria-label="Filter videos by project">
+                  <button type="button" class="video-filter-btn" data-filter="project" data-value="Quazar" aria-pressed="false">
+                    <span>Quazar</span>
+                  </button>
+                  <button type="button" class="video-filter-btn" data-filter="project" data-value="ALifeExp" aria-pressed="false">
+                    <span>ALifeExp</span>
+                  </button>
+                  <button type="button" class="video-filter-btn" data-filter="project" data-value="JackRED" aria-pressed="false">
+                    <span>JackRED</span>
+                  </button>
+                </div>
+              </div>
+
+              <button type="button" class="clear-filters-btn" aria-label="Clear all filters">
+                <i class="fas fa-times" aria-hidden="true"></i>
+                <span>Clear Filters</span>
               </button>
-              <button type="button" class="video-filter-btn" data-filter="project" data-value="ALifeExp" aria-pressed="false">
-                ALifeExp
-              </button>
-              <button type="button" class="video-filter-btn" data-filter="project" data-value="JackRED" aria-pressed="false">
-                JackRED
-              </button>
+              </div>
             </div>
           </div>
 
