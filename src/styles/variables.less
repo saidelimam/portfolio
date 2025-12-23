@@ -1,18 +1,24 @@
 // LESS Variables
-// Color palette
-@accent-color: #9002a269;
-@accent-light: lighten(@accent-color, 50%);
-@primary-color: #667eea;
-@secondary-color: #c2185b;
+// Color palette - Cyan and Purple theme
+@accent-color: #8b5cf6; // Purple
+@accent-light: #a78bfa; // Lighter purple
+@accent-dark: #7c3aed; // Darker purple
+@cyan-color: #06b6d4; // Cyan
+@cyan-light: #22d3ee; // Lighter cyan
+@cyan-dark: #0891b2; // Darker cyan
+@primary-color: @cyan-color; // Cyan as primary
+@secondary-color: @accent-color; // Purple as secondary
 @accent-text-color: @white;
-@text-color: #333;
-@text-light: #666;
+@text-color: #1f2937; // Darker gray for better contrast
+@text-light: #6b7280; // Medium gray
 @white: #fff;
+@black: #000;
 
-// Background gradients
-@bg-gradient: linear-gradient(135deg, #667eea 0%, #c2185b 100%);
+// Background gradients - Cyan and Purple mix
+@bg-gradient: linear-gradient(135deg, #06b6d4 0%, #3b82f6 25%, #8b5cf6 50%, #a78bfa 75%, #22d3ee 100%);
+@bg-gradient-alt: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
 
-// Typography
+// Typography - Modern sizing
 @font-family:
   'Roboto',
   -apple-system,
@@ -22,9 +28,13 @@
 @font-size-base: 16px;
 @font-size-small: 14px;
 @font-size-large: 18px;
-@font-size-h1: 2.5rem;
-@font-size-h2: 2rem;
-@font-size-h3: 1.5rem;
+@font-size-h1: 3.5rem; // Larger, more impactful
+@font-size-h2: 2.75rem; // Increased
+@font-size-h3: 1.875rem; // Increased
+@font-weight-light: 300;
+@font-weight-normal: 400;
+@font-weight-medium: 500;
+@font-weight-bold: 700;
 
 // Spacing
 @spacing-xs: 0.5rem;
@@ -33,16 +43,22 @@
 @spacing-lg: 2rem;
 @spacing-xl: 3rem;
 
-// Border radius
-@border-radius-sm: 8px;
-@border-radius-md: 12px;
-@border-radius-lg: 20px;
-@border-radius-xl: 25px;
+// Border radius - More rounded, modern feel
+@border-radius-sm: 10px;
+@border-radius-md: 16px;
+@border-radius-lg: 24px;
+@border-radius-xl: 32px;
+@border-radius-full: 9999px;
 
-// Shadows
-@shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-@shadow-md: 0 4px 20px rgba(0, 0, 0, 0.15);
-@shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.2);
+// Shadows - More depth and modern look with cyan/purple theme
+@shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+@shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+@shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.18);
+@shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.25);
+@shadow-colored: 0 8px 32px rgba(139, 92, 246, 0.25); // Purple glow
+@shadow-colored-hover: 0 12px 40px rgba(139, 92, 246, 0.35);
+@shadow-cyan: 0 8px 32px rgba(6, 182, 212, 0.2); // Cyan glow
+@shadow-cyan-hover: 0 12px 40px rgba(6, 182, 212, 0.3);
 
 // Transitions
 @transition-fast: 0.2s ease;

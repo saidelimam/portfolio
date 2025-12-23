@@ -1,50 +1,309 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Privacy Policy - Said Elimam</title>
-
+    <link rel="icon" type="image/webp" href="/favicon.webp" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="stylesheet" href="/fonts/roboto.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
-      .privacy-content {
-        max-width: 800px;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        line-height: 1.7;
+        color: #1f2937;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 20%, #8b5cf6 40%, #a78bfa 60%, #22d3ee 80%, #06b6d4 100%);
+        background-size: 300% 300%;
+        animation: gradientShift 80s ease infinite;
+        padding: 0;
+      }
+      
+      main {
+        padding-top: 80px;
+        padding-bottom: 0;
+        min-height: calc(100vh - 200px);
+      }
+      
+      @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      
+      .container {
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 2rem;
-        line-height: 1.6;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        padding: 0 20px;
       }
+      
+      .privacy-content {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 4rem;
+        line-height: 1.8;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 24px;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      
       .privacy-content h1 {
-        color: #c2185b;
+        background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 3rem;
+        font-weight: 700;
         margin-bottom: 2rem;
+        letter-spacing: -0.02em;
       }
+      
       .privacy-content h2 {
-        color: #333;
+        color: #1f2937;
+        margin-top: 3rem;
+        margin-bottom: 1.5rem;
+        font-size: 1.875rem;
+        font-weight: 600;
+      }
+      
+      .privacy-content h3 {
+        color: #1f2937;
         margin-top: 2rem;
         margin-bottom: 1rem;
-      }
-      .privacy-content p {
-        margin-bottom: 1rem;
-      }
-      .privacy-content ul {
-        margin-bottom: 1rem;
-        padding-left: 2rem;
-      }
-      .back-link {
-        display: inline-block;
-        margin-bottom: 2rem;
-        color: #c2185b;
-        text-decoration: none;
+        font-size: 1.5rem;
         font-weight: 500;
       }
-      .back-link:hover {
+      
+      .privacy-content p {
+        margin-bottom: 1.5rem;
+        color: #4b5563;
+      }
+      
+      .privacy-content ul {
+        margin-bottom: 1.5rem;
+        padding-left: 2rem;
+        color: #4b5563;
+      }
+      
+      .privacy-content li {
+        margin-bottom: 0.5rem;
+      }
+      
+      .privacy-content a {
+        color: #8b5cf6;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+      
+      .privacy-content a:hover {
+        color: #06b6d4;
         text-decoration: underline;
+      }
+      
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        padding: 0.75rem 1.5rem;
+        background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+        color: white !important;
+        text-decoration: none;
+        font-weight: 500;
+        border-radius: 9999px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .back-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(139, 92, 246, 0.25);
+        text-decoration: none;
+        color: white !important;
+      }
+      
+      .back-link span {
+        color: white;
+      }
+      
+      .back-link i {
+        font-size: 0.9rem;
+      }
+      
+      /* Header Styles */
+      header {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+      }
+      
+      header.scrolled {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(30px) saturate(200%);
+        -webkit-backdrop-filter: blur(30px) saturate(200%);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      
+      nav {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      
+      .logo {
+        display: flex;
+        align-items: center;
+      }
+      
+      .logo img {
+        height: 50px;
+        width: auto;
+        max-width: 200px;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+      }
+      
+      .logo img:hover {
+        transform: scale(1.05);
+      }
+      
+      /* Footer Styles */
+      footer {
+        background: linear-gradient(135deg, rgba(31, 41, 55, 0.95) 0%, rgba(17, 24, 39, 0.98) 100%);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        color: white;
+        text-align: center;
+        padding: 3rem 0;
+        margin-top: 3rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      footer .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      
+      footer p {
+        margin: 0;
+        font-size: 0.95rem;
+        opacity: 0.85;
+        font-weight: 300;
+      }
+      
+      footer a {
+        color: #a78bfa;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+      
+      footer a:hover {
+        color: white;
+        text-decoration: underline;
+        text-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 15px rgba(6, 182, 212, 0.3);
+      }
+      
+      /* Scroll to Top Button */
+      .scroll-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+        color: white;
+        font-size: 22px;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+        box-shadow: 0 8px 32px rgba(139, 92, 246, 0.25), 0 8px 32px rgba(6, 182, 212, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .scroll-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      .scroll-to-top:hover {
+        background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 100%);
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 12px 40px rgba(139, 92, 246, 0.35), 0 12px 40px rgba(6, 182, 212, 0.3);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+      
+      @media (max-width: 768px) {
+        header {
+          display: none;
+        }
+        
+        main {
+          padding-top: 20px;
+        }
+        main {
+          padding-top: 20px;
+        }
+        
+        .privacy-content {
+          padding: 2rem 1.5rem;
+          margin: 20px 10px;
+        }
+        
+        .privacy-content h1 {
+          font-size: 2rem;
+        }
+        
+        .privacy-content h2 {
+          font-size: 1.5rem;
+        }
       }
     </style>
   </head>
   <body>
+    <header role="banner">
+      <nav class="container" role="navigation" aria-label="Main navigation">
+        <a class="logo" href="/" aria-label="Home - Said Elimam">
+          <img src="/img/logo-white.webp" alt="Said Elimam Logo" fetchpriority="high" />
+        </a>
+      </nav>
+    </header>
+
     <main role="main">
       <div class="privacy-content">
-        <a href="/" class="back-link">← Back to Portfolio</a>
+        <a href="/" class="back-link">
+          <i class="fas fa-arrow-left"></i>
+          <span>Back to Portfolio</span>
+        </a>
 
         <h1>Privacy Policy</h1>
 
@@ -174,5 +433,55 @@
         </p>
       </div>
     </main>
+
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          &copy; 2025 - Said Elimam | <a href="/privacy">Privacy Policy</a> |
+          <a href="https://github.com/saidelimam/portfolio" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+        </p>
+      </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" aria-label="Scroll to top" style="display: none">
+      <i class="fas fa-chevron-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- Scroll to Top Button Script -->
+    <script>
+      (function() {
+        const scrollButton = document.querySelector('.scroll-to-top');
+        if (!scrollButton) return;
+        
+        function toggleScrollButton() {
+          if (window.pageYOffset > 300) {
+            scrollButton.classList.add('visible');
+            scrollButton.style.display = 'flex';
+          } else {
+            scrollButton.classList.remove('visible');
+          }
+        }
+        
+        scrollButton.addEventListener('click', function() {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        window.addEventListener('scroll', toggleScrollButton);
+        toggleScrollButton();
+        
+        // Header scroll effect
+        const header = document.querySelector('header');
+        if (header) {
+          window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 50) {
+              header.classList.add('scrolled');
+            } else {
+              header.classList.remove('scrolled');
+            }
+          });
+        }
+      })();
+    </script>
   </body>
 </html>

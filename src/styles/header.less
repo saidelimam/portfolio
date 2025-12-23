@@ -16,42 +16,43 @@
   border-radius: @radius;
 }
 
-// Glass effect mixin (used by header)
+// Glass effect mixin (used by header) - Enhanced
 .glass-effect() {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   // Fallback for mobile devices - reduce blur for better performance
   @media (max-width: 768px) {
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
   // Disable backdrop-filter for problematic browsers
   .low-performance & {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
   }
 }
 
 // Scroll to top button
 .scroll-to-top {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
+  bottom: 30px;
+  right: 30px;
+  width: 56px;
+  height: 56px;
   .border-radius(50%);
-  border: none;
-  background: @accent-color;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, @cyan-color 0%, @accent-color 100%);
   color: @accent-text-color;
-  font-size: 20px;
+  font-size: 22px;
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
-  .transition();
+  .transition(all, 0.4s, cubic-bezier(0.4, 0, 0.2, 1));
   z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: @shadow-colored, @shadow-cyan;
   // Hardware acceleration for smooth animations
   transform: translateZ(0);
   will-change: opacity, transform;
@@ -64,13 +65,14 @@
   }
 
   &:hover {
-    background: darken(@accent-color, 10%);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, lighten(@cyan-color, 5%) 0%, lighten(@accent-color, 5%) 100%);
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: @shadow-colored-hover, @shadow-cyan-hover;
+    border-color: rgba(255, 255, 255, 0.5);
   }
 
   &:active {
-    transform: translateY(0);
+    transform: translateY(-2px) scale(1.05);
   }
 }
 
@@ -90,20 +92,17 @@ header {
   // Animate background color change
   transition: background-color 0.3s ease, backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease, box-shadow 0.3s ease;
 
-  // Header scroll effect
+  // Header scroll effect - Enhanced
   &.scrolled {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(30px) saturate(200%);
+    -webkit-backdrop-filter: blur(30px) saturate(200%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 
     // Scrolled state for nav links
     .nav-links a {
       color: #333;
-
-      &:hover {
-        color: @accent-light;
-      }
     }
     
     // Disable backdrop-filter for problematic browsers
@@ -143,15 +142,37 @@ nav {
 .nav-links {
   display: flex;
   list-style: none;
-  gap: 2rem;
+  gap: 2.5rem;
 
   a {
     color: @white;
     text-decoration: none;
-    .transition(color);
+    font-weight: @font-weight-medium;
+    font-size: 1.05rem;
+    padding: 0.5rem 1rem;
+    border-radius: @border-radius-md;
+    .transition(all, 0.3s, cubic-bezier(0.4, 0, 0.2, 1));
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: @accent-light;
+      .transition(all, 0.3s, ease);
+      transform: translateX(-50%);
+    }
 
     &:hover {
-      color: @accent-light;
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+
+      &::after {
+        width: 80%;
+      }
     }
   }
 }
