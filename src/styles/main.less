@@ -467,7 +467,7 @@ footer {
   overflow: hidden;
   font-weight: @font-weight-medium;
   // Hardware acceleration - force GPU layer to prevent flickering on scroll
-  transform: translateZ(0);
+  // Removed translateZ to prevent excessive layer creation
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   // Paint containment for better scroll performance
@@ -512,7 +512,7 @@ footer {
     z-index: 1;
     .transition(all, 0.4s, cubic-bezier(0.4, 0, 0.2, 1));
     // Hardware acceleration for overlay to prevent flickering
-    transform: translateZ(0);
+    // Removed translateZ to prevent excessive layer creation
     will-change: background-color, backdrop-filter;
     
     // Disable expensive backdrop-filter on low-performance devices

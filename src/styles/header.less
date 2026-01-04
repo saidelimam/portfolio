@@ -54,7 +54,6 @@
   z-index: 1000;
   box-shadow: @shadow-colored, @shadow-cyan;
   // Hardware acceleration for smooth animations
-  transform: translateZ(0);
   will-change: opacity, transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -85,8 +84,7 @@ header {
   top: 0;
   z-index: 1000;
   // Hardware acceleration for smooth scrolling on mobile
-  transform: translateZ(0);
-  will-change: background-color;
+  will-change: background-color, transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   // Animate background color change

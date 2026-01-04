@@ -19,7 +19,7 @@
   pointer-events: none;
   transform-origin: center center;
   // Hardware acceleration for smooth animations
-  transform: translateZ(0);
+  will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 
@@ -111,8 +111,7 @@
   animation-duration: 40s, 8s;
   animation-timing-function: ease-in-out, ease-in-out;
   animation-iteration-count: infinite, infinite;
-  // Hardware acceleration for smooth particle animations
-  transform: translateZ(0);
+  // Removed translateZ to prevent excessive layer creation causing flickering
   will-change: transform, opacity;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
