@@ -9,9 +9,13 @@ import '../styles/main.less';
 import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop, initializePageLoadingSpinner } from './core.js';
 import { createScrollHandler } from './utils.js';
 import { loadProjectsData, initializeProjectCards } from './projects.js';
+import { BackgroundAnimation } from './background-canvas.js';
 
 // Constants
 const ANIMATION_PAUSE_SCROLL_THRESHOLD = 500; // Pause animations when scrolling past this pixel value
+
+// Global instance of background animation
+let bgAnimation = null;
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', async function () {
@@ -80,10 +84,9 @@ export function initializeAboutReadMore() {
  * when user scrolls past the threshold
  */
 function initializeBackgroundAnimations() {
-  const cinematicBackground = document.querySelector('.cinematic-background');
-  const dustParticles = document.querySelectorAll('.dust-particles');
-
-  if (!cinematicBackground) return;
+  // Initialize the new canvas-based background animation
+  bgAnimation = new BackgroundAnimation('background-canvas');
+  bgAnimation.start();
 
   const scrollHandler = createScrollHandler(() => {
     const scrollY = window.scrollY;
@@ -91,14 +94,16 @@ function initializeBackgroundAnimations() {
 
     // Add/remove class to body to pause all animations via CSS:
     // - Body gradient animation (gradientShift)
-    // - Cinematic background and lights
-    // - Dust particles
     if (shouldPause) {
       if (!document.body.classList.contains('animations-paused')) {
         document.body.classList.add('animations-paused');
+        if (bgAnimation) bgAnimation.stop();
       }
     } else {
-      document.body.classList.remove('animations-paused');
+      if (document.body.classList.contains('animations-paused')) {
+        document.body.classList.remove('animations-paused');
+        if (bgAnimation) bgAnimation.start();
+      }
     }
   });
   
