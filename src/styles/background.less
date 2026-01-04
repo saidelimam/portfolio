@@ -83,8 +83,8 @@
     }
   }
 
-  // Disable animations on mobile and tablet (≤768px)
-  @media (max-width: @breakpoint-md) {
+  // Disable animations on mobile and tablet (≤1024px) to prevent flickering
+  @media (max-width: @breakpoint-lg) {
     animation: none !important;
     will-change: auto;
     transform: none;
@@ -186,8 +186,8 @@ body.animations-paused .hero .dust-particles {
   animation-play-state: paused;
 }
 
-// Disable dust particle animations on mobile and tablet (≤768px)
-@media (max-width: @breakpoint-md) {
+// Disable dust particle animations on mobile and tablet (≤1024px)
+@media (max-width: @breakpoint-lg) {
   .hero .dust-particles {
     animation: none !important;
     will-change: auto;

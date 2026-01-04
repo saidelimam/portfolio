@@ -515,6 +515,13 @@ footer {
     // Removed translateZ to prevent excessive layer creation
     will-change: background-color, backdrop-filter;
     
+    // Disable expensive backdrop-filter on mobile/tablet (≤1024px)
+    @media (max-width: @breakpoint-lg) {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: rgba(255, 255, 255, 0.98);
+    }
+    
     // Disable expensive backdrop-filter on low-performance devices
     .low-performance & {
       backdrop-filter: none !important;
