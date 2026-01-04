@@ -203,8 +203,8 @@ export class BackgroundAnimation {
           x, y, 0,
           x, y, p.size
         );
-        gradient.addColorStop(0, `rgba(221, 214, 254, ${opacity * 0.15})`);
-        gradient.addColorStop(0.7, 'transparent');
+        gradient.addColorStop(0, `rgba(251, 244, 254, ${opacity * 0.05})`);
+        // gradient.addColorStop(0.7, 'transparent');
 
         this.ctx.fillStyle = gradient;
         this.ctx.beginPath();
