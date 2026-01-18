@@ -1,6 +1,26 @@
 [
   {
     "type": "dev",
+    "date": "01/2026",
+    "title": "SIMT",
+    "icon": "img/icon/simt.ico",
+    "headline": "Smart Space Management App",
+    "description": "A comprehensive space management ecosystem centered around a high-precision compass, enabling offline navigation, location tracking, and real-time device linking even in challenging environments where GPS fails.",
+    "details": "Simt is an advanced space management and navigation app that combines sensor fusion technology with sophisticated algorithms to deliver accurate direction-finding and location tracking. The app works fully offline and is privacy-first, storing all data locally on the device. Key features include deep parking recovery using dead reckoning to locate vehicles in multi-level garages, ocean and marine navigation with offline mapping, crowd connection for real-time friend tracking at large events without cellular service, inclusive spiritual guidance with haptic feedback and screen reader support for visually impaired users, pocket planetarium for offline astronomy and celestial tracking, and personal location memory tagging. The app uses advanced sensor fusion combining magnetometer, accelerometer, gyroscope, and GPS data, implementing algorithms such as Extended Kalman Filter (EKF), World Magnetic Model (WMM), Pedestrian Dead Reckoning (PDR), Visual-Inertial Odometry (VIO), and AR + IMU fusion for precise positioning. Simt is completely free with no ads, no hidden costs, and ensures user privacy by keeping all data on-device.",
+    "tags": ["Mobile App", "Android", "Navigation", "Compass", "Offline", "Sensor Fusion", "AR", "Accessibility", "Privacy"],
+    "links": [
+      {
+        "text": "Visit Website",
+        "url": "https://simt.app"
+      },
+      {
+        "text": "Play Store",
+        "url": "https://play.google.com/store/apps/details?id=app.simt"
+      }
+    ]
+  },
+  {
+    "type": "dev",
     "date": "10/2025",
     "title": "Portfolio Template",
     "headline": "Modern Portfolio Website Template",
@@ -39,7 +59,8 @@
         "text": "Launch App",
         "url": "https://app.gocollab.cc"
       }
-    ]
+    ],
+    "hidden": true
   },
   {
     "type": "film",
