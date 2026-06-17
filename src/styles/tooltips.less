@@ -1,4 +1,9 @@
-// Custom Tooltip Styles
+// =============================================================
+//  TOOLTIPS — floating label bubble (desktop hover)
+//  Used by social links and project-type icons.
+// =============================================================
+@import 'variables.less';
+
 .tooltip-container {
   position: relative;
   display: inline-block;
@@ -9,25 +14,22 @@
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.9);
-  color: @white;
-  padding: @spacing-xs @spacing-sm;
+  background: @surface-3;
+  color: @text-color;
+  padding: 0.45rem 0.8rem;
   border-radius: @border-radius-sm;
-  font-size: 0.85rem;
-  font-weight: 500;
+  font-family: @font-ui;
+  font-size: 0.8rem;
+  font-weight: @font-weight-medium;
   white-space: nowrap;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   z-index: @z-tooltip;
-  transition:
-    all @transition-normal,
-    color @transition-fast;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid @border;
   box-shadow: @shadow-md;
+  transition: all @transition-normal;
 
-  // Arrow pointing down
   &::after {
     content: '';
     position: absolute;
@@ -35,7 +37,7 @@
     left: 50%;
     transform: translateX(-50%);
     border: 6px solid transparent;
-    border-top-color: rgba(0, 0, 0, 0.9);
+    border-top-color: @surface-3;
   }
 }
 
@@ -45,7 +47,7 @@
   transform: translateX(-50%) translateY(-8px);
 }
 
-// Tooltip on the left (for project type icons)
+// Tooltip to the left (project type icons)
 .tooltip-container .tooltip.tooltip-left {
   bottom: auto;
   top: 50%;
@@ -56,12 +58,9 @@
   &::after {
     top: 50%;
     left: 100%;
-    transform: translateY(-50%) translateX(0);
+    transform: translateY(-50%);
     border: 6px solid transparent;
-    border-left-color: rgba(0, 0, 0, 0.9);
-    border-right: none;
-    border-top-color: transparent;
-    border-bottom-color: transparent;
+    border-left-color: @surface-3;
   }
 }
 
@@ -69,63 +68,15 @@
   transform: translateY(-50%) translateX(-12px);
 }
 
-// Responsive tooltips
-@media (max-width: @breakpoint-md) {
-  .tooltip {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.6rem;
-  }
-}
-
+// On mobile, social links become labelled buttons (see links.less),
+// so the floating bubble is hidden.
 @media (max-width: @breakpoint-md) {
   .tooltip-container {
-    display: block;
-    width: 100%;
-    margin-bottom: @spacing-xs;
-  }
-
-  .tooltip-container a {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    justify-content: flex-start;
-    width: 280px;
-    min-width: 280px;
-    height: auto;
-    padding: @spacing-sm @spacing-md;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: @border-radius-sm;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.8);
-    transition: all @transition-normal;
-    position: relative;
-    white-space: nowrap;
-    font-size: 1rem;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.2);
-      color: @white;
-      transform: translateX(4px);
-    }
-
-    i {
-      font-size: 1.2rem;
-      margin-right: @spacing-sm;
-      min-width: 20px;
-      flex-shrink: 0;
-    }
-
-    // Add the tooltip text as pseudo-element content
-    &::after {
-      content: attr(data-tooltip);
-      font-size: 0.9rem;
-      font-weight: 500;
-      flex-shrink: 0;
-    }
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
   }
-
-  .tooltip {
-    display: none; // Hide the separate tooltip element on mobile
-  }
+  .tooltip { display: none; }
 }

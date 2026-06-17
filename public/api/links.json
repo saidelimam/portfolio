@@ -3,7 +3,7 @@
     "platform": "Instagram",
     "url": "https://www.instagram.com/saidelimam",
     "icon": "fab fa-instagram",
-    "label": "Follow me on Instagram"
+    "label": "Follow me"
   },
   {
     "platform": "IMDB",
@@ -15,31 +15,31 @@
     "platform": "Spotify",
     "url": "https://open.spotify.com/artist/3lGVrfvhQFWnGtoM9LrFC4",
     "icon": "fab fa-spotify",
-    "label": "Listen to my music on Spotify"
+    "label": "Listen to my music"
   },
   {
     "platform": "LinkedIn",
     "url": "https://www.linkedin.com/in/saidelimam/",
     "icon": "fab fa-linkedin",
-    "label": "Connect with me on LinkedIn"
+    "label": "Connect with me"
   },
   {
     "platform": "YouTube",
     "url": "https://www.youtube.com/@saidelimam",
     "icon": "fab fa-youtube",
-    "label": "Subscribe to my YouTube channel"
+    "label": "Subscribe to my channel"
   },
   {
     "platform": "GitHub",
     "url": "https://github.com/saidelimam",
     "icon": "fab fa-github",
-    "label": "Review my code on GitHub"
+    "label": "Review my code"
   },
   {
     "platform": "Airbnb",
     "url": "https://www.airbnb.com/p/saidelimam",
     "icon": "fab fa-airbnb",
-    "label": "Book me on Airbnb"
+    "label": "Book me"
   },
   {
     "platform": "Email",

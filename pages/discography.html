@@ -20,9 +20,12 @@
     <main role="main">
       <section id="discography-gallery" class="gallery-section" aria-labelledby="discography-heading">
         <div class="gallery-container">
-          <h1 id="discography-heading" class="gallery-title">Discography</h1>
-          
-          <div class="discography-grid" role="list" aria-label="Discography">
+          <div class="gallery-head" data-reveal>
+            <span class="gallery-kicker">Sound</span>
+            <h1 id="discography-heading" class="gallery-title">Discography</h1>
+          </div>
+
+          <div class="discography-grid" role="list" aria-label="Discography" data-reveal-group>
             {{ALBUMS}}
           </div>
         </div>

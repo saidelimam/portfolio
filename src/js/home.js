@@ -8,6 +8,7 @@
 import '../styles/main.less';
 import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop, initializePageLoadingSpinner } from './core.js';
 import { createScrollHandler } from './utils.js';
+import { initializeScrollReveal } from './reveal.js';
 import { loadProjectsData, initializeProjectCards } from './projects.js';
 import { BackgroundAnimation } from './background-canvas.js';
 
@@ -43,6 +44,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   
   // Initialize home-specific features
   initializeAboutReadMore();
+
+  // Reveal sections on scroll (IntersectionObserver based)
+  initializeScrollReveal();
 });
 
 /**
@@ -84,6 +88,19 @@ export function initializeAboutReadMore() {
  * when user scrolls past the threshold
  */
 function initializeBackgroundAnimations() {
+  // Skip the animated canvas on devices/preferences where motion is costly
+  // or unwanted — the static hero light-glows still provide depth.
+  const prefersReducedMotion =
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const lowPerformance =
+    document.body.classList.contains('low-performance') ||
+    document.body.classList.contains('opera-no-animations');
+
+  if (prefersReducedMotion || lowPerformance) {
+    return;
+  }
+
   // Initialize the new canvas-based background animation
   bgAnimation = new BackgroundAnimation('background-canvas');
   bgAnimation.start();

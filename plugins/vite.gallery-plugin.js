@@ -205,8 +205,8 @@ export default function galleryPlugin() {
 
                 // Create type section with heading
                 return `          <div class="video-type-section" data-type="${type}"${projectAttr}>
-            <h2 class="video-type-heading">${typeName}</h2>
-            <div class="video-grid">
+            <h2 class="video-type-heading" data-reveal>${typeName}</h2>
+            <div class="video-grid" data-reveal-group>
 ${videosHTML}
             </div>
           </div>`;

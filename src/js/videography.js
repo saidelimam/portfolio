@@ -6,6 +6,7 @@
 // Import LESS styles for processing by Vite
 import '../styles/main.less';
 import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop, initializePageLoadingSpinner } from './core.js';
+import { initializeScrollReveal } from './reveal.js';
 import { hideIframeSpinner } from './utils.js';
 
 let currentPlayingVideo = null;
@@ -31,6 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize filter section toggle
   initializeFilterSectionToggle();
+
+  // Reveal page header + sections on scroll
+  initializeScrollReveal();
 });
 
 /**

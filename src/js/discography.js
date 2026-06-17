@@ -6,6 +6,7 @@
 // Import LESS styles for processing by Vite
 import '../styles/main.less';
 import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop, initializePageLoadingSpinner } from './core.js';
+import { initializeScrollReveal } from './reveal.js';
 import { hideIframeSpinner } from './utils.js';
 
 // Initialize transversal functionality and discography embeds on DOM load
@@ -23,6 +24,9 @@ document.addEventListener('DOMContentLoaded', function () {
   
   // Initialize discography embeds
   initializeDiscographyEmbeds();
+
+  // Reveal page header + albums on scroll
+  initializeScrollReveal();
 });
 
 /**

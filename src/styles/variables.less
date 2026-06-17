@@ -1,91 +1,140 @@
-// LESS Variables
-// Color palette - Cyan and Purple theme
-@accent-color: #8b5cf6; // Purple
-@accent-light: #a78bfa; // Lighter purple
-@accent-dark: #7c3aed; // Darker purple
-@cyan-color: #06b6d4; // Cyan
-@cyan-light: #22d3ee; // Lighter cyan
-@cyan-dark: #0891b2; // Darker cyan
-@primary-color: @cyan-color; // Cyan as primary
-@secondary-color: @accent-color; // Purple as secondary
-@accent-text-color: @white;
-@text-color: #1f2937; // Darker gray for better contrast
-@text-light: #6b7280; // Medium gray
-@white: #fff;
-@black: #000;
+// =============================================================
+//  DESIGN SYSTEM — "Cinematic Atelier"
+//  A dark, filmic teal & amber grade for a multidisciplinary
+//  filmmaker / photographer / composer / engineer portfolio.
+//  All tokens are mirrored to CSS custom properties on :root
+//  (see main.less) so JS, the canvas and runtime theming can
+//  read them. LESS variables stay the source of truth so the
+//  compile-time color functions (fade/lighten/darken) work.
+// =============================================================
 
-// Background gradients - Cyan and Purple mix
-@bg-gradient: linear-gradient(135deg, #06b6d4 0%, #3b82f6 25%, #8b5cf6 50%, #a78bfa 75%, #22d3ee 100%);
-@bg-gradient-alt: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+// ---- Core surfaces (near-black, cool) ----
+@bg-deep: #050608; // deepest letterbox black
+@bg: #0a0c12; // page base
+@surface: #0f1119; // raised panel
+@surface-2: #14172130; // glass card (alpha)
+@surface-3: #1a1e2b; // solid card
+@surface-hover: #1f2433;
 
-// Typography - Modern sizing
-@font-family:
-  'Roboto',
-  -apple-system,
-  BlinkMacSystemFont,
-  'Segoe UI',
-  sans-serif;
+// ---- Hairlines / borders ----
+@border: rgba(255, 255, 255, 0.08);
+@border-strong: rgba(255, 255, 255, 0.16);
+@border-soft: rgba(255, 255, 255, 0.05);
+
+// ---- Type colors ----
+@text-color: #ece8df; // warm off-white
+@text-light: #9aa0ad; // muted cool gray
+@text-dim: #6b7180; // dimmest
+@text-on-accent: #0a0c12; // dark text on bright accents
+@white: #ffffff;
+@black: #000000;
+
+// ---- Cinematic accents: warm amber + cool teal ----
+@amber: #f0a35e; // primary warm
+@amber-light: #ffc28a;
+@amber-deep: #cf7d36;
+@teal: #46d3c0; // primary cool
+@teal-light: #7af0e0;
+@teal-deep: #1fa897;
+
+// ---- Legacy aliases (kept so any leftover references resolve) ----
+@accent-color: @amber; // primary accent = warm light
+@accent-light: @amber-light;
+@accent-dark: @amber-deep;
+@cyan-color: @teal; // secondary accent = cool
+@cyan-light: @teal-light;
+@cyan-dark: @teal-deep;
+@primary-color: @amber;
+@secondary-color: @teal;
+@accent-text-color: @text-on-accent;
+
+// ---- Signature gradients ----
+@grad-warm-cool: linear-gradient(120deg, @teal 0%, #8fd6b8 38%, @amber 100%);
+@grad-amber: linear-gradient(135deg, @amber-light 0%, @amber 55%, @amber-deep 100%);
+@grad-teal: linear-gradient(135deg, @teal-light 0%, @teal 55%, @teal-deep 100%);
+@bg-gradient: @grad-warm-cool;
+@bg-gradient-alt: linear-gradient(135deg, @teal 0%, @amber 100%);
+
+// ---- Typography ----
+// Display: editorial high-contrast serif (artistic / cinematic)
+@font-display: 'Fraunces', 'Playfair Display', Georgia, 'Times New Roman', serif;
+// UI: technical grotesque for kickers, nav, buttons, labels
+@font-ui: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+// Body: keep the self-hosted Roboto
+@font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+@font-body: @font-family;
+
 @font-size-base: 16px;
 @font-size-small: 14px;
 @font-size-large: 18px;
-@font-size-h1: 3.5rem; // Larger, more impactful
-@font-size-h2: 2.75rem; // Increased
-@font-size-h3: 1.875rem; // Increased
+// Fluid display sizes (clamp handled inline where used)
+@font-size-h1: clamp(2.6rem, 9vw, 7rem);
+@font-size-h2: clamp(2rem, 4.5vw, 3.4rem);
+@font-size-h3: clamp(1.3rem, 2.2vw, 1.9rem);
 @font-weight-light: 300;
 @font-weight-normal: 400;
 @font-weight-medium: 500;
 @font-weight-bold: 700;
 
-// Spacing
+// ---- Spacing ----
 @spacing-xs: 0.5rem;
 @spacing-sm: 1rem;
 @spacing-md: 1.5rem;
 @spacing-lg: 2rem;
 @spacing-xl: 3rem;
+@spacing-2xl: 5rem;
+@spacing-3xl: 8rem;
 
-// Border radius - More rounded, modern feel
+// ---- Radii ----
 @border-radius-sm: 10px;
 @border-radius-md: 16px;
-@border-radius-lg: 24px;
-@border-radius-xl: 32px;
+@border-radius-lg: 22px;
+@border-radius-xl: 30px;
 @border-radius-full: 9999px;
 
-// Shadows - More depth and modern look with cyan/purple theme
-@shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-@shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
-@shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.18);
-@shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.25);
-@shadow-colored: 0 8px 32px rgba(139, 92, 246, 0.25); // Purple glow
-@shadow-colored-hover: 0 12px 40px rgba(139, 92, 246, 0.35);
-@shadow-cyan: 0 8px 32px rgba(6, 182, 212, 0.2); // Cyan glow
-@shadow-cyan-hover: 0 12px 40px rgba(6, 182, 212, 0.3);
+// ---- Shadows & glows (tuned for dark theme) ----
+@shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+@shadow-md: 0 14px 34px rgba(0, 0, 0, 0.45);
+@shadow-lg: 0 26px 60px rgba(0, 0, 0, 0.55);
+@shadow-xl: 0 40px 90px rgba(0, 0, 0, 0.65);
+@glow-amber: 0 0 44px rgba(240, 163, 94, 0.28);
+@glow-amber-hover: 0 10px 50px rgba(240, 163, 94, 0.42);
+@glow-teal: 0 0 44px rgba(70, 211, 192, 0.26);
+@glow-teal-hover: 0 10px 50px rgba(70, 211, 192, 0.4);
+// Legacy aliases
+@shadow-colored: @glow-amber;
+@shadow-colored-hover: @glow-amber-hover;
+@shadow-cyan: @glow-teal;
+@shadow-cyan-hover: @glow-teal-hover;
 
-// Transitions
-@transition-fast: 0.2s ease;
-@transition-normal: 0.3s ease;
-@transition-slow: 0.5s ease;
+// ---- Motion ----
+@ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+@ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+@ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+@transition-fast: 0.2s @ease-out;
+@transition-normal: 0.35s @ease-out;
+@transition-slow: 0.6s @ease-out;
 
-// Project type colors
-@type-dev-color: #10b981; // Green
-@type-film-color: #ef4444; // Red
-@type-music-color: #eab308; // Yellow
-@type-photo-color: #3b82f6; // Blue
-@type-community-color: #8b5cf6; // Purple
+// ---- Project / gallery accent colors (vivid on dark) ----
+@type-dev-color: #34d399; // engineer / dev — emerald
+@type-film-color: #ff6b5e; // film — coral red
+@type-music-color: #f5b454; // music — amber gold
+@type-photo-color: #5ea8ff; // photo — sky blue
+@type-community-color: #b794f6; // community — violet
 
-// Gallery type colors
-@gallery-photo-color: #3b82f6; // Blue
-@gallery-video-color: #ef4444; // Red
-@gallery-disco-color: #eab308; // Yellow (matches music)
-@gallery-dev-color: #10b981; // Green (matches dev projects)
+@gallery-photo-color: #5ea8ff;
+@gallery-video-color: #ff6b5e;
+@gallery-disco-color: #f5b454;
+@gallery-dev-color: #34d399;
 
-// Breakpoints
+// ---- Breakpoints ----
 @breakpoint-sm: 480px;
 @breakpoint-md: 768px;
-@breakpoint-md-up: 769px; // One pixel above md for "greater than"
+@breakpoint-md-up: 769px;
 @breakpoint-lg: 1024px;
 @breakpoint-xl: 1200px;
 
-// Z-index layers
+// ---- Z-index layers ----
 @z-dropdown: 1000;
 @z-sticky: 1020;
 @z-fixed: 1030;

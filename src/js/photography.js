@@ -6,6 +6,7 @@
 // Import LESS styles for processing by Vite
 import '../styles/main.less';
 import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop, initializePageLoadingSpinner } from './core.js';
+import { initializeScrollReveal } from './reveal.js';
 import { preventImageDragAndRightClick } from './utils.js';
 import { setModalOpen, removeModalOpen } from './modals.js';
 
@@ -24,6 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize lightbox
   initializeGalleryLightbox();
+
+  // Reveal page header on scroll
+  initializeScrollReveal();
   
   // Preload HD images after page is fully loaded
   if (document.readyState === 'complete') {

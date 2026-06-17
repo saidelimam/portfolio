@@ -78,6 +78,31 @@ export default function metadataPlugin(options = {}) {
         // Replace hero tagline placeholder
         html = html.replace(/{{HERO_TAGLINE}}/g, metadata.person.tagline);
 
+        // Hero display name — accent the final word for an artistic touch
+        const heroName = (metadata.person.name || '').trim();
+        const nameParts = heroName.split(/\s+/).filter(Boolean);
+        let heroNameHTML = heroName;
+        if (nameParts.length > 1) {
+          const lastWord = nameParts.pop();
+          heroNameHTML = `${nameParts.join(' ')} <span class="hero-title-accent">${lastWord}</span>`;
+        }
+        html = html.replace(/{{HERO_NAME}}/g, heroNameHTML);
+
+        // Hero location label
+        html = html.replace(/{{HERO_LOCATION}}/g, metadata.person.location || '');
+
+        // Hero rotating roles — duplicate the first role at the end so the
+        // vertical slide loops seamlessly (see .hero-roles in main.less).
+        const roles = Array.isArray(metadata.roles) ? metadata.roles : [];
+        let rolesHTML = '';
+        if (roles.length > 0) {
+          const loopRoles = [...roles, roles[0]];
+          rolesHTML = `<span class="hero-roles-track">${loopRoles
+            .map((role) => `<span class="hero-role">${role}</span>`)
+            .join('')}</span>`;
+        }
+        html = html.replace(/{{HERO_ROLES}}/g, rolesHTML);
+
         // Replace about description placeholder with truncated version and Read more link
         const fullDescription = metadata.about.description || '';
         const truncatedLength = 350;

@@ -36,7 +36,7 @@ export default function projectsPlugin() {
             // Capitalize project type for tooltip
             const capitalizedType = project.type ? project.type.charAt(0).toUpperCase() + project.type.slice(1).toLowerCase() : '';
             
-            return `                    <article class="project-card" data-project="${index}" role="listitem">
+            return `                    <article class="project-card" data-project="${index}" role="listitem" data-reveal>
                       <div class="project-card-overlay"></div>
                       <div class="project-type-icon project-type-${project.type} tooltip-container">
                           <i class="fas ${typeIcon}" aria-label="${project.type} project type" aria-hidden="true"></i>

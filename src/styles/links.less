@@ -1,79 +1,88 @@
-// Import variables
+// =============================================================
+//  SOCIAL LINKS (hero)
+// =============================================================
 @import 'variables.less';
 
-// Social links styles
 .hero-social-links {
-  display: flex;
   .flex-center();
-  gap: 1.5rem;
-  margin: 2rem 0;
   flex-wrap: wrap;
+  gap: 0.85rem;
+  margin: 2.2rem 0 0;
 
   a {
-    color: rgba(255, 255, 255, 0.8);
+    .flex-center();
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    color: @text-light;
     text-decoration: none;
-    font-size: 1.9rem;
-    .transition(all, 0.4s, cubic-bezier(0.4, 0, 0.2, 1));
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    .border-radius(50%);
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    box-shadow: @shadow-sm;
+    font-size: 1.2rem;
+    border: 1px solid @border-strong;
+    background: @surface-2;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    .transition(all, 0.4s);
+
+    .low-performance & {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: @surface-3;
+    }
+
+    i { .transition(transform, 0.4s); }
 
     &:hover {
-      background: rgba(255, 255, 255, 0.35);
-      transform: translateY(-5px) scale(1.1) rotate(5deg);
-      box-shadow: @shadow-colored;
-      border-color: rgba(255, 255, 255, 0.5);
-      color: @white;
+      color: @text-on-accent;
+      background: @grad-warm-cool;
+      border-color: transparent;
+      transform: translateY(-5px);
+      box-shadow: @glow-amber;
 
       i {
-        color: @white !important;
-        -webkit-text-fill-color: @white !important;
+        transform: scale(1.12);
+        color: @text-on-accent !important;
+        -webkit-text-fill-color: @text-on-accent !important;
         background: none !important;
       }
     }
 
-    i {
-      font-size: 1.3rem;
-      .transition();
-    }
+    &:focus-visible { .focus-ring(); }
   }
 }
 
-// Mobile and tablet responsive styles for social links
-// Desktop (>768px): Rounded square icons with brand-colored hover effects
-// Mobile/Tablet (≤768px): Full-width button layout in a column
+// Mobile / tablet: full-width labelled buttons in a column
 @media (max-width: @breakpoint-md) {
   .hero-social-links {
-    gap: 0.5rem;
-    width: 100%;
     flex-direction: column;
     align-items: center;
-    margin: 0.5rem 0;
+    gap: 0.5rem;
+    width: 100%;
+    margin: 1.4rem 0 0;
 
     a {
-      min-width: 280px;
-      width: 80%;
+      width: 82%;
+      min-width: 240px;
+      max-width: 340px;
       height: auto;
-      border-radius: @border-radius-sm;
-      padding: 0.4rem 0.6rem;
-      display: inline-flex;
+      gap: 0.85rem;
+      border-radius: @border-radius-md;
+      padding: 0.85rem 1.2rem;
       justify-content: flex-start;
-      white-space: nowrap;
-      font-size: 0.85rem;
-      color: @white !important;
+      color: @text-color;
+      font-size: 0.95rem;
 
-      &:hover {
-        color: @white !important;
+      i { font-size: 1.15rem; width: 22px; text-align: center; flex-shrink: 0; }
+
+      // Label text from the link's data-tooltip attribute
+      &::after {
+        content: attr(data-tooltip);
+        font-family: @font-ui;
+        font-size: 0.92rem;
+        font-weight: @font-weight-medium;
       }
+
+      &:hover { color: @text-on-accent; }
     }
   }
 }
-

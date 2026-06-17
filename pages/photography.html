@@ -23,9 +23,12 @@
     <main role="main">
       <section id="photography-gallery" class="gallery-section" aria-labelledby="photography-heading">
         <div class="gallery-container">
-          <h1 id="photography-heading" class="gallery-title">Photography</h1>
+          <div class="gallery-head" data-reveal>
+            <span class="gallery-kicker">Stills</span>
+            <h1 id="photography-heading" class="gallery-title">Photography</h1>
+          </div>
 
-          <div class="photo-mosaic" role="list" aria-label="Photography gallery">{{PHOTOS}}</div>
+          <div class="photo-mosaic" role="list" aria-label="Photography gallery" data-reveal-group>{{PHOTOS}}</div>
         </div>
       </section>
     </main>

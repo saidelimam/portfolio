@@ -15,17 +15,34 @@
 
     <!-- Inline critical CSS to prevent FOUC -->
     <style>
-      /* Prevent layout shift by hiding content until CSS loads */
+      /* Dark base prevents a white flash before the main CSS loads */
+      html { background-color: #0a0c12; }
+      body { background-color: #0a0c12; color: #ece8df; }
+      /* Hide content until CSS is ready to avoid layout shift */
       body:not(.loaded) { opacity: 0; visibility: hidden; }
       body:not(.loaded) * { opacity: 0; }
-      
-      /* Provide minimal styling before main CSS loads */
       * { box-sizing: border-box; }
     </style>
+
+    <!-- Preconnect to font/asset origins for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- External stylesheets -->
     <link rel="stylesheet" href="/fonts/roboto.css" media="print" onload="this.media='all'" fetchpriority="high" />
     <noscript><link rel="stylesheet" href="/fonts/roboto.css" fetchpriority="high" /></noscript>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -85,7 +102,18 @@
     <header role="banner">
       <nav class="container" role="navigation" aria-label="Main navigation">
         <a class="logo" href="/" aria-label="Home - Said Elimam"> <img src="/img/logo-white.webp" alt="{{LOGO_IMG_ALT}}" fetchpriority="high" /> </a>
-        <ul class="nav-links" role="list">
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+        <ul class="nav-links" id="primary-nav" role="list">
           {{NAV_LINKS}}
         </ul>
       </nav>

@@ -64,94 +64,77 @@ export function initializeSmoothScrolling() {
 
 /**
  * Initialize header scroll effect
+ * The dark theme keeps a single light logo and lets CSS handle nav link
+ * colors, so we only toggle the `scrolled` class for the glass intensity.
+ * Also wires up the responsive mobile navigation.
  */
 export function initializeHeaderScrollEffect() {
   const header = document.querySelector('header');
-  const logoImg = document.querySelector('.logo img');
-  const navLinks = document.querySelectorAll('.nav-links a');
-
-  if (!header || !logoImg) return;
+  if (!header) return;
 
   let isScrolled = false;
 
-  // Check if Instagram browser for simplified scroll handling
-  const isInstaBrowser = isInstagramBrowser();
-  
-  if (isInstaBrowser) {
-    // Simplified scroll handling for Instagram browser - only update on significant scroll
-    let lastScrollY = 0;
-    window.addEventListener('scroll', debounce(function () {
-      const scrollY = window.scrollY;
-      const shouldBeScrolled = scrollY > 100;
-      
-      // Only update if scroll changed significantly or state changed
-      if (Math.abs(scrollY - lastScrollY) > 50 || shouldBeScrolled !== isScrolled) {
-        lastScrollY = scrollY;
-        isScrolled = shouldBeScrolled;
-        
-        if (shouldBeScrolled) {
-          header.classList.add('scrolled');
-          navLinks.forEach((link) => {
-            link.style.color = '#333';
-          });
-          // Skip logo switching on Instagram browser to reduce flicker
-        } else {
-          header.classList.remove('scrolled');
-          navLinks.forEach((link) => {
-            link.style.color = '#fff';
-          });
-          // Skip logo switching on Instagram browser to reduce flicker
-        }
-      }
-    }, 100), { passive: true });
+  const updateScrolled = () => {
+    const shouldBeScrolled = window.scrollY > 80;
+    if (shouldBeScrolled !== isScrolled) {
+      isScrolled = shouldBeScrolled;
+      header.classList.toggle('scrolled', shouldBeScrolled);
+    }
+  };
+
+  if (isInstagramBrowser()) {
+    // Simplified, debounced handling to reduce flicker in the in-app browser
+    window.addEventListener('scroll', debounce(updateScrolled, 100), { passive: true });
   } else {
-    // Normal optimized scroll handling
-    const scrollHandler = createScrollHandler(() => {
-      const scrollY = window.scrollY;
-      const shouldBeScrolled = scrollY > 100;
-
-      // Only update if state changed to avoid unnecessary repaints
-      if (shouldBeScrolled !== isScrolled) {
-        isScrolled = shouldBeScrolled;
-
-        if (shouldBeScrolled) {
-          header.classList.add('scrolled');
-
-          // Change to black logo when scrolled
-          if (!logoImg.src.includes('logo-black.webp')) {
-            logoImg.style.opacity = '0.7';
-            setTimeout(() => {
-              logoImg.src = '/img/logo-black.webp';
-              logoImg.style.opacity = '1';
-            }, 150);
-          }
-
-          // Change nav links to black when scrolled
-          navLinks.forEach((link) => {
-            link.style.color = '#333';
-          });
-        } else {
-          header.classList.remove('scrolled');
-
-          // Change to white logo when at top
-          if (!logoImg.src.includes('logo-white.webp')) {
-            logoImg.style.opacity = '0.7';
-            setTimeout(() => {
-              logoImg.src = '/img/logo-white.webp';
-              logoImg.style.opacity = '1';
-            }, 150);
-          }
-
-          // Change nav links to white when at top
-          navLinks.forEach((link) => {
-            link.style.color = '#fff';
-          });
-        }
-      }
-    });
-    
-    window.addEventListener('scroll', scrollHandler, { passive: true });
+    window.addEventListener('scroll', createScrollHandler(updateScrolled), { passive: true });
   }
+
+  updateScrolled();
+  initializeMobileNav();
+}
+
+/**
+ * Initialize the responsive mobile navigation (hamburger toggle).
+ * Toggles `nav-open` on the header and keeps ARIA state in sync.
+ */
+export function initializeMobileNav() {
+  const header = document.querySelector('header');
+  const toggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  if (!header || !toggle) return;
+
+  const setOpen = (open) => {
+    header.classList.toggle('nav-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  };
+
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setOpen(!header.classList.contains('nav-open'));
+  });
+
+  // Close after choosing a destination
+  if (navLinks) {
+    navLinks.addEventListener('click', (e) => {
+      if (e.target.closest('a')) setOpen(false);
+    });
+  }
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (header.classList.contains('nav-open') && !header.contains(e.target)) {
+      setOpen(false);
+    }
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && header.classList.contains('nav-open')) {
+      setOpen(false);
+    }
+  });
 }
 
 /**

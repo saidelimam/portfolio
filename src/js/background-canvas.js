@@ -36,15 +36,15 @@ export class BackgroundAnimation {
     this.resize();
     window.addEventListener('resize', () => this.resize());
 
-    // Initialize Spotlights (Lights)
+    // Initialize Spotlights (cinematic teal + amber light leaks)
     // Light 1 - Duration 20s
     this.lights.push({
       duration: 20000,
       startTime: 0,
       opacity: 0.7,
       gradients: [
-        { x: 0.2, y: 0.3, radius: 400, color: 'rgba(255, 255, 255, 0.3)' },
-        { x: 0.8, y: 0.7, radius: 800, color: 'rgba(233, 41, 118, 0.3)' }
+        { x: 0.2, y: 0.3, radius: 460, color: 'rgba(70, 211, 192, 0.30)' },
+        { x: 0.8, y: 0.7, radius: 820, color: 'rgba(240, 163, 94, 0.30)' }
       ],
       // lightMovement1 keyframes logic
       getPosition: (progress) => {
@@ -69,8 +69,8 @@ export class BackgroundAnimation {
       startTime: 0,
       opacity: 0.5,
       gradients: [
-        { x: 0.6, y: 0.5, radius: 350, color: 'rgba(255, 255, 255, 0.15)' },
-        { x: 0.4, y: 0.2, radius: 350, color: 'rgba(194, 24, 91, 0.15)' }
+        { x: 0.6, y: 0.5, radius: 380, color: 'rgba(122, 240, 224, 0.16)' },
+        { x: 0.4, y: 0.2, radius: 380, color: 'rgba(255, 194, 138, 0.18)' }
       ],
       // lightMovement2 keyframes logic
       getPosition: (progress) => {
@@ -86,8 +86,8 @@ export class BackgroundAnimation {
       }
     });
 
-    // Initialize Dust Particles
-    const PARTICLE_COUNT = 100;
+    // Initialize Dust Particles (floating film dust)
+    const PARTICLE_COUNT = 80;
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       this.particles.push({
         x: Math.random(),
@@ -203,7 +203,7 @@ export class BackgroundAnimation {
           x, y, 0,
           x, y, p.size
         );
-        gradient.addColorStop(0, `rgba(251, 244, 254, ${opacity * 0.05})`);
+        gradient.addColorStop(0, `rgba(255, 240, 214, ${opacity * 0.06})`);
         // gradient.addColorStop(0.7, 'transparent');
 
         this.ctx.fillStyle = gradient;

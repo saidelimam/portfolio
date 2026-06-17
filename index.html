@@ -13,7 +13,7 @@
       <nav class="container" role="navigation" aria-label="Main navigation">
         <ul class="nav-links" role="list">
           <li role="listitem"><a href="#about" aria-label="Go to About section">About</a></li>
-          <li role="listitem"><a href="#projects" aria-label="Go to Featured Projects section">Projects</a></li>
+          <li role="listitem"><a href="#projects" aria-label="Go to Featured Work section">Work</a></li>
           <li role="listitem"><a href="#galleries" aria-label="Go to Galleries section">Galleries</a></li>
         </ul>
       </nav>
@@ -21,20 +21,17 @@
 
     <main role="main">
       <section id="home" class="hero" aria-labelledby="home-heading">
-        <div class="cinematic-background"></div>
-        <div class="dust-particles"></div>
-        <div class="dust-particles"></div>
-        <div class="dust-particles"></div>
-        <div class="dust-particles"></div>
-        <div class="dust-particles"></div>
-        <div class="dust-particles"></div>
-        <div class="dust-particles"></div>
-        <div class="dust-particles"></div>
-        <div class="dust-particles"></div>
-        <div class="dust-particles"></div>
-        <div class="dust-particles"></div>
-        <div class="container">
-          <div class="profile-picture" role="img" aria-label="Said Elimam profile picture">
+        <canvas id="background-canvas" aria-hidden="true"></canvas>
+        <div class="hero-grain" aria-hidden="true"></div>
+        <div class="hero-vignette" aria-hidden="true"></div>
+
+        <div class="container hero-inner" data-reveal-group>
+          <span class="hero-kicker" data-reveal>
+            <i class="fas fa-location-dot" aria-hidden="true"></i>
+            {{HERO_LOCATION}}
+          </span>
+
+          <div class="profile-picture" role="img" aria-label="Said Elimam profile picture" data-reveal="scale">
             <img
               src="/img/profile_picture.jpg"
               alt="Said Elimam - Portrait"
@@ -45,25 +42,37 @@
               onerror="this.style.display='none'; this.parentElement.style.display='none';"
             />
           </div>
-          <h1 id="home-heading" class="sr-only">{{HERO_H1}}</h1>
-          <p>{{HERO_TAGLINE}}</p>
-          <div class="hero-social-links" role="list" aria-label="Social media links">{{SOCIAL_LINKS}}</div>
-          <a href="#projects" class="cta-button" aria-label="View featured projects">Featured Projects</a>
+
+          <h1 id="home-heading" class="hero-title" data-reveal>{{HERO_NAME}}</h1>
+
+          <p class="hero-roles" aria-hidden="true" data-reveal>{{HERO_ROLES}}</p>
+
+          <p class="hero-tagline" data-reveal>{{HERO_TAGLINE}}</p>
+
+          <div class="hero-social-links" role="list" aria-label="Social media links" data-reveal>{{SOCIAL_LINKS}}</div>
+
+          <a href="#projects" class="cta-button" aria-label="View featured work" data-reveal>View the work</a>
         </div>
+
+        <a href="#about" class="hero-scroll-cue" aria-label="Scroll to About section"></a>
       </section>
 
       <section id="about" class="section" aria-labelledby="about-heading">
         <div class="container">
-          <h2 id="about-heading">About Me</h2>
-          <div class="about-description-container" style="text-align: center; font-size: 1.1rem; max-width: 800px; margin: 0 auto">{{ABOUT_DESCRIPTION}}</div>
+          <div class="section-head" data-reveal>
+            <span class="section-kicker">01 — About</span>
+            <h2 id="about-heading" class="section-title">A multidisciplinary <em>storyteller</em></h2>
+          </div>
+
+          <div class="about-description-container" data-reveal>{{ABOUT_DESCRIPTION}}</div>
 
           <div class="about-subsections">
-            <div class="about-subsection">
-              <h3>Skills & Expertise</h3>
+            <div class="about-subsection" data-reveal>
+              <h3>Skills &amp; Expertise</h3>
               <div class="skills" role="list" aria-label="Skills">{{SKILLS}}</div>
             </div>
 
-            <div class="about-subsection">
+            <div class="about-subsection" data-reveal>
               <h3>They trusted me</h3>
               <div class="companies" role="list" aria-label="Companies worked with">{{COMPANIES}}</div>
             </div>
@@ -73,28 +82,34 @@
 
       <section id="projects" class="section" aria-labelledby="projects-heading">
         <div class="container">
-          <h2 id="projects-heading">Featured Projects:</h2>
-          <div class="projects-grid" role="list" aria-label="Project cards">{{PROJECTS}}</div>
+          <div class="section-head" data-reveal>
+            <span class="section-kicker">02 — Selected Work</span>
+            <h2 id="projects-heading" class="section-title">Featured <em>projects</em></h2>
+          </div>
+          <div class="projects-grid" role="list" aria-label="Project cards" data-reveal-group>{{PROJECTS}}</div>
         </div>
       </section>
 
       <section id="galleries" class="section" aria-labelledby="galleries-heading">
         <div class="container">
-          <h2 id="galleries-heading">Galleries</h2>
-          <div class="galleries-grid" role="list" aria-label="Gallery categories">
-            <a href="/photography" class="gallery-button gallery-photography" role="listitem">
+          <div class="section-head" data-reveal>
+            <span class="section-kicker">03 — Explore</span>
+            <h2 id="galleries-heading" class="section-title">Galleries</h2>
+          </div>
+          <div class="galleries-grid" role="list" aria-label="Gallery categories" data-reveal-group>
+            <a href="/photography" class="gallery-button gallery-photography" role="listitem" data-reveal>
               <i class="fas fa-camera" aria-hidden="true"></i>
               <span>Photography</span>
             </a>
-            <a href="/videography" class="gallery-button gallery-videography" role="listitem">
+            <a href="/videography" class="gallery-button gallery-videography" role="listitem" data-reveal>
               <i class="fas fa-video" aria-hidden="true"></i>
               <span>Videography</span>
             </a>
-            <a href="/discography" class="gallery-button gallery-discography" role="listitem">
+            <a href="/discography" class="gallery-button gallery-discography" role="listitem" data-reveal>
               <i class="fas fa-music" aria-hidden="true"></i>
               <span>Discography</span>
             </a>
-            <a href="https://dev.saidelimam.com/" target="_blank" rel="noopener noreferrer" class="gallery-button gallery-dev" role="listitem">
+            <a href="https://dev.saidelimam.com/" target="_blank" rel="noopener noreferrer" class="gallery-button gallery-dev" role="listitem" data-reveal>
               <i class="fas fa-code" aria-hidden="true"></i>
               <span>Software</span>
             </a>

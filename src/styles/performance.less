@@ -1,10 +1,20 @@
-// Import variables
+// =============================================================
+//  PERFORMANCE & ACCESSIBILITY GUARDS
+//  Disables heavy motion for reduced-motion users, Opera, and
+//  detected low-performance devices, and ensures revealed content
+//  is always visible when motion is suppressed.
+// =============================================================
 @import 'variables.less';
 
-// Performance Optimization Styles
-// Disables animations for Opera browsers, low-performance devices, and users who prefer reduced motion
+.reveal-safety() {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
 
-// Disable animations and smooth scroll for users who prefer reduced motion
+// Respect user preference for reduced motion
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -15,12 +25,12 @@
     scroll-behavior: auto !important;
   }
 
-  html {
-    scroll-behavior: auto !important;
-  }
+  html { scroll-behavior: auto !important; }
+
+  .reveal-safety();
 }
 
-// Opera-specific animation and smooth scroll disabling
+// Opera: disable heavy effects
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   .opera-no-animations *,
   .opera-no-animations *::before,
@@ -30,41 +40,23 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-
-  .opera-no-animations html {
-    scroll-behavior: auto !important;
-  }
 }
 
-// Low-performance device detection - disable animations and smooth scroll
+// Detected low-performance devices
 .low-performance *,
 .low-performance *::before,
 .low-performance *::after {
   animation-duration: 0.01ms !important;
   animation-iteration-count: 1 !important;
-  transition-duration: 0.01ms !important;
   scroll-behavior: auto !important;
 }
 
-.low-performance html {
-  scroll-behavior: auto !important;
+.low-performance,
+.opera-no-animations {
+  .reveal-safety();
 }
 
-// Disable heavy animations on mobile for better performance
-@media (max-width: @breakpoint-sm) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.15s !important; // Keep short transitions for UI feedback
-  }
-
-  // Keep essential UI transitions for better UX
-  .hero-social-links a,
-  .project-card,
-  .company-tag,
-  .skill-tag {
-    transition-duration: 0.15s !important;
-  }
+.low-performance html,
+.opera-no-animations html {
+  scroll-behavior: auto !important;
 }
