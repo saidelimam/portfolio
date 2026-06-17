@@ -172,7 +172,7 @@ export default function metadataPlugin(options = {}) {
         html = html.replace(/{{TITLE}}/g, name);
         html = html.replace(/{{META_DESCRIPTION}}/g, metaDescription);
         html = html.replace(/{{META_AUTHOR}}/g, name);
-        html = html.replace(/{{META_COPYRIGHT}}/g, `© 2025 ${name}`);
+        html = html.replace(/{{META_COPYRIGHT}}/g, `© 2026 ${name}`);
         html = html.replace(/{{FACEBOOK_APP_ID}}/g, metadata.facebookAppId);
 
         // Canonical / Open Graph / Twitter URLs all resolve to the canonical URL
