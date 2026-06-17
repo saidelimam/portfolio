@@ -172,6 +172,8 @@ export default function metadataPlugin(options = {}) {
         html = html.replace(/{{TITLE}}/g, name);
         html = html.replace(/{{META_DESCRIPTION}}/g, metaDescription);
         html = html.replace(/{{META_AUTHOR}}/g, name);
+        // Static 2026 fallback for no-JS visitors; JavaScript bumps this to the
+        // live current year at runtime (see the copyright script in layout.html).
         html = html.replace(/{{META_COPYRIGHT}}/g, `© 2026 ${name}`);
         html = html.replace(/{{FACEBOOK_APP_ID}}/g, metadata.facebookAppId);
 

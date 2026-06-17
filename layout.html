@@ -171,6 +171,17 @@
     <!-- Structured data (JSON-LD) for rich search results -->
     {{STRUCTURED_DATA}}
 
+    <!-- Keep the copyright meta on the current year for JS-enabled visitors.
+         The static markup ships "© 2026 …" as the no-JS fallback. -->
+    <script>
+      (function () {
+        var meta = document.querySelector('meta[name="copyright"]');
+        if (meta) {
+          meta.setAttribute('content', meta.getAttribute('content').replace(/\d{4}/, new Date().getFullYear()));
+        }
+      })();
+    </script>
+
     <!-- JavaScript - Load as modules for modern browsers (automatically deferred) -->
     <!-- NOTE: Vite automatically processes script modules and handles bundling/hashing -->
     {{ADDITIONAL_SCRIPTS}}
