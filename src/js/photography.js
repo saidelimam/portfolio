@@ -8,7 +8,7 @@ import '../styles/main.less';
 import { initializePerformanceOptimizations, initializeSmoothScrolling, initializeHeaderScrollEffect, initializeScrollToTop, initializePageLoadingSpinner } from './core.js';
 import { initializeScrollReveal } from './reveal.js';
 import { preventImageDragAndRightClick } from './utils.js';
-import { setModalOpen, removeModalOpen } from './modals.js';
+import { setModalOpen, removeModalOpen, activateFocusTrap, deactivateFocusTrap } from './modals.js';
 
 // Initialize transversal functionality on DOM load
 document.addEventListener('DOMContentLoaded', () => {
@@ -79,7 +79,7 @@ function initializeGalleryLightbox() {
     })
     .filter((photo) => photo.src);
 
-  // Add click handlers to all photo items
+  // Add click + keyboard handlers to all photo items (they are focusable tiles)
   photoItems.forEach((item, index) => {
     const img = item.querySelector('img');
     if (img) {
@@ -88,8 +88,24 @@ function initializeGalleryLightbox() {
       item.addEventListener('click', () => {
         openPhotoModal(index);
       });
+
+      // Keyboard users activate the tile with Enter or Space
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+          e.preventDefault();
+          openPhotoModal(index);
+        }
+      });
     }
   });
+
+  // Wire the lightbox controls (close + previous/next)
+  const closeButton = modal.querySelector('.image-modal-close');
+  const prevButton = modal.querySelector('.image-modal-prev');
+  const nextButton = modal.querySelector('.image-modal-next');
+  if (closeButton) closeButton.addEventListener('click', closeImageModal);
+  if (prevButton) prevButton.addEventListener('click', navigateToPrevious);
+  if (nextButton) nextButton.addEventListener('click', navigateToNext);
 
   // Close modal when clicking backdrop or image
   modal.addEventListener('click', (e) => {
@@ -163,6 +179,9 @@ function openPhotoModal(index) {
   // Show modal - backdrop will animate automatically
   modal.classList.add('active');
   setModalOpen();
+
+  // Move focus into the dialog and trap it for keyboard users
+  activateFocusTrap(modal);
 }
 
 /**
@@ -380,6 +399,9 @@ function closeImageModal() {
 
   modal.classList.remove('active');
   removeModalOpen();
+
+  // Release the focus trap and return focus to the photo tile that opened it
+  deactivateFocusTrap(modal);
 }
 
 /**

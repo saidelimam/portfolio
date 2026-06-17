@@ -248,6 +248,10 @@ function getTagKey(tag) {
   if (tagName === 'link') {
     const relMatch = tag.match(/rel=["']([^"']+)["']/i);
     const hrefMatch = tag.match(/href=["']([^"']+)["']/i);
+    const hreflangMatch = tag.match(/hreflang=["']([^"']+)["']/i);
+    // Alternate links (hreflang) often share the same rel+href, so key them by
+    // their hreflang value to keep each language/region variant distinct.
+    if (relMatch && hreflangMatch) return `link:rel:${relMatch[1]}:hreflang:${hreflangMatch[1]}`;
     if (relMatch && hrefMatch) return `link:rel:${relMatch[1]}:href:${hrefMatch[1]}`;
     if (relMatch) return `link:rel:${relMatch[1]}`;
     return null;

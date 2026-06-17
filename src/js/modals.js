@@ -11,6 +11,90 @@ const SWIPE_SNAP_BACK_DURATION = 300;
 const SWIPE_CLOSE_THRESHOLD = 100;
 const SWIPE_MAX_DRAG = 150;
 
+// Selector for elements that can receive keyboard focus inside a dialog
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+// Element that had focus before the dialog opened (so we can restore it on close)
+let previouslyFocusedElement = null;
+// Track the active keydown trap handler per modal so it can be removed on close
+const focusTrapHandlers = new WeakMap();
+
+/**
+ * List the currently visible, focusable elements within a container.
+ * @param {HTMLElement} container
+ * @returns {HTMLElement[]}
+ */
+function getFocusableElements(container) {
+  return Array.from(container.querySelectorAll(FOCUSABLE_SELECTOR)).filter(
+    (el) => el.offsetWidth > 0 || el.offsetHeight > 0 || el === document.activeElement
+  );
+}
+
+/**
+ * Move focus into a modal and trap Tab/Shift+Tab within it.
+ * Remembers the previously focused element so it can be restored on close.
+ * @param {HTMLElement} modal - The modal element
+ */
+export function activateFocusTrap(modal) {
+  if (!modal) return;
+
+  previouslyFocusedElement = document.activeElement;
+
+  // Defer until the open animation/content paint has settled before focusing
+  requestAnimationFrame(() => {
+    const focusables = getFocusableElements(modal);
+    const target = modal.querySelector('.modal-close') || focusables[0] || modal;
+    if (target && typeof target.focus === 'function') {
+      target.focus();
+    }
+  });
+
+  const handler = (e) => {
+    if (e.key !== 'Tab') return;
+
+    const focusables = getFocusableElements(modal);
+    if (focusables.length === 0) {
+      e.preventDefault();
+      return;
+    }
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
+
+  modal.addEventListener('keydown', handler);
+  focusTrapHandlers.set(modal, handler);
+}
+
+/**
+ * Release a modal's focus trap and restore focus to the element that was
+ * focused before the modal opened.
+ * @param {HTMLElement} modal - The modal element
+ */
+export function deactivateFocusTrap(modal) {
+  if (modal) {
+    const handler = focusTrapHandlers.get(modal);
+    if (handler) {
+      modal.removeEventListener('keydown', handler);
+      focusTrapHandlers.delete(modal);
+    }
+  }
+
+  if (previouslyFocusedElement && typeof previouslyFocusedElement.focus === 'function') {
+    previouslyFocusedElement.focus();
+  }
+  previouslyFocusedElement = null;
+}
+
 /**
  * Set modal open state by adding classes to html and body
  */

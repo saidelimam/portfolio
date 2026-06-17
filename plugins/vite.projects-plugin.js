@@ -39,12 +39,14 @@ export default function projectsPlugin() {
             return `                    <article class="project-card" data-project="${index}" role="listitem" data-reveal>
                       <div class="project-card-overlay"></div>
                       <div class="project-type-icon project-type-${project.type} tooltip-container">
-                          <i class="fas ${typeIcon}" aria-label="${project.type} project type" aria-hidden="true"></i>
+                          <i class="fas ${typeIcon}" aria-hidden="true"></i>
                           <div class="tooltip tooltip-left" aria-hidden="true">${capitalizedType}</div>
                       </div>
                       <div class="project-header">
                           ${projectIcon}
-                          <h3>${project.title}</h3>
+                          <h3 class="project-card-title">
+                              <button type="button" class="project-card-trigger" data-project-trigger="${index}" aria-haspopup="dialog">${sanitizeHTML(project.title)}</button>
+                          </h3>
                       </div>
                       ${project.date ? `<span class="project-date">${sanitizeHTML(project.date)}</span>` : ''}
                       <p>${project.description}</p>

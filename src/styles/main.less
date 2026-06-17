@@ -853,6 +853,38 @@ main {
     color: @text-color;
   }
 
+  // The card's accessible activator: a real <button> that visually matches the
+  // title and stretches its hit area over the whole card (so a pointer can open
+  // the modal from anywhere) while keeping proper keyboard/screen-reader support.
+  .project-card-trigger {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+    text-align: left;
+    cursor: pointer;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      border-radius: @border-radius-lg;
+    }
+
+    &:focus-visible {
+      outline: none;
+
+      &::after {
+        outline: 2px solid @teal;
+        outline-offset: -3px;
+      }
+    }
+  }
+
   .project-date {
     display: block;
     .kicker();
@@ -878,6 +910,8 @@ main {
 }
 
 .project-link {
+  position: relative;
+  z-index: 3; // Sit above the card trigger's stretched hit area so links stay clickable
   font-family: @font-ui;
   font-size: 0.88rem;
   font-weight: @font-weight-medium;

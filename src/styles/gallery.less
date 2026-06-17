@@ -284,6 +284,61 @@
     }
   }
 
+  // Accessible, discoverable lightbox controls (keyboard- and pointer-operable).
+  // They live inside the modal, so they are only focusable while it is open.
+  .image-modal-close,
+  .image-modal-nav {
+    position: absolute;
+    z-index: 3;
+    .flex-center();
+    border: 1px solid fade(@white, 18%);
+    background: fade(@bg-deep, 55%);
+    color: @text-color;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    .transition(all, 0.3s);
+
+    &:hover {
+      background: fade(@bg-deep, 82%);
+      border-color: fade(@amber, 70%);
+      color: @amber;
+    }
+
+    &:focus-visible { .focus-ring(); }
+  }
+
+  .image-modal-close {
+    top: clamp(1rem, 3vw, 2rem);
+    right: clamp(1rem, 3vw, 2rem);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 1.25rem;
+  }
+
+  .image-modal-nav {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+
+    &.image-modal-prev { left: clamp(0.75rem, 2.5vw, 2rem); }
+    &.image-modal-next { right: clamp(0.75rem, 2.5vw, 2rem); }
+
+    &:hover { transform: translateY(-50%) scale(1.08); }
+  }
+
+  @media (max-width: 600px) {
+    .image-modal-close,
+    .image-modal-nav {
+      width: 44px;
+      height: 44px;
+    }
+  }
+
   .low-performance &,
   .opera-no-animations & {
     .image-modal-content img {
@@ -521,6 +576,12 @@
     position: absolute;
     inset: 0;
     .flex-center();
+    cursor: pointer;
+
+    &:focus-visible {
+      .focus-ring();
+      outline-offset: -3px;
+    }
 
     img {
       width: 100%;

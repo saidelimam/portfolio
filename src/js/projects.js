@@ -4,7 +4,7 @@
  */
 
 import { sanitizeHTML, sanitizeURL, sanitizeEmbed, pauseAllMedia, getProjectTypeIcon } from './utils.js';
-import { setModalOpen, removeModalOpen, initializeModalCloseHandlers, initializeModalNavigation, handleModalIframeSpinner, initializeModalTouchSwipe, closeModal, resetModalStyles } from './modals.js';
+import { setModalOpen, removeModalOpen, initializeModalCloseHandlers, initializeModalNavigation, handleModalIframeSpinner, initializeModalTouchSwipe, closeModal, resetModalStyles, activateFocusTrap, deactivateFocusTrap } from './modals.js';
 
 // Project data loaded from JSON file
 let projectsData = [];
@@ -29,20 +29,20 @@ async function loadProjectsData() {
 }
 
 /**
- * Initialize project cards by adding click handlers to existing static cards
+ * Initialize project cards by wiring their accessible trigger buttons.
+ * Each card exposes a real <button class="project-card-trigger"> whose hit area
+ * is stretched across the whole card (via CSS), so pointer users can click
+ * anywhere while keyboard/screen-reader users get a proper, focusable button.
  */
 function initializeProjectCards() {
-  const projectCards = document.querySelectorAll('.project-card');
+  const triggers = document.querySelectorAll('.project-card-trigger');
 
-  projectCards.forEach((card, index) => {
-    card.style.cursor = 'pointer';
+  triggers.forEach((trigger) => {
+    const index = parseInt(trigger.dataset.projectTrigger, 10);
+    if (Number.isNaN(index)) return;
 
-    card.addEventListener('click', (e) => {
-      // Don't open modal if clicking on a link
-      if (e.target.closest('a')) {
-        return;
-      }
-
+    // Native <button> handles both click and Enter/Space key activation
+    trigger.addEventListener('click', () => {
       openProjectModal(index);
     });
   });
@@ -85,7 +85,7 @@ function openProjectModal(projectIndex) {
             ? `<img src="${iconURL}" alt="${title} icon" class="modal-icon">`
             : `<i class="fas ${getProjectTypeIcon(project.type)}" class="modal-icon-fallback" aria-hidden="true"></i>`
         }
-        <h2 class="modal-title">${title}</h2>
+        <h2 class="modal-title" id="modal-title">${title}</h2>
       </div>
       <button class="modal-close" aria-label="Close details">&times;</button>
     </div>
@@ -108,7 +108,7 @@ function openProjectModal(projectIndex) {
             ${project.date ? `<p class="modal-date"><strong>Date:</strong> ${date}</p>` : ''}
             ${project.credits ? `<p class="modal-credits"><strong>Credits:</strong> ${credits}</p>` : ''}
           </div>
-          <p class="modal-details-text">${details}</p>
+          <p class="modal-details-text" id="modal-description">${details}</p>
         </div>
         ${project.snapshot ? `<img src="${snapshotURL}" alt="${title} snapshot" class="modal-screenshot" draggable="false">` : ''}
       </div>
@@ -189,6 +189,9 @@ function openProjectModal(projectIndex) {
   
   // Initialize touch swipe-down to close on mobile
   initializeModalTouchSwipe('project-modal', closeProjectModal);
+
+  // Move focus into the dialog and trap it there for keyboard users
+  activateFocusTrap(modal);
 }
 
 /**
@@ -196,10 +199,14 @@ function openProjectModal(projectIndex) {
  * @param {string} [closeMethod='button'] - How the modal was closed: 'swipe' for swipe-down, 'button' for button/click outside
  */
 function closeProjectModal(closeMethod = 'button') {
+  const modal = document.getElementById('project-modal');
   const modalContent = document.getElementById('modal-content');
   
   // Use the generic closeModal function from modals.js
   closeModal('project-modal', modalContent, closeMethod);
+
+  // Release the focus trap and return focus to the card that opened the modal
+  deactivateFocusTrap(modal);
 
   // Restore URL to original without adding history entry
   history.replaceState(null, '', window.location.pathname);
@@ -219,6 +226,7 @@ function initializeProjectModalNavigation() {
       modal.classList.remove('active');
     }
     removeModalOpen();
+    deactivateFocusTrap(modal);
   }, modalContent);
 }
 

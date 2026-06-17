@@ -192,6 +192,30 @@
         display: none !important;
       }
 
+      /* Skip link: visually hidden until focused (keyboard accessibility) */
+      .skip-link {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 2000;
+        margin: 10px;
+        padding: 12px 20px;
+        background: #46d3c0;
+        color: #0a0c12;
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 10px;
+        transform: translateY(-180%);
+        transition: transform 0.2s ease;
+      }
+
+      .skip-link:focus {
+        transform: translateY(0);
+        outline: 2px solid #0a0c12;
+        outline-offset: 2px;
+      }
+
       /* Header */
       header {
         background: rgba(10, 12, 18, 0.55);

@@ -2,6 +2,110 @@ import { readFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
 
 /**
+ * Read social/profile URLs from links.json to populate schema.org `sameAs`.
+ * Only absolute http(s) links are included (e.g. mailto: links are skipped).
+ * @returns {string[]} Array of profile URLs
+ */
+function readSocialUrls() {
+  try {
+    const linksPath = resolve(process.cwd(), 'public/api/links.json');
+    if (!existsSync(linksPath)) return [];
+    const links = JSON.parse(readFileSync(linksPath, 'utf-8'));
+    return links
+      .filter((link) => link && typeof link.url === 'string' && /^https?:\/\//i.test(link.url))
+      .map((link) => link.url);
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Build a schema.org JSON-LD `<script>` describing the person, the website and
+ * the current page (ProfilePage for home, CollectionPage + BreadcrumbList for
+ * galleries). Undefined fields are dropped automatically by JSON.stringify.
+ * @param {Object} metadata - Parsed metadata.json
+ * @param {string} canonicalUrl - Canonical URL of the current page
+ * @param {string} pageName - Page slug ("" for the home page)
+ * @returns {string} A JSON-LD script tag
+ */
+function buildStructuredData(metadata, canonicalUrl, pageName) {
+  const website = metadata.person.website;
+  const personId = `${website}/#person`;
+  const siteId = `${website}/#website`;
+  const socialUrls = readSocialUrls();
+
+  const person = {
+    '@type': 'Person',
+    '@id': personId,
+    name: metadata.person.name,
+    url: website,
+    image: `${website}/img/profile_picture.jpg`,
+    description: metadata.person.tagline,
+    jobTitle: Array.isArray(metadata.roles) && metadata.roles.length ? metadata.roles : undefined,
+    knowsAbout: Array.isArray(metadata.skills) && metadata.skills.length ? metadata.skills : undefined,
+    address: metadata.person.location
+      ? { '@type': 'PostalAddress', addressLocality: metadata.person.location, addressCountry: 'FR' }
+      : undefined,
+    sameAs: socialUrls.length ? socialUrls : undefined,
+  };
+
+  const webSite = {
+    '@type': 'WebSite',
+    '@id': siteId,
+    url: website,
+    name: `${metadata.person.name} — Portfolio`,
+    inLanguage: 'en',
+    publisher: { '@id': personId },
+  };
+
+  const graph = [person, webSite];
+
+  if (!pageName) {
+    graph.push({
+      '@type': 'ProfilePage',
+      '@id': `${website}/#webpage`,
+      url: website,
+      name: `${metadata.person.name} — Portfolio`,
+      isPartOf: { '@id': siteId },
+      about: { '@id': personId },
+      mainEntity: { '@id': personId },
+      inLanguage: 'en',
+    });
+  } else {
+    const labelMap = {
+      photography: 'Photography',
+      videography: 'Videography',
+      discography: 'Discography',
+      privacy: 'Privacy Policy',
+    };
+    const label = labelMap[pageName] || pageName.charAt(0).toUpperCase() + pageName.slice(1);
+    const isCollection = ['photography', 'videography', 'discography'].includes(pageName);
+    graph.push({
+      '@type': isCollection ? 'CollectionPage' : 'WebPage',
+      '@id': `${canonicalUrl}#webpage`,
+      url: canonicalUrl,
+      name: `${label} — ${metadata.person.name}`,
+      isPartOf: { '@id': siteId },
+      about: { '@id': personId },
+      inLanguage: 'en',
+      breadcrumb: { '@id': `${canonicalUrl}#breadcrumb` },
+    });
+    graph.push({
+      '@type': 'BreadcrumbList',
+      '@id': `${canonicalUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: website },
+        { '@type': 'ListItem', position: 2, name: label, item: canonicalUrl },
+      ],
+    });
+  }
+
+  // Escape "<" so the JSON can never break out of the surrounding <script> tag.
+  const json = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
+  return `<script type="application/ld+json">${json}</script>`;
+}
+
+/**
  * Vite plugin to inject metadata from metadata.json into HTML
  * @param {Object} options - Plugin options
  * @param {string} [options.metadataPath] - Override the default metadata file path (useful for testing)
@@ -29,45 +133,61 @@ export default function metadataPlugin(options = {}) {
         const themeColor = metadata.themeColor || '#c2185b'; // Fallback to default if not set
         html = html.replace(/{{THEME_COLOR}}/g, themeColor);
 
-        // Replace all tags
-
-        html = html.replace(/{{TITLE}}/g, metadata.person.name);
-        html = html.replace(/{{META_DESCRIPTION}}/g, `${metadata.person.name}, ${metadata.person.tagline}. Check out his work and contact him for booking requests!`);
-        html = html.replace(/{{META_AUTHOR}}/g, metadata.person.name);
-        html = html.replace(/{{META_COPYRIGHT}}/g, `© 2025 ${metadata.person.name}`);
-        html = html.replace(/{{FACEBOOK_APP_ID}}/g, metadata.facebookAppId);
-
-        // Determine canonical URL based on page path (used for canonical, og:url, and twitter:url)
+        // Determine the current page name and canonical URL from the path.
+        // Examples: pages/photography.html -> "photography"; index.html -> "" (root)
+        let pageName = '';
         let canonicalUrl = metadata.person.website; // Default to website root
         if (context.path) {
-          // Extract page name from path
-          // Examples: 
-          // - pages/photography.html -> photography
-          // - pages/videography.html -> videography
-          // - index.html -> (stays as root)
           const pathMatch = context.path.match(/(?:pages\/)?([^\/]+)\.html$/);
           if (pathMatch && pathMatch[1] !== 'index') {
-            const pageName = pathMatch[1];
+            pageName = pathMatch[1];
             canonicalUrl = `${metadata.person.website}/${pageName}`;
           }
           // index.html and other root pages use the default website URL
         }
 
-        // Replace canonical URL placeholder (already determined above)
-        html = html.replace(/{{CANONICAL_URL}}/g, canonicalUrl);
+        // Per-page titles & descriptions give each page a unique, descriptive
+        // snippet for search engines and social cards (avoids duplicate metadata).
+        const name = metadata.person.name;
+        const tagline = metadata.person.tagline;
+        const baseDescription = `${name}, ${tagline}. Check out his work and contact him for booking requests!`;
+        const pageDescriptions = {
+          photography: `Photography by ${name} — a curated gallery of stills capturing light, emotion and story, from Paris and beyond.`,
+          videography: `Films, demo reels and music videos directed and shot by ${name}, a Paris-based filmmaker and cinematographer.`,
+          discography: `Original music compositions and productions by ${name}. Stream the full discography.`,
+          privacy: `Privacy policy for ${name}'s portfolio — what data is collected, how it is used, and how it is protected.`,
+        };
+        const pageTitles = {
+          photography: `Photography — ${name}`,
+          videography: `Videography — ${name}`,
+          discography: `Discography — ${name}`,
+          privacy: `Privacy Policy — ${name}`,
+        };
+        const metaDescription = pageDescriptions[pageName] || baseDescription;
+        const socialTitle = pageTitles[pageName] || `${name} - Portfolio`;
+        const socialDescription =
+          pageDescriptions[pageName] || `${tagline}. Check out my work and contact me for booking requests!`;
 
-        // Replace Open Graph URL placeholder and other Open Graph tags
+        // Replace all tags
+        html = html.replace(/{{TITLE}}/g, name);
+        html = html.replace(/{{META_DESCRIPTION}}/g, metaDescription);
+        html = html.replace(/{{META_AUTHOR}}/g, name);
+        html = html.replace(/{{META_COPYRIGHT}}/g, `© 2025 ${name}`);
+        html = html.replace(/{{FACEBOOK_APP_ID}}/g, metadata.facebookAppId);
+
+        // Canonical / Open Graph / Twitter URLs all resolve to the canonical URL
+        html = html.replace(/{{CANONICAL_URL}}/g, canonicalUrl);
         html = html.replace(/{{OG_URL}}/g, canonicalUrl);
-        html = html.replace(/{{OG_TITLE}}/g, `${metadata.person.name} - Portfolio`);
-        html = html.replace(/{{OG_DESCRIPTION}}/g, `${metadata.person.tagline}. Check out my work and contact me for booking requests!`);
+        html = html.replace(/{{OG_TITLE}}/g, socialTitle);
+        html = html.replace(/{{OG_DESCRIPTION}}/g, socialDescription);
         html = html.replace(/{{OG_IMAGE}}/g, `${metadata.person.website}/img/profile_picture.jpg`);
-        html = html.replace(/{{OG_IMAGE_ALT}}/g, `${metadata.person.name} - Profile Picture`);
-        html = html.replace(/{{OG_SITE_NAME}}/g, `${metadata.person.name} Portfolio`);
+        html = html.replace(/{{OG_IMAGE_ALT}}/g, `${name} - Profile Picture`);
+        html = html.replace(/{{OG_SITE_NAME}}/g, `${name} Portfolio`);
         html = html.replace(/{{TWITTER_URL}}/g, canonicalUrl);
-        html = html.replace(/{{TWITTER_TITLE}}/g, `${metadata.person.name} - Portfolio`);
-        html = html.replace(/{{TWITTER_DESCRIPTION}}/g, `${metadata.person.tagline}. Check out my work and contact me for booking requests!`);
+        html = html.replace(/{{TWITTER_TITLE}}/g, socialTitle);
+        html = html.replace(/{{TWITTER_DESCRIPTION}}/g, socialDescription);
         html = html.replace(/{{TWITTER_IMAGE}}/g, `${metadata.person.website}/img/profile_picture.jpg`);
-        html = html.replace(/{{TWITTER_IMAGE_ALT}}/g, `${metadata.person.name} - Profile Picture`);
+        html = html.replace(/{{TWITTER_IMAGE_ALT}}/g, `${name} - Profile Picture`);
 
         // Replace logo image alt placeholder
         html = html.replace(/{{LOGO_IMG_ALT}}/g, metadata.person.fullName);
@@ -153,6 +273,11 @@ export default function metadataPlugin(options = {}) {
 
         // Replace companies placeholder
         html = html.replace(/{{COMPANIES}}/g, companiesHTML);
+
+        // Inject JSON-LD structured data (only when the layout exposes the slot)
+        if (html.includes('{{STRUCTURED_DATA}}')) {
+          html = html.replace(/{{STRUCTURED_DATA}}/g, buildStructuredData(metadata, canonicalUrl, pageName));
+        }
 
         return html;
       } catch (error) {

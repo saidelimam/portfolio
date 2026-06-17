@@ -57,6 +57,14 @@ function initializeVideoGallery() {
 
     cover.addEventListener('click', handleClick);
     playButton.addEventListener('click', handleClick);
+
+    // The cover is the accessible button: activate it with Enter or Space
+    cover.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        handleClick();
+      }
+    });
   });
 }
 
