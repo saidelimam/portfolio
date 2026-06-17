@@ -143,50 +143,87 @@ function loadVideo(videoItem) {
 }
 
 /**
- * Get URL parameter value
- * @param {string} name - Parameter name
- * @returns {string|null} - Parameter value or null
- */
-function getURLParameter(name) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(name);
-}
-
-/**
- * Apply project filter from URL parameter
- * @param {Set<string>} activeProjectFilters - Set of active project filters
+ * Restore active filters from the URL query parameters and reflect them on the
+ * matching filter buttons. Supports multiple values per category, for example:
+ * `?type=film&type=demoreel&project=Quazar`. Matching is case-insensitive and a
+ * single legacy `?project=Quazar` parameter keeps working.
+ * @param {Set<string>} activeTypeFilters - Set to populate with active type filters
+ * @param {Set<string>} activeProjectFilters - Set to populate with active project filters
  * @param {NodeList} filterButtons - All filter buttons
- * @returns {Set<string>} - Updated set of active project filters
  */
-function applyProjectFilterFromURL(activeProjectFilters, filterButtons) {
-  const projectParam = getURLParameter('project');
-  
-  if (projectParam) {
-    // Find matching project filter button (case-insensitive)
-    const projectButtons = Array.from(filterButtons).filter(
-      (button) => button.getAttribute('data-filter') === 'project'
-    );
-    
-    const matchingButton = projectButtons.find((button) => {
-      const buttonValue = button.getAttribute('data-value');
-      return buttonValue && buttonValue.toLowerCase() === projectParam.toLowerCase();
+export function applyFiltersFromURL(activeTypeFilters, activeProjectFilters, filterButtons) {
+  const urlParams = new URLSearchParams(window.location.search);
+  const buttons = Array.from(filterButtons);
+
+  // Type filters: buttons without data-filter="project"
+  urlParams.getAll('type').forEach((typeParam) => {
+    const matchingButton = buttons.find((button) => {
+      const isProjectButton = button.getAttribute('data-filter') === 'project';
+      const buttonType = button.getAttribute('data-type');
+      return !isProjectButton && buttonType && buttonType.toLowerCase() === typeParam.toLowerCase();
     });
-    
+
     if (matchingButton) {
-      const projectValue = matchingButton.getAttribute('data-value');
-      activeProjectFilters.add(projectValue);
+      activeTypeFilters.add(matchingButton.getAttribute('data-type'));
       matchingButton.setAttribute('aria-pressed', 'true');
       matchingButton.classList.add('active');
     }
-  }
-  
-  return activeProjectFilters;
+  });
+
+  // Project filters: buttons with data-filter="project"
+  urlParams.getAll('project').forEach((projectParam) => {
+    const matchingButton = buttons.find((button) => {
+      const isProjectButton = button.getAttribute('data-filter') === 'project';
+      const buttonValue = button.getAttribute('data-value');
+      return (
+        isProjectButton && buttonValue && buttonValue.toLowerCase() === projectParam.toLowerCase()
+      );
+    });
+
+    if (matchingButton) {
+      activeProjectFilters.add(matchingButton.getAttribute('data-value'));
+      matchingButton.setAttribute('aria-pressed', 'true');
+      matchingButton.classList.add('active');
+    }
+  });
+}
+
+/**
+ * Sync the active filters to the page URL without reloading so the page can be
+ * copied or bookmarked and reopened with the same filters applied. Uses
+ * history.replaceState to avoid pushing a new history entry per filter toggle.
+ * @param {Set<string>} activeTypeFilters - Set of active type filters
+ * @param {Set<string>} activeProjectFilters - Set of active project filters
+ */
+export function updateURLFromFilters(activeTypeFilters, activeProjectFilters) {
+  const params = new URLSearchParams();
+
+  activeTypeFilters.forEach((type) => params.append('type', type));
+  activeProjectFilters.forEach((project) => params.append('project', project));
+
+  const queryString = params.toString();
+  const newUrl = `${window.location.pathname}${queryString ? `?${queryString}` : ''}${window.location.hash}`;
+
+  window.history.replaceState(null, '', newUrl);
+}
+
+/**
+ * Expand the filter section so restored filters are visible to the user.
+ */
+function expandFilterSection() {
+  const filterHeader = document.querySelector('.filter-section-header');
+  const filterContent = document.getElementById('filter-content');
+
+  if (!filterHeader || !filterContent) return;
+
+  filterHeader.setAttribute('aria-expanded', 'true');
+  filterContent.setAttribute('aria-hidden', 'false');
 }
 
 /**
  * Initialize video type and project filters
  */
-function initializeVideoFilters() {
+export function initializeVideoFilters() {
   const filterButtons = document.querySelectorAll('.video-filter-btn');
   const videoTypeSections = document.querySelectorAll('.video-type-section');
   const videoItems = document.querySelectorAll('.video-item');
@@ -197,12 +234,13 @@ function initializeVideoFilters() {
   const activeTypeFilters = new Set();
   const activeProjectFilters = new Set();
 
-  // Apply project filter from URL parameter on page load
-  applyProjectFilterFromURL(activeProjectFilters, filterButtons);
+  // Restore filters from the URL query parameters on page load
+  applyFiltersFromURL(activeTypeFilters, activeProjectFilters, filterButtons);
 
-  // Apply initial filters if URL parameter was set
-  if (activeProjectFilters.size > 0) {
+  // Apply initial filters and reveal the filter panel if any were restored
+  if (activeTypeFilters.size > 0 || activeProjectFilters.size > 0) {
     applyVideoFilters(activeTypeFilters, activeProjectFilters, videoTypeSections, videoItems);
+    expandFilterSection();
   }
 
   // Add click handler to each filter button
@@ -249,6 +287,9 @@ function initializeVideoFilters() {
 
       // Apply filters
       applyVideoFilters(activeTypeFilters, activeProjectFilters, videoTypeSections, videoItems);
+
+      // Reflect the active filters in the URL so it can be copied or bookmarked
+      updateURLFromFilters(activeTypeFilters, activeProjectFilters);
     });
   });
 
@@ -274,6 +315,9 @@ function initializeVideoFilters() {
 
       // Apply filters (which will show all videos)
       applyVideoFilters(activeTypeFilters, activeProjectFilters, videoTypeSections, videoItems);
+
+      // Clear the filter parameters from the URL
+      updateURLFromFilters(activeTypeFilters, activeProjectFilters);
     });
   }
 }
