@@ -415,6 +415,25 @@
   &[aria-expanded='true'] .filter-toggle-icon { transform: rotate(180deg); }
 }
 
+.filter-active-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.5rem;
+  border-radius: @border-radius-full;
+  background: @grad-warm-cool;
+  color: @text-on-accent;
+  font-family: @font-ui;
+  font-size: 0.78rem;
+  font-weight: @font-weight-bold;
+  line-height: 1;
+  box-shadow: 0 2px 12px fade(@amber, 35%);
+
+  &[hidden] { display: none; }
+}
+
 .filter-content {
   max-height: 0;
   overflow: hidden;

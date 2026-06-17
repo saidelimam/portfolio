@@ -216,16 +216,24 @@ export function updateURLFromFilters(activeTypeFilters, activeProjectFilters) {
 }
 
 /**
- * Expand the filter section so restored filters are visible to the user.
+ * Update the collapsed filter header's badge so users can tell that filters are
+ * active without opening the panel. The badge shows the number of active filters
+ * and is hidden when none are set.
+ * @param {number} activeCount - Total number of active filters
  */
-function expandFilterSection() {
-  const filterHeader = document.querySelector('.filter-section-header');
-  const filterContent = document.getElementById('filter-content');
+function updateFilterIndicator(activeCount) {
+  const badge = document.querySelector('[data-filter-badge]');
 
-  if (!filterHeader || !filterContent) return;
+  if (!badge) return;
 
-  filterHeader.setAttribute('aria-expanded', 'true');
-  filterContent.setAttribute('aria-hidden', 'false');
+  const countEl = badge.querySelector('[data-filter-count]');
+
+  if (activeCount > 0) {
+    if (countEl) countEl.textContent = String(activeCount);
+    badge.hidden = false;
+  } else {
+    badge.hidden = true;
+  }
 }
 
 /**
@@ -245,11 +253,12 @@ export function initializeVideoFilters() {
   // Restore filters from the URL query parameters on page load
   applyFiltersFromURL(activeTypeFilters, activeProjectFilters, filterButtons);
 
-  // Apply initial filters and reveal the filter panel if any were restored
+  // Apply initial filters if any were restored. The panel stays collapsed; a
+  // badge on the header signals that filters are active.
   if (activeTypeFilters.size > 0 || activeProjectFilters.size > 0) {
     applyVideoFilters(activeTypeFilters, activeProjectFilters, videoTypeSections, videoItems);
-    expandFilterSection();
   }
+  updateFilterIndicator(activeTypeFilters.size + activeProjectFilters.size);
 
   // Add click handler to each filter button
   filterButtons.forEach((button) => {
@@ -298,6 +307,9 @@ export function initializeVideoFilters() {
 
       // Reflect the active filters in the URL so it can be copied or bookmarked
       updateURLFromFilters(activeTypeFilters, activeProjectFilters);
+
+      // Keep the header badge in sync with the active filter count
+      updateFilterIndicator(activeTypeFilters.size + activeProjectFilters.size);
     });
   });
 
@@ -326,6 +338,9 @@ export function initializeVideoFilters() {
 
       // Clear the filter parameters from the URL
       updateURLFromFilters(activeTypeFilters, activeProjectFilters);
+
+      // Hide the header badge now that no filters are active
+      updateFilterIndicator(activeTypeFilters.size + activeProjectFilters.size);
     });
   }
 }

@@ -16,6 +16,10 @@ function setupDOM() {
       <div class="filter-section">
         <button type="button" class="filter-section-header" aria-expanded="false" aria-controls="filter-content">
           <span class="filter-section-title">Filter Videos</span>
+          <span class="filter-active-badge" data-filter-badge hidden>
+            <span class="filter-active-count" data-filter-count>0</span>
+            <span class="sr-only"> filters active</span>
+          </span>
         </button>
         <div id="filter-content" class="filter-content" aria-hidden="true">
           <div class="video-filters" role="group" aria-label="Filter videos by type">
@@ -51,6 +55,8 @@ function setupDOM() {
 const byType = (type) => document.querySelector(`.video-filter-btn[data-type="${type}"]`);
 const byProject = (value) => document.querySelector(`.video-filter-btn[data-value="${value}"]`);
 const sectionByType = (type) => document.querySelector(`.video-type-section[data-type="${type}"]`);
+const badge = () => document.querySelector('[data-filter-badge]');
+const badgeCount = () => document.querySelector('[data-filter-count]').textContent;
 
 beforeEach(() => {
   // Reset to a clean URL with no query string before each test
@@ -156,23 +162,29 @@ describe('Videography filters: restoring from the URL', () => {
     expect(sectionByType('demoreel').style.display).toBe('');
   });
 
-  it('expands the filter panel when filters are restored from the URL', () => {
-    window.history.replaceState(null, '', '/videography?type=film');
+  it('keeps the filter panel collapsed but shows the badge when filters are restored', () => {
+    window.history.replaceState(null, '', '/videography?type=film&project=Quazar');
     initializeVideoFilters();
 
+    // Panel stays collapsed
     expect(document.querySelector('.filter-section-header').getAttribute('aria-expanded')).toBe(
-      'true'
+      'false'
     );
-    expect(document.getElementById('filter-content').getAttribute('aria-hidden')).toBe('false');
+    expect(document.getElementById('filter-content').getAttribute('aria-hidden')).toBe('true');
+
+    // Badge is visible and reflects the number of active filters
+    expect(badge().hidden).toBe(false);
+    expect(badgeCount()).toBe('2');
   });
 
-  it('keeps the filter panel collapsed when there are no filters in the URL', () => {
+  it('keeps the filter panel collapsed and the badge hidden when there are no filters in the URL', () => {
     initializeVideoFilters();
 
     expect(document.querySelector('.filter-section-header').getAttribute('aria-expanded')).toBe(
       'false'
     );
     expect(document.getElementById('filter-content').getAttribute('aria-hidden')).toBe('true');
+    expect(badge().hidden).toBe(true);
   });
 
   it('matches URL parameters case-insensitively', () => {
@@ -199,6 +211,41 @@ describe('Videography filters: restoring from the URL', () => {
     expect(document.querySelector('.filter-section-header').getAttribute('aria-expanded')).toBe(
       'false'
     );
+    expect(badge().hidden).toBe(true);
+  });
+});
+
+describe('Videography filters: active-filter badge', () => {
+  beforeEach(() => {
+    initializeVideoFilters();
+  });
+
+  it('shows and increments the badge as filters are selected', () => {
+    expect(badge().hidden).toBe(true);
+
+    fireEvent.click(byType('film'));
+    expect(badge().hidden).toBe(false);
+    expect(badgeCount()).toBe('1');
+
+    fireEvent.click(byProject('Quazar'));
+    expect(badgeCount()).toBe('2');
+  });
+
+  it('hides the badge again when the last filter is removed', () => {
+    fireEvent.click(byType('film'));
+    expect(badge().hidden).toBe(false);
+
+    fireEvent.click(byType('film'));
+    expect(badge().hidden).toBe(true);
+  });
+
+  it('hides the badge when Clear Filters is clicked', () => {
+    fireEvent.click(byType('film'));
+    fireEvent.click(byProject('Quazar'));
+    expect(badge().hidden).toBe(false);
+
+    fireEvent.click(document.querySelector('.clear-filters-btn'));
+    expect(badge().hidden).toBe(true);
   });
 });
 
