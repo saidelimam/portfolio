@@ -31,7 +31,7 @@ export default function projectsPlugin() {
 
             const projectIcon = project.icon
               ? `<img src="${project.icon}" alt="${project.title} icon" class="project-icon">`
-              : `<i class="fas ${typeIcon}" aria-hidden="true"></i>`;
+              : `<svg class="icon" aria-hidden="true"><use href="#i-${typeIcon}" /></svg>`;
 
             // Capitalize project type for tooltip
             const capitalizedType = project.type ? project.type.charAt(0).toUpperCase() + project.type.slice(1).toLowerCase() : '';
@@ -39,7 +39,7 @@ export default function projectsPlugin() {
             return `                    <article class="project-card" data-project="${index}" role="listitem" data-reveal>
                       <div class="project-card-overlay"></div>
                       <div class="project-type-icon project-type-${project.type} tooltip-container">
-                          <i class="fas ${typeIcon}" aria-hidden="true"></i>
+                          <svg class="icon" aria-hidden="true"><use href="#i-${typeIcon}" /></svg>
                           <div class="tooltip tooltip-left" aria-hidden="true">${capitalizedType}</div>
                       </div>
                       <div class="project-header">

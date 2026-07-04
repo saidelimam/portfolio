@@ -30,7 +30,7 @@
       background: @surface-3;
     }
 
-    i { .transition(transform, 0.4s); }
+    .icon { .transition(transform, 0.4s); }
 
     &:hover {
       color: @text-on-accent;
@@ -39,11 +39,9 @@
       transform: translateY(-5px);
       box-shadow: @glow-amber;
 
-      i {
+      .icon {
         transform: scale(1.12);
         color: @text-on-accent !important;
-        -webkit-text-fill-color: @text-on-accent !important;
-        background: none !important;
       }
     }
 
@@ -72,7 +70,7 @@
       color: @text-color;
       font-size: 0.95rem;
 
-      i { font-size: 1.15rem; width: 22px; text-align: center; flex-shrink: 0; }
+      .icon { font-size: 1.15rem; width: 22px; height: 22px; flex-shrink: 0; }
 
       // Label text from the link's data-tooltip attribute
       &::after {

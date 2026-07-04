@@ -1,21 +1,23 @@
 /**
  * Project Type Icons Utility
- * Returns the appropriate Font Awesome icon class for a given project type
+ * Returns the SVG sprite icon key for a given project type. The key maps to a
+ * <symbol id="i-{key}"> in the inline sprite (see layout.html), referenced via
+ * <svg class="icon"><use href="#i-{key}" /></svg>.
  * @param {string} projectType - The project type (dev, film, music, community, etc.)
- * @returns {string} The Font Awesome icon class name (e.g., 'fa-code', 'fa-users')
+ * @returns {string} The sprite icon key (e.g., 'code', 'users')
  */
 export function getProjectTypeIcon(projectType) {
   switch (projectType) {
     case 'dev':
-      return 'fa-code';
+      return 'code';
     case 'film':
-      return 'fa-video';
+      return 'video';
     case 'music':
-      return 'fa-music';
+      return 'music';
     case 'community':
-      return 'fa-users';
+      return 'users';
     default:
-      return 'fa-folder';
+      return 'folder';
   }
 }
 

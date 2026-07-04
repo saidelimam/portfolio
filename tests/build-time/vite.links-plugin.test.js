@@ -12,25 +12,25 @@ describe('Vite Links Plugin', () => {
     {
       platform: 'Instagram',
       url: 'https://www.instagram.com/test',
-      icon: 'fab fa-instagram',
+      icon: 'instagram',
       label: 'Follow me on Instagram',
     },
     {
       platform: 'GitHub',
       url: 'https://github.com/test',
-      icon: 'fab fa-github',
+      icon: 'github',
       label: 'Review my code on GitHub',
     },
     {
       platform: 'Email',
       url: 'mailto:test@example.com',
-      icon: 'fas fa-envelope',
+      icon: 'envelope',
       label: 'Send me an email',
     },
   ];
 
   const mockTemplate = `<div class="tooltip-container" role="listitem">
-    <a href="{{URL}}" target="_blank" aria-label="{{LABEL}}" data-tooltip="{{LABEL}}" rel="noopener noreferrer"><i class="{{ICON}}" aria-hidden="true"></i></a>
+    <a href="{{URL}}" target="_blank" aria-label="{{LABEL}}" data-tooltip="{{LABEL}}" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-{{ICON}}" /></svg></a>
     <div class="tooltip" aria-hidden="true">{{LABEL}}</div>
 </div>`;
 
@@ -100,8 +100,8 @@ describe('Vite Links Plugin', () => {
       expect(result).toContain(`data-tooltip="${link.label}"`);
       expect(result).toContain('rel="noopener noreferrer"');
 
-      // Should have icon with correct class and aria-hidden
-      expect(result).toContain(`<i class="${link.icon}" aria-hidden="true"></i>`);
+      // Should have the icon rendered as an inline SVG sprite reference
+      expect(result).toContain(`<use href="#i-${link.icon}" />`);
 
       // Should have tooltip div with label and aria-hidden
       expect(result).toContain(`<div class="tooltip" aria-hidden="true">${link.label}</div>`);
@@ -113,13 +113,13 @@ describe('Vite Links Plugin', () => {
       {
         platform: 'Test',
         url: 'javascript:alert("xss")',
-        icon: 'fas fa-test',
+        icon: 'test',
         label: '<script>alert("xss")</script>',
       },
       {
         platform: 'Test2',
         url: 'http://example.com',
-        icon: 'fas fa-test2',
+        icon: 'test2',
         label: 'Test & Label',
       },
     ];

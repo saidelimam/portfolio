@@ -83,7 +83,7 @@ function openProjectModal(projectIndex) {
         ${
           project.icon
             ? `<img src="${iconURL}" alt="${title} icon" class="modal-icon">`
-            : `<i class="fas ${getProjectTypeIcon(project.type)}" class="modal-icon-fallback" aria-hidden="true"></i>`
+            : `<svg class="icon modal-icon-fallback" aria-hidden="true"><use href="#i-${getProjectTypeIcon(project.type)}" /></svg>`
         }
         <h2 class="modal-title" id="modal-title">${title}</h2>
       </div>

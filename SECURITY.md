@@ -11,7 +11,7 @@ The site implements comprehensive security headers through multiple layers:
 When deployed, the following headers should be configured on your server:
 
 ```
-Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
 
 X-Content-Type-Options: nosniff
 
@@ -62,8 +62,8 @@ All inputs from JSON files are sanitized before being rendered:
 
 The site implements a strict CSP that:
 
-- Restricts script sources to self, CDNjs, and Font Awesome
-- Restricts style sources to self, Google Fonts, and CDNjs
+- Restricts script sources to self (and Google Fonts)
+- Restricts style sources to self and Google Fonts
 - Prohibits inline scripts (except where necessary for Vite)
 - Blocks frame embedding
 - Prevents MIME sniffing
@@ -164,7 +164,6 @@ Current devDependencies:
 The site loads resources from trusted CDNs:
 
 - Google Fonts (https://fonts.googleapis.com, https://fonts.gstatic.com)
-- Font Awesome (https://cdnjs.cloudflare.com)
 - All resources use HTTPS
 
 ## Reporting Security Issues

@@ -216,7 +216,7 @@ function extractTags(headContent) {
   // tags: doing so duplicates them and lets a plain fallback collide with —
   // and overwrite — its async primary (they share the rel+href key). That
   // silently strips `media="print" onload="this.media='all'"`, turning the
-  // non-blocking font / Font Awesome loads back into render-blocking ones.
+  // non-blocking font loads back into render-blocking ones.
   const noscriptPattern = /<noscript[^>]*>[\s\S]*?<\/noscript>/gi;
   const noscriptMatches = withoutComments.match(noscriptPattern) || [];
   tags.push(...noscriptMatches);

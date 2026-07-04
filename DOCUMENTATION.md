@@ -115,7 +115,7 @@ portfolio/
 ### Interactive Elements
 
 - **Smooth Scrolling**: Enhanced navigation experience with passive event listeners
-- **Scroll-to-Top Button**: Convenient navigation with Font Awesome chevron icon, shows after 50px scroll
+- **Scroll-to-Top Button**: Convenient navigation with an inline SVG chevron icon, shows after 50px scroll
 - **Dynamic Logo**: Logo changes color based on scroll position (white/black) with smooth transitions
 - **Custom Tooltips**: Styled tooltips for social media links
 - **Social Links**: Brand-colored hover effects for each platform (Instagram gradient, Spotify green, Airbnb coral, etc.)
@@ -315,11 +315,13 @@ Edit social media links in `public/api/links.json`:
   {
     "platform": "GitHub",
     "url": "https://github.com/saidelimam",
-    "icon": "fab fa-github",
+    "icon": "github",
     "label": "Review my code on GitHub"
   }
 ]
 ```
+
+> The `icon` value is a sprite key that maps to a `<symbol id="i-{icon}">` in the inline SVG sprite (`layout.html`). Add a matching symbol there when introducing a new platform.
 
 **Supported platforms with brand-colored hover effects:**
 - Instagram (gradient)

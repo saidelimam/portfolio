@@ -115,6 +115,19 @@
 }
 
 // -------------------------------------------------------------
+//  Inline SVG icons (sprite lives in the layout body). Sized in `em`
+//  so the existing font-size-based sizing on parents keeps working now
+//  that Font Awesome is gone; color flows in through `currentColor`.
+// -------------------------------------------------------------
+.icon {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.125em;
+  flex-shrink: 0;
+}
+
+// -------------------------------------------------------------
 //  Cross-document View Transitions (Chromium; graceful elsewhere)
 //  Gives smooth morphs between the home page and gallery pages.
 // -------------------------------------------------------------
@@ -495,10 +508,10 @@ main {
   color: @text-light;
   margin-bottom: 2rem;
 
-  i {
+  .icon {
     color: @amber;
     font-size: 0.9rem;
-    text-shadow: 0 0 12px fade(@amber, 60%);
+    filter: drop-shadow(0 0 12px fade(@amber, 60%));
   }
 }
 
@@ -845,7 +858,7 @@ main {
     border: 1px solid fade(@white, 25%);
     .transition(transform, 0.35s);
 
-    i { pointer-events: none; }
+    .icon { pointer-events: none; }
     &.tooltip-container { cursor: pointer; }
 
     &.project-type-dev { background: @type-dev-color; box-shadow: 0 4px 18px fade(@type-dev-color, 45%); }
@@ -875,7 +888,7 @@ main {
     border-radius: 6px;
   }
 
-  .project-header i {
+  .project-header .icon {
     width: 26px;
     height: 26px;
     .flex-center();

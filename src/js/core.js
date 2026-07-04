@@ -143,11 +143,15 @@ export function initializeMobileNav() {
 export function initializeScrollToTop() {
   // Create scroll-to-top button
   const scrollToTopButton = document.createElement('button');
-  // Create icon element with Font Awesome chevron up icon and set aria-hidden to true for accessibility
-  // This is a more secure way to add the icon than using innerHTML
-  const icon = document.createElement('i');
-  icon.className = 'fas fa-chevron-up';
+  // Build the chevron as an inline SVG that references the sprite symbol
+  // (#i-chevron-up). Using the DOM API (not innerHTML) keeps this injection safe.
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const icon = document.createElementNS(svgNS, 'svg');
+  icon.setAttribute('class', 'icon');
   icon.setAttribute('aria-hidden', 'true');
+  const iconUse = document.createElementNS(svgNS, 'use');
+  iconUse.setAttribute('href', '#i-chevron-up');
+  icon.appendChild(iconUse);
   scrollToTopButton.appendChild(icon);
   scrollToTopButton.className = 'scroll-to-top';
   scrollToTopButton.setAttribute('aria-label', 'Scroll to top');

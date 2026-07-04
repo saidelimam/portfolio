@@ -15,7 +15,7 @@ describe('Social Links Tooltip Behavior', () => {
              aria-label="Follow me on Instagram" 
              data-tooltip="Follow me on Instagram" 
              rel="noopener noreferrer">
-            <i class="fab fa-instagram" aria-hidden="true"></i>
+            <svg class="icon" aria-hidden="true"><use href="#i-instagram"></use></svg>
           </a>
           <div class="tooltip" aria-hidden="true">Follow me on Instagram</div>
         </div>
@@ -68,13 +68,15 @@ describe('Social Links Tooltip Behavior', () => {
     expect(linkElement.getAttribute('aria-label')).toBe('Follow me on Instagram');
   });
 
-  it('should have icon element with correct class and aria-hidden', () => {
-    const iconElement = linkElement.querySelector('i');
+  it('should have icon element with correct sprite reference and aria-hidden', () => {
+    const iconElement = linkElement.querySelector('svg.icon');
 
     expect(iconElement).toBeTruthy();
-    expect(iconElement.classList.contains('fab')).toBe(true);
-    expect(iconElement.classList.contains('fa-instagram')).toBe(true);
     expect(iconElement.getAttribute('aria-hidden')).toBe('true');
+
+    const useElement = iconElement.querySelector('use');
+    expect(useElement).toBeTruthy();
+    expect(useElement.getAttribute('href')).toBe('#i-instagram');
   });
 
   it('should handle multiple social links correctly', () => {
@@ -86,7 +88,7 @@ describe('Social Links Tooltip Behavior', () => {
              aria-label="Follow me on Instagram" 
              data-tooltip="Follow me on Instagram" 
              rel="noopener noreferrer">
-            <i class="fab fa-instagram" aria-hidden="true"></i>
+            <svg class="icon" aria-hidden="true"><use href="#i-instagram"></use></svg>
           </a>
           <div class="tooltip" aria-hidden="true">Follow me on Instagram</div>
         </div>
@@ -95,7 +97,7 @@ describe('Social Links Tooltip Behavior', () => {
              aria-label="Review my code on GitHub" 
              data-tooltip="Review my code on GitHub" 
              rel="noopener noreferrer">
-            <i class="fab fa-github" aria-hidden="true"></i>
+            <svg class="icon" aria-hidden="true"><use href="#i-github"></use></svg>
           </a>
           <div class="tooltip" aria-hidden="true">Review my code on GitHub</div>
         </div>
@@ -104,7 +106,7 @@ describe('Social Links Tooltip Behavior', () => {
              aria-label="Send me an email" 
              data-tooltip="Send me an email" 
              rel="noopener noreferrer">
-            <i class="fas fa-envelope" aria-hidden="true"></i>
+            <svg class="icon" aria-hidden="true"><use href="#i-envelope"></use></svg>
           </a>
           <div class="tooltip" aria-hidden="true">Send me an email</div>
         </div>
@@ -138,7 +140,7 @@ describe('Social Links Tooltip Behavior', () => {
              aria-label="Send me an email" 
              data-tooltip="Send me an email" 
              rel="noopener noreferrer">
-            <i class="fas fa-envelope" aria-hidden="true"></i>
+            <svg class="icon" aria-hidden="true"><use href="#i-envelope"></use></svg>
           </a>
           <div class="tooltip" aria-hidden="true">Send me an email</div>
         </div>

@@ -2,49 +2,49 @@
   {
     "platform": "Instagram",
     "url": "https://www.instagram.com/saidelimam",
-    "icon": "fab fa-instagram",
+    "icon": "instagram",
     "label": "Follow me"
   },
   {
     "platform": "IMDB",
     "url": "https://www.imdb.com/name/nm15497367/",
-    "icon": "fab fa-imdb",
+    "icon": "imdb",
     "label": "View my IMDB profile"
   },
   {
     "platform": "Spotify",
     "url": "https://open.spotify.com/artist/3lGVrfvhQFWnGtoM9LrFC4",
-    "icon": "fab fa-spotify",
+    "icon": "spotify",
     "label": "Listen to my music"
   },
   {
     "platform": "LinkedIn",
     "url": "https://www.linkedin.com/in/saidelimam/",
-    "icon": "fab fa-linkedin",
+    "icon": "linkedin",
     "label": "Connect with me"
   },
   {
     "platform": "YouTube",
     "url": "https://www.youtube.com/@saidelimam",
-    "icon": "fab fa-youtube",
+    "icon": "youtube",
     "label": "Subscribe to my channel"
   },
   {
     "platform": "GitHub",
     "url": "https://github.com/saidelimam",
-    "icon": "fab fa-github",
+    "icon": "github",
     "label": "Review my code"
   },
   {
     "platform": "Airbnb",
     "url": "https://www.airbnb.com/p/saidelimam",
-    "icon": "fab fa-airbnb",
+    "icon": "airbnb",
     "label": "Book me"
   },
   {
     "platform": "Email",
     "url": "mailto:contact@saidelimam.com",
-    "icon": "fas fa-envelope",
+    "icon": "envelope",
     "label": "Send me an email"
   }
 ]

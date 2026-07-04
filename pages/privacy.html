@@ -14,7 +14,6 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
     />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <meta name="theme-color" content="#0a0c12" />
     <style>
       * {
@@ -183,7 +182,15 @@
         color: #0a0c12;
       }
 
-      .back-link i {
+      .icon {
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        vertical-align: -0.125em;
+        flex-shrink: 0;
+      }
+
+      .back-link .icon {
         font-size: 0.9rem;
       }
 
@@ -367,7 +374,7 @@
     <main role="main">
       <div class="privacy-content">
         <a href="/" class="back-link">
-          <i class="fas fa-arrow-left"></i>
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow-left" /></svg>
           <span>Back to Portfolio</span>
         </a>
 
@@ -411,7 +418,6 @@
         <p>This website uses the following third-party services:</p>
         <ul>
           <li><strong>Google Fonts:</strong> For typography. Google may collect usage data.</li>
-          <li><strong>Font Awesome:</strong> For icons. Font Awesome may collect usage data.</li>
           <li><strong>Vite:</strong> For development and build processes.</li>
         </ul>
 
@@ -511,7 +517,7 @@
 
     <!-- Scroll to Top Button -->
     <button class="scroll-to-top" aria-label="Scroll to top" style="display: none">
-      <i class="fas fa-chevron-up" aria-hidden="true"></i>
+      <svg class="icon" aria-hidden="true"><use href="#i-chevron-up" /></svg>
     </button>
 
     <!-- Scroll to Top Button Script -->

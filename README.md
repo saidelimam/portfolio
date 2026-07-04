@@ -109,7 +109,7 @@ npm run preview  # Preview production build
 - **Vite** - Build tool and dev server
 - **LESS** - CSS preprocessing with variables and mixins
 - **Vanilla JavaScript** - No frameworks, ES6 modules
-- **Font Awesome** - Icons with brand-colored hover effects
+- **Inline SVG icons** - Custom sprite (`layout.html`), no icon-font dependency
 - **Local Fonts** - Typography (Roboto loaded locally from `public/fonts/` to avoid external requests)
 
 ### Code Organization
