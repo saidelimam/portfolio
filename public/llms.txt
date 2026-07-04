@@ -1,0 +1,32 @@
+# Said Elimam
+
+> Portfolio of Said Elimam — an engineer, filmmaker, photographer and music composer based in Paris, France. Crafting cinematic experiences through code, lens, and sound.
+
+Said Elimam is a multidisciplinary creative professional based in Paris who combines technical engineering expertise with artistic vision across filmmaking, photography and music composition. This site showcases his portfolio of work and provides ways to get in touch for booking and collaboration.
+
+## Pages
+
+- [Home](https://www.saidelimam.com/): Overview of Said Elimam, featured work, skills and professional background.
+- [Photography](https://www.saidelimam.com/photography): Curated gallery of stills capturing light, emotion and story, from Paris and beyond.
+- [Videography](https://www.saidelimam.com/videography): Films, demo reels and music videos directed and shot by Said Elimam.
+- [Discography](https://www.saidelimam.com/discography): Original music compositions and productions available to stream.
+
+## Profiles
+
+- [Instagram](https://www.instagram.com/saidelimam): Photography and behind-the-scenes updates.
+- [IMDB](https://www.imdb.com/name/nm15497367/): Film and videography credits.
+- [Spotify](https://open.spotify.com/artist/3lGVrfvhQFWnGtoM9LrFC4): Original music and compositions.
+- [YouTube](https://www.youtube.com/@saidelimam): Films, demo reels and video work.
+- [LinkedIn](https://www.linkedin.com/in/saidelimam/): Professional background and engineering experience.
+- [GitHub](https://github.com/saidelimam): Open-source code and software projects.
+- [Airbnb](https://www.airbnb.com/p/saidelimam): Hosted experiences and bookings.
+
+## Contact
+
+- [Email](mailto:contact@saidelimam.com): Booking requests, content permissions and general inquiries.
+
+## Optional
+
+- [Privacy Policy](https://www.saidelimam.com/privacy): What data is collected, how it is used, and how it is protected.
+- [Sitemap](https://www.saidelimam.com/sitemap.xml): Full list of indexable pages.
+- [AI usage guidelines](https://www.saidelimam.com/.well-known/ai.txt): Guidelines for AI systems referencing this content.
