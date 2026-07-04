@@ -63,8 +63,9 @@
       .transition(transform, 0.5s);
     }
 
-    i {
-      font-size: 2.4rem;
+    .emblem-svg {
+      width: 2.6rem;
+      height: 2.6rem;
       .transition(transform, 0.45s);
     }
 
@@ -81,9 +82,13 @@
       border-color: currentColor;
       &::before { opacity: 0.22; }
       &::after { transform: scaleX(1); }
-      i { transform: translateY(-4px) scale(1.08); }
+      .emblem-svg { transform: translateY(-4px) scale(1.08); }
     }
     &:focus-visible { .focus-ring(); }
+
+    // The emblem plays its signature loop only while hovered / focused.
+    &:hover .emblem-svg *,
+    &:focus-visible .emblem-svg * { animation-play-state: running; }
 
     &.gallery-photography { color: @gallery-photo-color; }
     &.gallery-videography { color: @gallery-video-color; }
@@ -754,3 +759,136 @@
     }
   }
 }
+
+// -------------------------------------------------------------
+//  Gallery emblems — an animated signature glyph per discipline
+//  (aperture / clapperboard / equalizer / code brackets), tinted in
+//  the matching accent color. Purely decorative (aria-hidden).
+//
+//  The animations are declared ONCE here but PAUSED by default. Two
+//  contexts turn them on:
+//    • gallery-page badges (.gallery-emblem) run them continuously;
+//    • home portal buttons (.gallery-button) run them on hover/focus.
+//  Resting frames stay clean via each glyph's 0% keyframe (and, for the
+//  bars, staggered negative delays that freeze them at varied heights).
+//  performance.less zeroes the durations for reduced-motion /
+//  low-performance / Opera, so motion is fully suppressed there.
+// -------------------------------------------------------------
+.emblem-svg {
+  overflow: visible;
+
+  circle,
+  path,
+  rect {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .e-rim { opacity: 0.4; stroke-width: 1.4; }
+}
+
+// Aperture (photography): nested groups so the spin and the open/close
+// "breathe" compose without fighting over a single transform.
+.ap-spin,
+.ap-breathe {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.ap-spin { animation: apertureSpin 26s linear infinite paused; }
+.ap-breathe { animation: apertureBreathe 5.5s @ease-in-out infinite paused; }
+
+// Clapperboard (videography): arm hinged at its bottom-left corner.
+.cl-arm {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: clapper 2.8s @ease-in-out infinite paused;
+}
+
+// Equalizer (discography): filled bars scaling from their baseline. The
+// staggered negative delays also set the varied resting heights (paused).
+.emblem-eq rect {
+  fill: currentColor;
+  stroke: none;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: equalize 1.1s @ease-in-out infinite paused;
+}
+.emblem-eq .eq-bar-1 { animation-duration: 1.2s; animation-delay: -0.2s; }
+.emblem-eq .eq-bar-2 { animation-duration: 0.9s; animation-delay: -0.7s; }
+.emblem-eq .eq-bar-3 { animation-duration: 1.5s; animation-delay: -1.1s; }
+.emblem-eq .eq-bar-4 { animation-duration: 0.8s; animation-delay: -0.5s; }
+.emblem-eq .eq-bar-5 { animation-duration: 1.3s; animation-delay: -0.9s; }
+
+// Code brackets (software): the < and > spread apart and back.
+.emblem-code .cd-left { animation: codeSpreadL 1.2s @ease-in-out infinite paused; }
+.emblem-code .cd-right { animation: codeSpreadR 1.2s @ease-in-out infinite paused; }
+
+@keyframes apertureSpin {
+  to { transform: rotate(360deg); }
+}
+@keyframes apertureBreathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.82); }
+}
+@keyframes clapper {
+  0%, 8%    { transform: rotate(0deg); }    // shut
+  20%       { transform: rotate(-28deg); }  // swing open
+  64%       { transform: rotate(-28deg); }  // hold open
+  76%       { transform: rotate(0deg); }    // clap shut
+  81%       { transform: rotate(-6deg); }   // rebound
+  86%, 100% { transform: rotate(0deg); }    // settle shut
+}
+@keyframes equalize {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.32); }
+}
+@keyframes codeSpreadL {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-2.5px); }
+}
+@keyframes codeSpreadR {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(2.5px); }
+}
+
+// ---- Gallery-page badge: circular chip that animates continuously ----
+.gallery-emblem {
+  --emblem: @teal;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  width: clamp(58px, 9vw, 78px);
+  height: clamp(58px, 9vw, 78px);
+  margin: 0 auto 1.3rem;
+  border-radius: 50%;
+  color: var(--emblem);
+  background: @surface-3;
+  border: 1px solid @border-strong;
+  box-shadow: @shadow-md;
+
+  // Soft color bloom: painted above the badge fill but behind the glyph
+  // (negative z-index inside the isolated stacking context).
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 40%, currentColor, transparent 70%);
+    opacity: 0.22;
+  }
+
+  .emblem-svg {
+    width: 56%;
+    height: 56%;
+  }
+  // On the gallery pages the badge glyphs run on their own.
+  .emblem-svg * { animation-play-state: running; }
+}
+
+.gallery-emblem--photo { --emblem: @gallery-photo-color; }
+.gallery-emblem--video { --emblem: @gallery-video-color; }
+.gallery-emblem--disco { --emblem: @gallery-disco-color; }
