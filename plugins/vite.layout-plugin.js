@@ -202,19 +202,29 @@ function mergeHeadTags(layoutHead, pageHead) {
  */
 function extractTags(headContent) {
   const tags = [];
-  
-  // Match various tag types
+
+  // Pull <noscript> blocks out first and strip them from the working copy.
+  // Their inner <link>/<meta> fallbacks must NOT be extracted as standalone
+  // tags: doing so duplicates them and lets a plain fallback collide with —
+  // and overwrite — its async primary (they share the rel+href key). That
+  // silently strips `media="print" onload="this.media='all'"`, turning the
+  // non-blocking font / Font Awesome loads back into render-blocking ones.
+  const noscriptPattern = /<noscript[^>]*>[\s\S]*?<\/noscript>/gi;
+  const noscriptMatches = headContent.match(noscriptPattern) || [];
+  tags.push(...noscriptMatches);
+  const withoutNoscript = headContent.replace(noscriptPattern, '');
+
+  // Match the remaining tag types outside of any <noscript>
   const tagPatterns = [
     /<title[^>]*>[\s\S]*?<\/title>/gi,
     /<meta[^>]*\/?>/gi,
     /<link[^>]*\/?>/gi,
     /<style[^>]*>[\s\S]*?<\/style>/gi,
     /<script[^>]*>[\s\S]*?<\/script>/gi,
-    /<noscript[^>]*>[\s\S]*?<\/noscript>/gi,
   ];
 
   tagPatterns.forEach((pattern) => {
-    const matches = headContent.match(pattern);
+    const matches = withoutNoscript.match(pattern);
     if (matches) {
       tags.push(...matches);
     }
@@ -259,7 +269,10 @@ function getTagKey(tag) {
 
   if (tagName === 'title') return 'title';
   if (tagName === 'style') return 'style:inline';
-  
+  // Keep every <noscript> fallback distinct — collapsing them under one key
+  // would drop all but the last (e.g. lose the font fallbacks, keep only FA).
+  if (tagName === 'noscript') return null;
+
   return `tag:${tagName}`;
 }
 
@@ -267,40 +280,37 @@ function getTagKey(tag) {
  * Sort head tags in a logical order
  */
 function sortHeadTags(tags) {
-  const sorted = [];
-  const others = [];
+  // Classify by the LEADING element only. Substring matching would misclassify
+  // a <noscript> wrapper (which contains an inner <link>/<meta>) as both a link
+  // AND a noscript tag, pushing it into two buckets and duplicating it.
+  const leadTag = (tag) => {
+    const match = tag.trimStart().match(/^<\s*([a-z0-9]+)/i);
+    return match ? match[1].toLowerCase() : '';
+  };
+  const isType = (tag, name) => leadTag(tag) === name;
 
-  // Extract title
-  const title = tags.find((tag) => tag.match(/<title/i));
+  const sorted = [];
+
+  // Title first
+  const title = tags.find((tag) => isType(tag, 'title'));
   if (title) sorted.push(title);
 
-  // Extract charset meta
-  const charset = tags.find((tag) => tag.match(/charset/i));
+  // charset meta next
+  const charset = tags.find((tag) => isType(tag, 'meta') && /charset/i.test(tag));
   if (charset) sorted.push(charset);
 
-  // Extract other meta tags
-  const metaTags = tags.filter((tag) => tag.match(/<meta/i) && !tag.match(/charset/i));
-  sorted.push(...metaTags);
+  // Remaining meta, then links, styles, and finally script/noscript
+  sorted.push(...tags.filter((tag) => isType(tag, 'meta') && !/charset/i.test(tag)));
+  sorted.push(...tags.filter((tag) => isType(tag, 'link')));
+  sorted.push(...tags.filter((tag) => isType(tag, 'style')));
+  sorted.push(...tags.filter((tag) => isType(tag, 'script') || isType(tag, 'noscript')));
 
-  // Extract link tags (favicons, stylesheets, etc.)
-  const linkTags = tags.filter((tag) => tag.match(/<link/i));
-  sorted.push(...linkTags);
-
-  // Extract style tags
-  const styleTags = tags.filter((tag) => tag.match(/<style/i));
-  sorted.push(...styleTags);
-
-  // Extract script and noscript tags
-  const scriptTags = tags.filter((tag) => tag.match(/<script|<noscript/i));
-  sorted.push(...scriptTags);
-
-  // Add any remaining tags
+  // Anything left over (unknown tag types), preserving order and de-duping
   tags.forEach((tag) => {
     if (!sorted.includes(tag)) {
-      others.push(tag);
+      sorted.push(tag);
     }
   });
-  sorted.push(...others);
 
   return sorted;
 }

@@ -11,6 +11,7 @@
     <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Preconnect to external domains for faster resource loading -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
 
     <!-- Stylesheets - Loaded via JavaScript import for proper Vite processing -->
@@ -67,7 +68,16 @@
         href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       />
     </noscript>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Font Awesome: load without blocking render (same async pattern as the fonts above) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    </noscript>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
@@ -149,7 +159,7 @@
     <footer role="contentinfo">
       <div class="container">
         <p>
-          &copy; 2025 - Said Elimam | <a href="/privacy">Privacy Policy</a> |
+          &copy; <span data-current-year>2026</span> - Said Elimam | <a href="/privacy">Privacy Policy</a> |
           <a href="https://github.com/saidelimam/portfolio" target="_blank" rel="noopener noreferrer">View on GitHub</a>
         </p>
       </div>
@@ -171,14 +181,19 @@
     <!-- Structured data (JSON-LD) for rich search results -->
     {{STRUCTURED_DATA}}
 
-    <!-- Keep the copyright meta on the current year for JS-enabled visitors.
-         The static markup ships "© 2026 …" as the no-JS fallback. -->
+    <!-- Keep the copyright year current for JS-enabled visitors (both the meta
+         tag and the visible footer). The static markup ships the build year as
+         the no-JS fallback. -->
     <script>
       (function () {
+        var year = String(new Date().getFullYear());
         var meta = document.querySelector('meta[name="copyright"]');
         if (meta) {
-          meta.setAttribute('content', meta.getAttribute('content').replace(/\d{4}/, new Date().getFullYear()));
+          meta.setAttribute('content', meta.getAttribute('content').replace(/\d{4}/, year));
         }
+        document.querySelectorAll('[data-current-year]').forEach(function (el) {
+          el.textContent = year;
+        });
       })();
     </script>
 

@@ -109,6 +109,42 @@
   --teal-light: @teal-light;
   --border: @border;
   color-scheme: dark;
+  // Let height/max-height transitions animate to & from keyword sizes
+  // (e.g. `auto`). Progressive — ignored by browsers without support.
+  interpolate-size: allow-keywords;
+}
+
+// -------------------------------------------------------------
+//  Cross-document View Transitions (Chromium; graceful elsewhere)
+//  Gives smooth morphs between the home page and gallery pages.
+// -------------------------------------------------------------
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+// -------------------------------------------------------------
+//  Forced-colors / Windows High Contrast fallback.
+//  Gradient text relies on `-webkit-text-fill-color: transparent`,
+//  which renders invisible in forced-colors mode — restore a solid,
+//  system-mapped color for those accents.
+// -------------------------------------------------------------
+@media (forced-colors: active) {
+  .hero-title-accent,
+  .hero-role,
+  .section-title em,
+  .section h2 em {
+    background: none;
+    color: CanvasText;
+    -webkit-text-fill-color: currentColor;
+  }
 }
 
 // -------------------------------------------------------------
@@ -350,6 +386,7 @@ main {
   color: @text-light;
   font-size: 1.12rem;
   text-align: center;
+  text-wrap: pretty;
 }
 
 // =============================================================
@@ -519,6 +556,7 @@ main {
   font-weight: @font-weight-light;
   color: @text-light;
   line-height: 1.6;
+  text-wrap: pretty;
 }
 
 .hero-scroll-cue {
@@ -626,6 +664,7 @@ main {
   font-size: 1.18rem;
   font-weight: @font-weight-light;
   color: @text-light;
+  text-wrap: pretty;
 
   p { margin: 0 0 1rem; }
 }
@@ -750,6 +789,7 @@ main {
   cursor: pointer;
   font-weight: @font-weight-normal;
   contain: layout style paint;
+  container-type: inline-size; // let card internals respond to the card's own width
   .transition(transform, 0.5s);
 
   // Gradient sheen sweeping diagonally on hover
@@ -900,6 +940,16 @@ main {
     font-size: 0.97rem;
     line-height: 1.65;
   }
+}
+
+// When a single card gets narrow (small phones, full-width column), tighten
+// its internals based on the card's own width rather than the viewport.
+// (Only descendants can query the card's container context — the card itself
+// can't query its own size, so its padding stays as declared above.)
+@container (max-width: 320px) {
+  .project-card h3 { font-size: 1.25rem; }
+  .project-card p { font-size: 0.92rem; }
+  .project-card .project-header { padding-right: 2rem; }
 }
 
 // Shared link pill (project cards + project modal)

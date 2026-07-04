@@ -64,8 +64,18 @@ export function initializeScrollReveal(options = {}) {
     (entries, obs) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          obs.unobserve(entry.target);
+          const target = entry.target;
+          target.classList.add('is-visible');
+          obs.unobserve(target);
+          // Release the compositor hint once the reveal finishes, so we don't
+          // keep a promoted GPU layer alive for every revealed element forever.
+          target.addEventListener(
+            'transitionend',
+            () => {
+              target.style.willChange = 'auto';
+            },
+            { once: true }
+          );
         }
       });
     },

@@ -435,14 +435,18 @@
 }
 
 .filter-content {
-  max-height: 0;
+  // `height: 0 -> auto` animates via `interpolate-size: allow-keywords`
+  // (declared on :root in main.less). Browsers without support simply jump,
+  // which is an acceptable degradation. Removes the old `max-height: 1200px`
+  // magic number that could clip taller filter groups.
+  height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: max-height 0.45s @ease-out, opacity 0.3s ease, padding 0.3s ease;
+  transition: height 0.45s @ease-out, opacity 0.3s ease, padding 0.3s ease;
   padding: 0 1.6rem;
 
   &[aria-hidden='false'] {
-    max-height: 1200px;
+    height: auto;
     opacity: 1;
     padding: 0.5rem 1.6rem 1.6rem;
     border-top: 1px solid @border;

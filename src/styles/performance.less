@@ -60,3 +60,33 @@
 .opera-no-animations html {
   scroll-behavior: auto !important;
 }
+
+// Respect user preference for reduced transparency: drop the frosted-glass
+// blur and give the translucent surfaces solid backgrounds.
+@media (prefers-reduced-transparency: reduce) {
+  *,
+  *::before,
+  *::after {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  header {
+    background: rgba(8, 9, 13, 0.98) !important;
+  }
+  .hero-social-links a {
+    background: @surface-3 !important;
+  }
+  .filter-section {
+    background: @surface !important;
+  }
+  .modal.active {
+    background: fade(@bg-deep, 96%) !important;
+  }
+  .image-modal.active .image-modal-backdrop {
+    background: @bg-deep !important;
+  }
+  .page-loading-backdrop {
+    background: fade(@bg-deep, 96%) !important;
+  }
+}
