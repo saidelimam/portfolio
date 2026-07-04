@@ -169,11 +169,13 @@ describe('Vite Metadata Plugin', () => {
       expect(result).toContain(`>${company.name}</a>`);
     });
 
-    // Check structure
+    // Check structure: each company link is wrapped in a real list item so the
+    // anchor keeps its implicit "link" role (role="listitem" is invalid on <a>).
     expect(result).toContain('company-tag');
     expect(result).toContain('target="_blank"');
     expect(result).toContain('rel="noopener noreferrer"');
-    expect(result).toContain('role="listitem"');
+    expect(result).toContain('<li class="company-item">');
+    expect(result).not.toContain('class="company-tag" role="listitem"');
     expect(result).not.toContain('{{COMPANIES}}');
   });
 

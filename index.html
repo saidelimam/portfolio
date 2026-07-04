@@ -74,7 +74,7 @@
 
             <div class="about-subsection" data-reveal>
               <h3>They trusted me</h3>
-              <div class="companies" role="list" aria-label="Companies worked with">{{COMPANIES}}</div>
+              <ul class="companies" role="list" aria-label="Companies worked with">{{COMPANIES}}</ul>
             </div>
           </div>
         </div>
@@ -86,7 +86,7 @@
             <span class="section-kicker">02 — Selected Work</span>
             <h2 id="projects-heading" class="section-title">Featured <em>projects</em></h2>
           </div>
-          <div class="projects-grid" role="list" aria-label="Project cards" data-reveal-group>{{PROJECTS}}</div>
+          <ul class="projects-grid" role="list" aria-label="Project cards" data-reveal-group>{{PROJECTS}}</ul>
         </div>
       </section>
 
@@ -96,8 +96,9 @@
             <span class="section-kicker">03 — Explore</span>
             <h2 id="galleries-heading" class="section-title">Galleries</h2>
           </div>
-          <div class="galleries-grid" role="list" aria-label="Gallery categories" data-reveal-group>
-            <a href="/photography" class="gallery-button gallery-photography" role="listitem" data-reveal>
+          <ul class="galleries-grid" role="list" aria-label="Gallery categories" data-reveal-group>
+            <li class="gallery-cell" data-reveal>
+              <a href="/photography" class="gallery-button gallery-photography">
               <svg class="emblem-svg emblem-aperture" viewBox="0 0 24 24" role="presentation" focusable="false" aria-hidden="true">
                 <circle class="e-rim" cx="12" cy="12" r="11" />
                 <g class="ap-spin">
@@ -112,8 +113,10 @@
                 </g>
               </svg>
               <span>Photography</span>
-            </a>
-            <a href="/videography" class="gallery-button gallery-videography" role="listitem" data-reveal>
+              </a>
+            </li>
+            <li class="gallery-cell" data-reveal>
+              <a href="/videography" class="gallery-button gallery-videography">
               <svg class="emblem-svg emblem-clapper" viewBox="0 0 24 24" role="presentation" focusable="false" aria-hidden="true">
                 <rect class="cl-board" x="3" y="9.6" width="18" height="10.8" rx="1.6" />
                 <g class="cl-arm">
@@ -122,8 +125,10 @@
                 </g>
               </svg>
               <span>Videography</span>
-            </a>
-            <a href="/discography" class="gallery-button gallery-discography" role="listitem" data-reveal>
+              </a>
+            </li>
+            <li class="gallery-cell" data-reveal>
+              <a href="/discography" class="gallery-button gallery-discography">
               <svg class="emblem-svg emblem-eq" viewBox="0 0 24 24" role="presentation" focusable="false" aria-hidden="true">
                 <rect class="eq-bar eq-bar-1" x="2.7" y="4" width="2.6" height="16" rx="1.3" />
                 <rect class="eq-bar eq-bar-2" x="6.7" y="4" width="2.6" height="16" rx="1.3" />
@@ -132,16 +137,19 @@
                 <rect class="eq-bar eq-bar-5" x="18.7" y="4" width="2.6" height="16" rx="1.3" />
               </svg>
               <span>Discography</span>
-            </a>
-            <a href="https://dev.saidelimam.com/" target="_blank" rel="noopener noreferrer" class="gallery-button gallery-dev" role="listitem" data-reveal>
+              </a>
+            </li>
+            <li class="gallery-cell" data-reveal>
+              <a href="https://dev.saidelimam.com/" target="_blank" rel="noopener noreferrer" class="gallery-button gallery-dev">
               <svg class="emblem-svg emblem-code" viewBox="0 0 24 24" role="presentation" focusable="false" aria-hidden="true">
                 <path class="cd-left" d="M9 7 4 12 9 17" />
                 <path class="cd-slash" d="M13.5 6.5 10.5 17.5" />
                 <path class="cd-right" d="M15 7 20 12 15 17" />
               </svg>
               <span>Software</span>
-            </a>
-          </div>
+              </a>
+            </li>
+          </ul>
         </div>
       </section>
     </main>

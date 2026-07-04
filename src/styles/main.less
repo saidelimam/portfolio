@@ -754,7 +754,12 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+  list-style: none;
   .flex-center();
+}
+
+.company-item {
+  display: flex;
 }
 
 .company-tag {
@@ -785,6 +790,7 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
   gap: 1.6rem;
+  list-style: none;
 
   @media (max-width: @breakpoint-sm) {
     grid-template-columns: 1fr;

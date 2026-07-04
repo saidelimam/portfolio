@@ -265,11 +265,13 @@ export default function metadataPlugin(options = {}) {
         // Replace skills placeholder
         html = html.replace(/{{SKILLS}}/g, skillsHTML);
 
-        // Generate companies HTML
+        // Generate companies HTML. Each link sits inside its own list item so
+        // the anchor keeps its implicit "link" role (ARIA disallows role="listitem"
+        // on an <a>), while the list/listitem semantics live on <ul>/<li>.
         const companiesHTML = metadata.companies
           .map(
             (company) =>
-              `<a href="${company.url}" target="_blank" class="company-tag" role="listitem" rel="noopener noreferrer" aria-label="${company.name} company">${company.name}</a>`
+              `<li class="company-item"><a href="${company.url}" target="_blank" class="company-tag" rel="noopener noreferrer" aria-label="${company.name} company">${company.name}</a></li>`
           )
           .join('\n');
 
