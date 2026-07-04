@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>NoScript Layout</title>
+    <!-- This comment INTENTIONALLY mentions <link> and <noscript> in prose so the
+         suite also proves HTML comments are stripped before tag extraction (a raw
+         "<noscript>" here used to spawn a bogus block and corrupt the merge). Do
+         not remove the tag-like words. Below: async (non-blocking) stylesheets,
+         each paired with a <noscript> fallback sharing the SAME href — the shape
+         that once let a render-blocking fallback overwrite its async primary. -->
+    <link rel="stylesheet" href="https://cdn.example.com/fonts.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://cdn.example.com/fonts.css" /></noscript>
+    <link rel="stylesheet" href="https://cdn.example.com/icons.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://cdn.example.com/icons.css" /></noscript>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="container" role="navigation">
+        <ul class="nav-links" role="list">
+          {{NAV_LINKS}}
+        </ul>
+      </nav>
+    </header>
+
+    <main role="main">
+      {{MAIN_CONTENT}}
+    </main>
+
+    <footer role="contentinfo">
+      <p>&copy; 2026 Layout Footer</p>
+    </footer>
+
+    {{ADDITIONAL_SCRIPTS}}
+  </body>
+</html>

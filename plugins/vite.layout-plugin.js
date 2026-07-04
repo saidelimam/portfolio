@@ -203,6 +203,14 @@ function mergeHeadTags(layoutHead, pageHead) {
 function extractTags(headContent) {
   const tags = [];
 
+  // Strip HTML comments up front. They aren't carried into the merged head, and
+  // a comment containing tag-like prose (e.g. an example "<link>" or the word
+  // "<noscript>" in an explanatory note) would otherwise be matched by the tag
+  // patterns below — corrupting extraction and, in the noscript case, spawning a
+  // bogus block that swallows real markup. The layout head is comment-heavy and
+  // those comments sit right next to the async/noscript tags, so this matters.
+  const withoutComments = headContent.replace(/<!--[\s\S]*?-->/g, '');
+
   // Pull <noscript> blocks out first and strip them from the working copy.
   // Their inner <link>/<meta> fallbacks must NOT be extracted as standalone
   // tags: doing so duplicates them and lets a plain fallback collide with —
@@ -210,9 +218,9 @@ function extractTags(headContent) {
   // silently strips `media="print" onload="this.media='all'"`, turning the
   // non-blocking font / Font Awesome loads back into render-blocking ones.
   const noscriptPattern = /<noscript[^>]*>[\s\S]*?<\/noscript>/gi;
-  const noscriptMatches = headContent.match(noscriptPattern) || [];
+  const noscriptMatches = withoutComments.match(noscriptPattern) || [];
   tags.push(...noscriptMatches);
-  const withoutNoscript = headContent.replace(noscriptPattern, '');
+  const withoutNoscript = withoutComments.replace(noscriptPattern, '');
 
   // Match the remaining tag types outside of any <noscript>
   const tagPatterns = [

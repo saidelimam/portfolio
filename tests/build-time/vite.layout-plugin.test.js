@@ -309,4 +309,49 @@ describe('Vite Layout Plugin', () => {
       expect(modalIndex).toBeLessThan(scriptIndex);
     }
   });
+
+  describe('async stylesheets with <noscript> fallbacks', () => {
+    const noscriptLayoutPath = resolve(process.cwd(), 'tests/mocks/layout-noscript.html');
+
+    // A minimal page that contributes no <link>/<noscript> of its own, so the
+    // merged <head> is driven entirely by the layout fixture.
+    const pageHTML = `<!doctype html>
+<html lang="en">
+  <head><title>Page Title</title></head>
+  <body><main>Page Content</main></body>
+</html>`;
+
+    it('keeps each async (non-blocking) stylesheet and never lets its <noscript> fallback overwrite it', () => {
+      const plugin = layoutPlugin({ layoutPath: noscriptLayoutPath });
+      const result = plugin.transformIndexHtml(pageHTML, { path: 'test.html' });
+
+      // The async primaries must survive verbatim — with media="print" + onload.
+      // A render-blocking fallback (same rel+href) clobbering them would drop
+      // these attributes and turn the loads back into render-blocking ones.
+      expect(result).toContain(
+        `<link rel="stylesheet" href="https://cdn.example.com/fonts.css" media="print" onload="this.media='all'" />`
+      );
+      expect(result).toContain(
+        `<link rel="stylesheet" href="https://cdn.example.com/icons.css" media="print" onload="this.media='all'" />`
+      );
+    });
+
+    it('preserves every <noscript> fallback distinctly instead of collapsing them', () => {
+      const plugin = layoutPlugin({ layoutPath: noscriptLayoutPath });
+      const result = plugin.transformIndexHtml(pageHTML, { path: 'test.html' });
+
+      // One fallback per async stylesheet must remain. Keying all <noscript>
+      // under a single bucket would drop all but the last. This also guards the
+      // comment-stripping path: the fixture's head comment mentions "<noscript>"
+      // in prose, which would inflate this count if comments weren't stripped.
+      const noscriptCount = (result.match(/<noscript>/gi) || []).length;
+      expect(noscriptCount).toBe(2);
+      expect(result).toContain(
+        `<noscript><link rel="stylesheet" href="https://cdn.example.com/fonts.css" /></noscript>`
+      );
+      expect(result).toContain(
+        `<noscript><link rel="stylesheet" href="https://cdn.example.com/icons.css" /></noscript>`
+      );
+    });
+  });
 });
