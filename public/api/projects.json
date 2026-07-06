@@ -17,7 +17,8 @@
         "text": "Play Store",
         "url": "https://play.google.com/store/apps/details?id=app.simt"
       }
-    ]
+    ],
+    "hidden": false
   },
   {
     "type": "dev",
@@ -60,7 +61,7 @@
         "url": "https://app.gocollab.cc"
       }
     ],
-    "hidden": true
+    "hidden": false
   },
   {
     "type": "film",
@@ -125,7 +126,8 @@
         "text": "Listen on Spotify",
         "url": "https://open.spotify.com/album/0XFgBWBNXywegwqQKEbV1W"
       }
-    ]
+    ],
+    "hidden": false
   },
   {
     "type": "film",
@@ -143,7 +145,8 @@
         "text": "Watch on YouTube",
         "url": "https://www.youtube.com/watch?v=SQDebYJCxrc"
       }
-    ]
+    ],
+    "hidden": false
   },
   {
     "type": "community",
@@ -168,7 +171,8 @@
         "text": "Videography Gallery",
         "url": "/videography?project=alifeexp"
       }
-    ]
+    ],
+    "hidden": false
   },
   {
     "type": "dev",
@@ -190,7 +194,8 @@
         "text": "View Code",
         "url": "https://github.com/DevComPack/setupmaker"
       }
-    ]
+    ],
+    "hidden": false
   },
   {
     "type": "community",
@@ -208,6 +213,7 @@
         "text": "Facebook Page",
         "url": "https://www.facebook.com/GDG.Casablanca"
       }
-    ]
+    ],
+    "hidden": false
   }
 ]
