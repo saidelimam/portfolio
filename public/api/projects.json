@@ -1,5 +1,23 @@
 [
   {
+    "type": "music",
+    "date": "07/2026",
+    "title": "Dust Cycle Album",
+    "icon": "img/icon/quazar.ico",
+    "headline": "Dust Cycle Album",
+    "embed": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/album/41mDm1kJILTlZvx7NThHUV?utm_source=generator&theme=0\" width=\"100%\" height=\"152\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>",
+    "description": "A cinematic instrumental album weaving ambient textures, evolving soundscapes, and emotive melodies into an immersive listening experience.",
+    "details": "Dust Cycle is an instrumental album spanning seven tracks, including 'Blissful Helm', 'Unbound Reality', and 'Shadow Shelter'. The album blends atmospheric sound design with orchestral and electronic elements, using layered textures and dynamic arrangements to carry the listener through a continuous, evolving sonic journey.",
+    "tags": ["Album", "Instrumental", "Ambient", "Cinematic"],
+    "links": [
+      {
+        "text": "Listen on Spotify",
+        "url": "https://open.spotify.com/album/41mDm1kJILTlZvx7NThHUV"
+      }
+    ],
+    "hidden": false
+  },
+  {
     "type": "dev",
     "date": "01/2026",
     "title": "SIMT",
