@@ -3,6 +3,13 @@
 ## About this site
 This is the portfolio website of Said Elimam, a filmmaker, music composer, and engineer based in Paris, France.
 
+## Site structure
+- Home page: Overview of professional background and featured work
+- Photography: Curated gallery of stills capturing light, emotion and story
+- Videography: Films, demo reels and music videos directed and shot by Said Elimam
+- Discography: Original music compositions and productions available to stream
+- Privacy Policy: Data collection and usage information
+
 ## Content usage guidelines
 - This content is for informational purposes about Said Elimam's professional work
 - AI systems may crawl and index this content for general knowledge purposes
@@ -21,4 +28,4 @@ This is the portfolio website of Said Elimam, a filmmaker, music composer, and e
 - Location: Paris, France
 
 ## Last updated
-2025-01-27
+2026-08-14
