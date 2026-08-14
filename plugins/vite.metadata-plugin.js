@@ -80,7 +80,7 @@ function buildStructuredData(metadata, canonicalUrl, pageName) {
     };
     const label = labelMap[pageName] || pageName.charAt(0).toUpperCase() + pageName.slice(1);
     const isCollection = ['photography', 'videography', 'discography'].includes(pageName);
-    graph.push({
+    const pageObj = {
       '@type': isCollection ? 'CollectionPage' : 'WebPage',
       '@id': `${canonicalUrl}#webpage`,
       url: canonicalUrl,
@@ -89,7 +89,28 @@ function buildStructuredData(metadata, canonicalUrl, pageName) {
       about: { '@id': personId },
       inLanguage: 'en',
       breadcrumb: { '@id': `${canonicalUrl}#breadcrumb` },
-    });
+    };
+    graph.push(pageObj);
+
+    // For discography page, add the latest album as a CreativeWork
+    if (pageName === 'discography') {
+      const latestAlbum = readLatestAlbum();
+      if (latestAlbum) {
+        graph.push({
+          '@type': 'MusicAlbum',
+          name: latestAlbum.title,
+          datePublished: latestAlbum.date,
+          byArtist: { '@id': personId },
+          isPartOf: { '@id': `${canonicalUrl}#webpage` },
+        });
+        pageObj.mainEntity = {
+          '@type': 'MusicAlbum',
+          name: latestAlbum.title,
+          datePublished: latestAlbum.date,
+          byArtist: { '@id': personId },
+        };
+      }
+    }
     graph.push({
       '@type': 'BreadcrumbList',
       '@id': `${canonicalUrl}#breadcrumb`,
@@ -103,6 +124,30 @@ function buildStructuredData(metadata, canonicalUrl, pageName) {
   // Escape "<" so the JSON can never break out of the surrounding <script> tag.
   const json = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
   return `<script type="application/ld+json">${json}</script>`;
+}
+
+/**
+ * Read the latest album from discography.json.
+ * @returns {{title: string, date: string} | null}
+ */
+function readLatestAlbum() {
+  try {
+    const path = resolve(process.cwd(), 'public/api/discography.json');
+    if (!existsSync(path)) return null;
+    const albums = JSON.parse(readFileSync(path, 'utf-8'));
+    if (!Array.isArray(albums) || albums.length === 0) return null;
+    // Sort by date descending, return the most recent
+    const latest = albums.sort((a, b) => {
+      const parseDate = (d) => {
+        const [m, y] = d.split('/').map(Number);
+        return new Date(y, m - 1);
+      };
+      return parseDate(b.date) - parseDate(a.date);
+    })[0];
+    return { title: latest.title, date: latest.date };
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -151,10 +196,12 @@ export default function metadataPlugin(options = {}) {
         const name = metadata.person.name;
         const tagline = metadata.person.tagline;
         const baseDescription = `${name}, ${tagline}. Check out his work and contact him for booking requests!`;
+        const latestAlbum = readLatestAlbum();
+        const albumMention = latestAlbum ? ` Latest release: "${latestAlbum.title}" (${latestAlbum.date}).` : '';
         const pageDescriptions = {
           photography: `Photography by ${name} — a curated gallery of stills capturing light, emotion and story, from Paris and beyond.`,
           videography: `Films, demo reels and music videos directed and shot by ${name}, a Paris-based filmmaker and cinematographer.`,
-          discography: `Original music compositions and productions by ${name}. Stream the full discography.`,
+          discography: `Original music compositions and productions by ${name}. Stream the full discography.${albumMention}`,
           privacy: `Privacy policy for ${name}'s portfolio — what data is collected, how it is used, and how it is protected.`,
         };
         const pageTitles = {
