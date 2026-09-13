@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+# Pre-commit checks: run the full build (unit tests + production build) and
+# verify Prettier formatting on the files being committed.
+
+# 1. Full build: runs the test suite and the production Vite build.
+if ! npm run build; then
+  echo ""
+  echo "❌ Build failed — commit blocked. Fix the errors above and retry."
+  exit 1
+fi
+
+# 2. Static check: Prettier formatting, scoped to the staged files only so that
+#    pre-existing formatting issues in untouched files don't block the commit.
+#    `|| true` keeps the pipeline from tripping errexit when no file matches.
+STAGED=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(html|css|less|js|json|md)$' || true)
+
+if [ -n "$STAGED" ]; then
+  # shellcheck disable=SC2086
+  if ! npx prettier --check $STAGED; then
+    echo ""
+    echo "❌ Prettier check failed — commit blocked. Run 'npm run format' to fix."
+    exit 1
+  fi
+fi
+
+echo "✅ Pre-commit checks passed (build + Prettier)."
